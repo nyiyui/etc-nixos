@@ -11,7 +11,6 @@
   imports =
     [ # Include the results of the hardware scan.
       home-manager.nixosModule {}
-      nixos-hardware.nixosModules.system76
       ./hardware-configuration-miyo.nix
       ./dns.nix
       ./wireguard.nix
