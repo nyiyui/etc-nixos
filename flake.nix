@@ -14,5 +14,10 @@
       specialArgs = attrs;
       modules = [ ./configuration.nix ];
     };
+    nixosConfigurations.miyo = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = attrs;
+      modules = [ ./configuration-miyo.nix ];
+    };
   };
 }
