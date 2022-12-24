@@ -92,7 +92,7 @@
   # Syncthing
   networking.firewall = {
     allowedUDPPorts = [ 22000 21027 ];
-    allowedTCPPorts = [ 22000 ];
+    allowedTCPPorts = [ 22 22000 ];
   };
 
   users.groups.nyiyui = {};
