@@ -1,7 +1,10 @@
+{ hostname }:
 { config, lib, pkgs, ... }:
 
 {
   imports = [ ./graphical.nix ];
+
+  home.file.hostname.text = hostname;
 
   home.username = "nyiyui";
   home.homeDirectory = "/home/nyiyui";

@@ -91,10 +91,6 @@
           xkb_options = "compose:caps";
         };
       };
-      output = {
-        "DP-1".pos = "0 0";
-        "eDP-1".pos = "960 2160";
-      };
       floating = {
         criteria = [
           { app_id = "urn-gtk"; }
