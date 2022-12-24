@@ -16,6 +16,7 @@
       #builtins.fetchGit { url="https://github.com/stites/system76-nixos"; ref="946dbc3a0e222b925b91d140d44afc5f51a39053"; }
       ./dns.nix
       ./wireguard.nix
+      ./doas.nix
     ];
 
   # Allow unfree packages
@@ -180,17 +181,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # Priviledge Escalation
-  security.sudo.enable = false;
-  security.doas.enable = true;
-  security.doas.extraRules = [ {
-    users = [ "nyiyui" ];
-    keepEnv = true;
-    noPass = true;  
-  } ];
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

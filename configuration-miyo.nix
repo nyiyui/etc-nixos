@@ -15,6 +15,7 @@
       ./hardware-configuration-miyo.nix
       ./dns.nix
       ./wireguard.nix
+      ./doas.nix
     ];
 
   # Bootloader.
