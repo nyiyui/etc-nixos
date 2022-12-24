@@ -15,6 +15,7 @@
       ./hardware-configuration.nix
       #builtins.fetchGit { url="https://github.com/stites/system76-nixos"; ref="946dbc3a0e222b925b91d140d44afc5f51a39053"; }
       ./dns.nix
+      ./wireguard.nix
     ];
 
   # Allow unfree packages
@@ -88,6 +89,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
+  # Syncthing
+  networking.firewall = {
+    allowedUDPPorts = [ 22000 21027 ];
+    allowedTCPPorts = [ 22000 ];
+  };
+
   users.groups.nyiyui = {};
   users.users.nyiyui = {
     isNormalUser = true;
@@ -122,7 +129,6 @@
     wget
     curl 
     pciutils
-    wireguard-tools
     neovim
     htop
     system76-firmware
@@ -188,31 +194,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  # WireGuard
-  networking.nat.enable = true;
-  networking.nat.externalInterface = "eth0";
-  networking.nat.internalInterfaces = [ "wg0" ];
-  networking.firewall = {
-    allowedUDPPorts = [ 28607 ]
-                    ++ [ 22000 21027 ]; # syncthing
-    allowedTCPPorts = [ 22000 ]; # syncthing
-  };
-  networking.wireguard.interfaces = {
-    kimihenokore = {
-      ips = [ "10.5.0.93/32" ];
-      privateKeyFile = "/etc/nixos/wireguard-privkey";
-      peers = [
-        {
-          publicKey = "EYxF76Poj9O1mV3bhvQ1UXdewvHcI+dDi70f3qmGOS0=";
-          presharedKeyFile = "/etc/nixos/wireguard-psk";
-          allowedIPs = [ "10.5.0.0/24" ];
-          endpoint = "kimihenokore.nyiyui.ca:28607";
-          persistentKeepalive = 30;
-        }
-      ];
-    };
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
