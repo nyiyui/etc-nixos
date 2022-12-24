@@ -13,17 +13,12 @@
       home-manager.nixosModule {}
       nixos-hardware.nixosModules.system76
       ./hardware-configuration.nix
-      #builtins.fetchGit { url="https://github.com/stites/system76-nixos"; ref="946dbc3a0e222b925b91d140d44afc5f51a39053"; }
       ./dns.nix
       ./wireguard.nix
       ./doas.nix
+      ./i18n.nix
+      ./common.nix
     ];
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # Flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -96,64 +91,12 @@
     allowedTCPPorts = [ 22 22000 ];
   };
 
-  users.groups.nyiyui = {};
-  users.users.nyiyui = {
-    isNormalUser = true;
-    description = "Ken Shibata";
-    group = "nyiyui";
-    extraGroups = [ "uucp" "networkmanager" "wheel" "video" "docker" "libvirtd" ];
-    packages = with pkgs; [
-      firefox
-      chromium
-      syncthing
-      sway
-      git
-    ];
-    shell = pkgs.fish;
-  };
-  home-manager.users.nyiyui = (import ./nyiyui/nyiyui.nix);
-
-  environment.shells = [ pkgs.fish ];
-
   # Brightness adjust
   programs.light.enable = true;
-  programs.git.enable = true;
 
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "nyiyui";
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    curl 
-    pciutils
-    neovim
-    htop
-    system76-firmware
-    unzip
-    gzip
-    realvnc-vnc-viewer
-    zip
-    libsForQt5.ark
-    #nix-index
-    acpi
-    qemu_full
-    virt-manager
-    blueman
-  ];
-
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    liberation_ttf
-    hack-font
-  ];
-
-  services.picom.enable = true;
 
   # Wayland
   programs.sway.enable = true;
@@ -172,33 +115,6 @@
       intel-compute-runtime
     ];
   };
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
-
-  # GC
-  nix.gc.automatic = true;
-  nix.gc.dates = "weekly";
-
-  # Storage Optimisation
-  nix.settings.auto-optimise-store = true;
 
   services.upower.enable = true;
   services.upower.criticalPowerAction = "Hibernate";
@@ -209,43 +125,5 @@
     '';
   };
 
-  # Docker
-  virtualisation.docker.enable = true;
-
-  virtualisation.libvirtd = {
-    enable = true;
-  };
-
-  powerManagement.cpuFreqGovernor = "performance";
-
-  #systemd.services.mitsuha = {
-  #  enable = true;
-  #  description = "set cpupower governor depending on battery state";
-  #  wantedBy = [ "multi-user.target" ];
-  #  unitConfig = {
-  #    #StartLimitIntervalSec = 350;
-  #    #StartLimitBurst = 30;
-  #  };
-  #  environment = {
-  #    CPUPOWER = "${pkgs.cpupower}/bin/cpupower";
-  #  };
-  #  serviceConfig = {
-  #    ExecStart = "${pkgs.bash}/bin/bash " + ./mitsuha.sh;
-  #    #Restart = "on-failure";
-  #    #RestartSec = 3;
-  #  };
-  #};
-
   hardware.bluetooth.enable = true;
-
-  # Fcitx
-  i18n.defaultLocale = "ja_JP.UTF-8";
-  i18n.inputMethod = {
-    enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-hangul
-      fcitx5-gtk
-    ];
-  };
 }
