@@ -14,6 +14,7 @@
       nixos-hardware.nixosModules.system76
       ./hardware-configuration-miyo.nix
       ./dns.nix
+      ./wireguard.nix
     ];
 
   # Bootloader.
