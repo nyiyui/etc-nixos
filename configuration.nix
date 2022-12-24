@@ -205,7 +205,7 @@
       peers = [
         {
           publicKey = "EYxF76Poj9O1mV3bhvQ1UXdewvHcI+dDi70f3qmGOS0=";
-          presharedKey = "/jzIkELQRwrCylbArtUuXzHMwCcphm5H0evjke9iD2A=";
+          presharedKeyFile = "/etc/nixos/wireguard-psk";
           allowedIPs = [ "10.5.0.0/24" ];
           endpoint = "kimihenokore.nyiyui.ca:28607";
           persistentKeepalive = 30;

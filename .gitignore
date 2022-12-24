@@ -1,0 +1,4 @@
+/wireguard-privkey
+/wireguard-psk
+/wireguard-pubkey
+/secret.nix
