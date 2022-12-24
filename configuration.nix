@@ -119,7 +119,7 @@
   services.upower.enable = true;
   services.upower.criticalPowerAction = "Hibernate";
   services.logind = {
-    lidSwitch = "suspend";
+    lidSwitchExternalPower = "ignore";
     extraConfig = ''
       HandlePowerKey=ignore
     '';
