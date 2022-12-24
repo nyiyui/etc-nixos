@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -66,7 +66,9 @@
 
   programs.git.enable = true;
 
-  home-manager.users.nyiyui = (import ./nyiyui/nyiyui.nix);
+  home-manager.users.nyiyui = (import ./nyiyui/nyiyui.nix {
+    hostname = config.networking.hostName;
+  });
 
   users.groups.nyiyui = {};
   users.users.nyiyui = {

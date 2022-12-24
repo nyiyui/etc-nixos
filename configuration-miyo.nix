@@ -28,12 +28,24 @@
 
   networking.networkmanager.enable = true;
 
+  programs.nm-applet.enable = true;
+
   time.timeZone = "America/Toronto";
+
+  services.xserver.enable = true;
+
+  services.xserver.displayManager.lightdm.enable = true;
 
   services.xserver = {
     layout = "us";
     xkbVariant = "";
   };
+  # Brightness adjust
+  programs.light.enable = true;
+
+  # Wayland
+  programs.sway.enable = true;
+  xdg.portal.wlr.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -45,12 +57,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    git
-  ];
 
   networking.firewall.allowedTCPPorts = [ 22 ];
 }
