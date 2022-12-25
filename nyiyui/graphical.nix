@@ -85,6 +85,13 @@
         "${modifier}+Return" = "exec foot";
       };
       menu = "dmenu_run";
+      extraSessionCommands = ''
+        export INPUT_METHOD=fcitx
+        export QT_IM_MODULE=fcitx
+        export GTK_IM_MODULE=fcitx
+        export XMODIFIERS=@im=fcitx
+        export XIM_SERVERS=fcitx
+      '';
       input = {
         "*" = {
           tap = "enabled";
