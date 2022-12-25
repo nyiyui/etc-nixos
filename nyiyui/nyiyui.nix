@@ -2,7 +2,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./graphical.nix ];
+  imports = [
+    ./graphical.nix
+    ./graphical-per.nix
+  ];
 
   home.file.hostname.text = hostname;
 
@@ -78,6 +81,7 @@
     enable = true;
     settings.colors.alpha = 0;
     settings.main.shell = "fish";
+    settings.main.font = if (hostname == "miyo") then "hack:size=14" else "hack:size=8";
   };
   services.wlsunset = {
     enable = true;

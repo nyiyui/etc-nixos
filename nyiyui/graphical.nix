@@ -22,21 +22,12 @@
         height = 16;
         output = [ "eDP-1" "DP-1" ];
         modules-left = [ "sway/workspaces" ];
-        modules-center = [ "custom/hello-from-waybar" ];
         modules-right = [ "tray" "network" "temperature" "pulseaudio" "battery" "clock" ];
     
         "sway/workspaces" = {
           disable-scroll = true;
           all-outputs = true;
         };
-        #"custom/hello-from-waybar" = {
-        #  format = "hello {}";
-        #  max-length = 40;
-        #  interval = "once";
-        #  exec = pkgs.writeShellScript "hello-from-waybar" ''
-        #    echo "from within waybar"
-        #  '';
-        #};
         "clock" = {
           format = "{:%H:%M %Y-%m-%d}";
         };
@@ -83,7 +74,7 @@
       startup = [
         { command = "systemctl --user restart waybar"; always = true; }
         { command = "${pkgs.chromium}/bin/chromium"; }
-        { command = "foot ssh-add $(ls -1 ~/.ssh/id_* | grep -v '\\.pub$')"; }
+        { command = "${pkgs.foot}/bin/foot ssh-add $(ls -1 ~/.ssh/id_* | grep -v '\\.pub$')"; }
       ];
       keybindings = lib.mkOptionDefault {
         # use wev to find pressed keys
@@ -113,49 +104,6 @@
         ];
       };
       bars = [];
-      #bars = [{
-      #  mode = "dock";
-      #  hiddenState = "hide";
-      #  position = "bottom";
-      #  workspaceButtons = true;
-      #  workspaceNumbers = true;
-      #  statusCommand = "${pkgs.i3status}/bin/i3status";
-      #  fonts = {
-      #    names = [ "Hack" ];
-      #    size = 10.0;
-      #  };
-      #  trayOutput = "primary";
-      #  colors = {
-      #    background = "#002d38";
-      #    statusline = "#98a8a8";
-      #    separator = "#5b7279";
-      #    focusedWorkspace = {
-      #      border = "#093946";
-      #      background = "#093946";
-      #      text = "#259d94";
-      #    };
-      #    activeWorkspace = {
-      #      border = "#093946";
-      #      background = "#093946";
-      #      text = "#ffffff";
-      #    };
-      #    inactiveWorkspace = {
-      #      border = "#093946";
-      #      background = "#093946";
-      #      text = "#657377";
-      #    };
-      #    urgentWorkspace = {
-      #      border = "#093946";
-      #      background = "#093946";
-      #      text = "#d56500";
-      #    };
-      #    bindingMode = {
-      #      border = "#093946";
-      #      background = "#093946";
-      #      text = "#ffffff";
-      #    };
-      #  };
-      #}];
     };
   };
 

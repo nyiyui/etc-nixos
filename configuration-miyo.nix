@@ -44,7 +44,6 @@
   programs.light.enable = true;
 
   # Wayland
-  programs.sway.enable = true;
   xdg.portal.wlr.enable = true;
 
   # Enable sound with pipewire.

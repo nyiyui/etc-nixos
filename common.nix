@@ -81,7 +81,6 @@
       firefox
       chromium
       syncthing
-      sway
       git
     ];
     shell = pkgs.fish;
