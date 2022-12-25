@@ -53,6 +53,7 @@
     virt-manager
     blueman
     udisks
+    file
   ];
 
   fonts.fonts = with pkgs; [
