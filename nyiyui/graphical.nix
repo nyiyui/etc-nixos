@@ -1,6 +1,15 @@
 { config, libs, pkgs, lib, ... }:
 
 {
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-hangul
+      fcitx5-gtk
+    ];
+  };
+
   programs.waybar = {
     # TODO: run systemctl --user restart waybar on activation
     enable = true;
@@ -61,6 +70,13 @@
       default_border none
       default_floating_border none
     '';
+    extraSessionCommands = ''
+      export INPUT_METHOD=fcitx
+      export QT_IM_MODULE=fcitx
+      export GTK_IM_MODULE=fcitx
+      export XMODIFIERS=@im=fcitx
+      export XIM_SERVERS=fcitx
+    '';
     config = rec {
       modifier = "Mod4";
       terminal = "foot"; 
@@ -85,13 +101,6 @@
         "${modifier}+Return" = "exec foot";
       };
       menu = "dmenu_run";
-      extraSessionCommands = ''
-        export INPUT_METHOD=fcitx
-        export QT_IM_MODULE=fcitx
-        export GTK_IM_MODULE=fcitx
-        export XMODIFIERS=@im=fcitx
-        export XIM_SERVERS=fcitx
-      '';
       input = {
         "*" = {
           tap = "enabled";
