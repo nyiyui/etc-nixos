@@ -6,9 +6,9 @@ static const char *fonts[] = {
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#f1e9d2", "#002d38" },
-	[SchemeSel] = { "#2b90d8", "#002d38" },
-	[SchemeOut] = { "#000000", "#002d38" },
+	[SchemeNorm] = { "#bec8d1", "#373b3e" },
+	[SchemeSel] = { "#86cecb", "#373b3e" },
+	[SchemeOut] = { "#000000", "#373b3e" },
 };
 
 static const unsigned int alpha = 0xff;
