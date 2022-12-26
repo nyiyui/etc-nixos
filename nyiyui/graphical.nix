@@ -73,6 +73,7 @@
       terminal = "foot"; 
       startup = [
         { command = "systemctl --user restart waybar"; always = true; }
+        { command = "systemctl --user restart wlsunset"; always = true; }
         { command = "${pkgs.chromium}/bin/chromium"; }
         { command = "${pkgs.foot}/bin/foot ssh-add $(ls -1 ~/.ssh/id_* | grep -v '\\.pub$')"; }
       ];
