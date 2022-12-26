@@ -5,6 +5,8 @@ export LESS='-R -s -M +Gg'
 export VISUAL='nvim'
 export EDITOR="$VISUAL"
 
+alias sudo=doas
+
 alias nyic='~/inaba/nyic/conn.sh'
 alias nyip='~/inaba/nyic/ports.sh'
 alias nyih='~/inaba/nyic/health.sh'
