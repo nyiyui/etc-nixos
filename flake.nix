@@ -14,7 +14,7 @@
       system = "x86_64-linux";
       specialArgs = attrs;
       modules = [
-        ./configuration.nix
+        ./kumi/configuration.nix
         qrystal.nixosModules.${system}.node
         ({ ... }: {
           qrystal.services.node = {

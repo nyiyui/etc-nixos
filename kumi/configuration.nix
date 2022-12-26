@@ -13,11 +13,11 @@
       home-manager.nixosModule {}
       nixos-hardware.nixosModules.system76
       ./hardware-configuration.nix
-      ./dns.nix
-      ./wireguard.nix
-      ./doas.nix
-      ./i18n.nix
-      ./common.nix
+      ../dns.nix
+      ../wireguard.nix
+      ../doas.nix
+      ../i18n.nix
+      ../common.nix
     ];
 
   # Bootloader.

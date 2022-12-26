@@ -39,7 +39,7 @@
   programs.fish = {
     enable = true;
     shellInit = ''
-      source ~/inaba/dots/sh/sh.sh
+      ${builtins.readFile ./profile.sh}
       export QT_IM_MODULE=fcitx
       export GTK_IM_MODULE=fcitx
       export XMODIFIERS=@im=fcitx
