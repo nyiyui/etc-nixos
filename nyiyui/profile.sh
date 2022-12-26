@@ -72,8 +72,6 @@ export XMODIFIERS=@im=fcitx
 # Flutter Pub
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
-alias aah='ssh'
-
 fish_ssh_agent
 ssh-add -l
 ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/.ssh/id_inaba
@@ -81,7 +79,9 @@ if ssh-add -l | grep -q 'kEasi5T4B5BiknnE7eNU0L8TtW+olomN3I9wsEdNBA4'; or ssh-ad
 	ssh-add ~/.ssh/id_ed25519
 end
 
-echo 'e: 85?'
-echo 'm: 85'
-echo 'c: 85'
-echo 'b: -5'
+if status is-interactive
+	echo 'e: 85?'
+	echo 'm: 85'
+	echo 'c: 85'
+	echo 'b: -5'
+end
