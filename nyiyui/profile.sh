@@ -15,7 +15,6 @@ alias cp='cp -b'
 alias ln='ln -b'
 alias mv='mv -b'
 alias install='install -b'
-alias rm='~/rm-bkup.sh'
 
 alias f='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv'
 alias f.='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv .'
