@@ -74,6 +74,9 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 alias aah='ssh'
 
+fish_ssh_agent
+ssh-add $(ls -1 ~/.ssh/id_* | grep -v '\.pub$')
+
 echo 'e: 85?'
 echo 'm: 85'
 echo 'c: 85'
