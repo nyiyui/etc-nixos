@@ -101,6 +101,7 @@
       floating = {
         criteria = [
           { app_id = "urn-gtk"; }
+          { app_id = "pavucontrol"; }
         ];
       };
       bars = [];
