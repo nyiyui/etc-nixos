@@ -87,6 +87,11 @@
     shell = pkgs.fish;
   };
 
+  networking.firewall = {
+    allowedUDPPorts = [ 22000 21027 ];
+    allowedTCPPorts = [ 22000 ];
+  };
+
   environment.shells = [ pkgs.fish ];
 
   # Syncthing

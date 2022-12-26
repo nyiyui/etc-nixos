@@ -10,9 +10,9 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      home-manager.nixosModule {}
-      nixos-hardware.nixosModules.system76
       ./hardware-configuration.nix
+      nixos-hardware.nixosModules.system76
+      home-manager.nixosModule {}
       ../dns.nix
       ../wireguard.nix
       ../doas.nix
@@ -47,7 +47,6 @@
     xkbVariant = "";
   };
 
-  # Polkit
   security.polkit.enable = true;
 
   # Enable CUPS to print documents.
@@ -74,12 +73,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  # Syncthing
-  networking.firewall = {
-    allowedUDPPorts = [ 22000 21027 ];
-    allowedTCPPorts = [ 22 22000 ];
-  };
-
   # Brightness adjust
   programs.light.enable = true;
 
@@ -91,6 +84,7 @@
   programs.sway.enable = true;
   xdg.portal.wlr.enable = true;
 
+  # Intel GPU things
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
