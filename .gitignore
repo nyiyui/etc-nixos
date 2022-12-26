@@ -2,4 +2,3 @@
 /wireguard-psk
 /wireguard-pubkey
 /secret.nix
-/hardware-configuration*.nix
