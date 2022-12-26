@@ -11,6 +11,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       home-manager.nixosModule {}
+      ../wireguard.nix
       ../doas.nix
       ../i18n.nix
       ../common.nix
