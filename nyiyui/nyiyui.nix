@@ -167,6 +167,7 @@
     anki
     super-slicer
     notify-desktop
+    audacity
   ] ++ (with pkgs.libsForQt5; [
     okular
     breeze-qt5

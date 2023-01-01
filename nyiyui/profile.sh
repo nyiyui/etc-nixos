@@ -30,14 +30,17 @@ alias mpvv='mpv --no-video'
 alias mpvvl='mpv --no-video --loop'
 
 # git aliases
+alias gp='git push'
+alias gpoa='git push origin @'
 alias gl='git pull'
-alias gpf='echo え〜'
+alias ga='git add'
+alias gap='git add -p'
 alias g=git
 alias gc='git checkout'
 alias gm='git commit'
 alias gma='git commit --amend'
 alias gr='git log'
-alias gu=gitu
+alias gb='git rebase'
 alias ge='git merge'
 alias gd='git diff'
 alias gda='git diff @'
@@ -73,13 +76,14 @@ export XMODIFIERS=@im=fcitx
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 fish_ssh_agent
-ssh-add -l
-ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/.ssh/id_inaba
-if ssh-add -l | grep -q 'kEasi5T4B5BiknnE7eNU0L8TtW+olomN3I9wsEdNBA4'; or ssh-add -l | grep -q 'q6lgN42+86zYYCNfTwOO/1LlgX9A97TSwD3Ph8e2Swg)'
-	ssh-add ~/.ssh/id_ed25519
-end
 
 if status is-interactive
+	ssh-add -l
+	ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/.ssh/id_inaba
+	if ssh-add -l | grep -q 'kEasi5T4B5BiknnE7eNU0L8TtW+olomN3I9wsEdNBA4'; or ssh-add -l | grep -q 'q6lgN42+86zYYCNfTwOO/1LlgX9A97TSwD3Ph8e2Swg)'
+		ssh-add ~/.ssh/id_ed25519
+	end
+
 	echo 'e: 85?'
 	echo 'm: 85'
 	echo 'c: 85'
