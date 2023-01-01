@@ -113,7 +113,36 @@
     enable = true;
     anchor = "bottom-right";
     font = "Roboto 14";
-    backgroundColor = "#00000000";
-    textColor = "#a1a1a1ff";
+    backgroundColor = "#00000050";
+    textColor = "#86cecb";
+#FORMAT SPECIFIERS
+#Format specification works similarly to printf(3), but with a different set of specifiers.
+#%% Literal "%"
+#\\ Literal "\"
+#\n New Line
+#For notifications
+#%a Application name
+#%s Notification summary
+#%b Notification body
+#%g Number of notifications in the current group
+#%i Notification id
+#For the hidden notifications placeholder
+#%h Number of hidden notifications
+#%t Total number of notifications
+    extraConfig = ''
+      format=%a <b>%s</b>\n%b\n%i
+      [grouped=true]
+      format=%g / %a <b>%s</b>\n%b\n%i
+      [hidden=true]
+      format=%tの内%h
+      [urgency=low]
+      border-size=0
+
+      [urgency=normal]
+      border-color=#cb86ce
+
+      [urgency=critical]
+      border-color=#ffffff
+    '';
   };
 }

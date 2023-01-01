@@ -166,7 +166,7 @@
     libreoffice-qt
     anki
     super-slicer
-    texlive.combined.scheme-basic
+    notify-desktop
   ] ++ (with pkgs.libsForQt5; [
     okular
     breeze-qt5
