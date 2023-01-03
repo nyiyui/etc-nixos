@@ -209,4 +209,10 @@
     enableZshIntegration = false;
     nix-direnv.enable = true;
   };
+  programs.ssh = {
+    extraConfig = ''
+      Host mcpt.ca
+        SetEnv TERM=xterm-256color
+    '';
+  };
 }
