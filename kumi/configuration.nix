@@ -15,6 +15,7 @@
       home-manager.nixosModule {}
       ../dns.nix
       ../wireguard.nix
+      ../reimu.nix
       ../doas.nix
       ../i18n.nix
       ../common.nix

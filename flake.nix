@@ -13,15 +13,7 @@
     nixosConfigurations.kumi = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       specialArgs = attrs;
-      modules = [
-        ./kumi/configuration.nix
-        qrystal.nixosModules.${system}.node
-        ({ ... }: {
-          qrystal.services.node = {
-            enable = true;
-          };
-        })
-      ];
+      modules = [./kumi/configuration.nix ];
     };
     nixosConfigurations.miyo = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
