@@ -3,6 +3,7 @@
 
 {
   imports = [
+    ./kde.nix
     ./graphical.nix
     ./graphical-per.nix
   ];
@@ -168,10 +169,10 @@
     super-slicer
     notify-desktop
     audacity
+    texlive.combined.scheme-full
   ] ++ (with pkgs.libsForQt5; [
     okular
-    breeze-qt5
-    breeze-icons
+    dolphin
     kate
     ctags
     systemsettings

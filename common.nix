@@ -97,4 +97,7 @@
 
   # Polkit
   security.polkit.enable = true;
+
+  # KDE workaround
+  programs.dconf.enable = true;
 }
