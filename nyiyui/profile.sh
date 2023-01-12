@@ -85,7 +85,7 @@ if status is-interactive
 	end
 
 	echo 'e: 85?'
-	echo 'm: 85'
-	echo 'c: 85'
-	echo 'b: -5'
+	echo 'm: 87'
+	echo 'c: 87'
+	echo 'b: 96/98'
 end
