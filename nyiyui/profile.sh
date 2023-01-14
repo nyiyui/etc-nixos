@@ -88,4 +88,5 @@ if status is-interactive
 	echo 'm: 87'
 	echo 'c: 87'
 	echo 'b: 96/98'
+	echo 'study lolol'
 end
