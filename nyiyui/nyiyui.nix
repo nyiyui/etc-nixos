@@ -163,6 +163,7 @@
     safeeyes
     gimp
     xournalpp
+    rnote
     hunspell
     libreoffice-qt
     anki
