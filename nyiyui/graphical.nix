@@ -23,11 +23,16 @@
         height = 16;
         output = [ "eDP-1" "DP-1" ];
         modules-left = [ "sway/workspaces" ];
+        modules-center = [ "sway/window" ];
         modules-right = [ "tray" "network" "temperature" "pulseaudio" "battery" "clock" ];
     
         "sway/workspaces" = {
           disable-scroll = true;
           all-outputs = true;
+        };
+        "sway/window" = {
+          format = "{app_id} {title}";
+          icon = true;
         };
         "clock" = {
           format = "{:%H:%M %Y-%m-%d}";

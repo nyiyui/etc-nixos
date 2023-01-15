@@ -9,6 +9,7 @@ window#waybar {
     color: #137a7f;
     transition-property: background-color;
     transition-duration: .5s;
+    -gtk-icon-effect: dim;
 }
 
 window#waybar.hidden {
