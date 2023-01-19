@@ -171,6 +171,7 @@
     notify-desktop
     audacity
     texlive.combined.scheme-full
+    prusa-slicer
   ] ++ (with pkgs.libsForQt5; [
     okular
     dolphin
