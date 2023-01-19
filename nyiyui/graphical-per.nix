@@ -7,7 +7,7 @@
         pos = "0 0";
         scale = "2";
       };
-      "eDP-1".pos = "960 2160";
+      "eDP-1".pos = "0 1080";
     };
   })
   (lib.mkIf (config.home.file.hostname.text == "miyo") {
