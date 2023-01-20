@@ -12,6 +12,7 @@
       ./hardware-configuration.nix
       home-manager.nixosModule {}
       ../wireguard.nix
+      ../reimu.nix
       ../doas.nix
       ../i18n.nix
       ../common.nix
