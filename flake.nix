@@ -5,6 +5,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     qrystal.url = "github:nyiyui/qrystal/main";
+    udp2raw.url = path:./udp2raw;
+    udp2raw.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, qrystal, ... }@attrs: let

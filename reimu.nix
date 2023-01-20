@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, udp2raw, ... }:
 
 (lib.mkMerge [
   (lib.mkIf (config.networking.hostName == "kumi") {
@@ -38,7 +38,7 @@
       description = "udp2raw proxy for wg reimu";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${./udp2raw_amd64} -c -l127.0.0.1:42420 -r34.146.10.200:443  -k 'kyunkyun' --raw-mode faketcp -a";
+        ExecStart = "${udp2raw.packages.${pkgs.system}.default}/bin/udp2raw -c -l127.0.0.1:42420 -r34.146.10.200:443  -k 'kyunkyun' --raw-mode faketcp -a";
       };
     };
   }
