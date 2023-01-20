@@ -18,12 +18,17 @@
       buildPhase = ''
         make dynamic
       '';
+      postFixup = ''
+        wrapProgram $out/bin/udp2raw \
+          --set PATH ${pkgs.lib.makeBinPath [ pkgs.iptables ]}
+      '';
       installPhase = ''
         mkdir -p $out/bin
         cp udp2raw_dynamic $out/bin/udp2raw
       '';
       nativeBuildInputs = with pkgs; [
         pkg-config
+        pkgs.makeWrapper
       ];
     };
   });

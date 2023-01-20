@@ -136,7 +136,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-1jZOcYZIgeM338EKJ/irNqgQpsU4Ph4jcsfJJgr0sAQ=",
+        "narHash": "sha256-OiOhH57dLfGgwvBW8ISV4DpGn6AoKSzmIe6yCk6sJ0I=",
         "path": "./udp2raw",
         "type": "path"
       },
