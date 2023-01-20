@@ -1,13 +1,20 @@
 { config, pkgs, lib, ... }:
 (lib.mkMerge [
   (lib.mkIf (config.home.file.hostname.text == "kumi") {
-    wayland.windowManager.sway.config.output = {
-      "DP-1" = {
-        mode = "3840x2160@60.000Hz";
-        pos = "0 0";
-        scale = "2";
+    wayland.windowManager.sway.config = {
+      output = {
+        "DP-1" = {
+          mode = "3840x2160@60.000Hz";
+          pos = "0 0";
+          scale = "2";
+        };
+        "eDP-1".pos = "0 1080";
       };
-      "eDP-1".pos = "0 1080";
+      input = {
+        #"1386:221:Wacom_Bamboo_Connect_Pen" = {
+        #  map_to_output = "DP-1";
+        #};
+      };
     };
   })
   (lib.mkIf (config.home.file.hostname.text == "miyo") {
