@@ -3,9 +3,9 @@
 
 {
   imports = [
-    ./kde.nix
-    ./graphical.nix
-    ./graphical-per.nix
+    #./kde.nix
+    #./graphical.nix
+    #./graphical-per.nix
   ];
 
   home.file.hostname.text = hostname;
@@ -155,7 +155,7 @@
       ];
     }))
     networkmanagerapplet # provides nm-connection-editor
-    lxqt.pcmanfm-qt
+    #lxqt.pcmanfm-qt
     obs-studio
     obs-studio-plugins.wlrobs
     obs-studio-plugins.obs-pipewire-audio-capture
@@ -165,25 +165,26 @@
     xournalpp
     rnote
     hunspell
-    libreoffice-qt
+    #libreoffice-qt
     anki
-    super-slicer
+    #super-slicer
     notify-desktop
     audacity
-    texlive.combined.scheme-full
+    #texlive.combined.scheme-full
     prusa-slicer
-  ] ++ (with pkgs.libsForQt5; [
-    okular
-    dolphin
-    kate
-    ctags
-    systemsettings
-    kdenlive
-    akregator
-  ]) ++ (with pkgs.hunspellDicts; [
-    en_CA
-    en_US
-  ]);
+  ];
+  #] ++ (with pkgs.libsForQt5; [
+  #  okular
+  #  dolphin
+  #  kate
+  #  ctags
+  #  systemsettings
+  #  kdenlive
+  #  akregator
+  #]) ++ (with pkgs.hunspellDicts; [
+  #  en_CA
+  #  en_US
+  #]);
 
   programs.mpv = {
     enable = true;

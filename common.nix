@@ -34,6 +34,8 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  virtualisation.vmware.host.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -48,15 +50,15 @@
     gzip
     realvnc-vnc-viewer
     zip
-    libsForQt5.ark
+    #libsForQt5.ark
     #nix-index
     acpi
-    qemu_full
+    #qemu_full
     virt-manager
     blueman
     udisks
     file
-    mlocate
+    #mlocate
   ];
 
   fonts.fonts = with pkgs; [
