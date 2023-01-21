@@ -20,11 +20,7 @@
           {
             publicKey = "y6cyueQS6Tv5uA1uoM5ce5RR+AuuaUw955/y+cr+QXc=";
             presharedKeyFile = "/etc/nixos/reimu-psk";
-            allowedIPs = [
-              "10.42.0.0/16"
-              #"136.144.57.121/32"
-              #"0.0.0.0/0"
-            ];
+            allowedIPs = [ "10.42.0.0/16" ];
             #endpoint = "reimu.nyiyui.ca:42420";
             endpoint = "127.0.0.1:42420";
             persistentKeepalive = 30;
@@ -32,6 +28,14 @@
         ];
       };
     };
+
+    #systemd.services.reimu-choose = {
+    #  enable = true;
+    #  description = "reimu: choose udp2raw or direct";
+    #  wantedBy = [ "multi-user.target" ];
+    #  wants = [ "network-online.target" ];
+    #  after = [ "network-online.target" ];
+    #};
 
     systemd.services.reimu-proxy = {
       enable = true;

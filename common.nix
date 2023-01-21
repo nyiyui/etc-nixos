@@ -56,6 +56,7 @@
     blueman
     udisks
     file
+    mlocate
   ];
 
   fonts.fonts = with pkgs; [
