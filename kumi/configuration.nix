@@ -15,7 +15,7 @@
       home-manager.nixosModule {}
       ../dns.nix
       ../wireguard.nix
-      #../reimu.nix
+      ../reimu.nix
       ../doas.nix
       ../i18n.nix
       ../common.nix
@@ -42,8 +42,6 @@
   services.xserver.enable = true;
 
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.displayManager.defaultSession = "xfce";
 
   services.xserver = {
     layout = "us";
