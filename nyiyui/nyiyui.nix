@@ -3,9 +3,10 @@
 
 {
   imports = [
-    #./kde.nix
-    #./graphical.nix
-    #./graphical-per.nix
+    ./kde.nix
+    ./graphical.nix
+    ./graphical-per.nix
+    ./fonts.nix
   ];
 
   home.file.hostname.text = hostname;
@@ -82,7 +83,9 @@
     enable = true;
     settings.colors.alpha = 0;
     settings.main.shell = "fish";
-    settings.main.font = if (hostname == "miyo") then "hack:size=14" else "hack:size=8";
+    settings.main.font = if (hostname == "miyo")
+    then "hack:size=14"
+    else "JetBrainsMono:size=7,NotoColorEmoji:size=7,hack:size=8";
   };
   services.wlsunset = {
     enable = true;
@@ -115,7 +118,7 @@
       StartLimitBurst = 30;
     };
     Service = {
-      ExecStart = "${pkgs.swaybg}/bin/swaybg -i /home/nyiyui/inaba/kabegami/redial_52.png";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${../images/redial_52.png}";
       Restart = "on-failure";
       RestartSec = 3;
     };
@@ -155,7 +158,6 @@
       ];
     }))
     networkmanagerapplet # provides nm-connection-editor
-    #lxqt.pcmanfm-qt
     obs-studio
     obs-studio-plugins.wlrobs
     obs-studio-plugins.obs-pipewire-audio-capture
@@ -165,26 +167,23 @@
     xournalpp
     rnote
     hunspell
-    #libreoffice-qt
+    libreoffice-qt
     anki
-    #super-slicer
     notify-desktop
     audacity
-    #texlive.combined.scheme-full
     prusa-slicer
-  ];
-  #] ++ (with pkgs.libsForQt5; [
-  #  okular
-  #  dolphin
-  #  kate
-  #  ctags
-  #  systemsettings
-  #  kdenlive
-  #  akregator
-  #]) ++ (with pkgs.hunspellDicts; [
-  #  en_CA
-  #  en_US
-  #]);
+  ] ++ (with pkgs.libsForQt5; [
+    okular
+    dolphin
+    kate
+    ctags
+    systemsettings
+    kdenlive
+    akregator
+  ]) ++ (with pkgs.hunspellDicts; [
+    en_CA
+    en_US
+  ]);
 
   programs.mpv = {
     enable = true;

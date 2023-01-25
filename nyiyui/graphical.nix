@@ -146,11 +146,12 @@
 #%h Number of hidden notifications
 #%t Total number of notifications
     extraConfig = ''
-      format=%a <b>%s</b>\n%b\n%i
+      max-history=65536
+      format=<b>%s</b>\n%b\n%a %i
       [grouped=true]
-      format=%g / %a <b>%s</b>\n%b\n%i
+      format=%g : %a <b>%s</b>\n%b\n%i
       [hidden=true]
-      format=%tの内%h
+      format=%t / %h
       [urgency=low]
       border-size=0
 

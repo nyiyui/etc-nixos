@@ -1,6 +1,5 @@
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
     font-size: 14px;
 }
 
