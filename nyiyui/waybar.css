@@ -1,5 +1,5 @@
 * {
-    font-family: 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
+    font-family: 'Jetbrains Mono', 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
     font-size: 14px;
 }
 
@@ -35,7 +35,8 @@ button {
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
     background: inherit;
-    box-shadow: inset 0 -3px #137a7f;
+    box-shadow: none;
+    /* box-shadow: inset 0 -3px #137a7f; */
 }
 
 #workspaces button {
@@ -49,8 +50,8 @@ button:hover {
 }
 
 #workspaces button.focused {
-    background-color: #64727D;
-    box-shadow: inset 0 -3px #137a7f;
+    /* box-shadow: inset 0 -2px #86cecb; */
+    color: #86cecb;
 }
 
 #workspaces button.urgent {
@@ -77,14 +78,15 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #mpd {
-    padding: 0 10px;
+    padding: 0 8px;
     color: #137a7f;
 }
 
 #clock {
     padding: 0 10px;
     background-color: rgba(0, 0, 0, 0);
-    color: #bec8d1;
+    /* color: #bec8d1; */
+    color: #86cecb;
 }
 
 #window,
@@ -102,18 +104,12 @@ button:hover {
     margin-right: 0;
 }
 
-#clock {
-    background-color: #64727D;
+#battery.charging, #battery.plugged {
+    background-color: transparent;
 }
 
 #battery {
-    background-color: #137a7f;
-    color: #000000;
-}
-
-#battery.charging, #battery.plugged {
-    color: #137a7f;
-    background-color: #26A65B;
+    background-color: rgba(255, 98, 0, 0.2);
 }
 
 @keyframes blink {
@@ -155,20 +151,20 @@ label:focus {
 }
 
 #network {
-    background-color: #2980b9;
+    background-color: transparent;
 }
 
 #network.disconnected {
-    background-color: #f53c3c;
+    background-color: rgba(245, 60, 60, 0.2);
 }
 
 #pulseaudio {
-    background-color: #f1c40f;
+    background-color: rgba(241, 196, 15, 0.2);
     color: #000000;
 }
 
 #pulseaudio.muted {
-    background-color: #90b1b1;
+    background-color: rgba(144, 177, 177, 0.2);
     color: #2a5c45;
 }
 
@@ -196,7 +192,7 @@ label:focus {
 }
 
 #temperature {
-    background-color: #f0932b;
+    background-color: transparent;
 }
 
 #temperature.critical {
@@ -204,7 +200,7 @@ label:focus {
 }
 
 #tray {
-    background-color: #2980b9;
+    background-color: transparent;
 }
 
 #tray > .passive {
