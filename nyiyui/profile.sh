@@ -7,10 +7,6 @@ export EDITOR="$VISUAL"
 
 alias sudo=doas
 
-alias nyic='~/inaba/nyic/conn.sh'
-alias nyip='~/inaba/nyic/ports.sh'
-alias nyih='~/inaba/nyic/health.sh'
-
 alias cp='cp -b'
 alias ln='ln -b'
 alias mv='mv -b'
@@ -54,9 +50,6 @@ alias lt='l -s modified'
 alias t='exa -abglFn --extended --octal-permissions --no-permissions --git -T'
 alias tt='t -s modified'
 
-#alias xc='xclip -selection c'
-#alias xp='xclip -o c'
-
 # Fix GPG ioctl error
 # https://stackoverflow.com/questions/51504367/gpg-agent-forwarding-inappropriate-ioctl-for-device
 export GPG_TTY=$(tty)
@@ -64,20 +57,15 @@ export GPG_TTY=$(tty)
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# go
-export PATH="$PATH:/home/$USER/go/bin"
-
 # IMEs
 export QT_IM_MODULE=fcitx
 export GTK_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
-# Flutter Pub
-export PATH="$PATH":"$HOME/.pub-cache/bin"
-
-fish_ssh_agent
+alias rnote='RUST_BACKTRACE=1 rnote' # rnote sometimes crashes so maybe get a nice backtrace to send to author/debug?
 
 if status is-interactive
+	fish_ssh_agent
 	ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/inaba/geofront/id_inaba
 	if ssh-add -l | grep -q 'kEasi5T4B5BiknnE7eNU0L8TtW+olomN3I9wsEdNBA4'; or ssh-add -l | grep -q 'q6lgN42+86zYYCNfTwOO/1LlgX9A97TSwD3Ph8e2Swg)'
 		ssh-add ~/.ssh/id_ed25519
