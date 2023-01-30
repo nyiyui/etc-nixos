@@ -49,7 +49,7 @@
             -b '127.0.0.1:1080' \
             -s '10.42.0.1:56833' \
             -m 'chacha20-ietf-poly1305' \
-            -k "4(cat /etc/nixos/reimu-ss-key)"
+            -k "$(cat /etc/nixos/reimu-ss-key)"
         ''}/bin/reimu-ss-client.sh";
       };
     };

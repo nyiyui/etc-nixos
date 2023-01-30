@@ -4,6 +4,7 @@
   pkgs,
   home-manager,
   nixos-hardware,
+  agenix,
   ...
 }:
 
@@ -19,6 +20,7 @@
       ../doas.nix
       ../i18n.nix
       ../common.nix
+      agenix.nixosModules.default
     ];
 
   # Bootloader.

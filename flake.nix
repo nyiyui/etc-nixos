@@ -7,6 +7,8 @@
     qrystal.url = "github:nyiyui/qrystal/main";
     udp2raw.url = path:./udp2raw;
     udp2raw.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = github:ryantm/agenix;
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, qrystal, ... }@attrs: let
