@@ -100,9 +100,9 @@
         "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
         "XF86AudioPlay" = "exec playerctl play-pause";
         # Screenshots 
-        "Print" = "exec grim - | tee ~/.cache/screenshot.png | wl-copy";
-        "Shift+Print" = ''exec grim -g "$(slurp)" - | tee ~/.cache/screenshot.png | wl-copy'';
-        "${modifier}+Print" = ''exec grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | tee ~/.cache/screenshot.png | wl-copy'';
+        "Print" = "exec ${pkgs.grim}/bin/grim - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy";
+        "Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
+        "${modifier}+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(swaymsg -t get_tree | ${pkgs.jq}/bin/jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
         "XF86MonBrightnessUp" = "exec light -A 1";
         "XF86MonBrightnessDown" = "exec light -U 1";
         "${modifier}+Shift+Return" = "exec chromium";

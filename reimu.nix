@@ -37,6 +37,23 @@
     #  after = [ "network-online.target" ];
     #};
 
+    systemd.services.reimu-ss-client = {
+      enable = true;
+      description = "reimu: shadowsocks client";
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.writeShellScriptBin "reimu-ss-client.sh" ''
+          ${pkgs.shadowsocks-rust}/bin/sslocal \
+            -b '127.0.0.1:1080' \
+            -s '10.42.0.1:56833' \
+            -m 'chacha20-ietf-poly1305' \
+            -k "4(cat /etc/nixos/reimu-ss-key)"
+        ''}/bin/reimu-ss-client.sh";
+      };
+    };
+
     systemd.services.reimu-proxy = {
       enable = true;
       description = "udp2raw proxy for wg reimu";
@@ -48,6 +65,12 @@
             -k "$(cat /etc/nixos/reimu-udp2raw-key)" \
             --raw-mode faketcp -a
         ''}/bin/reimu-proxy.sh";
+        # TODO: run as non-root
+        ProtectSystem = "strict";
+        ProtectHome = "yes";
+        PrivateTmp = "yes";
+        #PrivateUsers = "yes";
+        RemoveIPC = "yes";
       };
     };
   }

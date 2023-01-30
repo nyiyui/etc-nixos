@@ -62,8 +62,6 @@ export QT_IM_MODULE=fcitx
 export GTK_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
-alias rnote='RUST_BACKTRACE=1 rnote' # rnote sometimes crashes so maybe get a nice backtrace to send to author/debug?
-
 if status is-interactive
 	fish_ssh_agent
 	ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/inaba/geofront/id_inaba

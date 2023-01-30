@@ -131,7 +131,6 @@
     gopls
 
     pavucontrol
-    swaybg
     swaylock
     pulseaudio
     playerctl
@@ -142,11 +141,6 @@
     clipman
     ark
     go_1_19
-    # for screenshots
-    slurp
-    grim
-    wl-clipboard
-    jq
     exa
     (dmenu.overrideAttrs (oldAttrs: rec {
       configFile = writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
@@ -172,6 +166,7 @@
     notify-desktop
     audacity
     prusa-slicer
+    capitaine-cursors
   ] ++ (with pkgs.libsForQt5; [
     okular
     dolphin
