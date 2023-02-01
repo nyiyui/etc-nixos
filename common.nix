@@ -58,7 +58,6 @@
     blueman
     udisks
     file
-    mlocate
     udiskie
   ];
 
@@ -106,4 +105,8 @@
 
   # KDE workaround
   programs.dconf.enable = true;
+
+  services.udisks2.enable = true;
+
+  services.localte.enable = true;
 }
