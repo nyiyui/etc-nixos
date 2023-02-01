@@ -108,5 +108,5 @@
 
   services.udisks2.enable = true;
 
-  services.localte.enable = true;
+  services.locate.enable = true;
 }
