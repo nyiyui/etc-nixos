@@ -167,6 +167,7 @@
     audacity
     prusa-slicer
     capitaine-cursors
+    pdftk
   ] ++ (with pkgs.libsForQt5; [
     okular
     dolphin

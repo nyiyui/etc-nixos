@@ -16,6 +16,7 @@
     networking.wireguard.interfaces = {
       reimu = {
         privateKeyFile = "/etc/nixos/reimu-privkey";
+        mtu = 1200;
         peers = [
           {
             publicKey = "y6cyueQS6Tv5uA1uoM5ce5RR+AuuaUw955/y+cr+QXc=";
