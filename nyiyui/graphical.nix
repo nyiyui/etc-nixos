@@ -107,6 +107,7 @@
         "XF86MonBrightnessDown" = "exec light -U 1";
         "${modifier}+Shift+Return" = "exec chromium";
         "${modifier}+Return" = "exec foot";
+        "${modifier}+Alt+Return" = "exec kate";
         "${modifier}+Alt+Return" = "exec ${pkgs.rnote}/bin/rnote";
       };
       menu = "dmenu_run";
