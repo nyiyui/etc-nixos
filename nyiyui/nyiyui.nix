@@ -158,6 +158,7 @@
     urn-timer
     safeeyes
     gimp
+    darktable
     xournalpp
     rnote
     hunspell
@@ -168,6 +169,9 @@
     prusa-slicer
     capitaine-cursors
     pdftk
+    tmux
+    qrencode
+    wl-clipboard
   ] ++ (with pkgs.libsForQt5; [
     okular
     dolphin
