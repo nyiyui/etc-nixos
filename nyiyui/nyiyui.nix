@@ -7,6 +7,7 @@
     ./graphical.nix
     ./graphical-per.nix
     ./fonts.nix
+    ./tmux.nix
   ];
 
   home.file.hostname.text = hostname;
@@ -82,7 +83,7 @@
   programs.foot = {
     enable = true;
     settings.colors.alpha = 0;
-    settings.main.shell = "fish";
+    settings.main.shell = "fish -c tmux";
     settings.main.font = if (hostname == "miyo")
     then "hack:size=14"
     else "JetBrainsMono:size=7,NotoColorEmoji:size=7,hack:size=8";
@@ -170,7 +171,6 @@
     prusa-slicer
     capitaine-cursors
     pdftk
-    tmux
     qrencode
     wl-clipboard
   ] ++ (with pkgs.libsForQt5; [

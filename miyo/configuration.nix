@@ -34,10 +34,14 @@
 
   services.xserver.enable = true;
 
-  services.xserver.displayManager.lightdm = {
-    enable = true;
-    autoLogin = { enable = true;
-                  user = "nyiyui"; };
+  services.xserver.displayManager = {
+    lightdm = {
+      enable = true;
+    };
+    autoLogin = {
+      enable = true;
+      user = "nyiyui";
+    };
   };
 
   services.xserver = {
