@@ -4,6 +4,9 @@
   (lib.mkIf (config.networking.hostName == "kumi") {
     networking.wireguard.interfaces.reimu.ips = [ "10.42.0.2/32" ];
   })
+  (lib.mkIf (config.networking.hostName == "miyo") {
+    networking.wireguard.interfaces.reimu.ips = [ "10.42.0.4/32" ];
+  })
   {
     environment.systemPackages = [ pkgs.wireguard-tools ];
   
