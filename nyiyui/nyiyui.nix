@@ -159,6 +159,7 @@
     safeeyes
     gimp
     darktable
+    imagemagick
     xournalpp
     rnote
     hunspell
