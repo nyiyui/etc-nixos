@@ -34,8 +34,11 @@
 
   services.xserver.enable = true;
 
-  services.xserver.displayManager.lightdm.enable = true;
-  #services.xserver.desktopManager.lxqt.enable = true;
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+    autoLogin = { enable = true;
+                  user = "nyiyui"; };
+  };
 
   services.xserver = {
     layout = "us";
@@ -72,13 +75,7 @@
   programs.sway.enable = true;
   xdg.portal.wlr.enable = true;
 
-  services.logind = {
-    extraConfig = ''
-      HandlePowerKey=ignore
-    '';
-  };
-
-  hardware.bluetooth.enable = true;
+  #hardware.bluetooth.enable = true;
 
   hardware.opengl.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
