@@ -174,6 +174,7 @@
     wl-clipboard
   ] ++ (with pkgs.libsForQt5; [
     okular
+    gwenview
     dolphin
     kate
     ctags
