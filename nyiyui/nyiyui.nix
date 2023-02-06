@@ -10,6 +10,8 @@
     ./tmux.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
+
   home.file.hostname.text = hostname;
 
   home.username = "nyiyui";
@@ -173,7 +175,7 @@
     pdftk
     qrencode
     wl-clipboard
-    jetbrains.idea-ultimate
+    jetbrains.idea-community
   ] ++ (with pkgs.libsForQt5; [
     okular
     gwenview
