@@ -5,8 +5,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     qrystal.url = "github:nyiyui/qrystal/main";
-    udp2raw.url = path:./udp2raw;
-    udp2raw.inputs.nixpkgs.follows = "nixpkgs";
+    touhoukou.url = github:nyiyui/touhoukou;
+    touhoukou.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = github:ryantm/agenix;
     agenix.inputs.nixpkgs.follows = "nixpkgs";
   };

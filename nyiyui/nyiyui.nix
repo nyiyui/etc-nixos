@@ -173,6 +173,7 @@
     pdftk
     qrencode
     wl-clipboard
+    jetbrains.idea-ultimate
   ] ++ (with pkgs.libsForQt5; [
     okular
     gwenview
