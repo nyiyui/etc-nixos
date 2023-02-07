@@ -27,6 +27,7 @@ alias mpvvl='mpv --no-video --loop'
 
 # git aliases
 alias gp='git push'
+alias gs='git status'
 alias gpoa='git push origin @'
 alias gl='git pull'
 alias ga='git add'
