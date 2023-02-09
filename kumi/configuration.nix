@@ -14,7 +14,6 @@
       ./hardware-configuration.nix
       nixos-hardware.nixosModules.system76
       home-manager.nixosModule {}
-      ../dns.nix
       ../wireguard.nix
       ../reimu.nix
       ../doas.nix
