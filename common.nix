@@ -60,9 +60,7 @@
     qemu_full
     virt-manager
     blueman
-    udisks
     file
-    udiskie
   ];
 
   fonts.fonts = with pkgs; [
