@@ -109,7 +109,7 @@
         "${modifier}+Return" = "exec foot";
         "Alt+Return" = "exec kate";
         "${modifier}+Alt+Return" = "exec ${pkgs.rnote}/bin/rnote";
-        "${modifier}+Alt+N" = "exec ${pkgs.mako}/bin/makoctl dismiss";
+        "${modifier}+Alt+N" = "exec ${pkgs.mako}/bin/makoctl menu dmenu -b -p '通知'";
         "${modifier}+N" = "exec ${pkgs.mako}/bin/makoctl dismiss";
         "${modifier}+Shift+N" = "exec ${pkgs.mako}/bin/makoctl restore";
       };
@@ -167,4 +167,7 @@
       border-color=#ffffff
     '';
   };
+  home.packages = with pkgs; [
+    jq # required by mako for e.g. mako menu
+  ];
 }
