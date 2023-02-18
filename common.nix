@@ -61,6 +61,7 @@
     virt-manager
     blueman
     file
+    picocom
   ];
 
   fonts.fonts = with pkgs; [

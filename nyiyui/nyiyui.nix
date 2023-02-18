@@ -80,6 +80,8 @@
       vim-nix
       vim-go
       csv-vim
+      coc-clangd
+      vim-clang-format
     ];
   };
   programs.foot = {
@@ -176,6 +178,7 @@
     qrencode
     wl-clipboard
     jetbrains.idea-community
+    jetbrains.pycharm-community
   ] ++ (with pkgs.libsForQt5; [
     okular
     gwenview
