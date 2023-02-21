@@ -66,9 +66,8 @@ export XMODIFIERS=@im=fcitx
 if status is-interactive
 	fish_ssh_agent
 	ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/inaba/geofront/id_inaba
-	if ssh-add -l | grep -q 'kEasi5T4B5BiknnE7eNU0L8TtW+olomN3I9wsEdNBA4'; or ssh-add -l | grep -q 'q6lgN42+86zYYCNfTwOO/1LlgX9A97TSwD3Ph8e2Swg)'
-		ssh-add ~/.ssh/id_ed25519
-	end
+	ssh-add -l | grep -q 'kEasi5T4B5BiknnE7eNU0L8TtW+olomN3I9wsEdNBA4' || ssh-add ~/.ssh/id_ed25519
+	ssh-add -l | grep -q 'q6lgN42+86zYYCNfTwOO/1LlgX9A97TSwD3Ph8e2Swg' || ssh-add ~/.ssh/id_ed25519
 
 	echo 'e: 85?'
 	echo 'm: 87'
