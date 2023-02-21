@@ -95,6 +95,8 @@
     shell = pkgs.fish;
   };
 
+  nix.settings.trusted-users = [ "nyiyui" ];
+
   environment.shells = [ pkgs.fish ];
 
   # Syncthing
