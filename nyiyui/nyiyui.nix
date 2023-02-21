@@ -178,7 +178,7 @@
     qrencode
     wl-clipboard
     jetbrains.idea-community
-    jetbrains.pycharm-community
+    python310Packages.ipython
   ] ++ (with pkgs.libsForQt5; [
     okular
     gwenview
