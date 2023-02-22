@@ -74,4 +74,9 @@ if status is-interactive
 	echo 'c: 87'
 	echo 'b: 96/98'
 	echo 'study lolol'
+	echo 'TODO'
+	echo '  ka calc'
+	echo '  ka sat'
+	echo '  彼女と彼女の猫EF'
+	echo '  yarnkey 1 trial'
 end
