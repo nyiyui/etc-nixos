@@ -179,6 +179,7 @@
     wl-clipboard
     jetbrains.idea-community
     python310Packages.ipython
+    gnome.gnome-keyring
   ] ++ (with pkgs.libsForQt5; [
     okular
     gwenview
