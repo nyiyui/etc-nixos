@@ -179,7 +179,6 @@
     wl-clipboard
     jetbrains.idea-community
     python310Packages.ipython
-    gnome.gnome-keyring
   ] ++ (with pkgs.libsForQt5; [
     okular
     gwenview
@@ -226,5 +225,10 @@
       Host mcpt.ca
         SetEnv TERM=xterm-256color
     '';
+  };
+
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "pkcs11" "secrets" "ssh" ];
   };
 }
