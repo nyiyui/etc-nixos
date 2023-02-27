@@ -179,6 +179,7 @@
     wl-clipboard
     jetbrains.idea-community
     python310Packages.ipython
+    docker-credential-helpers
   ] ++ (with pkgs.libsForQt5; [
     okular
     gwenview
@@ -231,4 +232,8 @@
     enable = true;
     components = [ "pkcs11" "secrets" "ssh" ];
   };
+
+  #home.file.".docker/config.json".text = builtins.toJSON {
+  #  credsStore = "secretservice";
+  #};
 }

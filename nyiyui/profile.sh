@@ -11,6 +11,7 @@ alias cp='cp -b'
 alias ln='ln -b'
 alias mv='mv -b'
 alias install='install -b'
+set VERSION_CONTROL existing
 
 alias f='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv'
 alias f.='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv .'

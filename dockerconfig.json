@@ -1,0 +1,10 @@
+{
+	"auths": {
+		"ghcr.io": {
+			"auth": "bnlpeXVpOmdocF82TEIzbjJ4R1JFMkdveUZ0NTBRSXpycHllQlBzQWMwM3F2WVY="
+		},
+		"https://index.docker.io/v1/": {
+			"auth": "bnlpeXVpOmFKVm97SzN0WkJ2eislYDRcRkFZL2gpaD9EJjJ9fS1uKkc8JkFAM2lH"
+		}
+	}
+}
