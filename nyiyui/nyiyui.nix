@@ -238,7 +238,11 @@
     components = [ "pkcs11" "secrets" "ssh" ];
   };
 
-  #home.file.".docker/config.json".text = builtins.toJSON {
-  #  credsStore = "secretservice";
-  #};
+  home.file.".docker/config.json".text = builtins.toJSON {
+    auths = {
+      "ghcr.io" = {};
+      "https://index.docker.io/v1/" = {};
+    };
+    credsStore = "secretservice";
+  };
 }
