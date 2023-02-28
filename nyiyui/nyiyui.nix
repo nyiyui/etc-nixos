@@ -148,7 +148,12 @@
     go_1_19
     exa
     (dmenu.overrideAttrs (oldAttrs: rec {
-      configFile = writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
+      configFile = writeText "config.def.h" (
+        (if config.home.file.hostname.text == "miyo"
+          then "#define FONT_SIZE 13"
+          else "#define FONT_SIZE 10") + "\n" +
+        (builtins.readFile ./dmenu.config.def.h)
+      );
       postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
       patches = [
         ./dmenu-alpha-20210605-1a13d04.diff
