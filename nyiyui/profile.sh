@@ -7,10 +7,10 @@ export EDITOR="$VISUAL"
 
 alias sudo=doas
 
-alias cp='cp -b'
-alias ln='ln -b'
-alias mv='mv -b'
-alias install='install -b'
+alias cp='cp --backup=existing'
+alias ln='ln --backup=existing'
+alias mv='mv --backup=existing'
+alias install='install --backup=existing'
 set VERSION_CONTROL existing
 
 alias f='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv'
