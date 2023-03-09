@@ -2,6 +2,7 @@
 {
   imports = [
     ./dns.nix
+    ./virt.nix
   ];
 
   # This value determines the NixOS release from which the default
@@ -20,10 +21,6 @@
 
   # Docker
   virtualisation.docker.enable = true;
-
-  virtualisation.libvirtd = {
-    enable = true;
-  };
 
   powerManagement.cpuFreqGovernor = "performance";
 
@@ -57,7 +54,6 @@
     nix-index
     acpi
     qemu_full
-    virt-manager
     blueman
     file
     picocom
@@ -113,4 +109,6 @@
   services.udisks2.enable = true;
 
   services.locate.enable = true;
+
+  services.flatpak.enable = true;
 }

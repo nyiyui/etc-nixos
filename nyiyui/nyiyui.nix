@@ -192,7 +192,6 @@
     kate
     ctags
     systemsettings
-    kdenlive
     akregator
   ]) ++ (with pkgs.hunspellDicts; [
     en_CA
