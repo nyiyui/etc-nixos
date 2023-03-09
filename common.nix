@@ -52,7 +52,6 @@
     system76-firmware
     unzip
     gzip
-    realvnc-vnc-viewer
     zip
     libsForQt5.ark
     nix-index
