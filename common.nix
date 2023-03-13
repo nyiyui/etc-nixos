@@ -80,7 +80,7 @@
     isNormalUser = true;
     description = "Ken Shibata";
     group = "nyiyui";
-    extraGroups = [ "uucp" "networkmanager" "wheel" "video" "docker" "libvirtd" ];
+    extraGroups = [ "uucp" "networkmanager" "wheel" "video" "docker" "libvirtd" "dialout" ];
     packages = with pkgs; [
       firefox
       chromium
