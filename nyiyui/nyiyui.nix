@@ -75,6 +75,9 @@
     extraConfig = ''
       set rnu nu
       set directory=~/.cache/nvim
+      set tabstop=2
+      set shiftwidth=2
+      set expandtab
     '';
     plugins = with pkgs.vimPlugins; [
       vim-nix
