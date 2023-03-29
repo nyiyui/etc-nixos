@@ -4,8 +4,9 @@
   qrystal.services.node = {
     enable = true;
     config.hokuto = {
-      addr = "127.0.0.1:39255";
-      upstream = "8.8.8.8:53";
+      addr = "";
+      useInConfig = false;
+      configureResolved = false;
     };
     config.css = [
       #{
