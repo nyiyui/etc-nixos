@@ -3,7 +3,7 @@
 {
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx.engines = with pkgs.fcitx-engines; [ mozc hangul ];
+    #fcitx.engines = with pkgs.fcitx-engines; [ mozc hangul ];
     fcitx5.addons = with pkgs; [
       fcitx5-mozc
       fcitx5-hangul
@@ -118,7 +118,7 @@
         "*" = {
           tap = "enabled";
           xkb_options = "compose:caps";
-          accel_profile = "flat";
+          accel_profile = "adaptive";
           pointer_accel = "1";
           dwt = "disabled";
           middle_emulation = "disabled";
