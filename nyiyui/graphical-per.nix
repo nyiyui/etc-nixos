@@ -15,7 +15,7 @@
   (lib.mkIf (config.home.file.hostname.text == "naha") {
     wayland.windowManager.sway.config = {
       output = {
-        "SONY TV  *00" = {
+        "HDMI-A-2" = {
           mode = "1920x1080@60.000Hz";
           pos = "1920 0";
           scale = "1";
