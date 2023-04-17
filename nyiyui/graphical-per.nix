@@ -12,6 +12,17 @@
       };
     };
   })
+  (lib.mkIf (config.home.file.hostname.text == "naha") {
+    wayland.windowManager.sway.config = {
+      output = {
+        "SONY TV  *00" = {
+          mode = "1920x1080@60.000Hz";
+          pos = "1920 0";
+          scale = "1";
+        };
+      };
+    };
+  })
   (lib.mkIf (config.home.file.hostname.text == "miyo") {
     wayland.windowManager.sway.config = {
       output = {

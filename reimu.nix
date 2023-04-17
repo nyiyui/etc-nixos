@@ -7,29 +7,10 @@
   (lib.mkIf (config.networking.hostName == "miyo") {
     networking.wireguard.interfaces.reimu.ips = [ "10.42.0.4/32" ];
   })
-  {
-    environment.systemPackages = [ pkgs.wireguard-tools ];
-  
-    networking.nat.enable = true;
-    networking.nat.externalInterface = "eth0";
-    networking.nat.internalInterfaces = [ "reimu" ];
-    networking.wireguard.interfaces = {
-      reimu = {
-        privateKeyFile = "/etc/nixos/reimu-privkey";
-        mtu = 1200;
-        peers = [
-          {
-            publicKey = "y6cyueQS6Tv5uA1uoM5ce5RR+AuuaUw955/y+cr+QXc=";
-            presharedKeyFile = "/etc/nixos/reimu-psk";
-            allowedIPs = [ "10.42.0.0/16" ];
-            #endpoint = "reimu.nyiyui.ca:42420";
-            endpoint = "127.0.0.1:42420";
-            persistentKeepalive = 30;
-          }
-        ];
-      };
-    };
-
+  (lib.mkIf (config.networking.hostName == "naha") {
+    networking.wireguard.interfaces.reimu.ips = [ "10.42.0.5/32" ];
+  })
+  (lib.mkIf (config.networking.hostName != "naha") {
     systemd.services.reimu-proxy = {
       enable = true;
       description = "udp2raw proxy for wg reimu";
@@ -49,6 +30,30 @@
         RemoveIPC = "yes";
       };
     };
+  })
+  {
+    environment.systemPackages = [ pkgs.wireguard-tools ];
+  
+    networking.nat.enable = true;
+    networking.nat.externalInterface = "eth0";
+    networking.nat.internalInterfaces = [ "reimu" ];
+    networking.wireguard.interfaces = {
+      reimu = {
+        privateKeyFile = "/etc/nixos/reimu-privkey";
+        mtu = 1200;
+        peers = [
+          {
+            publicKey = "y6cyueQS6Tv5uA1uoM5ce5RR+AuuaUw955/y+cr+QXc=";
+            presharedKeyFile = "/etc/nixos/reimu-psk";
+            allowedIPs = [ "10.42.0.0/16" ];
+            endpoint = "reimu.nyiyui.ca:42420";
+            #endpoint = "127.0.0.1:42420";
+            persistentKeepalive = 30;
+          }
+        ];
+      };
+    };
+
 
     systemd.services.reimu-socks = {
       enable = true;
