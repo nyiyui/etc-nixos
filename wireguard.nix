@@ -9,22 +9,20 @@
   })
   {
     environment.systemPackages = [ pkgs.wireguard-tools ];
-  
+
     networking.nat.enable = true;
     networking.nat.externalInterface = "eth0";
     networking.nat.internalInterfaces = [ "kimihenokore" ];
     networking.wireguard.interfaces = {
       kimihenokore = {
         privateKeyFile = "/etc/nixos/wireguard-privkey";
-        peers = [
-          {
-            publicKey = "EYxF76Poj9O1mV3bhvQ1UXdewvHcI+dDi70f3qmGOS0=";
-            presharedKeyFile = "/etc/nixos/wireguard-psk";
-            allowedIPs = [ "10.5.0.0/24" ];
-            endpoint = "127.0.0.1:28607";
-            persistentKeepalive = 30;
-          }
-        ];
+        peers = [{
+          publicKey = "EYxF76Poj9O1mV3bhvQ1UXdewvHcI+dDi70f3qmGOS0=";
+          presharedKeyFile = "/etc/nixos/wireguard-psk";
+          allowedIPs = [ "10.5.0.0/24" ];
+          endpoint = "127.0.0.1:28607";
+          persistentKeepalive = 30;
+        }];
       };
     };
 
@@ -33,12 +31,14 @@
       description = "udp2raw proxy for wg kimihenokore";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.writeShellScriptBin "kimihenokore-proxy.sh" ''
-          ${touhoukou.packages.${pkgs.system}.udp2raw}/bin/udp2raw \
-            -c -l127.0.0.1:28607 -r34.130.187.64:3389 \
-            -k "$(cat /etc/nixos/kimihenokore-udp2raw-key)" \
-            --raw-mode faketcp -a
-        ''}/bin/kimihenokore-proxy.sh";
+        ExecStart = "${
+            pkgs.writeShellScriptBin "kimihenokore-proxy.sh" ''
+              ${touhoukou.packages.${pkgs.system}.udp2raw}/bin/udp2raw \
+                -c -l127.0.0.1:28607 -r34.130.187.64:3389 \
+                -k "$(cat /etc/nixos/kimihenokore-udp2raw-key)" \
+                --raw-mode faketcp -a
+            ''
+          }/bin/kimihenokore-proxy.sh";
         # TODO: run as non-root
         ProtectSystem = "strict";
         ProtectHome = "yes";

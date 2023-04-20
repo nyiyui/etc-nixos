@@ -8,9 +8,7 @@
     enable = true;
     resolveLocalQueries = false;
     settings = {
-      server = {
-        interface = [ "127.0.0.1" "::1" ];
-      };
+      server = { interface = [ "127.0.0.1" "::1" ]; };
       forward-zone = [
         {
           name = ".";

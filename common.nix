@@ -1,10 +1,5 @@
-{ config, pkgs, ... }:
-{
-  imports = [
-    ./dns.nix
-    ./virt.nix
-    ./reimu.nix
-  ];
+{ config, pkgs, ... }: {
+  imports = [ ./dns.nix ./virt.nix ./reimu.nix ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -43,7 +38,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    curl 
+    curl
     pciutils
     neovim
     htop
@@ -72,22 +67,17 @@
 
   programs.git.enable = true;
 
-  home-manager.users.nyiyui = (import ./nyiyui/nyiyui.nix {
-    hostname = config.networking.hostName;
-  });
+  home-manager.users.nyiyui =
+    (import ./nyiyui/nyiyui.nix { hostname = config.networking.hostName; });
 
-  users.groups.nyiyui = {};
+  users.groups.nyiyui = { };
   users.users.nyiyui = {
     isNormalUser = true;
     description = "Ken Shibata";
     group = "nyiyui";
-    extraGroups = [ "uucp" "networkmanager" "wheel" "video" "docker" "libvirtd" "dialout" ];
-    packages = with pkgs; [
-      firefox
-      chromium
-      syncthing
-      git
-    ];
+    extraGroups =
+      [ "uucp" "networkmanager" "wheel" "video" "docker" "libvirtd" "dialout" ];
+    packages = with pkgs; [ firefox chromium syncthing git ];
     shell = pkgs.fish;
   };
 

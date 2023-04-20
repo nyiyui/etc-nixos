@@ -1,5 +1,4 @@
-{ config, qrystal, ... }:
-{ 
+{ config, qrystal, ... }: {
   imports = [ qrystal.outputs.nixosModules.x86_64-linux.node ];
 
   qrystal.services.node = {
@@ -22,12 +21,11 @@
       {
         comment = "kimihenokore";
         endpoint = "qrystal.nyiyui.ca:39252";
-        tls.certPath = builtins.toFile "kimihenokore-cert.pem" (builtins.readFile ./kimihenokore-cert.pem);
+        tls.certPath = builtins.toFile "kimihenokore-cert.pem"
+          (builtins.readFile ./kimihenokore-cert.pem);
         networks = [ "haruka" ];
         tokenPath = "/etc/nixos/kimihenokore-token";
-        azusa.networks.haruka = {
-          name = config.networking.hostName;
-        };
+        azusa.networks.haruka = { name = config.networking.hostName; };
       }
     ];
   };

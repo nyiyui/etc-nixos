@@ -170,4 +170,8 @@
   home.packages = with pkgs; [
     jq # required by mako for e.g. mako menu
   ];
+
+  gtk.theme = {
+    name = "Adwaita-dark";
+  };
 }
