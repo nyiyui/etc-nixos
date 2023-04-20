@@ -3,6 +3,7 @@
   imports = [
     ./dns.nix
     ./virt.nix
+    ./reimu.nix
   ];
 
   # This value determines the NixOS release from which the default

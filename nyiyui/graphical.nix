@@ -118,10 +118,6 @@
         "*" = {
           tap = "enabled";
           xkb_options = "compose:caps";
-          accel_profile = "adaptive";
-          pointer_accel = "1";
-          dwt = "disabled";
-          middle_emulation = "disabled";
         };
       };
       floating = {

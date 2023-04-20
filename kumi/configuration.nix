@@ -15,7 +15,6 @@
       nixos-hardware.nixosModules.system76
       home-manager.nixosModule {}
       ../wireguard.nix
-      ../reimu.nix
       ../doas.nix
       ../i18n.nix
       ../common.nix

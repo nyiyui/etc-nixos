@@ -12,7 +12,6 @@
       ./hardware-configuration.nix
       home-manager.nixosModule {}
       ../wireguard.nix
-      ../reimu.nix
       ../doas.nix
       ../i18n.nix
       ../common.nix
@@ -89,4 +88,7 @@
     Option         "AllowIndirectGLXProtocol" "off"
     Option         "TripleBuffer" "on"
   '';
+
+  reimu.enable = true;
+  reimu.address = "10.42.0.4/32";
 }

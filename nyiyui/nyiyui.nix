@@ -93,6 +93,7 @@
     settings.main.shell = "fish -c tmux";
     settings.main.font = if (hostname == "miyo")
     then "hack:size=14"
+    else if (hostname == "hananawi") then "JetBrainsMono:size=8,NotoColorEmoji:size=8,hack:size=8"
     else "JetBrainsMono:size=7,NotoColorEmoji:size=7,hack:size=8";
   };
   services.wlsunset = {

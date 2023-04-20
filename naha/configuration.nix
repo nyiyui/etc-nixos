@@ -13,7 +13,6 @@
       ./hardware-configuration.nix
       home-manager.nixosModule {}
       nixos-hardware.nixosModules.lenovo-thinkpad-t470s
-      ../reimu.nix
       ../doas.nix
       ../i18n.nix
       ../common.nix
@@ -120,4 +119,7 @@
 
   programs.sway.enable = true;
   xdg.portal.wlr.enable = true;
+
+  reimu.enable = true;
+  reimu.address = "10.42.0.5/32";
 }
