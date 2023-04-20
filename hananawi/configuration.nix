@@ -17,6 +17,7 @@
       ../i18n.nix
       ../common.nix
       ../syncthing.nix
+      ../tlp.nix
     ];
 
   networking.hostName = "hananawi";

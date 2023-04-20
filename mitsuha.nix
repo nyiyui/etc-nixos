@@ -7,11 +7,23 @@
       #StartLimitIntervalSec = 350;
       #StartLimitBurst = 30;
     };
-    environment = { CPUPOWER = "${pkgs.cpupower}/bin/cpupower"; };
     serviceConfig = {
-      ExecStart = "${pkgs.bash}/bin/bash " + ./mitsuha.sh;
       #Restart = "on-failure";
       #RestartSec = 3;
     };
+    script = ''
+      lastState=""
+      while true; do
+        curState="$(cat /sys/class/power_supply/AC/online)"
+        if [[ "$curState" != "$lastState" ]]; then
+          if [[ "$curState" == 0 ]]; then
+            ${pkgs.cpupower}/bin/cpupower frequency-set -g powersave
+          elif [[ "$curState" == 1 ]]; then
+            ${pkgs.cpupower}/bin/cpupower frequency-set -g performance
+          fi
+        fi
+        sleep 30
+      done
+    '';
   };
 }
