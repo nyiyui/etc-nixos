@@ -8,6 +8,7 @@
     ./graphical-per.nix
     ./fonts.nix
     ./tmux.nix
+    ./chromium.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
