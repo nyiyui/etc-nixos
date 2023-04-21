@@ -14,6 +14,9 @@
   })
   (lib.mkIf (config.home.file.hostname.text == "naha") {
     wayland.windowManager.sway.config = {
+      startup = [
+        { command = "${pkgs.chromium}/bin/chromium --proxy-server=socks5://10.42.0.1:1080"; }
+      ];
       output = {
         "HDMI-A-1" = {
           disable = "";
