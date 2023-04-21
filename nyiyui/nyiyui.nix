@@ -106,20 +106,6 @@
       night = 1500;
     };
   };
-  systemd.user.services.safeeyes = {
-    Unit = {
-      Description = "Safe eyes: simple and beautiful, yet extensible break reminder";
-      PartOf = [ "graphical-session.target" ];
-      StartLimitIntervalSec = 350;
-      StartLimitBurst = 30;
-    };
-    Service = {
-      ExecStart = "${pkgs.safeeyes}/bin/safeeyes";
-      Restart = "on-failure";
-      RestartSec = 3;
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
   systemd.user.services.swaybg = {
     Unit = {
       Description = "swaywm background";
