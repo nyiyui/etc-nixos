@@ -29,7 +29,7 @@ in {
       };
     };
   config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+    (lib.mkIf cfg.udp2raw.enable {
       systemd.services.reimu-proxy = {
         enable = true;
         description = "udp2raw proxy for wg reimu";
