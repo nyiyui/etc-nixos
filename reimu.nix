@@ -60,12 +60,12 @@ in {
       networking.nat.internalInterfaces = [ "reimu" ];
       networking.wireguard.interfaces = {
         reimu = {
+          ips = [ cfg.address ];
           privateKeyFile = "/etc/nixos/reimu-privkey";
-          mtu = 1200;
           peers = [{
             publicKey = "y6cyueQS6Tv5uA1uoM5ce5RR+AuuaUw955/y+cr+QXc=";
             presharedKeyFile = "/etc/nixos/reimu-psk";
-            allowedIPs = [ "10.42.0.0/16" ];
+            allowedIPs = [ "10.42.0.1/32" ];
             endpoint =
               if cfg.udp2raw.enable then cfg.udp2raw.addr else cfg.endpoint;
             persistentKeepalive = 30;
