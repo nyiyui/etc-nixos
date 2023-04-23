@@ -177,7 +177,7 @@
   programs.swaylock = {
     enable = true;
     settings = {
-      ignore-empty-password = true;
+      ignore-empty-password = false;
       show-failed-attempts = true;
       show-keyboard-layout = true;
       color = "000000";

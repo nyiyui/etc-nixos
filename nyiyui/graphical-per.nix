@@ -50,4 +50,6 @@
       };
     };
   })
+  (lib.mkIf (config.home.file.hostname.text == "hananawi") {
+  })
 ])

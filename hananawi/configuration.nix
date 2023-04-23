@@ -18,6 +18,7 @@
       ../common.nix
       ../syncthing.nix
       ../tlp.nix
+      ../fprint.nix
     ];
 
   networking.hostName = "hananawi";
