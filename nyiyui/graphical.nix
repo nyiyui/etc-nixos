@@ -173,4 +173,28 @@
   gtk.theme = {
     name = "Adwaita-dark";
   };
+
+  programs.swaylock = {
+    enable = true;
+    settings = {
+      ignore-empty-password = true;
+      show-failed-attempts = true;
+      show-keyboard-layout = true;
+      color = "000000";
+      inside-color = "137a7f";
+      inside-ver-color = "000000";
+      inside-wrong-color = "86cecb";
+      inside-caps-lock-color = "e12885";
+    };
+  };
+
+  services.swayidle = {
+    enable = true;
+    events = [
+      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock"; }
+    ];
+    timeouts = [
+      { timeout = 60; command = "${pkgs.swaylock}/bin/swaylock"; }
+    ];
+  };
 }
