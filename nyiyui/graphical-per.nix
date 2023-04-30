@@ -51,5 +51,14 @@
     };
   })
   (lib.mkIf (config.home.file.hostname.text == "hananawi") {
+    wayland.windowManager.sway.config = {
+      output = {
+        "eDP-1" = {
+          mode = "2880x1800@60.001Hz";
+          scale = "1.5";
+          adaptive_sync = "on";
+        };
+      };
+    };
   })
 ])

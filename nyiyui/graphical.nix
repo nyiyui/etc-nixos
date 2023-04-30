@@ -26,6 +26,13 @@
         modules-center = [ "sway/window" ];
         modules-right = [ "tray" "network" "temperature" "pulseaudio" "battery" "clock" ];
     
+        "battery" = {
+          states.warning = 20;
+          states.critical = 10;
+          format = "{capacity} {time}";
+          tooltip-format = "{power}W";
+          format-time = "{H}:{m}";
+        };
         "sway/workspaces" = {
           disable-scroll = true;
           all-outputs = true;
