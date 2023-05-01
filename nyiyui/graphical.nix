@@ -136,7 +136,7 @@
     };
   };
 
-  services.mako = {
+  programs.mako = {
     enable = true;
     anchor = "bottom-right";
     font = "Roboto 14";
@@ -182,7 +182,7 @@
   };
 
   programs.swaylock = {
-    enable = true;
+    #enable = true;
     settings = {
       ignore-empty-password = false;
       show-failed-attempts = true;
