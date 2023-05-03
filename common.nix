@@ -22,10 +22,6 @@
 
   services.openssh.enable = true;
 
-  # GC
-  nix.gc.automatic = true;
-  nix.gc.dates = "weekly";
-
   # Storage Optimisation
   nix.settings.auto-optimise-store = true;
 

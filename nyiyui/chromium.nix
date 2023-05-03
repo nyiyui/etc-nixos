@@ -4,6 +4,7 @@
     extensions = [
       { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; }
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
+      { id = "mclkkofklkfljcocdinagocijmpgbhab"; }
     ];
   };
 }

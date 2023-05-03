@@ -16,6 +16,7 @@
       ../doas.nix
       ../i18n.nix
       ../common.nix
+      ../autoUpgrade.nix
     ];
 
   networking.hostName = "naha";
