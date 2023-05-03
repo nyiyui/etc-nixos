@@ -1,23 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  home-manager,
-  nixos-hardware,
-  ...
-}:
+{ config, lib, pkgs, home-manager, nixos-hardware, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      home-manager.nixosModule {}
-      nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
-      ../common.nix
-      ../syncthing.nix
-      ../tlp.nix
-      ../fprint.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    home-manager.nixosModule
+    { }
+    nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
+    ../common.nix
+    ../syncthing.nix
+    ../tlp.nix
+    ../fprint.nix
+  ];
 
   networking.hostName = "hananawi";
 
@@ -27,13 +20,13 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-cfc0ad37-5315-44c7-ade3-24ebde45b146".device = "/dev/disk/by-uuid/cfc0ad37-5315-44c7-ade3-24ebde45b146";
-  boot.initrd.luks.devices."luks-cfc0ad37-5315-44c7-ade3-24ebde45b146".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-cfc0ad37-5315-44c7-ade3-24ebde45b146".device =
+    "/dev/disk/by-uuid/cfc0ad37-5315-44c7-ade3-24ebde45b146";
+  boot.initrd.luks.devices."luks-cfc0ad37-5315-44c7-ade3-24ebde45b146".keyFile =
+    "/crypto_keyfile.bin";
 
   networking.networkmanager.enable = true;
 
@@ -61,15 +54,13 @@
   services.xserver.enable = true;
 
   services.xserver.displayManager = {
-    lightdm = {
-      enable = true;
-    };
+    lightdm = { enable = true; };
     autoLogin = {
       enable = true;
       user = "nyiyui";
     };
   };
-  
+
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
@@ -77,7 +68,7 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       vaapiVdpau
       libvdpau-va-gl
     ];

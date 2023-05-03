@@ -4,11 +4,7 @@
   i18n.inputMethod = {
     enabled = "fcitx5";
     #fcitx.engines = with pkgs.fcitx-engines; [ mozc hangul ];
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-hangul
-      fcitx5-gtk
-    ];
+    fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-hangul fcitx5-gtk ];
   };
 
   programs.waybar = {
@@ -24,8 +20,9 @@
         output = [ "eDP-1" "DP-1" ];
         modules-left = [ "sway/workspaces" ];
         modules-center = [ "sway/window" ];
-        modules-right = [ "tray" "network" "temperature" "pulseaudio" "battery" "clock" ];
-    
+        modules-right =
+          [ "tray" "network" "temperature" "pulseaudio" "battery" "clock" ];
+
         "battery" = {
           states.warning = 20;
           states.critical = 10;
@@ -41,16 +38,16 @@
           format = "{app_id} {title}";
           icon = true;
         };
-        "clock" = {
-          format = "{:%H:%M %Y-%m-%d}";
-        };
+        "clock" = { format = "{:%H:%M %Y-%m-%d}"; };
         "network" = {
           format = "{ifname}";
           format-wifi = "{essid} {signaldBm}";
           format-disconnected = "";
           on-click = "${pkgs.foot}/bin/foot ~/wifi_conn_new";
-          tooltip-format = "{ifname} {ipaddr} {bandwidthUpOctets} {bandwidthUpOctets}";
-          tooltip-format-wifi = "{ifname} {essid} {signaldBm} dBm {frequency} MHz {ipaddr} {bandwidthUpOctets} {bandwidthUpOctets}";
+          tooltip-format =
+            "{ifname} {ipaddr} {bandwidthUpOctets} {bandwidthUpOctets}";
+          tooltip-format-wifi =
+            "{ifname} {essid} {signaldBm} dBm {frequency} MHz {ipaddr} {bandwidthUpOctets} {bandwidthUpOctets}";
           tooltip-format-disconnected = "切断";
         };
         "pulseaudio" = {
@@ -93,29 +90,44 @@
     '';
     config = rec {
       modifier = "Mod4";
-      terminal = "foot"; 
+      terminal = "foot";
       startup = [
-        { command = "systemctl --user restart waybar"; always = true; }
-        { command = "systemctl --user restart wlsunset"; always = true; }
-        { command = "${pkgs.foot}/bin/foot ssh-add $(ls -1 ~/.ssh/id_* | grep -v '\\.pub$')"; }
+        {
+          command = "systemctl --user restart waybar";
+          always = true;
+        }
+        {
+          command = "systemctl --user restart wlsunset";
+          always = true;
+        }
+        {
+          command =
+            "${pkgs.foot}/bin/foot ssh-add $(ls -1 ~/.ssh/id_* | grep -v '\\.pub$')";
+        }
       ];
       keybindings = lib.mkOptionDefault {
         # use wev to find pressed keys
         "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +1%";
-        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
+        "XF86AudioRaiseVolume" =
+          "exec pactl set-sink-volume @DEFAULT_SINK@ +1%";
+        "XF86AudioLowerVolume" =
+          "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
         "XF86AudioPlay" = "exec playerctl play-pause";
         # Screenshots 
-        "Print" = "exec ${pkgs.grim}/bin/grim - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy";
-        "Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
-        "${modifier}+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(swaymsg -t get_tree | ${pkgs.jq}/bin/jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
+        "Print" =
+          "exec ${pkgs.grim}/bin/grim - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy";
+        "Shift+Print" = ''
+          exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
+        "${modifier}+Print" = ''
+          exec ${pkgs.grim}/bin/grim -g "$(swaymsg -t get_tree | ${pkgs.jq}/bin/jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
         "XF86MonBrightnessUp" = "exec light -A 1";
         "XF86MonBrightnessDown" = "exec light -U 1";
         "${modifier}+Shift+Return" = "exec chromium";
         "${modifier}+Return" = "exec foot";
         "Alt+Return" = "exec kate";
         "${modifier}+Alt+Return" = "exec ${pkgs.rnote}/bin/rnote";
-        "${modifier}+Alt+N" = "exec ${pkgs.mako}/bin/makoctl menu dmenu -p '通知'";
+        "${modifier}+Alt+N" =
+          "exec ${pkgs.mako}/bin/makoctl menu dmenu -p '通知'";
         "${modifier}+N" = "exec ${pkgs.mako}/bin/makoctl dismiss";
         "${modifier}+Shift+N" = "exec ${pkgs.mako}/bin/makoctl restore";
       };
@@ -127,12 +139,9 @@
         };
       };
       floating = {
-        criteria = [
-          { app_id = "urn-gtk"; }
-          { app_id = "pavucontrol"; }
-        ];
+        criteria = [ { app_id = "urn-gtk"; } { app_id = "pavucontrol"; } ];
       };
-      bars = [];
+      bars = [ ];
     };
   };
 
@@ -142,20 +151,20 @@
     font = "Roboto 14";
     backgroundColor = "#00000050";
     textColor = "#86cecb";
-#FORMAT SPECIFIERS
-#Format specification works similarly to printf(3), but with a different set of specifiers.
-#%% Literal "%"
-#\\ Literal "\"
-#\n New Line
-#For notifications
-#%a Application name
-#%s Notification summary
-#%b Notification body
-#%g Number of notifications in the current group
-#%i Notification id
-#For the hidden notifications placeholder
-#%h Number of hidden notifications
-#%t Total number of notifications
+    #FORMAT SPECIFIERS
+    #Format specification works similarly to printf(3), but with a different set of specifiers.
+    #%% Literal "%"
+    #\\ Literal "\"
+    #\n New Line
+    #For notifications
+    #%a Application name
+    #%s Notification summary
+    #%b Notification body
+    #%g Number of notifications in the current group
+    #%i Notification id
+    #For the hidden notifications placeholder
+    #%h Number of hidden notifications
+    #%t Total number of notifications
     extraConfig = ''
       max-history=65536
       format=<b>%s</b>\n%b\n%a %i
@@ -173,13 +182,12 @@
       border-color=#ffffff
     '';
   };
-  home.packages = with pkgs; [
-    jq # required by mako for e.g. mako menu
-  ];
+  home.packages = with pkgs;
+    [
+      jq # required by mako for e.g. mako menu
+    ];
 
-  gtk.theme = {
-    name = "Adwaita-dark";
-  };
+  gtk.theme = { name = "Adwaita-dark"; };
 
   programs.swaylock = {
     #enable = true;
@@ -197,11 +205,13 @@
 
   services.swayidle = {
     enable = true;
-    events = [
-      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock"; }
-    ];
-    timeouts = [
-      { timeout = 600; command = "${pkgs.swaylock}/bin/swaylock"; }
-    ];
+    events = [{
+      event = "before-sleep";
+      command = "${pkgs.swaylock}/bin/swaylock";
+    }];
+    timeouts = [{
+      timeout = 600;
+      command = "${pkgs.swaylock}/bin/swaylock";
+    }];
   };
 }

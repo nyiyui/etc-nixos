@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   system.autoUpgrade = {
     enable = true;
     rebootWindow.lower = "03:00";

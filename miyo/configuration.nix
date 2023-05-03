@@ -1,20 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  home-manager,
-  ...
-}:
+{ config, lib, pkgs, home-manager, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      home-manager.nixosModule {}
-      ../wireguard.nix
-      ../common.nix
-      ../gensokyo.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    home-manager.nixosModule
+    { }
+    ../wireguard.nix
+    ../common.nix
+    ../gensokyo.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -32,9 +26,7 @@
   services.xserver.enable = true;
 
   services.xserver.displayManager = {
-    lightdm = {
-      enable = true;
-    };
+    lightdm = { enable = true; };
     autoLogin = {
       enable = true;
       user = "nyiyui";

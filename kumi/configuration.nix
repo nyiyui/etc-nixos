@@ -1,25 +1,17 @@
-{
-  config,
-  lib,
-  pkgs,
-  home-manager,
-  nixos-hardware,
-  agenix,
-  ...
-}:
+{ config, lib, pkgs, home-manager, nixos-hardware, agenix, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      nixos-hardware.nixosModules.system76
-      home-manager.nixosModule {}
-      ../wireguard.nix
-      ../doas.nix
-      ../i18n.nix
-      ../common.nix
-      agenix.nixosModules.default
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    nixos-hardware.nixosModules.system76
+    home-manager.nixosModule
+    { }
+    ../wireguard.nix
+    ../doas.nix
+    ../i18n.nix
+    ../common.nix
+    agenix.nixosModules.default
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -27,9 +19,7 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
+  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
   networking.hostName = "kumi";
 
@@ -93,7 +83,7 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       vaapiVdpau
       libvdpau-va-gl
       intel-compute-runtime

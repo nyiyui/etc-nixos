@@ -50,21 +50,20 @@
       export GTK_IM_MODULE=fcitx
       export XMODIFIERS=@im=fcitx
     '';
-    plugins = [
-      {
-        name = "ssh_agent";
-        src = pkgs.fetchFromGitHub {
-          owner = "ivakyb";
-          repo = "fish_ssh_agent";
-          rev = "c7aa080d5210f5f525d078df6fdeedfba8db7f9b";
-          sha256 = "bfd5596390c2a3e89665ac11295805bec8b7dd42b0b6b892a54ceb3212f44b5e";
-        };
-      }
-    ];
+    plugins = [{
+      name = "ssh_agent";
+      src = pkgs.fetchFromGitHub {
+        owner = "ivakyb";
+        repo = "fish_ssh_agent";
+        rev = "c7aa080d5210f5f525d078df6fdeedfba8db7f9b";
+        sha256 =
+          "bfd5596390c2a3e89665ac11295805bec8b7dd42b0b6b892a54ceb3212f44b5e";
+      };
+    }];
   };
   programs.bash = {
     historySize = 20000;
-    initExtra = ''source ~/inaba/dots/sh/sh.sh'';
+    initExtra = "source ~/inaba/dots/sh/sh.sh";
     bashrcExtra = ''
       export QT_IM_MODULE=fcitx
       export GTK_IM_MODULE=fcitx
@@ -92,10 +91,12 @@
     enable = true;
     settings.colors.alpha = 0;
     settings.main.shell = "fish -c tmux";
-    settings.main.font = if (hostname == "miyo")
-    then "hack:size=14"
-    else if (hostname == "hananawi") then "JetBrainsMono:size=8,NotoColorEmoji:size=8,hack:size=8"
-    else "JetBrainsMono:size=7,NotoColorEmoji:size=7,hack:size=8";
+    settings.main.font = if (hostname == "miyo") then
+      "hack:size=14"
+    else if (hostname == "hananawi") then
+      "JetBrainsMono:size=8,NotoColorEmoji:size=8,hack:size=8"
+    else
+      "JetBrainsMono:size=7,NotoColorEmoji:size=7,hack:size=8";
   };
   services.wlsunset = {
     enable = true;
@@ -120,77 +121,77 @@
     };
     Install.WantedBy = [ "graphical-session.target" ];
   };
-  home.packages = with pkgs; [
-    go-tools
-    gotools
-    godef
-    gopls
+  home.packages = with pkgs;
+    [
+      go-tools
+      gotools
+      godef
+      gopls
 
-    pavucontrol
-    swaylock
-    pulseaudio
-    playerctl
-    wlsunset
-    keepassxc
-    tor
-    tor-browser-bundle-bin
-    clipman
-    ark
-    go_1_19
-    exa
-    (dmenu.overrideAttrs (oldAttrs: rec {
-      configFile = writeText "config.def.h" (
-        (if config.home.file.hostname.text == "miyo"
-          then "#define FONT_SIZE 13"
-          else "#define FONT_SIZE 10") + "\n" +
-        (builtins.readFile ./dmenu.config.def.h)
-      );
-      postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
-      patches = [
-        ./dmenu-alpha-20210605-1a13d04.diff
-        # below is workaround for alpha patch (add -lXrender to config.mk)
-        ./dmenu-alpha-mk.patch
-      ];
-    }))
-    networkmanagerapplet # provides nm-connection-editor
-    obs-studio
-    obs-studio-plugins.wlrobs
-    obs-studio-plugins.obs-pipewire-audio-capture
-    urn-timer
-    safeeyes
-    gimp
-    darktable
-    imagemagick
-    xournalpp
-    rnote
-    hunspell
-    libreoffice-qt
-    anki
-    notify-desktop
-    audacity
-    prusa-slicer
-    capitaine-cursors
-    pdftk
-    qrencode
-    wl-clipboard
-    jetbrains.idea-community
-    python310Packages.ipython
-    docker-credential-helpers
+      pavucontrol
+      swaylock
+      pulseaudio
+      playerctl
+      wlsunset
+      keepassxc
+      tor
+      tor-browser-bundle-bin
+      clipman
+      ark
+      go_1_19
+      exa
+      (dmenu.overrideAttrs (oldAttrs: rec {
+        configFile = writeText "config.def.h"
+          ((if config.home.file.hostname.text == "miyo" then
+            "#define FONT_SIZE 13"
+          else
+            "#define FONT_SIZE 10") + "\n"
+            + (builtins.readFile ./dmenu.config.def.h));
+        postPatch = ''
+          ${oldAttrs.postPatch}
+           cp ${configFile} config.def.h'';
+        patches = [
+          ./dmenu-alpha-20210605-1a13d04.diff
+          # below is workaround for alpha patch (add -lXrender to config.mk)
+          ./dmenu-alpha-mk.patch
+        ];
+      }))
+      networkmanagerapplet # provides nm-connection-editor
+      obs-studio
+      obs-studio-plugins.wlrobs
+      obs-studio-plugins.obs-pipewire-audio-capture
+      urn-timer
+      safeeyes
+      gimp
+      darktable
+      imagemagick
+      xournalpp
+      rnote
+      hunspell
+      libreoffice-qt
+      anki
+      notify-desktop
+      audacity
+      prusa-slicer
+      capitaine-cursors
+      pdftk
+      qrencode
+      wl-clipboard
+      jetbrains.idea-community
+      python310Packages.ipython
+      docker-credential-helpers
 
-    gnome.seahorse
-    gcr # for gnome keyring prompt https://github.com/NixOS/nixpkgs/issues/174099#issuecomment-1135974195
-  ] ++ (with pkgs.libsForQt5; [
-    okular
-    gwenview
-    dolphin
-    kate
-    ctags
-    systemsettings
-    akregator
-  ]) ++ (with pkgs.hunspellDicts; [
-    en_CA
-    en_US
-  ]);
+      gnome.seahorse
+      gcr # for gnome keyring prompt https://github.com/NixOS/nixpkgs/issues/174099#issuecomment-1135974195
+    ] ++ (with pkgs.libsForQt5; [
+      okular
+      gwenview
+      dolphin
+      kate
+      ctags
+      systemsettings
+      akregator
+    ]) ++ (with pkgs.hunspellDicts; [ en_CA en_US ]);
 
   programs.mpv = {
     enable = true;
@@ -203,9 +204,7 @@
   };
   nixpkgs.overlays = [
     (self: super: {
-      mpv = super.mpv.override {
-        scripts = [ self.mpvScripts.mpris ];
-      };
+      mpv = super.mpv.override { scripts = [ self.mpvScripts.mpris ]; };
     })
   ];
   systemd.user.services.mpris-proxy = {
@@ -233,8 +232,8 @@
 
   home.file.".docker/config.json".text = builtins.toJSON {
     auths = {
-      "ghcr.io" = {};
-      "https://index.docker.io/v1/" = {};
+      "ghcr.io" = { };
+      "https://index.docker.io/v1/" = { };
     };
     credsStore = "secretservice";
   };

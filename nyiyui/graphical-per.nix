@@ -14,13 +14,12 @@
   })
   (lib.mkIf (config.home.file.hostname.text == "naha") {
     wayland.windowManager.sway.config = {
-      startup = [
-        { command = "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'"; }
-      ];
+      startup = [{
+        command =
+          "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'";
+      }];
       output = {
-        "HDMI-A-1" = {
-          disable = "";
-        };
+        "HDMI-A-1" = { disable = ""; };
         "HDMI-A-2" = {
           mode = "1920x1080@60.000Hz";
           pos = "1920 0";
@@ -44,9 +43,7 @@
         };
       };
       input = {
-        "1386:221:Wacom_Bamboo_Connect_Pen" = {
-          map_to_output = "HDMI-A-1";
-        };
+        "1386:221:Wacom_Bamboo_Connect_Pen" = { map_to_output = "HDMI-A-1"; };
       };
     };
   })

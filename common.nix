@@ -1,6 +1,8 @@
 { config, pkgs, ... }: {
   imports = [
-    ./dns.nix ./virt.nix ./reimu.nix
+    ./dns.nix
+    ./virt.nix
+    ./reimu.nix
     ./autoUpgrade.nix
     ./i18n.nix
     ./doas.nix
