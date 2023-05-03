@@ -12,8 +12,6 @@
       ./hardware-configuration.nix
       home-manager.nixosModule {}
       ../wireguard.nix
-      ../doas.nix
-      ../i18n.nix
       ../common.nix
       ../gensokyo.nix
     ];

@@ -1,5 +1,10 @@
 { config, pkgs, ... }: {
-  imports = [ ./dns.nix ./virt.nix ./reimu.nix ];
+  imports = [
+    ./dns.nix ./virt.nix ./reimu.nix
+    ./autoUpgrade.nix
+    ./i18n.nix
+    ./doas.nix
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

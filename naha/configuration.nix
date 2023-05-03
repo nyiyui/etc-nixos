@@ -13,10 +13,7 @@
       ./hardware-configuration.nix
       home-manager.nixosModule {}
       nixos-hardware.nixosModules.lenovo-thinkpad-t470s
-      ../doas.nix
-      ../i18n.nix
       ../common.nix
-      ../autoUpgrade.nix
     ];
 
   networking.hostName = "naha";

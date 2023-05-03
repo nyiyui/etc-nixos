@@ -13,8 +13,6 @@
       ./hardware-configuration.nix
       home-manager.nixosModule {}
       nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
-      ../doas.nix
-      ../i18n.nix
       ../common.nix
       ../syncthing.nix
       ../tlp.nix
