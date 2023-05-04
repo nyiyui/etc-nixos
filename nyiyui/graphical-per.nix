@@ -19,11 +19,12 @@
           "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'";
       }];
       output = {
-        "HDMI-A-1" = { disable = ""; };
+        "eDP-1" = {
+          pos = "0 0";
+        };
         "HDMI-A-2" = {
           mode = "1920x1080@60.000Hz";
           pos = "1920 0";
-          scale = "1";
         };
       };
     };
