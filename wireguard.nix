@@ -1,9 +1,6 @@
 { config, lib, pkgs, touhoukou, ... }:
 
 (lib.mkMerge [
-  (lib.mkIf (config.networking.hostName == "kumi") {
-    networking.wireguard.interfaces.kimihenokore.ips = [ "10.5.0.93/32" ];
-  })
   (lib.mkIf (config.networking.hostName == "miyo") {
     networking.wireguard.interfaces.kimihenokore.ips = [ "10.5.0.94/32" ];
   })
