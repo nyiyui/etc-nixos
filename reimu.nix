@@ -15,6 +15,7 @@ in {
         description = "address for wireguard";
       };
       udp2raw = mkOption {
+        default.enable = false;
         type = (submodule {
           options = {
             enable = mkEnableOption "use udp2raw to circumvent UDP blocks";

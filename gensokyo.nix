@@ -6,7 +6,6 @@
     config.hokuto = {
       addr = "";
       useInConfig = false;
-      configureResolved = false;
     };
     config.css = [
       #{
