@@ -217,22 +217,29 @@
       show-failed-attempts = true;
       show-keyboard-layout = true;
       color = "000000";
-      inside-color = "137a7f";
+      inside-color = "000000";
+      inside-clear-color = "000000";
+      inside-caps-lock-color = "000000";
       inside-ver-color = "000000";
-      inside-wrong-color = "86cecb";
-      inside-caps-lock-color = "e12885";
+      inside-wrong-color = "000000";
+      ring-color = "bec8d1";
+      ring-ver-color = "137a7f";
+      ring-wrong-color = "86cecb";
+      ring-caps-lock-color = "e12885";
     };
   };
 
-  services.swayidle = {
+  services.swayidle = let 
+    swaylockCommand = "${pkgs.swaylock}/bin/swaylock -f";
+  in {
     enable = true;
     events = [{
       event = "before-sleep";
-      command = "${pkgs.swaylock}/bin/swaylock";
+      command = swaylockCommand;
     }];
     timeouts = [{
       timeout = 600;
-      command = "${pkgs.swaylock}/bin/swaylock";
+      command = swaylockCommand;
     }];
   };
 }
