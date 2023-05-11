@@ -128,6 +128,7 @@
       godef
       gopls
 
+      easyeffects
       pavucontrol
       swaylock
       pulseaudio
