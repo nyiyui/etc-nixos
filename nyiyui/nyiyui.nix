@@ -129,6 +129,7 @@
       gopls
 
       easyeffects
+      helvum
       pavucontrol
       swaylock
       pulseaudio
