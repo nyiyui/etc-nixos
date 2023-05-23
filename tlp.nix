@@ -9,11 +9,11 @@
     # full charge.
     # https://linrunner.de/tlp/faq/battery.html#how-to-choose-good-battery-charge-thresholds
     START_CHARGE_THRESH_BAT0 = 40;
-    STOP_CHARGE_THRESH_BAT0 = 70;
+    STOP_CHARGE_THRESH_BAT0 = 90;
 
     # 100 being the maximum, limit the speed of my CPU to reduce
     # heat and increase battery usage:
     CPU_MAX_PERF_ON_AC = 70;
-    CPU_MAX_PERF_ON_BAT = 70;
+    CPU_MAX_PERF_ON_BAT = 40;
   };
 }
