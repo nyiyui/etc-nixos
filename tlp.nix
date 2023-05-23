@@ -14,6 +14,6 @@
     # 100 being the maximum, limit the speed of my CPU to reduce
     # heat and increase battery usage:
     CPU_MAX_PERF_ON_AC = 70;
-    CPU_MAX_PERF_ON_BAT = 40;
+    CPU_MAX_PERF_ON_BAT = 30;
   };
 }
