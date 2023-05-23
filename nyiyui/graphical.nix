@@ -146,7 +146,6 @@
         "XF86MonBrightnessDown" = ''exec fish --command='if [ "$(light)" -le 1 ]; then; light -S 1; else; light -U 1; end' '';
         "${modifier}+Shift+Return" = "exec chromium";
         "${modifier}+Return" = "exec foot";
-        "Alt+Return" = "exec kate";
         "${modifier}+Alt+Return" = "exec ${pkgs.rnote}/bin/rnote";
         "${modifier}+Alt+N" =
           "exec ${pkgs.mako}/bin/makoctl menu dmenu -p '通知'";
