@@ -1,6 +1,7 @@
 { config, libs, pkgs, lib, ... }:
 
 {
+  imports = [./swayidle.nix];
   i18n.inputMethod = {
     enabled = "fcitx5";
     #fcitx.engines = with pkgs.fcitx-engines; [ mozc hangul ];
