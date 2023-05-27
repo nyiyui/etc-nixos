@@ -71,6 +71,9 @@
 
   programs.git.enable = true;
 
+  # TODO: use username@hostname syntax to separate per-host home manager flake thingl
+  # https://discourse.nixos.org/t/get-hostname-in-home-manager-flake-for-host-dependent-user-configs/18859/2
+
   home-manager.users.nyiyui =
     (import ./nyiyui/nyiyui.nix { hostname = config.networking.hostName; });
 
