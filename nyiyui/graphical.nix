@@ -229,18 +229,4 @@
       ring-caps-lock-color = "e12885";
     };
   };
-
-  services.swayidle = let 
-    swaylockCommand = "${pkgs.swaylock}/bin/swaylock -f";
-  in {
-    enable = true;
-    events = [{
-      event = "before-sleep";
-      command = swaylockCommand;
-    }];
-    timeouts = [{
-      timeout = 600;
-      command = swaylockCommand;
-    }];
-  };
 }

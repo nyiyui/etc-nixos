@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 (lib.mkMerge [
   (lib.mkIf (config.home.file.hostname.text == "naha") {
-    nyiyui.swayidle.enable = false;
+    #nyiyui.swayidle.enable = false;
     wayland.windowManager.sway.config = {
       startup = [{
         command =
