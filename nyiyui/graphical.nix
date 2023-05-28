@@ -161,7 +161,11 @@
         };
       };
       floating = {
-        criteria = [ { app_id = "urn-gtk"; } { app_id = "pavucontrol"; } ];
+        criteria = [
+          { app_id = "urn-gtk"; }
+          { app_id = "pavucontrol"; }
+          { app_id = "org.rncbc.qjackctl"; }
+        ];
       };
       bars = [ ];
     };
