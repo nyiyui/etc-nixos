@@ -67,8 +67,6 @@
     hack-font
   ];
 
-  services.picom.enable = true;
-
   programs.git.enable = true;
 
   # TODO: use username@hostname syntax to separate per-host home manager flake thingl
