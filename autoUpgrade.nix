@@ -24,7 +24,7 @@
   systemd.timers.autoupgrade-pull = {
     enable = true;
     description = "trigger pull of /etc/nixos";
-    timerConfig.OnCalendar = "Fri 02:00";
+    timerConfig.OnCalendar = "02:00";
     timerConfig.Persistent = true;
     # see .github/workflows/flake-upgrade.yml (runs on Fri 00:00)
     wantedBy = [ "timers.target" ];
