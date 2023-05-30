@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -13,5 +12,5 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ qjackctl ];
+  environment.systemPackages = with pkgs; [ qjackctl jacktrip ];
 }
