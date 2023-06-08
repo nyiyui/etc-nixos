@@ -170,7 +170,7 @@
     };
   };
 
-  programs.mako = {
+  services.mako = {
     enable = true;
     anchor = "bottom-right";
     font = "Roboto 14";
