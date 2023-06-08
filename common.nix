@@ -83,7 +83,6 @@
     extraGroups =
       [ "uucp" "networkmanager" "wheel" "video" "docker" "libvirtd" "dialout" ];
     packages = with pkgs; [ firefox chromium syncthing git ];
-    shell = pkgs.fish;
   };
 
   nix.settings.trusted-users = [ "nyiyui" ];
