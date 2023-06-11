@@ -134,7 +134,7 @@
           "exec pactl set-sink-volume @DEFAULT_SINK@ +1%";
         "XF86AudioLowerVolume" =
           "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
-        "XF86AudioPlay" = "exec playerctl play-pause";
+        "Control+grave" = "exec playerctl play-pause";
         # Screenshots 
         "Print" =
           "exec ${pkgs.grim}/bin/grim - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy";
