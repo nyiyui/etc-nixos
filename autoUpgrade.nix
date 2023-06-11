@@ -3,8 +3,9 @@
     enable = true;
     rebootWindow.lower = "03:00";
     rebootWindow.upper = "05:00";
-    randomizedDelaySec = "1h";
+    randomizedDelaySec = "1d";
     persistent = true;
+    dates = "02:30";
     flake = "/etc/nixos";
     allowReboot = true;
   };
