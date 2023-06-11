@@ -5,7 +5,7 @@
     rebootWindow.upper = "05:00";
     randomizedDelaySec = "1d";
     persistent = true;
-    dates = "02:30";
+    dates = "Fri 02:30";
     flake = "/etc/nixos";
     allowReboot = true;
   };
@@ -25,7 +25,7 @@
   systemd.timers.autoupgrade-pull = {
     enable = true;
     description = "trigger pull of /etc/nixos";
-    timerConfig.OnCalendar = "02:00";
+    timerConfig.OnCalendar = "Fri 02:00";
     timerConfig.Persistent = true;
     # see .github/workflows/flake-upgrade.yml (runs on Fri 00:00)
     wantedBy = [ "timers.target" ];
