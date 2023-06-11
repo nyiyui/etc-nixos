@@ -38,7 +38,10 @@
     };
     script = ''
       export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i /etc/nixos/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
-      ${pkgs.git}/bin/git -c 'safe.directory=/etc/nixos' pull
+      ${pkgs.git}/bin/git \
+        -c 'safe.directory=/etc/nixos' \
+        -c 'core.sharedRepository=group' \
+        pull
     '';
   };
 }
