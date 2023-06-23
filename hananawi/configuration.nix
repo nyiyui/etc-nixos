@@ -11,7 +11,6 @@
     ../tlp.nix
     ../fprint.nix
     ../sound.nix
-    ../arbtt.nix
   ];
 
   networking.hostName = "hananawi";
