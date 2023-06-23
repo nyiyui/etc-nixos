@@ -9,6 +9,7 @@
     ./fonts.nix
     ./tmux.nix
     ./chromium.nix
+    ./arbtt.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
