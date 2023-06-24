@@ -3,8 +3,8 @@
 {
   imports = [
     (modulesPath + "/virtualisation/google-compute-image.nix")
-    ./autoUpgrade.nix
-    ./doas.nix
+    ../autoUpgrade.nix
+    ../doas.nix
   ];
 
   networking.hostName = "rikka";
