@@ -10,6 +10,7 @@
   security.doas.extraRules = [{
     users = [ "nyiyui" ];
     keepEnv = true;
+    noPass = true;
   }];
 
   networking.hostName = "rei";
