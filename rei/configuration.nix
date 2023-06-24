@@ -6,6 +6,12 @@
     ../autoUpgrade.nix
   ];
 
+  security.doas.enable = true;
+  security.doas.extraRules = [{
+    users = [ "nyiyui" ];
+    keepEnv = true;
+  }];
+
   networking.hostName = "rei";
 
   system.stateVersion = "23.05";
@@ -21,6 +27,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
     ];
   };
+
+  programs.git.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.shells = [ pkgs.fish ];
