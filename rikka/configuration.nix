@@ -18,6 +18,9 @@
     group = "nyiyui";
     extraGroups = [ "wheel" ];
     packages = with pkgs; [ firefox chromium syncthing git ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
+    ];
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
