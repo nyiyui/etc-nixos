@@ -29,10 +29,10 @@
         specialArgs = attrs;
         modules = [ ./hananawi/configuration.nix ];
       };
-      nixosConfigurations.rikka = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.rei = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./rikka/configuration.nix ];
+        modules = [ ./rei/configuration.nix ];
       };
     };
 }
