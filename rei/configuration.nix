@@ -4,6 +4,7 @@
   imports = [
     (modulesPath + "/virtualisation/google-compute-image.nix")
     ../autoUpgrade.nix
+    ./kuromiya.nix
   ];
 
   security.doas.enable = true;

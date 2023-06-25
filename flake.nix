@@ -11,7 +11,7 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, qrystal, ... }@attrs:
+  outputs = { self, agenix, nixpkgs, qrystal, ... }@attrs:
     let pkgs = import nixpkgs { config.allowUnfree = true; };
     in {
       nixosConfigurations.miyo = nixpkgs.lib.nixosSystem {
@@ -32,7 +32,7 @@
       nixosConfigurations.rei = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./rei/configuration.nix ];
+        modules = [ ./rei/configuration.nix agenix.nixosModules.default ];
       };
     };
 }
