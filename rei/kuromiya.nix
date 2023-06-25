@@ -11,7 +11,7 @@
       {
         name = "hinanawi";
         hash = "qrystalcth_5dfd42f22115f71c986b415404a954e91098f021bc394a7a298fa235611da6de";
-        networks = [ "msb" ];
+        networks = [ "msb" ]; # 結び 君の名は
         canPull = true;
         canPush.networks.msb = {
           name = "hinanawi";
@@ -19,7 +19,7 @@
         };
       }
     ];
-    central.networks.msb = {
+    config.central.networks.msb = {
       keepalive = "30s";
       listenPort = 39570;
       ips = [ "10.59.0.0/8" ];
