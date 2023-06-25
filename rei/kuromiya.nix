@@ -7,7 +7,7 @@
       certPath = ../kuromiya-cert.pem;
       keyPath = config.age.secrets."kuromiya-key.pem".path;
     };
-    tokens = [
+    config.tokens = [
       {
         name = "hinanawi";
         hash = "qrystalcth_5dfd42f22115f71c986b415404a954e91098f021bc394a7a298fa235611da6de";
