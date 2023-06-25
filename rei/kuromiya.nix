@@ -1,5 +1,5 @@
 { config, qrystal, ... }: {
-  imports = [ qrystal.outputs.nixosModules.x86_64-linux.node ];
+  imports = [ qrystal.outputs.nixosModules.x86_64-linux.cs ];
 
   qrystal.services.cs = {
     enable = true;
