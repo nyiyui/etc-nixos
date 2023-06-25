@@ -27,7 +27,7 @@
       nixosConfigurations.hananawi = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./hananawi/configuration.nix ];
+        modules = [ ./hananawi/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.rei = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
