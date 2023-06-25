@@ -25,6 +25,7 @@ in {
   age.secrets."kuromiya-${hostName}.qrystalct" = {
     file = ./secrets/kuromiya-${hostName}.qrystalct.age;
     owner = "qrystal-node";
+    group = "qrystal-node";
     mode = "400";
   };
 }
