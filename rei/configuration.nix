@@ -35,4 +35,6 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.shells = [ pkgs.fish ];
   nix.settings.auto-optimise-store = true;
+
+  programs.tmux.enable = true;
 }
