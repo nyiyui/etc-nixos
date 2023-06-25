@@ -8,6 +8,7 @@
     nixos-hardware.nixosModules.lenovo-thinkpad-t470s
     ../common.nix
     ../sound.nix
+    ../vlc.nix
   ];
 
   networking.hostName = "naha";

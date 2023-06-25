@@ -5,3 +5,5 @@ https://unix.stackexchange.com/a/285568
 Delete generations (from /boot too):
 nix-env -p /nix/var/nix/profiles/system --delete-generations +2
 (see https://discourse.nixos.org/t/what-to-do-with-a-full-boot-partition/2049/3)
+
+Blu-ray https://askubuntu.com/questions/1325752/missing-aacs-configuration-file-error-when-playing-blueray-movies
