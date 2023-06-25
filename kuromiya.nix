@@ -22,5 +22,9 @@ in {
     };
   };
 
-  age.secrets."kuromiya-${hostName}.qrystalct".file = ./secrets/kuromiya-${hostName}.qrystalct.age;
+  age.secrets."kuromiya-${hostName}.qrystalct" = {
+    file = ./secrets/kuromiya-${hostName}.qrystalct.age;
+    owner = "qrystal-node";
+    mode = "400";
+  };
 }
