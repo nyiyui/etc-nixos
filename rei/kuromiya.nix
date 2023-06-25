@@ -26,7 +26,8 @@
     };
   };
 
-  networking.firewall.allowedUDPPorts = [ 39570 ];
+  # fw disbaled on GCE
+  # networking.firewall.allowedUDPPorts = [ 39570 ];
 
   age.secrets."kuromiya-key.pem".file = ../secrets/kuromiya-key.pem.age;
 }
