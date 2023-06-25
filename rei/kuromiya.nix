@@ -19,7 +19,14 @@
         };
       }
     ];
+    central.networks.msb = {
+      keepalive = "30s";
+      listenPort = 39570;
+      ips = [ "10.59.0.0/8" ];
+    };
   };
+
+  networking.firewall.allowedUDPPorts = [ 39570 ];
 
   age.secrets."kuromiya-key.pem".file = ../secrets/kuromiya-key.pem.age;
 }
