@@ -32,6 +32,7 @@
   age.secrets."kuromiya-key.pem" = {
     file = ../secrets/kuromiya-key.pem.age;
     owner = "qrystal-cs";
+    group = "qrystal-cs";
     mode = "400";
   };
 }
