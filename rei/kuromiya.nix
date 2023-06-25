@@ -11,7 +11,7 @@
       {
         name = "hinanawi";
         hash = "qrystalcth_5dfd42f22115f71c986b415404a954e91098f021bc394a7a298fa235611da6de";
-        networks.msb = [ "hinanawi" ]; # 結び 君の名は
+        networks.msb = "hinanawi"; # 結び 君の名は
         canPull = true;
         canPush.networks.msb = {
           name = "hinanawi";
