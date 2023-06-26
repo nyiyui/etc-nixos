@@ -22,7 +22,7 @@
       nixosConfigurations.naha = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./naha/configuration.nix ];
+        modules = [ ./naha/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.hananawi = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
