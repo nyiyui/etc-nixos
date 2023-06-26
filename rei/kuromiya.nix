@@ -4,7 +4,7 @@
   qrystal.services.cs = {
     enable = true;
     config.tls = {
-      certPath = ../kuromiya-cert.pem;
+      certPath = ./kuromiya-cert.pem;
       keyPath = config.age.secrets."kuromiya-key.pem".path;
     };
     config.tokens = [
