@@ -9,6 +9,7 @@
     ../common.nix
     ../sound.nix
     ../vlc.nix
+    ../kuromiya.nix
   ];
 
   networking.hostName = "naha";

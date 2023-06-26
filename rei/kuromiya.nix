@@ -18,6 +18,16 @@
           canSeeElement = "any";
         };
       }
+      {
+        name = "naha";
+        hash = "qrystalcth_196fde3337c9c3ee07823feb3de5f3d622b0e0e26fc62f75b625a0b031f519f0";
+        networks.msb = "naha";
+        canPull = true;
+        canPush.networks.msb = {
+          name = "naha";
+          canSeeElement = "any";
+        };
+      }
     ];
     config.central.networks.msb = {
       keepalive = "30s";

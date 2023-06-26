@@ -11,6 +11,7 @@
     ../tlp.nix
     ../fprint.nix
     ../sound.nix
+    ../vlc.nix
     ../kuromiya.nix
   ];
 
