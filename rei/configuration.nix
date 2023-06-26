@@ -5,6 +5,7 @@
     (modulesPath + "/virtualisation/google-compute-image.nix")
     ../autoUpgrade.nix
     ./kuromiya.nix
+    ../kuromiya.nix
   ];
 
   security.doas.enable = true;
@@ -38,4 +39,8 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.shells = [ pkgs.fish ];
   nix.settings.auto-optimise-store = true;
+
+  qrystal.services.node.config.cs.azusa.networks.msb = {
+    endpoint = "rei.nyiyui.ca:39570";
+  };
 }
