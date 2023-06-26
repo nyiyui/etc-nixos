@@ -29,6 +29,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
     ];
   };
+  nix.settings.trusted-users = [ "nyiyui" ];
 
   programs.git.enable = true;
   programs.tmux.enable = true;

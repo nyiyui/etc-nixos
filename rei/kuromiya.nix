@@ -15,7 +15,7 @@
         canPull = true;
         canPush.networks.msb = {
           name = "hinanawi";
-          canSeeElement = [];
+          canSeeElement = "any";
         };
       }
     ];
