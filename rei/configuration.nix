@@ -41,6 +41,6 @@
   nix.settings.auto-optimise-store = true;
 
   qrystal.services.node.config.cs.azusa.networks.msb = {
-    endpoint = "rei.nyiyui.ca:39570";
+    host = "rei.nyiyui.ca:39570";
   };
 }
