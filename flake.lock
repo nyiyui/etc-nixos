@@ -172,11 +172,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1687813187,
-        "narHash": "sha256-AjqFNI8VCzIRCPBTA9cHF1abnVKbEEFvOBIYaj51Zgw=",
+        "lastModified": 1687833980,
+        "narHash": "sha256-juFpfIYdCJT4wFh+gerv2QoNslzDFFBlqhwY2HTkWls=",
         "owner": "nyiyui",
         "repo": "qrystal",
-        "rev": "4299b46c5e015a8fe5a11ab9510788611d09b7dc",
+        "rev": "c61ca74f7c79d52ac4472b054c9204b78a5c4265",
         "type": "github"
       },
       "original": {

@@ -32,6 +32,7 @@
   };
   nix.settings.trusted-users = [ "nyiyui" ];
 
+  environment.systemPackages = with pkgs; [ wireguard-tools ];
   programs.git.enable = true;
   programs.tmux.enable = true;
   programs.htop.enable = true;
