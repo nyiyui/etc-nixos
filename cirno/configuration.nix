@@ -4,7 +4,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../common.nix
       ../kuromiya.nix
     ];
 
@@ -42,6 +41,10 @@
     keepEnv = true;
     noPass = true;
   }];
+
+  programs.git.enable = true;
+  programs.tmux.enable = true;
+  programs.htop.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
