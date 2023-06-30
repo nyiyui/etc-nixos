@@ -30,6 +30,15 @@
     # see .github/workflows/flake-upgrade.yml (runs on Fri 00:00)
     wantedBy = [ "timers.target" ];
   };
+  systemd.services.autoupgrade-reset-perms = {
+    enable = true;
+    description = "reset perms for /etc/nixos";
+    script = ''
+      set -eu
+      chmod ug+rwX /etc/nixos -R
+      chown nyiyui:youmu /etc/nixos -R
+    '';
+  };
   systemd.services.autoupgrade-pull = {
     enable = true;
     description = "pull /etc/nixos";
@@ -37,6 +46,8 @@
       WorkingDirectory = "/etc/nixos";
       User = "youmu";
     };
+    wants = [ "autoupgrade-reset-perms.service" ];
+    after = [ "autoupgrade-reset-perms.service" ];
     script = ''
       export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i /etc/nixos/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
       ${pkgs.git}/bin/git \
