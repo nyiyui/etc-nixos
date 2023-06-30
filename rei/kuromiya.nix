@@ -22,6 +22,7 @@ in {
       (token { name = "rei"; hash = "qrystalcth_f59740d9888c97c224558099862bbc4daac66b27a098555151fbd751628e3003"; })
       (token { name = "hinanawi"; hash = "qrystalcth_5dfd42f22115f71c986b415404a954e91098f021bc394a7a298fa235611da6de"; })
       (token { name = "naha"; hash = "qrystalcth_196fde3337c9c3ee07823feb3de5f3d622b0e0e26fc62f75b625a0b031f519f0"; })
+      (token { name = "naha"; hash = "qrystalcth_110d9b50a031eedefdb3e6ec7d114fa0171874fbcbfe9a0510bd290c8fc56c42"; })
     ];
     config.central.networks.msb = {
       keepalive = "30s";
