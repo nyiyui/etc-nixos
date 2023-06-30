@@ -34,5 +34,10 @@
         specialArgs = attrs;
         modules = [ ./rei/configuration.nix agenix.nixosModules.default ];
       };
+      nixosConfigurations.cirno = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules = [ ./rei/configuration.nix agenix.nixosModules.default ];
+      };
     };
 }
