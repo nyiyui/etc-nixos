@@ -1,18 +1,18 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   system.autoUpgrade = {
     enable = true;
     rebootWindow.lower = "03:00";
     rebootWindow.upper = "05:00";
     randomizedDelaySec = "1d";
     persistent = true;
-    dates = "Fri 02:30";
+    dates = lib.mkDefault "Fri 02:30";
     flake = "/etc/nixos";
     allowReboot = true;
   };
   nix.gc = {
     options = "--delete-older-than 14d";
     persistent = true;
-    dates = "06:00"; # after reboot window
+    dates = lib.mkDefault "06:00"; # after reboot window
     automatic = true;
     randomizedDelaySec = "1h";
   };
@@ -25,7 +25,7 @@
   systemd.timers.autoupgrade-pull = {
     enable = true;
     description = "trigger pull of /etc/nixos";
-    timerConfig.OnCalendar = "Fri 02:00";
+    timerConfig.OnCalendar = lib.mkDefault "Fri 02:00";
     timerConfig.Persistent = true;
     # see .github/workflows/flake-upgrade.yml (runs on Fri 00:00)
     wantedBy = [ "timers.target" ];

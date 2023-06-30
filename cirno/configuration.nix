@@ -5,6 +5,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../kuromiya.nix
+      ../base.nix
+      ../headless.nix
     ];
 
   # Bootloader.
@@ -28,34 +30,6 @@
   time.timeZone = "America/Toronto";
   i18n.defaultLocale = "en_CA.UTF-8";
 
-  users.groups.nyiyui = { };
-  users.users.nyiyui = {
-    isNormalUser = true;
-    description = "Ken Shibata";
-    group = "nyiyui";
-    extraGroups = [ "wheel" ];
-    packages = with pkgs; [ git ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
-    ];
-  };
-  nix.settings.trusted-users = [ "nyiyui" ];
-
-  nixpkgs.config.allowUnfree = true;
-
-  services.openssh.enable = true;
-
-  security.doas.enable = true;
-  security.doas.extraRules = [{
-    users = [ "nyiyui" ];
-    keepEnv = true;
-    noPass = true;
-  }];
-
-  programs.git.enable = true;
-  programs.tmux.enable = true;
-  programs.htop.enable = true;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -63,5 +37,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }
