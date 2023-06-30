@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../kuromiya.nix
-      ../base.nix
-      ../headless.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../kuromiya.nix
+    ../base.nix
+    ../headless.nix
+  ];
 
   # Bootloader.
   #boot.loader.grub = {

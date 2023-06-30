@@ -143,7 +143,8 @@
         "${modifier}+Print" = ''
           exec ${pkgs.grim}/bin/grim -g "$(swaymsg -t get_tree | ${pkgs.jq}/bin/jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
         "XF86MonBrightnessUp" = "exec light -A 1";
-        "XF86MonBrightnessDown" = ''exec fish --command='if [ "$(light)" -le 1 ]; then; light -S 1; else; light -U 1; end' '';
+        "XF86MonBrightnessDown" = ''
+          exec fish --command='if [ "$(light)" -le 1 ]; then; light -S 1; else; light -U 1; end' '';
         "${modifier}+Shift+Return" = "exec chromium";
         "${modifier}+Return" = "exec foot";
         "${modifier}+Alt+Return" = "exec ${pkgs.rnote}/bin/rnote";

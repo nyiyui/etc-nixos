@@ -8,7 +8,7 @@
       useInConfig = false;
     };
     config.cs = {
-    comment = "kimihenokore";
+      comment = "kimihenokore";
       endpoint = "qrystal.nyiyui.ca:39252";
       tls.certPath = builtins.toFile "kimihenokore-cert.pem"
         (builtins.readFile ./kimihenokore-cert.pem);

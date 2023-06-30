@@ -21,7 +21,7 @@
     description = "auto-upgrade maintainer";
     group = "youmu";
   };
-  users.groups.youmu = {};
+  users.groups.youmu = { };
   systemd.timers.autoupgrade-pull = {
     enable = true;
     description = "trigger pull of /etc/nixos";
