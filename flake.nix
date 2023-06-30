@@ -9,9 +9,10 @@
     touhoukou.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    nix-serve-ng.url = github:aristanetworks/nix-serve-ng;
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, ... }@attrs:
+  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, ... }@attrs:
     let pkgs = import nixpkgs { config.allowUnfree = true; };
     in {
       nixosConfigurations.miyo = nixpkgs.lib.nixosSystem {
@@ -37,7 +38,7 @@
       nixosConfigurations.cirno = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./cirno/configuration.nix agenix.nixosModules.default ];
+        modules = [ ./cirno/configuration.nix agenix.nixosModules.default nix-serve-ng.nixosModules.default ];
       };
     };
 }

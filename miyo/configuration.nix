@@ -7,7 +7,6 @@
     { }
     ../wireguard.nix
     ../common.nix
-    ../gensokyo.nix
   ];
 
   # Bootloader.
