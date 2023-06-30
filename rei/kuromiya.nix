@@ -36,7 +36,7 @@ in {
           "qrystalcth_196fde3337c9c3ee07823feb3de5f3d622b0e0e26fc62f75b625a0b031f519f0";
       })
       (token {
-        name = "naha";
+        name = "cirno";
         hash =
           "qrystalcth_110d9b50a031eedefdb3e6ec7d114fa0171874fbcbfe9a0510bd290c8fc56c42";
       })
