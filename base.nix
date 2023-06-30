@@ -1,5 +1,8 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./autoUpgrade.nix
+  ];
   users.groups.nyiyui = { };
   users.users.nyiyui = {
     isNormalUser = true;
