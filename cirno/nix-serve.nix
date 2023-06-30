@@ -15,8 +15,7 @@
   };
   age.secrets."cirno-nix-serve-priv-key.pem" = {
     file = ../secrets/cirno-nix-serve-priv-key.pem.age;
-    owner = "nix-serve";
     group = "nix-serve";
-    mode = "400";
+    mode = "040";
   };
 }
