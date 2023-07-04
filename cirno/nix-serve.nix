@@ -1,11 +1,13 @@
-{ config, ... }:
-{
+{ config, ... }: {
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
     virtualHosts = {
       "cirno.nyiyui.ca" = {
-        locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
+        locations."/".proxyPass =
+          "http://${config.services.nix-serve.bindAddress}:${
+            toString config.services.nix-serve.port
+          }";
       };
     };
   };
