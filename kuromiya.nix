@@ -7,6 +7,10 @@ in {
 
   qrystal.services.node = {
     enable = true;
+    config.trace = {
+      outputPath = "/tmp/qrystal-trace";
+      waitUntilCNs = [ "msb" ];
+    };
     config.hokuto = {
       configureDnsmasq = true;
       addr = "127.0.0.39";
