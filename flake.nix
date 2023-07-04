@@ -10,9 +10,10 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     nix-serve-ng.url = github:aristanetworks/nix-serve-ng;
+    flake-utils.url = github:numtide/flake-utils;
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, ... }@attrs:
+  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, flake-utils, ... }@attrs:
     let pkgs = import nixpkgs { config.allowUnfree = true; };
     in {
       nixosConfigurations.miyo = nixpkgs.lib.nixosSystem {
@@ -40,5 +41,10 @@
         specialArgs = attrs;
         modules = [ ./cirno/configuration.nix agenix.nixosModules.default nix-serve-ng.nixosModules.default ];
       };
-    };
+    } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system: let 
+    pkgs = nixpkgs.legacyPackages.${system};in{
+      devShells.default = pkgs.mkShell {
+        packages = with pkgs; [ nixfmt ];
+      };
+    });
 }
