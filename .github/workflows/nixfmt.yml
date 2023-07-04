@@ -13,8 +13,12 @@ jobs:
       - run: "nix develop --command nixfmt */*.nix"
       - name: commit and push
         run: |
-          git config user.name 'GitHub Actions'
-          git config user.email 'etc-nixos+github-actions@nyiyui.ca'
-          git add flake.lock
-          git commit -am "nixfmt"
-          git push
+          if [ git diff --exit-code ]; then
+            echo 'no changes!'
+          else
+            git config user.name 'GitHub Actions'
+            git config user.email 'etc-nixos+github-actions@nyiyui.ca'
+            git add .
+            git commit -am "nixfmt"
+            git push
+          fi
