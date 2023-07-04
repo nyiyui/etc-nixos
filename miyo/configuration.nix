@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
     home-manager.nixosModule
     { }
-    ../wireguard.nix
     ../common.nix
   ];
 
