@@ -13,6 +13,7 @@
     ../sound.nix
     ../vlc.nix
     ../kuromiya.nix
+    ../docker.nix
   ];
 
   networking.hostName = "hananawi";

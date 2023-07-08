@@ -15,11 +15,6 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Docker
-  virtualisation.docker.enable = true;
-  systemd.services.docker.unitConfig.enable = false;
-  # ↑ docker.socket is still active so not much of an issue (see https://superuser.com/a/1731426)
-
   powerManagement.cpuFreqGovernor = "performance";
 
   services.openssh.enable = true;
@@ -99,6 +94,4 @@
   services.udisks2.enable = true;
 
   services.locate.enable = true;
-
-  services.flatpak.enable = true;
 }
