@@ -5,6 +5,9 @@ let
 in {
   imports = [ qrystal.outputs.nixosModules.x86_64-linux.node ];
 
+  systemd.services.qrystal-node.environment = {
+    "DEBUG_LEVEL" = "debug";
+  };
   qrystal.services.node = {
     enable = true;
     config.trace = {
