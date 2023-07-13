@@ -129,6 +129,8 @@
       godef
       gopls
 
+      freecad
+
       easyeffects
       helvum
       pavucontrol
