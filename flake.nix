@@ -31,10 +31,10 @@
         specialArgs = attrs;
         modules = [ ./hananawi/configuration.nix agenix.nixosModules.default ];
       };
-      nixosConfigurations.rei = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.kotohira = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./rei/configuration.nix agenix.nixosModules.default ];
+        modules = [ ./kotohira/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.cirno = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
