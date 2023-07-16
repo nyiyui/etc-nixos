@@ -14,6 +14,7 @@
     ../vlc.nix
     ../kuromiya.nix
     ../docker.nix
+    ../thunderbolt.nix
   ];
 
   networking.hostName = "hananawi";

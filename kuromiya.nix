@@ -2,6 +2,7 @@
 let
   hostNameRaw = config.networking.hostName;
   hostName = if hostNameRaw == "hananawi" then "hinanawi" else hostNameRaw;
+  dnscryptHost = "127.0.0.80";
 in {
   imports = [ qrystal.outputs.nixosModules.x86_64-linux.node ];
 
@@ -39,11 +40,12 @@ in {
     mode = "400";
   };
 
-  services.dnsmasq.settings.server = [ "127.0.0.80" ];
+  services.dnsmasq.settings.server = [ dnscryptHost ];
+    services.dnsmasq.settings.local = "/local/";
   services.dnscrypt-proxy2 = {
     enable = true;
     settings = {
-      listen_addresses = [ "127.0.0.80:53" ]; # TODO IPv6
+      listen_addresses = [ "${dnscryptHost}:53" ]; # TODO IPv6
       require_dnssec = true;
       sources.public-resolvers = {
         urls = [
