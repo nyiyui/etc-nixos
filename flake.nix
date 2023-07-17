@@ -26,6 +26,11 @@
         specialArgs = attrs;
         modules = [ ./naha/configuration.nix agenix.nixosModules.default ];
       };
+      nixosConfigurations.mitsu8 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules = [ ./mitsu8/configuration.nix agenix.nixosModules.default ];
+      };
       nixosConfigurations.hananawi = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
