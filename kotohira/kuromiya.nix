@@ -43,7 +43,7 @@ in {
       (token {
         name = "mitsu8";
         hash =
-          "qrystalcth_fc039b8c2a28da5150a97e389134da2d1011b6e33db42497ba5b6bfd3d747dff";
+          "qrystalcth_c8f7c45f3af3ddd98da52f9082301242c5725f86877c2c27e27365a2a91188c3";
       })
     ];
     config.central.networks.msb = {
