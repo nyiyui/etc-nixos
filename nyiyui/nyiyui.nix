@@ -101,11 +101,11 @@
   };
   services.wlsunset = {
     enable = true;
-    latitude = "43.7159566";
-    longitude = "-79.3702805";
+    latitude = lib.mkDefault "43.7159566";
+    longitude = lib.mkDefault "-79.3702805";
     temperature = {
-      day = 5000;
-      night = 1500;
+      day = lib.mkDefault 5000;
+      night = lib.mkDefault 1500;
     };
   };
   systemd.user.services.swaybg = {
