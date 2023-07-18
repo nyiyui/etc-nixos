@@ -5,14 +5,6 @@ let cfg = config.miyamizu.services.target; in {
   };
   config = lib.mkIf cfg.enable {
     services.openssh.enable = true;
-    home-manager.users.nyiyui = { ... }: {
-      programs.bash = {
-        enable = true;
-        bashrcExtra = ''
-          alias sudo=doas
-        '';
-      };
-    };
     users.groups.miyamizu-sync = {};
     users.users.miyamizu-sync = {
       isNormalUser = true; # required for ssh
@@ -24,6 +16,10 @@ let cfg = config.miyamizu.services.target; in {
       ];
     };
     nix.settings.trusted-users = [ "miyamizu-sync" ];
+    security.sudo = {
+      enable = true;
+      wheelNeedsPassword = false;
+    };
     security.doas.extraRules = [{
       users = [ "miyamizu-sync" ];
       keepEnv = true;

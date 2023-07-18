@@ -12,6 +12,7 @@ sync() {
   options='-o BatchMode=yes'
   options+=' -o IdentitiesOnly=yes -i ~/.ssh/id_miya'
 	options+=' -o StrictHostKeyChecking=accept-new'
+	options+=' -t'
   if [[ "$host" != 'kotohira' ]]; then
     options+=' -J kotohira.msb.q.nyiyui.ca' # idk how to specify a `-i` for a JumpHost
   fi
