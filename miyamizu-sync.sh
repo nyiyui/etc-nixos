@@ -8,10 +8,10 @@ webhook='https://discord.com/api/webhooks/1130938076504526918/cpqXSzuhK08H3lN5Io
 sync() {
   host="$1"
   pair="miyamizu-sync@$host.msb.q.nyiyui.ca"
-  options="-o IdentitiesOnly=yes -i ~/.ssh/id_miya"
+  options="-o BatchMode=yes -o IdentitiesOnly=yes -i ~/.ssh/id_miya"
   ssh="ssh $options $pair"
   $ssh -- 'doas nix-collect-garbage'
-  nixos-rebuild switch --flake ".#$host" --target-host "$pair" --use-remote-sudo
+  #NIX_SSHOPTS="$options" nixos-rebuild switch --flake ".#$host" --target-host "$pair" --use-remote-sudo
   deploy ".#$host" --ssh-opts "\"$options\""
   $ssh -- ' nix-env --delete-generations 1d'
   $ssh -- 'doas nix-collect-garbage -d'
