@@ -42,11 +42,13 @@
         specialArgs = attrs;
         modules = [ ./mitsu8/configuration.nix agenix.nixosModules.default ];
       };
+      deploy.nodes.mitsu8 = host-deploy "mitsu8";
       nixosConfigurations.hinanawi = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [ ./hinanawi/configuration.nix agenix.nixosModules.default ];
       };
+      deploy.nodes.hinanawi = host-deploy "hinanawi";
       nixosConfigurations.kotohira = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
