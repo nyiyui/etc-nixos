@@ -11,10 +11,21 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     nix-serve-ng.url = github:aristanetworks/nix-serve-ng;
     flake-utils.url = github:numtide/flake-utils;
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, flake-utils, ... }@attrs:
-    let pkgs = import nixpkgs { config.allowUnfree = true; };
+  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, flake-utils, deploy-rs, ... }@attrs:
+  let
+    pkgs = import nixpkgs { config.allowUnfree = true; };
+    host-deploy = name: {
+          hostname = "${name}.msb.q.nyiyui.ca";
+          sshUser = "azunyan";
+          user = "root";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos
+              self.nixosConfigurations.${name};
+          };
+        };
     in {
       nixosConfigurations.miyo = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -41,15 +52,17 @@
         specialArgs = attrs;
         modules = [ ./kotohira/configuration.nix agenix.nixosModules.default ];
       };
+      deploy.nodes.kotohira = host-deploy "kotohira";
       nixosConfigurations.cirno = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [ ./cirno/configuration.nix agenix.nixosModules.default nix-serve-ng.nixosModules.default ];
       };
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system: let 
     pkgs = nixpkgs.legacyPackages.${system};in{
       devShells.default = pkgs.mkShell {
-        packages = with pkgs; [ nixfmt ];
+        packages = with pkgs; [ nixfmt deploy-rs.packages.${system}.default ];
       };
     });
 }

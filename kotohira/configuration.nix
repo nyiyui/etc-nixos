@@ -19,4 +19,6 @@
   qrystal.services.node.config.cs.azusa.networks.msb = {
     host = "kotohira.nyiyui.ca:39570";
   };
+
+  miyamizu.services.target.enable = true;
 }
