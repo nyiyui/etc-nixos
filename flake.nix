@@ -19,7 +19,7 @@
     pkgs = import nixpkgs { config.allowUnfree = true; };
     host-deploy = name: {
           hostname = "${name}.msb.q.nyiyui.ca";
-          sshUser = "azunyan";
+          sshUser = "miyamizu-sync";
           user = "root";
           profiles.system = {
             path = deploy-rs.lib.x86_64-linux.activate.nixos
@@ -42,10 +42,10 @@
         specialArgs = attrs;
         modules = [ ./mitsu8/configuration.nix agenix.nixosModules.default ];
       };
-      nixosConfigurations.hananawi = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.hinanawi = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./hananawi/configuration.nix agenix.nixosModules.default ];
+        modules = [ ./hinanawi/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.kotohira = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

@@ -53,7 +53,7 @@
       };
     };
   })
-  (lib.mkIf (config.home.file.hostname.text == "hananawi") {
+  (lib.mkIf (config.home.file.hostname.text == "hinanawi") {
     wayland.windowManager.sway.config = {
       output = {
         "eDP-1" = {

@@ -1,7 +1,6 @@
 { config, qrystal, ... }:
 let
-  hostNameRaw = config.networking.hostName;
-  hostName = if hostNameRaw == "hananawi" then "hinanawi" else hostNameRaw;
+  hostName = config.networking.hostName;
   dnscryptHost = "127.0.0.80";
 in {
   imports = [ qrystal.outputs.nixosModules.x86_64-linux.node ];

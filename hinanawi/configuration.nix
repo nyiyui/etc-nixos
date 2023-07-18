@@ -17,7 +17,7 @@
     ../thunderbolt.nix
   ];
 
-  networking.hostName = "hananawi";
+  networking.hostName = "hinanawi";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -82,6 +82,8 @@
   reimu.enable = true;
   reimu.address = "10.42.0.6/32";
   reimu.udp2raw.enable = true;
+
+  miyamizu.services.target.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
