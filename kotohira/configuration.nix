@@ -10,13 +10,13 @@
     ../headless.nix
   ];
 
-  networking.hostName = "rei";
+  networking.hostName = "kotohira";
 
   system.stateVersion = "23.05";
 
   environment.systemPackages = with pkgs; [ wireguard-tools ];
 
   qrystal.services.node.config.cs.azusa.networks.msb = {
-    host = "rei.nyiyui.ca:39570";
+    host = "kotohira.nyiyui.ca:39570";
   };
 }

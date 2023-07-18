@@ -21,7 +21,7 @@ in {
     };
     config.tokens = [
       (token {
-        name = "rei";
+        name = "kotohira";
         hash =
           "qrystalcth_f59740d9888c97c224558099862bbc4daac66b27a098555151fbd751628e3003";
       })
