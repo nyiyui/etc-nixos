@@ -1,4 +1,4 @@
-{ ... }: {
+{ lib, ... }: {
   # Priviledge Escalation
   security.sudo.enable = false;
   security.doas.enable = true;

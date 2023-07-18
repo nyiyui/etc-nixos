@@ -1,18 +1,24 @@
 #!/usr/bin/env bash
 
-set -euox pipefail
+set -euo pipefail
 
 hosts=(kotohira mitsu8)
 webhook='https://discord.com/api/webhooks/1130938076504526918/cpqXSzuhK08H3lN5Io6yKMA9q-J_yxswJL3ffOq3vr4CzWG10hIJfM7k1kaFdHkV-qOK'
 
 sync() {
+  set -euo pipefail
   host="$1"
   pair="miyamizu-sync@$host.msb.q.nyiyui.ca"
-  options="-o BatchMode=yes -o IdentitiesOnly=yes -i ~/.ssh/id_miya"
+  options='-o BatchMode=yes'
+  options+=' -o IdentitiesOnly=yes -i ~/.ssh/id_miya'
+	options+=' -o StrictHostKeyChecking=accept-new'
+  if [[ "$host" != 'kotohira' ]]; then
+    options+=' -J kotohira.msb.q.nyiyui.ca' # idk how to specify a `-i` for a JumpHost
+  fi
   ssh="ssh $options $pair"
   $ssh -- 'doas nix-collect-garbage'
-  #NIX_SSHOPTS="$options" nixos-rebuild switch --flake ".#$host" --target-host "$pair" --use-remote-sudo
-  deploy ".#$host" --ssh-opts "\"$options\""
+  NIX_SSHOPTS="$options" nixos-rebuild switch --flake ".#$host" --target-host "$pair" --use-remote-sudo
+  #deploy ".#$host" --ssh-opts "$options"
   $ssh -- ' nix-env --delete-generations 1d'
   $ssh -- 'doas nix-collect-garbage -d'
   message="$(mktemp)"
@@ -29,6 +35,7 @@ sync() {
 }
 
 for host in "${hosts[@]}"; do
+  echo "=== sync $host"
   sync "$host" || true
   if [[ $? -ne 0 ]]; then
     curl "$webhook" \

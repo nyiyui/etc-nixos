@@ -5,6 +5,11 @@ let cfg = config.miyamizu.services.target; in {
   };
   config = lib.mkIf cfg.enable {
     services.openssh.enable = true;
+    home-manager.users.nyiyui = { ... }:
+      home.file.".ssh/rc".text = ''
+        alias sudo=doas
+      '';
+    };
     users.groups.miyamizu-sync = {};
     users.users.miyamizu-sync = {
       isNormalUser = true; # required for ssh

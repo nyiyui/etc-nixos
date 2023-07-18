@@ -41,7 +41,6 @@
       pull.rebase = true;
       safe.directory = [ "/etc/nixos" ];
     };
-    lfs.enable = true;
   };
   programs.fish = {
     enable = true;
