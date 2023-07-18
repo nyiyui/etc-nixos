@@ -18,7 +18,7 @@ in {
     config.hokuto = {
       configureDnsmasq = true;
       addr = "127.0.0.39";
-      parent = ".qrystal.internal";
+      parent = ".q.nyiyui.ca";
     };
     config.cs = {
       comment = "kuromiya";

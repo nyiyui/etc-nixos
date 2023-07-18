@@ -23,7 +23,7 @@ in {
       (token {
         name = "kotohira";
         hash =
-          "qrystalcth_f59740d9888c97c224558099862bbc4daac66b27a098555151fbd751628e3003";
+          "qrystalcth_437ac9b547aa4403443b0064cfbd79f5bbff05d442a3e86812d0b7de2d8d036a";
       })
       (token {
         name = "hinanawi";
