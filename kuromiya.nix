@@ -27,6 +27,7 @@ in {
       tokenPath = config.age.secrets."kuromiya-${hostName}.qrystalct".path;
       azusa.networks.msb = {
         name = hostName;
+        canForward = hostName == "kotohira";
         # canSee is blank = can see any
       };
     };
