@@ -15,7 +15,6 @@
     ../kuromiya.nix
     ../docker.nix
     ../thunderbolt.nix
-    ../iphone.nix
   ];
 
   networking.hostName = "hinanawi";
