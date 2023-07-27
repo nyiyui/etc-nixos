@@ -47,6 +47,7 @@
     file
     picocom
     git-filter-repo
+    yt-dlp
   ];
 
   fonts.fonts = with pkgs; [
