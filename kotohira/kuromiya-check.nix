@@ -1,10 +1,11 @@
-{ config, ... }:
-{
+{ config, ... }: {
   services.nginx = {
     enable = true;
     virtualHosts."kotohira.msb.q.nyiyui.ca" = {
-      sslCertificate = config.age.secrets."kotohira-kuromiya-check-cert.pem".path;
-      sslCertificateKey = config.age.secrets."kotohira-kuromiya-check-key.pem".path;
+      sslCertificate =
+        config.age.secrets."kotohira-kuromiya-check-cert.pem".path;
+      sslCertificateKey =
+        config.age.secrets."kotohira-kuromiya-check-key.pem".path;
       addSSL = true;
       locations."/" = {
         extraConfig = ''
