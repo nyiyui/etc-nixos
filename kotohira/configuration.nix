@@ -5,6 +5,7 @@
     (modulesPath + "/virtualisation/google-compute-image.nix")
     ../autoUpgrade.nix
     ./kuromiya.nix
+    ./kuromiya-check.nix
     ../kuromiya.nix
     ../base.nix
     ../headless.nix
