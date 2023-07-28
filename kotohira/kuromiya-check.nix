@@ -9,7 +9,7 @@
       locations."/" = {
         extraConfig = ''
           add_header Content-Type text/plain;
-          return 200 '黒宮経由で琴平に接続接続出来ました!'
+          return 200 '黒宮経由で琴平に接続接続出来ました!';
         '';
       };
     };
