@@ -145,7 +145,8 @@
         "XF86MonBrightnessUp" = "exec light -A 1";
         "XF86MonBrightnessDown" = ''
           exec fish --command='if [ "$(light)" -le 1 ]; then; light -S 1; else; light -U 1; end' '';
-        "${modifier}+Shift+Return" = "exec chromium";
+        "${modifier}+Shift+Return" = "exec firefox";
+        "${modifier}+Alt+Shift+Return" = "exec chromium";
         "${modifier}+Return" = "exec foot";
         "${modifier}+Alt+Return" = "exec ${pkgs.rnote}/bin/rnote";
         "${modifier}+Alt+N" =
