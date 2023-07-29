@@ -128,7 +128,7 @@
       ];
       keybindings = lib.mkOptionDefault {
         # use wev to find pressed keys
-        "XF86Go" = "exec playerctl play-pause";
+        "XF86AudioPlay" = "exec playerctl play-pause";
         "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
         "XF86AudioRaiseVolume" =
           "exec pactl set-sink-volume @DEFAULT_SINK@ +1%";
