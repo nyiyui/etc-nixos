@@ -1,11 +1,9 @@
 { config, ... }: {
   services.nginx = {
     enable = true;
+    recommendedTlsSettings = true;
     virtualHosts."kotohira.msb.q.nyiyui.ca" = {
-      sslCertificate =
-        config.age.secrets."kotohira-kuromiya-check-cert.pem".path;
-      sslCertificateKey =
-        config.age.secrets."kotohira-kuromiya-check-key.pem".path;
+      enableACME = true;
       addSSL = true;
       locations."/" = {
         extraConfig = ''
@@ -13,16 +11,12 @@
           return 200 '黒宮経由で琴平に接続接続出来ました!';
         '';
       };
+      locations."/ip" = {
+        extraConfig = ''
+          add_header Content-Type "application/json";
+          return 200 '{"host":"$server_name","ip":"$remote_addr","port":"$remote_port","server_ip":"$server_addr","server_port":"$server_port"}\n';
+        '';
+      };
     };
-  };
-  age.secrets."kotohira-kuromiya-check-cert.pem" = {
-    file = ../secrets/kotohira-kuromiya-check-cert.pem.age;
-    owner = config.services.nginx.user;
-    mode = "400";
-  };
-  age.secrets."kotohira-kuromiya-check-key.pem" = {
-    file = ../secrets/kotohira-kuromiya-check-key.pem.age;
-    owner = config.services.nginx.user;
-    mode = "400";
   };
 }

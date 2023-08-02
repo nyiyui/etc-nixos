@@ -7,4 +7,7 @@
       { id = "mclkkofklkfljcocdinagocijmpgbhab"; }
     ];
   };
+  programs.firefox = {
+    enable =true;
+  };
 }
