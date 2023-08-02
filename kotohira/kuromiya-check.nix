@@ -11,7 +11,7 @@
       addSSL = true;
       locations."/" = {
         extraConfig = ''
-          add_header 'Content-Type text/plain; charset=utf-8';
+          add_header Content-Type 'text/plain; charset=utf-8';
           return 200 '黒宮経由で琴平に接続接続出来ました!';
         '';
       };
