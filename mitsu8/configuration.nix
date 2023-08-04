@@ -9,6 +9,7 @@
     ../sound.nix
     ../vlc.nix
     ../kuromiya.nix
+    ../cirno-binary-cache.nix
   ];
 
   networking.hostName = "mitsu8";

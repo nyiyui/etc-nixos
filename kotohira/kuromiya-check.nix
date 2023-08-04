@@ -10,7 +10,6 @@
     recommendedProxySettings = true;
     virtualHosts."kotohira.msb.q.nyiyui.ca" = {
       enableACME = true;
-      addSSL = true;
       forceSSL = true;
       locations."/" = {
         extraConfig = ''

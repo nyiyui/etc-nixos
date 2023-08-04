@@ -241,4 +241,14 @@
     };
     credsStore = "secretservice";
   };
+  programs.yt-dlp.enable = true;
+  programs.yt-dlp.settings = {
+    write-subs = true;
+    sub-langs = "all";
+    cookies-from-browser = "firefox";
+    no-embed-info-json = true;
+    embed-metadata = true;
+    embed-thumbnail = true;
+    embed-subs = true;
+  };
 }

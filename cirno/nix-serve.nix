@@ -1,9 +1,11 @@
 { config, ... }: {
   services.nginx = {
     enable = true;
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
     recommendedProxySettings = true;
     virtualHosts = {
-      "cirno.nyiyui.ca" = {
+      "cirno.msb.q.nyiyui.ca" = {
         locations."/".proxyPass =
           "http://${config.services.nix-serve.bindAddress}:${
             toString config.services.nix-serve.port
@@ -20,4 +22,5 @@
     group = "nix-serve";
     mode = "040";
   };
+  networking.firewall.interfaces.msb.allowedTCPPorts = [ config.services.nix-serve.port ];
 }

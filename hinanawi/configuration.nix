@@ -15,6 +15,7 @@
     ../kuromiya.nix
     ../docker.nix
     ../thunderbolt.nix
+    ../cirno-binary-cache.nix
   ];
 
   networking.hostName = "hinanawi";
