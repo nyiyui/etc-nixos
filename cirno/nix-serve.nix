@@ -22,5 +22,6 @@
     group = "nix-serve";
     mode = "040";
   };
-  networking.firewall.interfaces.msb.allowedTCPPorts = [ config.services.nix-serve.port ];
+  networking.firewall.interfaces.msb.allowedTCPPorts =
+    [ config.services.nix-serve.port ];
 }

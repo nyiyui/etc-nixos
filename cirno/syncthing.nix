@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   systemd.services.syncthing.environment.GOMAXPROCS = "3";
   services.syncthing = {
     enable = true;
@@ -13,7 +12,8 @@
     overrideDevices = true;
     overrideFolders = true;
     devices = {
-      "hinanawi".id = "Q3DTKLX-XRLSA2W-UIFZHEV-X4EEVXH-6GNXGV6-EI3D2TZ-XVTXJ4X-4FZJDQT";
+      "hinanawi".id =
+        "Q3DTKLX-XRLSA2W-UIFZHEV-X4EEVXH-6GNXGV6-EI3D2TZ-XVTXJ4X-4FZJDQT";
       "miyo".id =
         "M7X7VPF-QU4SBMZ-3EBZT2T-IAARHKV-FL7J2CV-DLUKDZ6-QCUX727-RLHHYAC";
       "asuna".id =
