@@ -61,9 +61,6 @@
           adaptive_sync = "on";
         };
       };
-      input = {
-        "1739:52914:SYNA8017:00_06CB:CEB2_Touchpad" = { events = "disabled"; };
-      };
     };
   })
 ])
