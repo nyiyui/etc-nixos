@@ -100,8 +100,8 @@
   };
   services.wlsunset = {
     enable = true;
-    latitude = lib.mkDefault "43.7159566";
-    longitude = lib.mkDefault "-79.3702805";
+    latitude = lib.mkDefault "35.6812362";
+    longitude = lib.mkDefault "139.7645499";
     temperature = {
       day = lib.mkDefault 5000;
       night = lib.mkDefault 1500;
