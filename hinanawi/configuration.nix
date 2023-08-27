@@ -15,7 +15,6 @@
     ../kuromiya.nix
     ../docker.nix
     ../thunderbolt.nix
-    ../cirno-binary-cache.nix
   ];
 
   networking.hostName = "hinanawi";
@@ -36,7 +35,7 @@
 
   networking.networkmanager.enable = true;
 
-  time.timeZone = "Asia/Tokyo";
+  time.timeZone = "America/Toronto";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";

@@ -12,6 +12,8 @@
     nix-serve-ng.url = github:aristanetworks/nix-serve-ng;
     flake-utils.url = github:numtide/flake-utils;
     deploy-rs.url = "github:serokell/deploy-rs";
+    seekback.url = "github:nyiyui/seekback";
+    seekback.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, flake-utils, deploy-rs, ... }@attrs:

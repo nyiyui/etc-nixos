@@ -153,6 +153,7 @@
           "exec ${pkgs.mako}/bin/makoctl menu dmenu -p '通知'";
         "${modifier}+N" = "exec ${pkgs.mako}/bin/makoctl dismiss";
         "${modifier}+Shift+N" = "exec ${pkgs.mako}/bin/makoctl restore";
+        "${modifier}+Shift+S" = "exec bash ${../seekback-signal.sh}";
       };
       menu = "dmenu_run";
       input = {

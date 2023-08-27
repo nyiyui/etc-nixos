@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, specialArgs, ... }: {
   imports = [ ./virt.nix ./reimu.nix ./autoUpgrade.nix ./i18n.nix ./doas.nix ./miyamizu.nix ];
 
   # This value determines the NixOS release from which the default
@@ -65,6 +65,7 @@
 
   home-manager.users.nyiyui =
     (import ./nyiyui/nyiyui.nix { hostname = config.networking.hostName; });
+  home-manager.extraSpecialArgs = specialArgs;
 
   users.groups.nyiyui = { };
   users.users.nyiyui = {
