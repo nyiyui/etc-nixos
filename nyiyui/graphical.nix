@@ -20,8 +20,16 @@
         output = [ "eDP-1" "DP-1" ];
         modules-left = [ "sway/workspaces" ];
         modules-center = [ "sway/window" ];
-        modules-right =
-          [ "custom/metrobar" "tray" "network" "temperature" "pulseaudio" "custom/light" "battery" "clock" ];
+        modules-right = [
+          "custom/metrobar"
+          "tray"
+          "network"
+          "temperature"
+          "pulseaudio"
+          "custom/light"
+          "battery"
+          "clock"
+        ];
 
         "battery" = {
           states.warning = 20;
@@ -87,11 +95,8 @@
           interval = 1;
         };
         "custom/metrobar" = let
-          python = pkgs.python3.withPackages (p: with p; [
-            requests
-            dateutil
-            pytz
-          ]);
+          python =
+            pkgs.python3.withPackages (p: with p; [ requests dateutil pytz ]);
         in {
           exec = "${python}/bin/python ${./metrobar.py}";
           interval = 60;
