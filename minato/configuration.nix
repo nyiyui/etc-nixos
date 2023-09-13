@@ -1,4 +1,4 @@
-{ config, lib, pkgs, home-manager, nixos-hardware, ... }:
+{ config, lib, pkgs, home-manager, qrystal, ... }:
 
 {
   imports = [ # Include the results of the hardware scan.
