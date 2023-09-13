@@ -62,6 +62,11 @@
         specialArgs = attrs;
         modules = [ ./cirno/configuration.nix agenix.nixosModules.default nix-serve-ng.nixosModules.default ];
       };
+      nixosConfigurations.minato = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules = [ ./minato/configuration.nix agenix.nixosModules.default ];
+      };
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system: let 
     pkgs = nixpkgs.legacyPackages.${system};in{
