@@ -5,12 +5,11 @@
     ./hardware-configuration.nix
     home-manager.nixosModule
     { }
-    nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
     ../common.nix
     ../tlp.nix
-    ../kuromiya.nix
     ../sound.nix
     ../thunderbolt.nix
+    qrystal.outputs.nixosModules.x86_64-linux.node
   ];
 
   networking.hostName = "minato";
@@ -61,7 +60,6 @@
     ];
   };
 
-  reimu.enable = true;
   reimu.address = "10.42.0.10/32";
 
   # This value determines the NixOS release from which the default
