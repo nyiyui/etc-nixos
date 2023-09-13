@@ -53,7 +53,7 @@ in {
         };
       };
     })
-    {
+    (lib.mkIf cfg.enable {
       environment.systemPackages = [ pkgs.wireguard-tools ];
 
       networking.nat.enable = true;
@@ -73,6 +73,6 @@ in {
           }];
         };
       };
-    }
+    })
   ];
 }
