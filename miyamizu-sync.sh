@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-hosts=(cirno kotohira mitsu8)
-hosts=(cirno)
+hosts=(kotohira)
 webhook='https://discord.com/api/webhooks/1130938076504526918/cpqXSzuhK08H3lN5Io6yKMA9q-J_yxswJL3ffOq3vr4CzWG10hIJfM7k1kaFdHkV-qOK'
 
 sync() {

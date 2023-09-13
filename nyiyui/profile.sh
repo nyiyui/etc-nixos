@@ -53,6 +53,7 @@ alias l='exa -a -abglFn --extended --octal-permissions --no-permissions --git'
 alias lt='l -s modified'
 alias t='exa -abglFn --extended --octal-permissions --no-permissions --git -T'
 alias tt='t -s modified'
+alias go='grc go'
 
 # Fix GPG ioctl error
 # https://stackoverflow.com/questions/51504367/gpg-agent-forwarding-inappropriate-ioctl-for-device

@@ -9,6 +9,8 @@ let
       name = name;
       canSeeElement = "any";
     };
+    canSRVUpdate = true;
+    srvAllowancesAny = true;
   };
 in {
   imports = [ qrystal.outputs.nixosModules.x86_64-linux.cs ];

@@ -21,7 +21,7 @@
         modules-left = [ "sway/workspaces" ];
         modules-center = [ "sway/window" ];
         modules-right =
-          [ "tray" "network" "temperature" "pulseaudio" "battery" "clock" ];
+          [ "custom/metrobar" "tray" "network" "temperature" "pulseaudio" "custom/light" "battery" "clock" ];
 
         "battery" = {
           states.warning = 20;
@@ -81,6 +81,21 @@
           format-bluetooth = "{volume}{icon}";
           on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
           ignored-sinks = [ "Easy Effects Sink" ];
+        };
+        "custom/light" = {
+          exec = "${pkgs.light}/bin/light";
+          interval = 1;
+        };
+        "custom/metrobar" = let
+          python = pkgs.python3.withPackages (p: with p; [
+            requests
+            dateutil
+            pytz
+          ]);
+        in {
+          exec = "${python}/bin/python ${./metrobar.py}";
+          interval = 60;
+          return-type = "json";
         };
       };
     };

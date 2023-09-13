@@ -25,5 +25,17 @@ let cfg = config.miyamizu.services.target; in {
       keepEnv = true;
       noPass = true;
     }];
+    qrystal.services.node.config.srvList = pkgs.writeText "srvlist.json" (builtins.toJSON { Networks = {
+      msb = [{
+        Service = "_miyamizu";
+        Protocol = "_tcp";
+        Priority = 10;
+        Weight = 10;
+        Port = 22;
+      }];
+    }; });
+    qrystal.services.node.config.cs.azusa.networks.msb.allowedSRVs = [{
+      service = "_miyamizu";
+    }];
   };
 }
