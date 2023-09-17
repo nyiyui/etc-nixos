@@ -8,6 +8,7 @@
     ../common.nix
     ../tlp.nix
     ../sound.nix
+    ../fprint.nix
     ../kuromiya.nix
     ../thunderbolt.nix
   ];
