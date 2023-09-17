@@ -10,7 +10,6 @@
     ../sound.nix
     ../kuromiya.nix
     ../thunderbolt.nix
-    qrystal.outputs.nixosModules.x86_64-linux.node
   ];
 
   networking.hostName = "minato";
