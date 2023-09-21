@@ -81,7 +81,6 @@
 
   reimu.enable = true;
   reimu.address = "10.42.0.6/32";
-  #reimu.udp2raw.enable = true;
 
   miyamizu.services.target.enable = true;
 
