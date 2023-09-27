@@ -42,6 +42,7 @@
       url."ssh://git@github.com".insteadOf = "https://github.com";
       pull.rebase = true;
       safe.directory = [ "/etc/nixos" ];
+      user.signingkey = "711A0A03A5C5D824";
     };
   };
   programs.fish = {
@@ -117,7 +118,7 @@
       StartLimitBurst = 30;
     };
     Service = {
-      ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${../images/redial_52.png}";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${../images/keikyu-signal.jpg}";
       Restart = "on-failure";
       RestartSec = 3;
     };

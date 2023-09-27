@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, qrystal, ... }:
 let cfg = config.miyamizu.services.target; in {
   options.miyamizu.services.target = with lib; with types; {
     enable = mkEnableOption "Miyamizu sync target";

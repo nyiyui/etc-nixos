@@ -41,7 +41,7 @@ in {
   };
 
   services.dnsmasq.settings.server = [ dnscryptHost ];
-    services.dnsmasq.settings.local = "/local/";
+  services.dnsmasq.settings.local = "/local/";
   services.dnscrypt-proxy2 = {
     enable = true;
     settings = {
