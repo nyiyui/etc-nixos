@@ -43,8 +43,16 @@
       pull.rebase = true;
       safe.directory = [ "/etc/nixos" ];
       user.signingkey = "711A0A03A5C5D824";
-      commit.gpgsign = true;
+      #commit.gpgsign = true;
     };
+  };
+  services.gpg-agent = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+  programs.gpg = {
+    enable = true;
+    mutableTrust = false;
   };
   programs.fish = {
     enable = true;
