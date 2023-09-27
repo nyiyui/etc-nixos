@@ -43,6 +43,7 @@
       pull.rebase = true;
       safe.directory = [ "/etc/nixos" ];
       user.signingkey = "711A0A03A5C5D824";
+      commit.gpgsign = true;
     };
   };
   programs.fish = {
