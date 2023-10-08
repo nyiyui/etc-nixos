@@ -10,6 +10,7 @@
     ../sound.nix
     ../kuromiya.nix
     ../thunderbolt.nix
+    ../syncthing.nix
   ];
 
   networking.hostName = "minato";
