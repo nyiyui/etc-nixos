@@ -128,7 +128,7 @@
     };
     Service = {
       ExecStart =
-        "${pkgs.swaybg}/bin/swaybg -mfill -i ${../images/keikyu-signal.jpg}";
+        "${pkgs.swaybg}/bin/swaybg -mfill -i ${../images/keikyu2.jpg}";
       Restart = "on-failure";
       RestartSec = 3;
     };
