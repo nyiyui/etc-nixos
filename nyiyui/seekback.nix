@@ -2,9 +2,7 @@
 let sockPath = "/home/nyiyui/.cache/seekback.sock";
 in {
   systemd.user.services.seekback = {
-    environment = {
-      GOMAXPROCS = "1";
-    };
+    environment = { GOMAXPROCS = "1"; };
     Unit = {
       Description = "Seekback: replay audio from the past";
       StartLimitIntervalSec = 350;
