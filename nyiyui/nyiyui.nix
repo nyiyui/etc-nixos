@@ -11,6 +11,7 @@
     ./chromium.nix
     ./seekback.nix
     ./grc.nix
+    ./8085.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -198,6 +199,7 @@
       python310Packages.ipython
       docker-credential-helpers
       poppler_utils
+      meld
 
       gnome.seahorse
       gcr # for gnome keyring prompt https://github.com/NixOS/nixpkgs/issues/174099#issuecomment-1135974195
