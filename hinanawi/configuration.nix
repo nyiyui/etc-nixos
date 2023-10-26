@@ -13,6 +13,7 @@
     ../sound.nix
     ../vlc.nix
     ../kuromiya.nix
+    ../miyamizu.nix
     ../docker.nix
     ../thunderbolt.nix
   ];
