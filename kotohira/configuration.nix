@@ -35,9 +35,7 @@
     virtualHosts."kujo.hato.nyiyui.ca" = {
       enableACME = true;
       forceSSL = true;
-      locations."/" = {
-        root = "/var/kujo";
-      };
+      locations."/" = { root = "/var/kujo"; };
     };
   };
 }
