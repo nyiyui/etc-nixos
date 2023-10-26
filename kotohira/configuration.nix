@@ -20,6 +20,24 @@
   qrystal.services.node.config.cs.azusa.networks.msb = {
     host = "kotohira.nyiyui.ca:39570";
   };
-
   miyamizu.services.target.enable = true;
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "+acme@nyiyui.ca";
+  };
+
+  services.nginx = {
+    enable = true;
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    virtualHosts."kujo.hato.nyiyui.ca" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        root = "/var/kujo";
+      };
+    };
+  };
 }

@@ -1,3 +1,4 @@
+# battery charge & CPU performance options
 { ... }: {
   services.tlp.enable = true;
   services.tlp.settings = {
@@ -16,4 +17,5 @@
     CPU_MAX_PERF_ON_AC = 70;
     CPU_MAX_PERF_ON_BAT = 20;
   };
+  services.thermald.enable = true;
 }

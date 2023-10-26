@@ -6,7 +6,7 @@
     home-manager.nixosModule
     { }
     ../common.nix
-    ../tlp.nix
+    ../power.nix
     ../sound.nix
     ../kuromiya.nix
     ../thunderbolt.nix

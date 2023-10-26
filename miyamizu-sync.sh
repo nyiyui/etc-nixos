@@ -7,6 +7,7 @@ sync() {
   set -euo pipefail
   host="$1"
   pair="miyamizu-sync@$host.msb.q.nyiyui.ca"
+  pair="miyamizu-sync@$host.nyiyui.ca"
   options='-o BatchMode=yes'
   options+=' -o IdentitiesOnly=yes -i ~/.ssh/id_miya'
 	options+=' -o StrictHostKeyChecking=accept-new'

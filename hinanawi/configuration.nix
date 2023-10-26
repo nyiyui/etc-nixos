@@ -8,7 +8,7 @@
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
     ../common.nix
     ../syncthing.nix
-    ../tlp.nix
+    ../power.nix
     ../fprint.nix
     ../sound.nix
     ../vlc.nix
