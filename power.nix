@@ -17,5 +17,4 @@
     CPU_MAX_PERF_ON_AC = 70;
     CPU_MAX_PERF_ON_BAT = 20;
   };
-  services.thermald.enable = true;
 }
