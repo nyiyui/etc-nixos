@@ -12,6 +12,7 @@
     ./seekback.nix
     ./grc.nix
     ./8085.nix
+    ./rclone.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
