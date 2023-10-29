@@ -1,4 +1,1 @@
-{ pkgs, ... }:
-{
-  home.packages = with pkgs; [ rclone restic ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ rclone restic ]; }
