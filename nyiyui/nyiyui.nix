@@ -114,8 +114,8 @@
   };
   services.wlsunset = {
     enable = true;
-    latitude = lib.mkDefault "43.7159566";
-    longitude = lib.mkDefault "-79.3702805";
+    latitude = lib.mkDefault "35.6764";
+    longitude = lib.mkDefault "139.6500";
     temperature = {
       day = lib.mkDefault 5000;
       night = lib.mkDefault 1500;
@@ -201,6 +201,7 @@
       docker-credential-helpers
       poppler_utils
       meld
+      age
 
       gnome.seahorse
       gcr # for gnome keyring prompt https://github.com/NixOS/nixpkgs/issues/174099#issuecomment-1135974195

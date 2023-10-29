@@ -16,6 +16,7 @@
     ../miyamizu.nix
     ../docker.nix
     ../thunderbolt.nix
+    ../restic.nix
   ];
 
   networking.hostName = "hinanawi";
@@ -36,7 +37,7 @@
 
   networking.networkmanager.enable = true;
 
-  time.timeZone = "America/Toronto";
+  time.timeZone = "Asia/Tokyo";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
