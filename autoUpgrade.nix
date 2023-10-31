@@ -1,4 +1,6 @@
-{ pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: let
+  hostName = config.networking.hostName;
+in {
   system.autoUpgrade = {
     enable = true;
     rebootWindow.lower = "03:00";
@@ -49,11 +51,18 @@
     wants = [ "autoupgrade-reset-perms.service" ];
     after = [ "autoupgrade-reset-perms.service" ];
     script = ''
-      export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i /etc/nixos/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
+      export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i ${config.age.secrets."autoupgrade-${hostName}.id_ed25519".path} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
       ${pkgs.git}/bin/git \
         -c 'safe.directory=/etc/nixos' \
         -c 'core.sharedRepository=group' \
         pull
     '';
+  };
+
+  age.secrets."autoupgrade-${hostName}.id_ed25519" = {
+    file = ./secrets/autoupgrade-${hostName}.id_ed25519.age;
+    owner = "youmu";
+    group = "youmu";
+    mode = "400";
   };
 }
