@@ -28,7 +28,6 @@
   networking.hostName = "cirno"; # Define your hostname.
 
   networking.networkmanager.enable = true;
-  time.timeZone = "America/Toronto";
   i18n.defaultLocale = "en_CA.UTF-8";
 
   # This value determines the NixOS release from which the default

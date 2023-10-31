@@ -22,8 +22,6 @@
   networking.networkmanager.enable = true;
   networking.firewall.allowedTCPPorts = [ 8001 ];
 
-  time.timeZone = "America/Toronto";
-
   i18n.defaultLocale = "ja_JP.UTF-8";
 
   services.xserver = {

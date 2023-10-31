@@ -19,8 +19,6 @@
 
   programs.nm-applet.enable = true;
 
-  time.timeZone = "America/Toronto";
-
   services.xserver.enable = true;
 
   services.xserver.displayManager = {
