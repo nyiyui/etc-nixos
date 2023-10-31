@@ -31,7 +31,7 @@ in {
       ${pkgs.restic}/bin/restic backup /etc/nixos
     '';
     serviceConfig.Nice = 19;
-    serviceConfig.Restart = "always";
+    serviceConfig.Restart = "on-failure";
     serviceConfig.RestartSec = 30;
     wantedBy = [ "default.target" ];
   };
@@ -41,7 +41,7 @@ in {
     serviceConfig.User = "backup-rclone";
     serviceConfig.Group = "backup-rclone";
     serviceConfig.Nice = 19;
-    serviceConfig.Restart = "always";
+    serviceConfig.Restart = "on-failure";
     serviceConfig.RestartSec = 30;
     script = ''
       set -eu
