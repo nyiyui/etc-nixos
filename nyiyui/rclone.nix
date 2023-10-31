@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  genRcloneMount = { path, remote  }: {
+  genRcloneMount = { path, remote }: {
     Unit.Description = "rclone: Google Drive";
     Unit.Documentation = "man:rclone(1)";
     Unit.After = "network-online.target";
