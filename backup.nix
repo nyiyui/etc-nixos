@@ -30,6 +30,9 @@ in {
       ${pkgs.restic}/bin/restic backup ${config.users.users.nyiyui.home}
       ${pkgs.restic}/bin/restic backup /etc/nixos
     '';
+    serviceConfig.Nice = 19;
+    serviceConfig.Restart = "always";
+    serviceConfig.RestartSec = 30;
     wantedBy = [ "default.target" ];
   };
   systemd.services.backup-rclone-serve = {
@@ -37,6 +40,9 @@ in {
     after = [ "network-online.target" ];
     serviceConfig.User = "backup-rclone";
     serviceConfig.Group = "backup-rclone";
+    serviceConfig.Nice = 19;
+    serviceConfig.Restart = "always";
+    serviceConfig.RestartSec = 30;
     script = ''
       set -eu
       ${pkgs.rclone}/bin/rclone serve restic -v \
