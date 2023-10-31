@@ -1,35 +1,49 @@
 { config, pkgs, ... }: let
   port = 29679;
+  hostName = config.networking.hostName;
+  rcloneConf = "${hostName}.rclone.conf";
+  resticPassword = "${hostName}.backup-restic-password";
 in {
-  home.packages = with pkgs; [ restic ];
-  systemd.user.services.backup-restic = {
-    Unit.Description = "restic backup";
-    Unit.After = "network-online.target";
-    Unit.Wants = "network-online.target";
-    Service = {
-      ExecStart = pkgs.writeShellScript "backup-restic.sh" ''
-        export RESTIC_PASSWORD="$"
-        export RESTIC_REPOSITORY='rest:http://localhost:${toString port}'
-        rclone serve restic -v \
-          --addr localhost:${toString port} \
-          onedrive:restic-${config.home.file.hostname.text}
-      '';
+  # TODO: port is open (not secure!)
+  systemd.timers.backup-restic = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "1h";
+      OnCalendar = "daily";
+      Persistent = "true";
+      RandomizedDelaySec = "1h";
+      AccuracySec = "1h";
     };
-    Install.WantedBy = [ "default.target" ];
   };
-  systemd.user.services.backup-rclone-serve = {
-    Unit.Description = "rclone serve for restic backup";
-    Unit.After = "network-online.target";
-    Unit.Wants = "network-online.target";
-    Service = {
-      ExecStart = pkgs.writeShellScript "backup-rclone-serve.sh" ''
-        rclone serve restic -v \
-          --config ${config.users.users.nyiyui}/.config/rclone/rclone.conf \
-          --addr localhost:${toString port} \
-          onedrive:restic-${config.home.file.hostname.text}
-      '';
-    };
-    Install.WantedBy = [ "default.target" ];
+  systemd.services.backup-restic = let
+    asUser = "${pkgs.doas}/bin/doas -u nyiyui";
+    password = "$(cat ${config.age.secrets.${resticPassword}.path})";
+    repository = "rest:http://localhost:${toString port}";
+  in {
+    wants = [ "backup-rclone-serve.service" ];
+    after = [ "backup-rclone-serve.service" ];
+    script = ''
+      set -eu
+      export RESTIC_REPOSITORY="${repository}"
+      export RESTIC_PASSWORD="${password}"
+      export HOME="${config.users.users.nyiyui.home}"
+      ${pkgs.restic}/bin/restic backup ${config.users.users.nyiyui.home}
+      ${pkgs.restic}/bin/restic backup /etc/nixos
+    '';
+    wantedBy = [ "default.target" ];
+  };
+  systemd.services.backup-rclone-serve = {
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    serviceConfig.User = "backup-rclone";
+    serviceConfig.Group = "backup-rclone";
+    script = ''
+      set -eu
+      ${pkgs.rclone}/bin/rclone serve restic -v \
+        --config ${config.age.secrets.${rcloneConf}.path} \
+        --addr localhost:${toString port} \
+        onedrive:restic-${hostName}
+    '';
   };
 
   users.groups.backup-rclone = {};
@@ -39,10 +53,16 @@ in {
     group = "backup-rclone";
   };
 
-  age.secrets."${hostName}.rclone.conf" = {
-    file = ./secrets/{hostName}.rclone.conf.age;
+  age.secrets.${rcloneConf} = {
+    file = ./secrets/${hostName}.rclone.conf.age;
     owner = "backup-rclone";
     group = "backup-rclone";
+    mode = "400";
+  };
+  age.secrets.${resticPassword} = {
+    file = ./secrets/${hostName}.backup-restic-password.age;
+    owner = "root";
+    group = "root";
     mode = "400";
   };
 }

@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }: let
   hostName = config.networking.hostName;
+  sshKey = "autoupgrade-${hostName}.id_ed25519";
 in {
   system.autoUpgrade = {
     enable = true;
@@ -51,7 +52,7 @@ in {
     wants = [ "autoupgrade-reset-perms.service" ];
     after = [ "autoupgrade-reset-perms.service" ];
     script = ''
-      export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i ${config.age.secrets."autoupgrade-${hostName}.id_ed25519".path} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
+      export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i ${config.age.secrets.${sshKey}.path} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
       ${pkgs.git}/bin/git \
         -c 'safe.directory=/etc/nixos' \
         -c 'core.sharedRepository=group' \
@@ -59,7 +60,7 @@ in {
     '';
   };
 
-  age.secrets."autoupgrade-${hostName}.id_ed25519" = {
+  age.secrets.${sshKey} = {
     file = ./secrets/autoupgrade-${hostName}.id_ed25519.age;
     owner = "youmu";
     group = "youmu";

@@ -17,6 +17,7 @@
     ../docker.nix
     ../thunderbolt.nix
     ../restic.nix
+    ../backup.nix
   ];
 
   networking.hostName = "hinanawi";

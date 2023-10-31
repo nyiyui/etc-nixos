@@ -21,7 +21,7 @@ let
     Install.WantedBy = [ "default.target" ];
   };
 in {
-  home.packages = with pkgs; [ rclone ];
+  home.packages = with pkgs; [ rclone restic ];
   systemd.user.services.rclone-google-drive = genRcloneMount {
     path = "${config.home.homeDirectory}/google-drive";
     remote = "gdrive:";
