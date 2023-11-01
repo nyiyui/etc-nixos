@@ -27,8 +27,8 @@ in {
       export RESTIC_REPOSITORY="${repository}"
       export RESTIC_PASSWORD="${password}"
       export HOME="${config.users.users.nyiyui.home}"
-      ${pkgs.restic}/bin/restic backup ${config.users.users.nyiyui.home}
-      ${pkgs.restic}/bin/restic backup /etc/nixos
+      ${pkgs.su}/bin/su --preserve-environment - nyiyui ${pkgs.restic}/bin/restic backup ${config.users.users.nyiyui.home}
+      ${pkgs.su}/bin/su --preserve-environment - nyiyui ${pkgs.restic}/bin/restic backup /etc/nixos
     '';
     serviceConfig.Nice = 19;
     serviceConfig.Restart = "on-failure";
