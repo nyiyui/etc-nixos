@@ -8,7 +8,7 @@ in {
       StartLimitBurst = 30;
     };
     Service = {
-      ExecStart = "env GOMAXPROCS=1 ${
+      ExecStart = "${pkgs.coreutils-full}/bin/env GOMAXPROCS=1 ${
           specialArgs.seekback.packages.${pkgs.system}.default
         }/bin/seekback" + " -buffer-size 600000"
         + " -name '/home/nyiyui/inaba/seekback/%%s.aiff'"
