@@ -7,6 +7,7 @@
       breeze-icons
 
       kdenlive
+      glaxnimate
       ffmpeg-full
       frei0r
       mediainfo
