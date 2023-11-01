@@ -9,10 +9,10 @@ in {
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnBootSec = "1h";
-      OnCalendar = "daily";
+      OnCalendar = "hourly";
       Persistent = "true";
-      RandomizedDelaySec = "1h";
-      AccuracySec = "1h";
+      RandomizedDelaySec = "30m";
+      AccuracySec = "30m";
     };
   };
   systemd.services.backup-restic = let
