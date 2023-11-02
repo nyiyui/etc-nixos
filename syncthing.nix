@@ -27,7 +27,7 @@
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";
-        devices = [ "hinanawi" "miyo" "makura" "x1" "minato" ];
+        devices = [ "hinanawi" "miyo" "makura" "x1" "minato" "cirno" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
