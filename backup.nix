@@ -27,9 +27,11 @@ in {
       export RESTIC_REPOSITORY="${repository}"
       export RESTIC_PASSWORD="${password}"
       export HOME="${config.users.users.nyiyui.home}"
-      ${pkgs.su}/bin/su --preserve-environment - nyiyui ${pkgs.restic}/bin/restic backup ${config.users.users.nyiyui.home}
-      ${pkgs.su}/bin/su --preserve-environment - nyiyui ${pkgs.restic}/bin/restic backup /etc/nixos
+      ${pkgs.su}/bin/su --preserve-environment -- nyiyui ${pkgs.restic}/bin/restic backup --tag ${hostName},systemd ${config.users.users.nyiyui.home}
+      ${pkgs.su}/bin/su --preserve-environment -- nyiyui ${pkgs.restic}/bin/restic backup --tag ${hostName},systemd -e /nix/store /
     '';
+    unitConfig.StartLimitIntervalSec = 300;
+    unitConfig.StartLimitBurst = 5;
     serviceConfig.Nice = 19;
     serviceConfig.Restart = "on-failure";
     serviceConfig.RestartSec = 30;
