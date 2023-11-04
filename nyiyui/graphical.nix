@@ -160,6 +160,9 @@
           "exec ${pkgs.grim}/bin/grim - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy";
         "Shift+Print" = ''
           exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
+        "${modifier}+Alt+S" = ''
+          exec ${pkgs.slurp}/bin/slurp -b '#00000070' -c '#ff0000ff' -w 5
+        '';
         "${modifier}+Print" = ''
           exec ${pkgs.grim}/bin/grim -g "$(swaymsg -t get_tree | ${pkgs.jq}/bin/jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
         "XF86MonBrightnessUp" = "exec light -A 1";

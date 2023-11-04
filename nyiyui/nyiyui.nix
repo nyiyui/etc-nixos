@@ -213,6 +213,7 @@
       ctags
       systemsettings
       akregator
+      kmplot
     ]) ++ (with pkgs.hunspellDicts; [ en_CA en_US ]);
 
   programs.mpv = {

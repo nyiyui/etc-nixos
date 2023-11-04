@@ -27,8 +27,7 @@ in {
       export RESTIC_REPOSITORY="${repository}"
       export RESTIC_PASSWORD="${password}"
       export HOME="${config.users.users.nyiyui.home}"
-      ${pkgs.su}/bin/su --preserve-environment -- nyiyui ${pkgs.restic}/bin/restic backup --tag ${hostName},systemd ${config.users.users.nyiyui.home}
-      ${pkgs.su}/bin/su --preserve-environment -- nyiyui ${pkgs.restic}/bin/restic backup --tag ${hostName},systemd -e /nix/store /
+      ${pkgs.su}/bin/su --preserve-environment -- nyiyui ${pkgs.restic}/bin/restic backup --tag ${hostName},systemd -e /home/nyiyui/mcpt-backup-2023-07-08/all ${config.users.users.nyiyui.home}
     '';
     unitConfig.StartLimitIntervalSec = 300;
     unitConfig.StartLimitBurst = 5;
