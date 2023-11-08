@@ -12,6 +12,7 @@
     ./seekback.nix
     ./grc.nix
     ./8085
+    ./virtual-ti83
     ./rclone.nix
   ];
 

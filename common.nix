@@ -24,7 +24,7 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  #virtualisation.vmware.host.enable = true;
+  virtualisation.vmware.host.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
