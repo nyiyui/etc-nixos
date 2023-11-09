@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = [
     (pkgs.writeShellScriptBin "virtual-ti83" ''
-      cd ${.}
+      cd ${./.}
       ${pkgs.wineWowPackages.full}/bin/wine ./vti83.exe
     '')
   ];

@@ -11,8 +11,7 @@
     ./chromium.nix
     ./seekback.nix
     ./grc.nix
-    ./8085
-    ./virtual-ti83
+    ./tej.nix
     ./rclone.nix
   ];
 
