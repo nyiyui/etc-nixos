@@ -160,7 +160,7 @@ label:focus {
 
 #pulseaudio {
     background-color: rgba(241, 196, 15, 0.2);
-    color: #000000;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 #pulseaudio.muted {
@@ -268,4 +268,13 @@ label:focus {
 
 #scratchpad.empty {
     background-color: transparent;
+}
+
+#mpris.playing {
+  background: rgba(241, 196, 15, 0.2);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+#mpris:not(.playing) {
+  color: #2a5c45;
 }

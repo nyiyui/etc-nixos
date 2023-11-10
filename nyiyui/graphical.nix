@@ -21,11 +21,11 @@
         modules-left = [ "sway/workspaces" ];
         modules-center = [ "sway/window" ];
         modules-right = [
-          "custom/metrobar"
           "tray"
           "network"
           "temperature"
           "pulseaudio"
+          "mpris"
           "custom/light"
           "battery"
           "clock"
@@ -90,17 +90,18 @@
           on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
           ignored-sinks = [ "Easy Effects Sink" ];
         };
+        "mpris" = {
+          format = "{status_icon}{player_icon}{dynamic}";
+          dynamic-len = 40;
+          player-icons.firefox = "ff";
+          player-icons.mpv = "mpv";
+          status-icons.playing = "生";
+          status-icons.paused = "停";
+          status-icons.stopped = "止";
+        };
         "custom/light" = {
           exec = "${pkgs.light}/bin/light";
           interval = 1;
-        };
-        "custom/metrobar" = let
-          python =
-            pkgs.python3.withPackages (p: with p; [ requests dateutil pytz ]);
-        in {
-          exec = "${python}/bin/python ${./metrobar.py}";
-          interval = 60;
-          return-type = "json";
         };
       };
     };
