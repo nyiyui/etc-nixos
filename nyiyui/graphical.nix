@@ -70,14 +70,14 @@
         };
         "network" = {
           format = "{ifname}";
-          format-wifi = "{essid} {signaldBm}";
+          format-wifi = "{essid}{signaldBm}";
           format-disconnected = "";
           on-click = "${pkgs.foot}/bin/foot ~/wifi_conn_new";
           tooltip-format =
-            "{ifname} {ipaddr} {bandwidthUpOctets} {bandwidthUpOctets}";
+            "{ifname} {ipaddr} / ↑{bandwidthUpOctets} / ↓{bandwidthDownOctets}";
           tooltip-format-wifi =
-            "{ifname} {essid} {signaldBm} dBm {frequency} MHz {ipaddr} {bandwidthUpOctets} {bandwidthUpOctets}";
-          tooltip-format-disconnected = "切断";
+            "{ifname} {essid} {signaldBm} dBm / {frequency} MHz / {ipaddr} / ↑{bandwidthUpOctets} / ↓{bandwidthDownOctets}";
+          tooltip-format-disconnected = "切";
         };
         "pulseaudio" = {
           format-icons = {
