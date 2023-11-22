@@ -13,6 +13,7 @@
     ./grc.nix
     ./tej.nix
     ./rclone.nix
+    ./pexec.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
