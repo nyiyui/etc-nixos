@@ -57,10 +57,10 @@
         modules = [ ./kotohira/configuration.nix agenix.nixosModules.default ];
       };
       deploy.nodes.kotohira = host-deploy "kotohira";
-      nixosConfigurations.cirno = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.kotiya = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./cirno/configuration.nix agenix.nixosModules.default nix-serve-ng.nixosModules.default ];
+        modules = [ ./kotiya/configuration.nix agenix.nixosModules.default nix-serve-ng.nixosModules.default ];
       };
       nixosConfigurations.minato = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
