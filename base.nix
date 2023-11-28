@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-  imports = [ ./miyamizu.nix ];
   users.groups.nyiyui = { };
   users.users.nyiyui = {
     isNormalUser = true;
