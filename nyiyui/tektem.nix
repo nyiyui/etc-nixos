@@ -58,10 +58,7 @@
       set shiftwidth=2
       set expandtab
     '';
-    plugins = with pkgs.vimPlugins; [
-      vim-nix
-      csv-vim
-    ];
+    plugins = with pkgs.vimPlugins; [ vim-nix csv-vim ];
   };
   programs.foot = {
     enable = true;
@@ -82,8 +79,7 @@
       StartLimitBurst = 30;
     };
     Service = {
-      ExecStart =
-        "${pkgs.swaybg}/bin/swaybg -c #000000 -mfill";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -c #000000 -mfill";
       Restart = "on-failure";
       RestartSec = 3;
     };

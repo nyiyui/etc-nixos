@@ -1,12 +1,8 @@
 # Tech Team configuration
-{ config, pkgs, ... }: let
+{ config, pkgs, ... }:
+let
 in {
-  import = [
-    ./autoUpgrade-https.nix
-    ./i18n.nix
-    ./doas.nix
-    ./vlc.nix
-  ];
+  import = [ ./autoUpgrade-https.nix ./i18n.nix ./doas.nix ./vlc.nix ];
   home-manager.users.nyiyui =
     (import ./nyiyui/tektem.nix { hostname = config.networking.hostName; });
   home-manager.extraSpecialArgs = specialArgs;
@@ -52,8 +48,7 @@ in {
     isNormalUser = true;
     description = "Ken Shibata";
     group = "nyiyui";
-    extraGroups =
-      [ "uucp" "networkmanager" "wheel" "video" "dialout" ];
+    extraGroups = [ "uucp" "networkmanager" "wheel" "video" "dialout" ];
     packages = with pkgs; [ firefox git ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
