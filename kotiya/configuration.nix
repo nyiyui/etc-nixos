@@ -1,10 +1,9 @@
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../base.nix
     ../headless.nix
+    ../tektem
   ];
 
   # Bootloader.
