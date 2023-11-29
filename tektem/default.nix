@@ -5,6 +5,7 @@ in {
     ./autoUpgrade-https.nix
     ./i18n.nix
     ./doas.nix
+    ./vlc.nix
   ];
   home-manager.users.nyiyui =
     (import ./nyiyui/tektem.nix { hostname = config.networking.hostName; });
