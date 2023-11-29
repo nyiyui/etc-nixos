@@ -35,7 +35,6 @@
     pciutils
     neovim
     htop
-    system76-firmware
     unzip
     gzip
     zip
