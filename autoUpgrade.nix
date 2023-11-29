@@ -31,7 +31,11 @@ in {
       })
     ];
     default = "ssh";
-    description = "Which authentication method to use. SSH requires an SSH key; HTTPS requires a username-password pair";
+    description = ''
+      Which authentication method to use.
+      SSH requires an SSH key; HTTPS requires a username-password pair.
+      Note that TDSB-WIFI and friends very much dislike SSH.
+    '';
   };
 
   config = {
