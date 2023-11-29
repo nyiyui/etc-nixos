@@ -19,7 +19,6 @@
         "Y3IYLHZ-SUS5JCX-QQENQUL-PI4XK7E-CPWJT3P-MVJGZVS-4XIM4HB-N4UNFAU";
       "x1".id =
         "KKFQLLW-KWKGN3M-EIWQUL5-4DBNSB5-VAE6X7W-XXPFNB2-E27QFLO-DPLX3QV";
-      "cirno".id = "WRVTRWL-Q3YVS56-ETXQPPU-MT5YOCA-CJBDRZ4-WJ3C4SL-MIIJ7F3-HOO3PQF";
       "minato".id = "";
       "hinanawi".id = "";
       "shane".id = "L436U2A-5POVARP-64YSST5-ZC6IC35-CSZ6I4W-LE2ZMFH-SVU5W7G-AG2J2AA";
@@ -38,7 +37,7 @@
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";
-        devices = [ "hinanawi" "miyo" "makura" "x1" "minato" "cirno" ];
+        devices = [ "hinanawi" "miyo" "makura" "x1" "minato" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
