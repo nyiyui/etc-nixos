@@ -1,5 +1,5 @@
 # Tech Team configuration
-{ config, pkgs, ... }:
+{ config, pkgs, specialArgs, ... }:
 let
 in {
   import = [ ./autoUpgrade-https.nix ./i18n.nix ./doas.nix ./vlc.nix ];
