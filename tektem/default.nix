@@ -58,7 +58,7 @@ in {
   };
 
   home-manager.users.nyiyui =
-    (import ./nyiyui/tektem.nix { hostname = config.networking.hostName; });
+    (import ../nyiyui/tektem.nix { hostname = config.networking.hostName; });
   home-manager.extraSpecialArgs = specialArgs;
 
   services.udisks2.enable = true;
