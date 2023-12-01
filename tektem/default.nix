@@ -2,7 +2,7 @@
 { config, pkgs, specialArgs, ... }:
 let
 in {
-  imports = [ ../autoUpgrade-https.nix ../doas.nix ../vlc.nix ];
+  imports = [ ../autoUpgrade-https.nix ../doas.nix ];
   boot.supportedFilesystems = [ "ntfs" ];
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
