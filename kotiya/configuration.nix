@@ -1,6 +1,7 @@
 { config, pkgs, ... }: {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    home-manager.nixosModule
     ../base.nix
     ../headless.nix
     ../tektem
