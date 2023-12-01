@@ -3,10 +3,6 @@
 let
 in {
   import = [ ./autoUpgrade-https.nix ./i18n.nix ./doas.nix ./vlc.nix ];
-  home-manager.users.nyiyui =
-    (import ./nyiyui/tektem.nix { hostname = config.networking.hostName; });
-  home-manager.extraSpecialArgs = specialArgs;
-
   boot.supportedFilesystems = [ "ntfs" ];
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -55,6 +51,10 @@ in {
     ];
     homeMode = "770";
   };
+
+  home-manager.users.nyiyui =
+    (import ./nyiyui/tektem.nix { hostname = config.networking.hostName; });
+  home-manager.extraSpecialArgs = specialArgs;
 
   services.udisks2.enable = true;
   services.automatic-timezoned.enable = true;

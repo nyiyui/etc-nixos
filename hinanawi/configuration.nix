@@ -18,6 +18,7 @@
     ../thunderbolt.nix
     ../restic.nix
     ../backup.nix
+    ../tpm.nix
   ];
 
   networking.hostName = "hinanawi";
