@@ -4,6 +4,7 @@
     home-manager.nixosModule
     ../base.nix
     ../headless.nix
+    ../sound.nix
     ../tektem
   ];
 
@@ -26,6 +27,23 @@
 
   networking.networkmanager.enable = true;
   i18n.defaultLocale = "en_CA.UTF-8";
+
+  services.openssh.enable = true;
+
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
+  };
+  programs.sway.enable = true;
+  xdg.portal.wlr.enable = true;
+  services.xserver.enable = true;
+  services.xserver.displayManager = {
+    lightdm = { enable = true; };
+    autoLogin = {
+      enable = true;
+      user = "nyiyui";
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
