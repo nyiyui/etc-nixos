@@ -11,7 +11,7 @@
     ./chromium.nix
     ./seekback.nix
     ./grc.nix
-    ./tej.nix
+    ./virtual-ti83
     ./rclone.nix
     ./pexec.nix
     ./kicad.nix
