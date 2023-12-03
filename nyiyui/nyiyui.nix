@@ -14,6 +14,7 @@
     ./tej.nix
     ./rclone.nix
     ./pexec.nix
+    ./kicad.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
