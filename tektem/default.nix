@@ -58,4 +58,8 @@ in {
 
   services.udisks2.enable = true;
   services.automatic-timezoned.enable = true;
+
+  programs.sway.enable = true;
+  xdg.portal.wlr.enable = true;
+  services.xserver.enable = true;
 }
