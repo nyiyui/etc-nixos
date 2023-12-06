@@ -19,6 +19,7 @@
     ../restic.nix
     ../backup.nix
     ../tpm.nix
+    ../dns.nix
   ];
 
   networking.hostName = "hinanawi";

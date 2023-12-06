@@ -3,7 +3,10 @@ let
   hostName = config.networking.hostName;
   dnscryptHost = "127.0.0.80";
 in {
-  imports = [ qrystal.outputs.nixosModules.x86_64-linux.node ];
+  imports = [
+    qrystal.outputs.nixosModules.x86_64-linux.node
+    ./dns.nix
+  ];
 
   systemd.services.qrystal-node.environment = {
     "DEBUG_LEVEL" = "debug";
@@ -40,7 +43,13 @@ in {
     mode = "400";
   };
 
-  services.dnsmasq.settings.server = [ dnscryptHost ];
+  services.dnsmasq.settings.server = [
+    #dnscryptHost # TODO: remove dnscrypt once I know it works
+    "127.0.0.55"
+    # local
+    "/umi/10.6.0.1"
+    "/kai/10.6.0.1"
+  ];
   services.dnsmasq.settings.local = "/local/";
   services.dnscrypt-proxy2 = {
     enable = true;
