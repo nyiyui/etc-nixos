@@ -1,7 +1,6 @@
 { config, qrystal, ... }:
 let
   hostName = config.networking.hostName;
-  dnscryptHost = "127.0.0.80";
 in {
   imports = [
     qrystal.outputs.nixosModules.x86_64-linux.node
@@ -44,30 +43,10 @@ in {
   };
 
   services.dnsmasq.settings.server = [
-    #dnscryptHost # TODO: remove dnscrypt once I know it works
     "127.0.0.55"
     # local
     "/umi/10.6.0.1"
     "/kai/10.6.0.1"
   ];
   services.dnsmasq.settings.local = "/local/";
-  services.dnscrypt-proxy2 = {
-    enable = true;
-    settings = {
-      listen_addresses = [ "${dnscryptHost}:53" ]; # TODO IPv6
-      require_dnssec = true;
-      sources.public-resolvers = {
-        urls = [
-          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
-          "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
-          "https://ipv6.download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
-        ];
-        cache_file = "public-resolvers.md";
-        minisign_key =
-          "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
-        refresh_delay = 72;
-        prefix = "";
-      };
-    };
-  };
 }
