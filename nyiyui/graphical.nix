@@ -74,9 +74,9 @@
           format-disconnected = "";
           on-click = "${pkgs.foot}/bin/foot ~/wifi_conn_new";
           tooltip-format =
-            "{ifname} {ipaddr} / ↑{bandwidthUpOctets} / ↓{bandwidthDownOctets}";
+            "{ifname} {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
           tooltip-format-wifi =
-            "{ifname} {essid} {signaldBm} dBm / {frequency} MHz / {ipaddr} / ↑{bandwidthUpOctets} / ↓{bandwidthDownOctets}";
+            "{ifname} {essid} {signaldBm} dBm ; {frequency} MHz ; {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
           tooltip-format-disconnected = "切";
         };
         "pulseaudio" = {
@@ -92,6 +92,8 @@
         };
         "mpris" = {
           format = "{status_icon}{player_icon}{dynamic}";
+          interval = 1;
+          tooltip-format = "{title} ; 作{artist} ; ア{album} ; {position} / {length}";
           dynamic-len = 40;
           player-icons.firefox = "ff";
           player-icons.mpv = "mpv";
