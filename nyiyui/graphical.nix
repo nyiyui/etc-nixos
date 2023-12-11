@@ -93,7 +93,8 @@
         "mpris" = {
           format = "{status_icon}{player_icon}{dynamic}";
           interval = 1;
-          tooltip-format = "{title} ; 作{artist} ; ア{album} ; {position} / {length}";
+          tooltip-format =
+            "{title} ; 作{artist} ; ア{album} ; {position} / {length}";
           dynamic-len = 40;
           player-icons.firefox = "ff";
           player-icons.mpv = "mpv";
