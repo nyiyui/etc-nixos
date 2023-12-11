@@ -87,6 +87,7 @@
     '';
   };
   programs.neovim = {
+    # TODO: keep git-blame disabled on start
     enable = true;
     extraConfig = ''
       set rnu nu
