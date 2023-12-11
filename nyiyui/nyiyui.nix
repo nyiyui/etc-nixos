@@ -101,6 +101,7 @@
       csv-vim
       coc-clangd
       vim-clang-format
+      git-blame-nvim
     ];
   };
   programs.foot = {
