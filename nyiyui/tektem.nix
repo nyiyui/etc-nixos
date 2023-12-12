@@ -87,6 +87,7 @@
   };
   home.packages = with pkgs;
     [
+      ola
       easyeffects
       helvum
       pavucontrol
