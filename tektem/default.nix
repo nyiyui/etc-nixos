@@ -48,6 +48,7 @@ in {
     packages = with pkgs; [ firefox git ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2EW3UgGTIith8r7sbZYW8sVl7IFXm53Pc3QToERQZU hinanawi@nyiyui.ca"
     ];
     homeMode = "770";
   };
