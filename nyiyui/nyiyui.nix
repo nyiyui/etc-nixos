@@ -142,6 +142,7 @@
   };
   home.packages = with pkgs;
     [
+      sage
       go-tools
       gotools
       godef
