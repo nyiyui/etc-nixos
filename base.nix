@@ -17,6 +17,7 @@
   nixpkgs.config.allowUnfree = true;
 
   services.openssh.enable = true;
+  services.fail2ban.enable = true;
 
   # required for nixos-rebuild switch --use-remote-sudo to work
   security.sudo.wheelNeedsPassword = false;

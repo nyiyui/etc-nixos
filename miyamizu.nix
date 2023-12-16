@@ -5,6 +5,7 @@ let cfg = config.miyamizu.services.target; in {
   };
   config = lib.mkIf cfg.enable {
     services.openssh.enable = true;
+    services.fail2ban.enable = true;
     users.groups.miyamizu-sync = {};
     users.users.miyamizu-sync = {
       isNormalUser = true; # required for ssh

@@ -18,6 +18,7 @@
   powerManagement.cpuFreqGovernor = "performance";
 
   services.openssh.enable = true;
+  services.fail2ban.enable = true;
 
   # Storage Optimisation
   nix.settings.auto-optimise-store = true;

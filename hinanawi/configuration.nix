@@ -52,8 +52,6 @@
   #services.getty.autologinUser = "nyiyui";
   # TODO: remove when gui etc works
 
-  services.openssh.enable = true;
-
   # Brightness adjust
   programs.light.enable = true;
 
