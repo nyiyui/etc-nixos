@@ -149,7 +149,6 @@
         systemctl --user restart wlsunset
       '')
 
-      sageWithDoc
       go-tools
       gotools
       godef
@@ -163,7 +162,6 @@
       swaylock
       pulseaudio
       playerctl
-      wlsunset
       keepassxc
       tor
       tor-browser-bundle-bin

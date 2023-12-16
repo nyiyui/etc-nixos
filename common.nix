@@ -29,7 +29,6 @@
     wget
     curl
     pciutils
-    neovim
     htop
     unzip
     gzip
@@ -37,7 +36,6 @@
     libsForQt5.ark
     nix-index
     acpi
-    qemu_full
     blueman
     file
     picocom
