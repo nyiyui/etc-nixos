@@ -142,7 +142,14 @@
   };
   home.packages = with pkgs;
     [
-      sage
+      (pkgs.writeShellScriptBin "sunrise" ''
+        systemctl --user stop wlsunset
+      '')
+      (pkgs.writeShellScriptBin "sunset" ''
+        systemctl --user restart wlsunset
+      '')
+
+      sageWithDoc
       go-tools
       gotools
       godef
