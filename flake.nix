@@ -4,7 +4,7 @@
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    qrystal.url = "github:nyiyui/qrystal/main";
+    qrystal.url = "github:nyiyui/qrystal/next1";
     touhoukou.url = "github:nyiyui/touhoukou";
     touhoukou.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
