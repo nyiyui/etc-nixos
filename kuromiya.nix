@@ -8,7 +8,7 @@ in {
   ];
 
   systemd.services.qrystal-node.environment = {
-    "DEBUG_LEVEL" = "debug";
+    "QRYSTAL_LOGGING_CONFIG" = "development";
   };
   qrystal.services.node = {
     enable = true;

@@ -9,6 +9,7 @@
     ../kuromiya.nix
     ../base.nix
     ../headless.nix
+    ../miyamizu.nix
   ];
 
   networking.hostName = "kotohira";
