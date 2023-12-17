@@ -51,10 +51,7 @@ in {
     config.central.networks.msb = {
       keepalive = "30s";
       listenPort = 39570;
-      ips = [
-        "10.59.0.0/24"
-        "10.6.0.0/16"
-      ];
+      ips = [ "10.59.0.0/24" "10.6.0.0/16" ];
     };
   };
 
