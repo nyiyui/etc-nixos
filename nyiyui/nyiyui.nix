@@ -107,7 +107,8 @@
   };
   programs.foot = {
     enable = true;
-    settings.colors.alpha = 0;
+    settings.colors.alpha = 0.5;
+    settings.colors.background = "000000";
     settings.main.shell = "fish -c tmux";
     settings.main.font = if (hostname == "miyo") then
       "hack:size=14"
