@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-{
+{ pkgs, lib, ... }: {
   services.wlsunset = {
     enable = true;
     latitude = lib.mkDefault "43.7159566";
@@ -10,11 +9,11 @@
     };
   };
   home.packages = [
-      (pkgs.writeShellScriptBin "sunrise" ''
-        systemctl --user stop wlsunset
-      '')
-      (pkgs.writeShellScriptBin "sunset" ''
-        systemctl --user restart wlsunset
-      '')
-    ];
+    (pkgs.writeShellScriptBin "sunrise" ''
+      systemctl --user stop wlsunset
+    '')
+    (pkgs.writeShellScriptBin "sunset" ''
+      systemctl --user restart wlsunset
+    '')
+  ];
 }
