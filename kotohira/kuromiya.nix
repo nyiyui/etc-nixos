@@ -47,6 +47,11 @@ in {
         hash =
           "qrystalcth_660427dd2c67e4936a22f7bd3e23e96a71f1b65ec2d89a85f3364e60f4909774";
       })
+      (token {
+        name = "sawako";
+        hash =
+          "qrystalcth_9d660067ed0dde4ba2707a40cf60bf2d2ec8792092353e4a82b2eb03cb3ae80d";
+      })
     ];
     config.central.networks.msb = {
       keepalive = "30s";
