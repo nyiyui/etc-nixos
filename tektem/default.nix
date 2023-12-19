@@ -10,7 +10,6 @@ in {
   services.openssh.enable = true;
   nix.settings.auto-optimise-store = true;
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
     wget
     curl
