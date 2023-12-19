@@ -76,7 +76,7 @@
           tooltip-format =
             "{ifname} {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
           tooltip-format-wifi =
-            "{ifname} {essid} {signaldBm} dBm ; {frequency} MHz ; {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
+            "{ifname} {essid} {signaldBm} dBm ; {frequency} GHz ; {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
           tooltip-format-disconnected = "切";
         };
         "pulseaudio" = {

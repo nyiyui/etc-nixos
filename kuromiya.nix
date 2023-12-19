@@ -44,6 +44,7 @@ in {
 
   services.dnsmasq.settings.server = [
     "127.0.0.55"
+    "fda0:a4b2:2507::52"
     # local
     "/umi/10.6.0.1"
     "/kai/10.6.0.1"

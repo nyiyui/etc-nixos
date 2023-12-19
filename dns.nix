@@ -7,6 +7,5 @@ in {
   services.unbound.settings = {
     server.interface = [ "127.0.0.55" ula ];
     server.access-control = [ "127.0.0.55 allow" "${ula} allow" ];
-    server.verbosity = 3;
   };
 }
