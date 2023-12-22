@@ -1,6 +1,9 @@
 { config, qrystal, ... }:
 let
   hostName = config.networking.hostName;
+  hostsThatCanForward = [
+    "kotohira"
+  ];
 in {
   imports = [
     qrystal.outputs.nixosModules.x86_64-linux.node
@@ -29,7 +32,7 @@ in {
       tokenPath = config.age.secrets."kuromiya-${hostName}.qrystalct".path;
       azusa.networks.msb = {
         name = hostName;
-        canForward = hostName == "kotohira";
+        canForward = builtins.elem hostName hostsThatCanForward;
         # canSee is blank = can see any
       };
     };
