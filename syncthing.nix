@@ -19,21 +19,10 @@
         "Y3IYLHZ-SUS5JCX-QQENQUL-PI4XK7E-CPWJT3P-MVJGZVS-4XIM4HB-N4UNFAU";
       "x1".id =
         "KKFQLLW-KWKGN3M-EIWQUL5-4DBNSB5-VAE6X7W-XXPFNB2-E27QFLO-DPLX3QV";
-      "minato".id = "";
+      "minato".id = "6ROWFH5-WMAJ5JO-TDJA22O-AOQYET7-SCRIF6T-Q6A3HMA-VP7263N-JMIIRQO";
       "hinanawi".id = "";
-      "shane".id = "L436U2A-5POVARP-64YSST5-ZC6IC35-CSZ6I4W-LE2ZMFH-SVU5W7G-AG2J2AA";
     };
     folders = {
-      "TEJ4" = {
-        id = "wxi9s-brpkn";
-        path = "/home/nyiyui/inaba/2023/tej4";
-        devices = [ "shane" ];
-        versioning.type = "staggered";
-        versioning.params = {
-          cleanInterval = "86400";
-          maxAge = "31536000";
-        };
-      };
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";

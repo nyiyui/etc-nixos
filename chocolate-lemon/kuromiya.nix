@@ -18,14 +18,14 @@ in {
   qrystal.services.cs = {
     enable = true;
     config.tls = {
-      certPath = ./kuromiya-cert.pem;
-      keyPath = config.age.secrets."kuromiya-key.pem".path;
+      certPath = ../kuromiya-cert.pem;
+      keyPath = config.age.secrets."kuromiya.nyiyui.ca.key.pem".path;
     };
     config.tokens = [
       (token {
-        name = "kotohira";
+        name = "chocolate-lemon";
         hash =
-          "qrystalcth_437ac9b547aa4403443b0064cfbd79f5bbff05d442a3e86812d0b7de2d8d036a";
+          "qrystalcth_d40ec13487018cd0976ec5701301cf6abe3c7021d3dc495b8faa470044315edb";
       })
       (token {
         name = "hinanawi";
@@ -61,10 +61,11 @@ in {
   };
 
   # fw disbaled on GCE
-  # networking.firewall.allowedUDPPorts = [ 39570 ];
+  networking.firewall.allowedUDPPorts = [ 39252 config.qrystal.services.cs.config.central.networks.msb.listenPort ];
+  networking.firewall.allowedTCPPorts = [ 39252 ];
 
-  age.secrets."kuromiya-key.pem" = {
-    file = ../secrets/kuromiya-key.pem.age;
+  age.secrets."kuromiya.nyiyui.ca.key.pem" = {
+    file = ../secrets/kuromiya.nyiyui.ca.key.pem.age;
     owner = "qrystal-cs";
     group = "qrystal-cs";
     mode = "400";

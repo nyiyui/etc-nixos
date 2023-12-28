@@ -2,7 +2,7 @@
 let
   hostName = config.networking.hostName;
   hostsThatCanForward = [
-    "kotohira"
+    "chocolate-lemon"
   ];
 in {
   imports = [

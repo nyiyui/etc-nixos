@@ -51,12 +51,12 @@
         modules = [ ./hinanawi/configuration.nix agenix.nixosModules.default ];
       };
       deploy.nodes.hinanawi = host-deploy "hinanawi";
-      nixosConfigurations.kotohira = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.chocolate-lemon = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./kotohira/configuration.nix agenix.nixosModules.default ];
+        modules = [ ./chocolate-lemon/configuration.nix agenix.nixosModules.default ];
       };
-      deploy.nodes.kotohira = host-deploy "kotohira";
+      deploy.nodes.chocolate-lemon = host-deploy "chocolate-lemon";
       nixosConfigurations.kotiya = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
