@@ -61,7 +61,8 @@ in {
   };
 
   # fw disbaled on GCE
-  networking.firewall.allowedUDPPorts = [ 39252 config.qrystal.services.cs.config.central.networks.msb.listenPort ];
+  networking.firewall.allowedUDPPorts =
+    [ 39252 config.qrystal.services.cs.config.central.networks.msb.listenPort ];
   networking.firewall.allowedTCPPorts = [ 39252 ];
 
   age.secrets."kuromiya.nyiyui.ca.key.pem" = {
