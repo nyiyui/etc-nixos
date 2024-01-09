@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
@@ -33,8 +32,12 @@
   systemd.services.flan-cert = {
     after = [ "acme-flan.msb.q.nyiyui.ca.service" ];
     script = ''
-      ${pkgs.openssh}/bin/scp -o StrictHostKeyChecking=accept-new -i ${config.age.secrets."flan-cert.id_ed25519".path} /var/lib/acme/flan.msb.q.nyiyui.ca/fullchain.pem flan-cert@flan.msb.q.nyiyui.ca:/home/flan-cert
-      ${pkgs.openssh}/bin/scp -o StrictHostKeyChecking=accept-new -i ${config.age.secrets."flan-cert.id_ed25519".path} /var/lib/acme/flan.msb.q.nyiyui.ca/key.pem flan-cert@flan.msb.q.nyiyui.ca:/home/flan-cert
+      ${pkgs.openssh}/bin/scp -o StrictHostKeyChecking=accept-new -i ${
+        config.age.secrets."flan-cert.id_ed25519".path
+      } /var/lib/acme/flan.msb.q.nyiyui.ca/fullchain.pem flan-cert@flan.msb.q.nyiyui.ca:/home/flan-cert
+      ${pkgs.openssh}/bin/scp -o StrictHostKeyChecking=accept-new -i ${
+        config.age.secrets."flan-cert.id_ed25519".path
+      } /var/lib/acme/flan.msb.q.nyiyui.ca/key.pem flan-cert@flan.msb.q.nyiyui.ca:/home/flan-cert
     '';
     unitConfig.StartLimitIntervalSec = 300;
     unitConfig.StartLimitBurst = 5;
@@ -48,7 +51,7 @@
     description = "Uploads CA certificates to Flan";
     group = "flan-cert";
   };
-  users.groups.flan-cert = {};
+  users.groups.flan-cert = { };
   age.secrets."flan-cert.id_ed25519" = {
     file = ../secrets/chocolate-lemon-flan-cert.id_ed25519.age;
     owner = "flan-cert";
