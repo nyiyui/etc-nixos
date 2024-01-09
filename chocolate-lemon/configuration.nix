@@ -8,6 +8,7 @@
     ../base.nix
     ./cloudflare-ddns-update.nix
     ./hato.nix
+    ./flan-cert.nix
   ];
 
   networking.hostName = "chocolate-lemon";
@@ -21,4 +22,9 @@
   };
   #miyamizu.services.target.enable = true;
   networking.firewall.enable = true; # enable firewall for fail2ban
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "+acme@nyiyui.ca";
+  };
 }

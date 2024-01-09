@@ -1,9 +1,4 @@
 {
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "+acme@nyiyui.ca";
-  };
-
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;
