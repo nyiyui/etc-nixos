@@ -36,6 +36,8 @@ in {
     serviceConfig.RestartSec = 30;
     wantedBy = [ "default.target" ];
   };
+  # TODO: rclone tries to save config for some reason
+  #  1月 11 18:27:56 hinanawi backup-rclone-serve-start[2837]: ERROR : Failed to save config after 10 tries: failed to create temp file for new config: open /run/agenix/hinanawi.rclone.conf1784933065: permission denied
   systemd.services.backup-rclone-serve = {
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];

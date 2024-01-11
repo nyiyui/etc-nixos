@@ -16,6 +16,7 @@
     ./pexec.nix
     ./kicad.nix
     ./wlsunset.nix
+    ./rhythmbox.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
