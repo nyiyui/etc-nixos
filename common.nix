@@ -40,7 +40,6 @@
     blueman
     file
     picocom
-    git-filter-repo
   ];
 
   fonts.fonts = with pkgs; [

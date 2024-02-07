@@ -16,7 +16,6 @@
     ./pexec.nix
     ./kicad.nix
     ./wlsunset.nix
-    ./rhythmbox.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -137,6 +136,7 @@
   home.packages = with pkgs;
     [
       nmap
+      git-filter-repo
 
       go-tools
       gotools

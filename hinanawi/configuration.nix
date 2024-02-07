@@ -20,6 +20,7 @@
     ../backup.nix
     ../tpm.nix
     ../dns.nix
+    ../wine.nix
   ];
 
   networking.hostName = "hinanawi";
