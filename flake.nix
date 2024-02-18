@@ -71,7 +71,11 @@
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system: let 
     pkgs = nixpkgs.legacyPackages.${system};in{
       devShells.default = pkgs.mkShell {
-        packages = with pkgs; [ nixfmt deploy-rs.packages.${system}.default ];
+        packages = with pkgs; [
+          nixfmt
+          deploy-rs.packages.${system}.default
+          (python3.withPackages (p: [ p.pyserial ]))
+        ];
       };
     });
 }

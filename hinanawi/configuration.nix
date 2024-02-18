@@ -21,6 +21,7 @@
     ../tpm.nix
     ../dns.nix
     ../wine.nix
+    ../hisame.nix
   ];
 
   networking.hostName = "hinanawi";
@@ -94,4 +95,12 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+    # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
+    General = {
+      ControllerMode = "bredr";
+    };
+  };
 }
