@@ -50,9 +50,9 @@ alias gds='git diff --staged'
 
 alias grep='grep --color=auto'
 
-alias l='exa -a -abglFn --extended --octal-permissions --no-permissions --git'
+alias l='eza -a -abgln -F --extended --octal-permissions --no-permissions --git'
 alias lt='l -s modified'
-alias t='exa -abglFn --extended --octal-permissions --no-permissions --git -T'
+alias t='eza -abgln -F --extended --octal-permissions --no-permissions --git -T'
 alias tt='t -s modified'
 alias go='grc go'
 
