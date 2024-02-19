@@ -64,9 +64,7 @@
     enable = true;
     settings.colors.alpha = 0;
     settings.main.shell = "fish -c tmux";
-    settings.main.font = if (hostname == "miyo") then
-      "hack:size=14"
-    else if (hostname == "hinanawi") then
+    settings.main.font = if (hostname == "hinanawi") then
       "JetBrainsMono:size=8,NotoColorEmoji:size=8,hack:size=8"
     else
       "JetBrainsMono:size=7,NotoColorEmoji:size=7,hack:size=8";
@@ -100,12 +98,7 @@
       ark
       exa
       (dmenu.overrideAttrs (oldAttrs: rec {
-        configFile = writeText "config.def.h"
-          ((if config.home.file.hostname.text == "miyo" then
-            "#define FONT_SIZE 13"
-          else
-            "#define FONT_SIZE 10") + "\n"
-            + (builtins.readFile ./dmenu.config.def.h));
+        configFile = writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
         postPatch = ''
           ${oldAttrs.postPatch}
            cp ${configFile} config.def.h'';

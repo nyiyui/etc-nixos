@@ -1,6 +1,6 @@
 { config, pkgs, specialArgs, ... }: let
   mountpoint = "${config.home.homeDirectory}/hisame";
-  syncpoint = "${config.home.homeDirectory}/hisame-sync";
+  syncpoint = "${config.home.homeDirectory}/hisame-sync2";
   tmpConfigPath = "/tmp/hisame-config.yml";
 in {
   systemd.user.services.hisame-mount = {
@@ -70,7 +70,10 @@ with open('${tmpConfigPath}', 'w') as file:
     Unit.Requires = [ "hisame-mount.service" ];
     Install.WantedBy = [ "multi-user.target" ];
     Service = {
-      ExecStart = ''rsync -avu --delete "${mountpoint}" "${syncpoint}"'';
+      ExecStart = pkgs.writeShellScript "hisame-copy.sh" ''
+        ${pkgs.rsync}/bin/rsync -avuc --delete "${mountpoint}/" "${syncpoint}"
+        ${pkgs.rsync}/bin/rsync -avuc --ignore-existing "${syncpoint}/" "${mountpoint}"
+      '';
     };
   };
 }

@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
-    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     qrystal.url = "github:nyiyui/qrystal/next1";
@@ -21,7 +21,7 @@
     pkgs = import nixpkgs { config.allowUnfree = true; };
     host-deploy = name: {
           hostname = "${name}.msb.q.nyiyui.ca";
-          sshUser = "miyamizu-sync";
+          #sshUser = "miyamizu-sync"; # for chocolate-lemon
           user = "root";
           profiles.system = {
             path = deploy-rs.lib.x86_64-linux.activate.nixos
@@ -29,11 +29,6 @@
           };
         };
     in {
-      nixosConfigurations.miyo = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = attrs;
-        modules = [ ./miyo/configuration.nix ];
-      };
       nixosConfigurations.naha = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;

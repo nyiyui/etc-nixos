@@ -16,8 +16,7 @@
     ./pexec.nix
     ./kicad.nix
     ./wlsunset.nix
-    ./hisame.nix
-  ];
+  ] ++ (if hostname == "hinanawi" then [ ./hisame.nix ] else []);
 
   nixpkgs.config.allowUnfree = true;
 
@@ -102,7 +101,9 @@
       vim-nix
       vim-go
       csv-vim
+      coc-nvim
       coc-clangd
+      coc-svelte
       vim-clang-format
       git-blame-nvim
     ];
@@ -112,9 +113,7 @@
     settings.colors.alpha = 0.5;
     settings.colors.background = "000000";
     settings.main.shell = "fish -c tmux";
-    settings.main.font = if (hostname == "miyo") then
-      "hack:size=14"
-    else if (hostname == "hinanawi") then
+    settings.main.font = if (hostname == "hinanawi") then
       "JetBrainsMono:size=10,NotoColorEmoji:size=10,hack:size=10"
     else
       "JetBrainsMono:size=7,NotoColorEmoji:size=7,hack:size=8";
@@ -158,14 +157,9 @@
       clipman
       ark
       go_1_19
-      exa
+      eza
       (dmenu.overrideAttrs (oldAttrs: rec {
-        configFile = writeText "config.def.h"
-          ((if config.home.file.hostname.text == "miyo" then
-            "#define FONT_SIZE 13"
-          else
-            "#define FONT_SIZE 10") + "\n"
-            + (builtins.readFile ./dmenu.config.def.h));
+        configFile = writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
         postPatch = ''
           ${oldAttrs.postPatch}
            cp ${configFile} config.def.h'';

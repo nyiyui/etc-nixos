@@ -10,9 +10,7 @@
 
     overrideDevices = true;
     overrideFolders = true;
-    devices = {
-      "miyo".id =
-        "M7X7VPF-QU4SBMZ-3EBZT2T-IAARHKV-FL7J2CV-DLUKDZ6-QCUX727-RLHHYAC";
+    settings.devices = {
       "asuna".id =
         "Q5BN7WM-NFZG7XU-4Y266W3-OSAR4VJ-WI3GQOG-56Q54AR-X5XYMTL-RHSZTQJ";
       "makura".id =
@@ -22,11 +20,11 @@
       "minato".id = "6ROWFH5-WMAJ5JO-TDJA22O-AOQYET7-SCRIF6T-Q6A3HMA-VP7263N-JMIIRQO";
       "hinanawi".id = "";
     };
-    folders = {
+    settings.folders = {
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";
-        devices = [ "hinanawi" "miyo" "makura" "x1" "minato" ];
+        devices = [ "hinanawi" "makura" "x1" "minato" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
@@ -37,7 +35,7 @@
         id = "e2kwg-rebhd";
         label = "GF-01";
         path = "/home/nyiyui/inaba/geofront";
-        devices = [ "hinanawi" "miyo" "makura" ];
+        devices = [ "hinanawi" "makura" ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
         ignoreDelete = true;
@@ -46,7 +44,7 @@
         id = "wofgx-gaqxc";
         label = "spool";
         path = "/home/nyiyui/inaba/spool";
-        devices = [ "hinanawi" "miyo" "makura" "asuna" ];
+        devices = [ "hinanawi" "makura" "asuna" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
