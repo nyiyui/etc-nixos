@@ -83,3 +83,5 @@ if status is-interactive
 	echo '  彼女と彼女の猫EF'
 	echo '  yarnkey 1 trial'
 end
+
+export PAGER=vimpager
