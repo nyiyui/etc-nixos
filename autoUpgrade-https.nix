@@ -1,4 +1,5 @@
-{ config, ... }: let
+{ config, ... }:
+let
   hostName = config.networking.hostName;
   passwordKey = "autoupgrade-${hostName}.password";
 in {

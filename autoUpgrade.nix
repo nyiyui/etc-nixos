@@ -1,42 +1,48 @@
-{ config, pkgs, lib, ... }: let
+{ config, pkgs, lib, ... }:
+let
   hostName = config.networking.hostName;
   sshKey = "autoupgrade-${hostName}.id_ed25519";
   cfg = config.autoUpgrade.config;
 in {
-  options.autoUpgrade.config.daemonUser = with lib; with types; mkOption {
-    type = "str";
-    description = "User to own/maintain the /etc/nixos folder.";
-    default = "youmu";
-  };
-  options.autoUpgrade.config.authMethod = with lib; with types; mkOption {
-    type = oneOf [
-      (enum [ "ssh" ])
-      (submodule {
-        options = {
-          https = mkOption {
-            type = submodule {
-              options = {
-                username = mkOption {
-                  type = str;
-                  description = "Username to use with HTTPS authentication.";
-                };
-                passwordFile = mkOption {
-                  type = str;
-                  description = "Path to file with password to use with HTTPS authentication.";
+  options.autoUpgrade.config.daemonUser = with lib;
+    with types;
+    mkOption {
+      type = "str";
+      description = "User to own/maintain the /etc/nixos folder.";
+      default = "youmu";
+    };
+  options.autoUpgrade.config.authMethod = with lib;
+    with types;
+    mkOption {
+      type = oneOf [
+        (enum [ "ssh" ])
+        (submodule {
+          options = {
+            https = mkOption {
+              type = submodule {
+                options = {
+                  username = mkOption {
+                    type = str;
+                    description = "Username to use with HTTPS authentication.";
+                  };
+                  passwordFile = mkOption {
+                    type = str;
+                    description =
+                      "Path to file with password to use with HTTPS authentication.";
+                  };
                 };
               };
             };
           };
-        };
-      })
-    ];
-    default = "ssh";
-    description = ''
-      Which authentication method to use.
-      SSH requires an SSH key; HTTPS requires a username-password pair.
-      Note that TDSB-WIFI and friends very much dislike SSH.
-    '';
-  };
+        })
+      ];
+      default = "ssh";
+      description = ''
+        Which authentication method to use.
+        SSH requires an SSH key; HTTPS requires a username-password pair.
+        Note that TDSB-WIFI and friends very much dislike SSH.
+      '';
+    };
 
   config = {
     system.autoUpgrade = {
@@ -89,7 +95,9 @@ in {
       wants = [ "autoupgrade-reset-perms.service" ];
       after = [ "autoupgrade-reset-perms.service" ];
       script = if cfg.authMethod == "ssh" then ''
-        export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i ${config.age.secrets.${sshKey}.path} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
+        export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i ${
+          config.age.secrets.${sshKey}.path
+        } -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
         ${pkgs.git}/bin/git \
           -c 'safe.directory=/etc/nixos' \
           -c 'core.sharedRepository=group' \
@@ -103,7 +111,7 @@ in {
           pull
       '';
     };
-  
+
     age.secrets.${sshKey} = lib.mkIf (cfg.authMethod == "ssh") {
       file = ./secrets/autoupgrade-${hostName}.id_ed25519.age;
       owner = "youmu";

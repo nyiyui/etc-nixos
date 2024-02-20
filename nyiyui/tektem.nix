@@ -98,7 +98,8 @@
       ark
       exa
       (dmenu.overrideAttrs (oldAttrs: rec {
-        configFile = writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
+        configFile =
+          writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
         postPatch = ''
           ${oldAttrs.postPatch}
            cp ${configFile} config.def.h'';

@@ -1,12 +1,14 @@
 { config, lib, pkgs, qrystal, ... }:
-let cfg = config.miyamizu.services.target; in {
-  options.miyamizu.services.target = with lib; with types; {
-    enable = mkEnableOption "Miyamizu sync target";
-  };
+let cfg = config.miyamizu.services.target;
+in {
+  options.miyamizu.services.target = with lib;
+    with types; {
+      enable = mkEnableOption "Miyamizu sync target";
+    };
   config = lib.mkIf cfg.enable {
     services.openssh.enable = true;
     services.fail2ban.enable = true;
-    users.groups.miyamizu-sync = {};
+    users.groups.miyamizu-sync = { };
     users.users.miyamizu-sync = {
       isNormalUser = true; # required for ssh
       group = "miyamizu-sync";
@@ -26,17 +28,19 @@ let cfg = config.miyamizu.services.target; in {
       keepEnv = true;
       noPass = true;
     }];
-    qrystal.services.node.config.srvList = pkgs.writeText "srvlist.json" (builtins.toJSON { Networks = {
-      msb = [{
-        Service = "_miyamizu";
-        Protocol = "_tcp";
-        Priority = 10;
-        Weight = 10;
-        Port = 22;
-      }];
-    }; });
-    qrystal.services.node.config.cs.azusa.networks.msb.allowedSRVs = [{
-      service = "_miyamizu";
-    }];
+    qrystal.services.node.config.srvList = pkgs.writeText "srvlist.json"
+      (builtins.toJSON {
+        Networks = {
+          msb = [{
+            Service = "_miyamizu";
+            Protocol = "_tcp";
+            Priority = 10;
+            Weight = 10;
+            Port = 22;
+          }];
+        };
+      });
+    qrystal.services.node.config.cs.azusa.networks.msb.allowedSRVs =
+      [{ service = "_miyamizu"; }];
   };
 }

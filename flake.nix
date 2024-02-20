@@ -9,25 +9,26 @@
     touhoukou.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    nix-serve-ng.url = github:aristanetworks/nix-serve-ng;
-    flake-utils.url = github:numtide/flake-utils;
+    nix-serve-ng.url = "github:aristanetworks/nix-serve-ng";
+    flake-utils.url = "github:numtide/flake-utils";
     deploy-rs.url = "github:serokell/deploy-rs";
     seekback.url = "github:nyiyui/seekback";
     seekback.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, flake-utils, deploy-rs, ... }@attrs:
-  let
-    pkgs = import nixpkgs { config.allowUnfree = true; };
-    host-deploy = name: {
-          hostname = "${name}.msb.q.nyiyui.ca";
-          #sshUser = "miyamizu-sync"; # for chocolate-lemon
-          user = "root";
-          profiles.system = {
-            path = deploy-rs.lib.x86_64-linux.activate.nixos
-              self.nixosConfigurations.${name};
-          };
+  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, flake-utils
+    , deploy-rs, ... }@attrs:
+    let
+      pkgs = import nixpkgs { config.allowUnfree = true; };
+      host-deploy = name: {
+        hostname = "${name}.msb.q.nyiyui.ca";
+        #sshUser = "miyamizu-sync"; # for chocolate-lemon
+        user = "root";
+        profiles.system = {
+          path = deploy-rs.lib.x86_64-linux.activate.nixos
+            self.nixosConfigurations.${name};
         };
+      };
     in {
       nixosConfigurations.naha = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -49,28 +50,35 @@
       nixosConfigurations.chocolate-lemon = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./chocolate-lemon/configuration.nix agenix.nixosModules.default ];
+        modules =
+          [ ./chocolate-lemon/configuration.nix agenix.nixosModules.default ];
       };
       deploy.nodes.chocolate-lemon = host-deploy "chocolate-lemon";
       nixosConfigurations.kotiya = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./kotiya/configuration.nix agenix.nixosModules.default nix-serve-ng.nixosModules.default ];
+        modules = [
+          ./kotiya/configuration.nix
+          agenix.nixosModules.default
+          nix-serve-ng.nixosModules.default
+        ];
       };
       nixosConfigurations.minato = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [ ./minato/configuration.nix agenix.nixosModules.default ];
       };
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-    } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system: let 
-    pkgs = nixpkgs.legacyPackages.${system};in{
-      devShells.default = pkgs.mkShell {
-        packages = with pkgs; [
-          nixfmt
-          deploy-rs.packages.${system}.default
-          (python3.withPackages (p: [ p.pyserial ]))
-        ];
-      };
-    });
+      checks = builtins.mapAttrs
+        (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+    } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
+      let pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            nixfmt
+            deploy-rs.packages.${system}.default
+            (python3.withPackages (p: [ p.pyserial ]))
+          ];
+        };
+      });
 }

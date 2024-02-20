@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: let
+{ config, pkgs, ... }:
+let
   port = 29679;
   hostName = config.networking.hostName;
   rcloneConf = "${hostName}.rclone.conf";
@@ -55,7 +56,7 @@ in {
     '';
   };
 
-  users.groups.backup-rclone = {};
+  users.groups.backup-rclone = { };
   users.users.backup-rclone = {
     isNormalUser = true;
     description = "just for 'rclone serve restic'";

@@ -1,14 +1,9 @@
 { config, qrystal, ... }:
 let
   hostName = config.networking.hostName;
-  hostsThatCanForward = [
-    "chocolate-lemon"
-  ];
+  hostsThatCanForward = [ "chocolate-lemon" ];
 in {
-  imports = [
-    qrystal.outputs.nixosModules.x86_64-linux.node
-    ./dns.nix
-  ];
+  imports = [ qrystal.outputs.nixosModules.x86_64-linux.node ./dns.nix ];
 
   systemd.services.qrystal-node.environment = {
     "QRYSTAL_LOGGING_CONFIG" = "development";

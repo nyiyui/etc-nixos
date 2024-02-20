@@ -96,9 +96,7 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.settings = {
     # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
-    General = {
-      ControllerMode = "bredr";
-    };
+    General = { ControllerMode = "bredr"; };
   };
 
   hisame.services.sync = {
