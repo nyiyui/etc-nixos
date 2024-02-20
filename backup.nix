@@ -9,8 +9,7 @@ in {
   systemd.timers.backup-restic = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
-      OnBootSec = "1h";
-      OnCalendar = "hourly";
+      OnCalendar = "*:00/3:00";
       Persistent = "true";
       RandomizedDelaySec = "30m";
       AccuracySec = "30m";
