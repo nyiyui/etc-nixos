@@ -17,7 +17,7 @@
     ./kicad.nix
     ./wlsunset.nix
     ./neovim.nix
-  ] ++ (if hostname == "hinanawi" then [ ./hisame.nix ] else []);
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
