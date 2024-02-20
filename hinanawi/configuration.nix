@@ -103,6 +103,6 @@
 
   hisame.services.sync = {
     enable = true;
-    path = "/home/nyiyui/hisame-sync3";
+    path = "/home/nyiyui/inaba/quaderno";
   };
 }
