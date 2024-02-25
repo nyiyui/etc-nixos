@@ -26,14 +26,6 @@ in {
     yt-dlp
   ];
 
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    liberation_ttf
-    hack-font
-  ];
-
   programs.git.enable = true;
 
   environment.shells = [ pkgs.fish ];

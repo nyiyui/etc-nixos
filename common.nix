@@ -1,6 +1,6 @@
 { config, lib, pkgs, specialArgs, ... }: {
   imports =
-    [ ./virt.nix ./reimu.nix ./autoUpgrade-https.nix ./i18n.nix ./doas.nix ];
+    [ ./virt.nix ./reimu.nix ./i18n.nix ./doas.nix ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

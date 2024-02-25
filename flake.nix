@@ -21,7 +21,7 @@
     let
       pkgs = import nixpkgs { config.allowUnfree = true; };
       host-deploy = name: {
-        hostname = "${name}.msb.q.nyiyui.ca";
+        hostname = "${name}.nyiyui.ca";
         #sshUser = "miyamizu-sync"; # for chocolate-lemon
         user = "root";
         profiles.system = {

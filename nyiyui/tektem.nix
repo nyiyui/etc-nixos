@@ -96,7 +96,7 @@
       tor-browser-bundle-bin
       clipman
       ark
-      exa
+      eza
       (dmenu.overrideAttrs (oldAttrs: rec {
         configFile =
           writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
