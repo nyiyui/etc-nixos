@@ -52,6 +52,11 @@ in {
         hash =
           "qrystalcth_9d660067ed0dde4ba2707a40cf60bf2d2ec8792092353e4a82b2eb03cb3ae80d";
       })
+      (token {
+        name = "penguin"; # Asus Chromebook
+        hash =
+          "qrystalcth_50e97669b459d3c97b60d819c44006ce9db877c6e7871dcef0ebe5f694aea63d";
+      })
     ];
     config.central.networks.msb = {
       keepalive = "30s";
