@@ -93,7 +93,7 @@ in {
 
               print('writing ip address…')
               with open('${tmpIPAddrPath}', 'w') as file:
-                file.write(f'[{addr}%enp0s20f0u1]')
+                file.write(f'[{addr}%enp0s20f0u3]')
               print('done.')
             ''
           }";
