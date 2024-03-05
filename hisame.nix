@@ -48,6 +48,7 @@ in {
               import json
               import time
               import serial
+              import re
 
 
               # see https://github.com/janten/dpt-rp1-py/blob/master/docs/linux-ethernet-over-usb.md
@@ -75,6 +76,18 @@ in {
                   break
                 return addr
 
+              def get_interfaces():
+                "Selects a good-looking (i.e. starts with enp) interface, and hope that it's the correct (i.e. USB-to-Ethernet) interface."
+                completed = subprocess.run(['/run/current-system/sw/bin/ip', 'a'], capture_output=True)
+                stdout = completed.stdout.decode('ascii')
+                stderr = completed.stderr.decode('ascii')
+                if 'failed' in stdout.lower() or len(stderr) > 0:
+                  raise RuntimeError(f'failed to get interfaces: {stderr}')
+                m = re.search('enp.*u.:', stdout)
+                if not m:
+                  raise TypeError(f'interface not found: {stdout}')
+                return m.group(0)[:-1]
+
 
               print('checking already connected…')
               try:
@@ -91,9 +104,11 @@ in {
                   raise e
               print('connected.')
 
+              iface = get_interfaces()
+              print(f'interface to use: {iface}')
               print('writing ip address…')
               with open('${tmpIPAddrPath}', 'w') as file:
-                file.write(f'[{addr}%enp0s20f0u3]')
+                file.write(f'[{addr}%{iface}]')
               print('done.')
             ''
           }";
