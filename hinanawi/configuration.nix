@@ -19,7 +19,6 @@
     ../restic.nix
     ../backup.nix
     ../tpm.nix
-    ../dns.nix
     ../wine.nix
     ../hisame.nix
   ];
