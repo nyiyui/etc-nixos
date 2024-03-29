@@ -28,6 +28,11 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
 
+  services.getty = {
+    autologinUser = "nyiyui";
+    loginProgram = "${pkgs.sway}/bin/sway";
+  };
+
   programs.sway.enable = true;
   xdg.portal.wlr.enable = true;
 
