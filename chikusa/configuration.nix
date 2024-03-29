@@ -27,6 +27,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
 
+  hardware.opengl.enable = true
   services.greetd = {
     enable = true;
     settings = rec {
@@ -38,6 +39,7 @@
   };
 
   xdg.portal.wlr.enable = true;
+  xdg.portal.config.common.default = "*";
 
   miyamizu.services.target.enable = true;
 
@@ -54,7 +56,5 @@
     # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
     General = { ControllerMode = "bredr"; };
   };
-
-  xdg.portal.config.common.default = "*";
 }
 
