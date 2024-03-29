@@ -4,7 +4,6 @@
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     home-manager.nixosModule
-    { }
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
     ../common.nix
     ../syncthing.nix

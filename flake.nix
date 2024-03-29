@@ -63,6 +63,11 @@
           nix-serve-ng.nixosModules.default
         ];
       };
+      nixosConfigurations.chikusa = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules = [ ./chikusa/configuration.nix agenix.nixosModules.default ];
+      };
       nixosConfigurations.minato = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
