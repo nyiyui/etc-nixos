@@ -13,7 +13,6 @@
     ../miyamizu.nix
     ../docker.nix
     ../wine.nix
-    ../hisame.nix
   ];
 
   networking.hostName = "chikusa";
@@ -50,11 +49,6 @@
   hardware.bluetooth.settings = {
     # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
     General = { ControllerMode = "bredr"; };
-  };
-
-  hisame.services.sync = {
-    enable = true;
-    path = "/home/nyiyui/inaba/quaderno";
   };
 }
 
