@@ -27,7 +27,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
 
-  hardware.opengl.enable = true
+  hardware.opengl.enable = true;
   services.greetd = {
     enable = true;
     settings = rec {
