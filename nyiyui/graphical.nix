@@ -110,11 +110,17 @@
     };
   };
 
-  wayland.windowManager.sway = {
+  wayland.windowManager.sway = let 
+    modifier = "Mod4";
+  in {
     enable = true;
     extraConfig = ''
       default_border none
       default_floating_border none
+      mode passthrough {
+        bindsym ${modifier}+Home mode default
+      }
+      bindsym ${modifier}+Home mode passthrough
     '';
     extraSessionCommands = ''
       export QT_AUTO_SCREEN_SCALE_FACTOR=1
@@ -134,7 +140,7 @@
       export XIM_SERVERS=fcitx
     '';
     config = rec {
-      modifier = "Mod4";
+      inherit modifier;
       terminal = "foot";
       startup = [
         {
@@ -196,7 +202,7 @@
           { app_id = "org.rncbc.qjackctl"; }
         ];
       };
-      bars = [ ];
+      bars = [];
     };
   };
 
