@@ -110,8 +110,7 @@
     };
   };
 
-  wayland.windowManager.sway = let 
-    modifier = "Mod4";
+  wayland.windowManager.sway = let modifier = "Mod4";
   in {
     enable = true;
     extraConfig = ''
@@ -202,7 +201,7 @@
           { app_id = "org.rncbc.qjackctl"; }
         ];
       };
-      bars = [];
+      bars = [ ];
     };
   };
 
