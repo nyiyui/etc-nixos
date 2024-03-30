@@ -69,7 +69,7 @@ in {
     mode = "400";
   };
   age.secrets.${resticPassword} = {
-    file = ./secrets/${hostName}.backup-restic-password.age;
+    file = ./secrets/backup-restic-password.age;
     owner = "root";
     group = "root";
     mode = "400";

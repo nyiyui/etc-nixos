@@ -13,6 +13,7 @@
     ../miyamizu.nix
     ../docker.nix
     ../wine.nix
+    ../backup-ssd.nix
   ];
 
   networking.hostName = "chikusa";
