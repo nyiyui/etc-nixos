@@ -16,9 +16,9 @@ in {
   };
   fileSystems.${repository} = {
     device = "/dev/disk/by-uuid/F6D7-9393";
-    fsType = "ext4";
-    autoResize = true;
-    autoFormat = true;
+    options = [
+      "x-systemd.automount"
+    ];
   };
   systemd.services.backup-restic-ssd = let
     asUser = "${pkgs.doas}/bin/doas -u nyiyui";
