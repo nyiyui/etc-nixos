@@ -47,4 +47,15 @@
       };
     };
   })
+  (lib.mkIf (config.home.file.hostname.text == "chikusa") {
+    wayland.windowManager.sway.config = {
+      output = {
+        "HDMI-A-1" = {
+          mode = "3840x2160@60.000Hz";
+          scale = "1.5";
+          adaptive_sync = "on";
+        };
+      };
+    };
+  })
 ])

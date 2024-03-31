@@ -2,7 +2,7 @@
 let
   hostName = config.networking.hostName;
   resticPassword = "${hostName}.backup-restic-password";
-  repository = "/mnt/backup";
+  repository = "/mnt/backup/restic-backup";
 in {
   # TODO: port is open (not secure!)
   systemd.timers.backup-restic-ssd = {
@@ -15,7 +15,7 @@ in {
     };
   };
   fileSystems.${repository} = {
-    device = "/dev/disk/by-uuid/F6D7-9393";
+    device = "/dev/disk/by-partuuid/702ddf9a-82df-47b1-88f6-4ce3b73d4ddc";
     options = [
       "x-systemd.automount"
     ];

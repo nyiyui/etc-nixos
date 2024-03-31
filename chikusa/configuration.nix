@@ -28,7 +28,6 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
 
-  hardware.opengl.enable = true;
   services.greetd = {
     enable = true;
     settings = rec {
@@ -56,6 +55,19 @@
   hardware.bluetooth.settings = {
     # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
     General = { ControllerMode = "bredr"; };
+  };
+
+  # https://nixos.wiki/wiki/Nvidia
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
   };
 }
 

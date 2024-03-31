@@ -93,10 +93,7 @@
     settings.colors.alpha = 0.5;
     settings.colors.background = "000000";
     settings.main.shell = "fish -c tmux";
-    settings.main.font = if (hostname == "hinanawi") then
-      "JetBrainsMono:size=10,NotoColorEmoji:size=10,hack:size=10"
-    else
-      "JetBrainsMono:size=7,NotoColorEmoji:size=7,hack:size=8";
+    settings.main.font = "JetBrainsMono:size=10,NotoColorEmoji:size=10,hack:size=10";
   };
   systemd.user.services.swaybg = {
     Unit = {
