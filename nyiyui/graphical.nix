@@ -17,7 +17,6 @@
         layer = "top";
         position = "bottom";
         height = 24;
-        output = [ "eDP-1" "DP-1" ];
         modules-left = [ "sway/workspaces" ];
         modules-center = [ "sway/window" ];
         modules-right = [
