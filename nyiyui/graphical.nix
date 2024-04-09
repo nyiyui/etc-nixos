@@ -15,7 +15,10 @@
     settings = {
       mainBar = {
         layer = "top";
-        position = if config.home.file.hostname.text == "hinanawi" then "bottom" else "top";
+        position = if config.home.file.hostname.text == "hinanawi" then
+          "bottom"
+        else
+          "top";
         height = 24;
         modules-left = [ "sway/workspaces" ];
         modules-center = [ "sway/window" ];
