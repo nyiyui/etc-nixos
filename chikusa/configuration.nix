@@ -14,6 +14,7 @@
     ../docker.nix
     ../wine.nix
     ../backup-ssd.nix
+    ../niri.nix
   ];
 
   networking.hostName = "chikusa";
@@ -60,15 +61,8 @@
     driSupport32Bit = true;
   };
 
-  programs.niri.enable = true;
-  nixpkgs.overlays = [ specialArgs.niri.overlays.niri ];
-  home-manager.users.nyiyui = {
-    imports = [ ../nyiyui/graphical.nix ../nyiyui/niri ];
-  };
-
   services.xserver.enable = true;
   services.xserver.displayManager = {
-    defaultSession = "niri";
     autoLogin.enable = true;
     autoLogin.user = "nyiyui";
     lightdm = { enable = true; };
