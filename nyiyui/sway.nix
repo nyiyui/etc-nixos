@@ -107,5 +107,5 @@
       format = "{app_id} {title}";
       icon = true;
     };
-  }
+  };
 }
