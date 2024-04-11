@@ -55,15 +55,6 @@
           [ ./chocolate-lemon/configuration.nix agenix.nixosModules.default ];
       };
       deploy.nodes.chocolate-lemon = host-deploy "chocolate-lemon";
-      nixosConfigurations.kotiya = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = attrs;
-        modules = [
-          ./kotiya/configuration.nix
-          agenix.nixosModules.default
-          nix-serve-ng.nixosModules.default
-        ];
-      };
       nixosConfigurations.chikusa = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;

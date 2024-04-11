@@ -1,4 +1,6 @@
 { config, libs, pkgs, lib, ... }: {
+  imports = [ ./dmenu.nix ];
+
   wayland.windowManager.sway = let modifier = "Mod4";
   in {
     enable = false;
