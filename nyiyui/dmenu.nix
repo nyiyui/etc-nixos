@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   home.packages = [
     (dmenu.overrideAttrs (oldAttrs: rec {
       configFile =
