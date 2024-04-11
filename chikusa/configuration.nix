@@ -63,10 +63,7 @@
   programs.niri.enable = true;
   nixpkgs.overlays = [ specialArgs.niri.overlays.niri ];
   home-manager.users.nyiyui = {
-    imports = [
-      ../nyiyui/graphical.nix
-      ../nyiyui/niri
-    ];
+    imports = [ ../nyiyui/graphical.nix ../nyiyui/niri ];
   };
 
   services.xserver.enable = true;
@@ -74,9 +71,7 @@
     defaultSession = "niri";
     autoLogin.enable = true;
     autoLogin.user = "nyiyui";
-    lightdm = {
-      enable = true;
-    };
+    lightdm = { enable = true; };
   };
   security.polkit.enable = true;
 }

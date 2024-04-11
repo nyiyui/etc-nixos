@@ -1,5 +1,4 @@
-{ config, libs, pkgs, lib, ... }:
-{
+{ config, libs, pkgs, lib, ... }: {
   wayland.windowManager.sway = let modifier = "Mod4";
   in {
     enable = false;
@@ -22,7 +21,7 @@
       export MOZ_ENABLE_WAYLAND=1
       export WLR_NO_HARDWARE_CURSORS=1
       export INPUT_METHOD=fcitx
-  
+
       export QT_IM_MODULE=fcitx
       export GTK_IM_MODULE=fcitx
       export XMODIFIERS=@im=fcitx
