@@ -1,13 +1,13 @@
 { config, libs, pkgs, lib, ... }:
-let
-  cfg = config.nyiyui;
-in 
-{
-  options.nyiyui.hasBacklight = with lib; with types; mkOption {
-    type = bool;
-    default = false;
-    description = "enable backlight features";
-  };
+let cfg = config.nyiyui;
+in {
+  options.nyiyui.hasBacklight = with lib;
+    with types;
+    mkOption {
+      type = bool;
+      default = false;
+      description = "enable backlight features";
+    };
 
   config = {
     i18n.inputMethod = {
