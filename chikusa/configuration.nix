@@ -1,4 +1,4 @@
-{ config, lib, pkgs, home-manager, nixos-hardware, ... }:
+{ config, lib, pkgs, specialArgs, home-manager, ... }:
 
 {
   imports = [
@@ -27,16 +27,6 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
-
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      default_session = {
-        command = "${pkgs.sway}/bin/sway";
-        user = "nyiyui";
-      };
-    };
-  };
 
   xdg.portal.wlr.enable = true;
   xdg.portal.config.common.default = "*";
@@ -69,5 +59,24 @@
     driSupport = true;
     driSupport32Bit = true;
   };
-}
 
+  programs.niri.enable = true;
+  nixpkgs.overlays = [ specialArgs.niri.overlays.niri ];
+  home-manager.users.nyiyui = {
+    imports = [
+      ../nyiyui/graphical.nix
+      ../nyiyui/niri
+    ];
+  };
+
+  services.xserver.enable = true;
+  services.xserver.displayManager = {
+    defaultSession = "niri";
+    autoLogin.enable = true;
+    autoLogin.user = "nyiyui";
+    lightdm = {
+      enable = true;
+    };
+  };
+  security.polkit.enable = true;
+}

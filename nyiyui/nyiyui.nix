@@ -4,7 +4,6 @@
 {
   imports = [
     ./kde.nix
-    ./graphical.nix
     ./per.nix
     ./fonts.nix
     ./tmux.nix

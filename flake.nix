@@ -14,9 +14,10 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     seekback.url = "github:nyiyui/seekback";
     seekback.inputs.nixpkgs.follows = "nixpkgs";
+    niri.url = "github:sodiboo/niri-flake";
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, flake-utils
+  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, flake-utils, niri
     , deploy-rs, ... }@attrs:
     let
       pkgs = import nixpkgs { config.allowUnfree = true; };
@@ -66,7 +67,12 @@
       nixosConfigurations.chikusa = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [ ./chikusa/configuration.nix agenix.nixosModules.default ];
+        modules = [
+          ./chikusa/configuration.nix
+          niri.nixosModules.niri
+          { niri-flake.cache.enable = false; }
+          agenix.nixosModules.default
+        ];
       };
       nixosConfigurations.minato = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

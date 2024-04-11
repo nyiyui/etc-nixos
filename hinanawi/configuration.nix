@@ -101,4 +101,8 @@
     enable = true;
     path = "/home/nyiyui/inaba/quaderno";
   };
+
+  home-manager.users.nyiyui = {
+    imports = [ ../nyiyui/graphical.nix ../nyiyui/sway.nix ];
+  };
 }
