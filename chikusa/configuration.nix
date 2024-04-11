@@ -42,12 +42,6 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.settings = {
-    # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
-    General = { ControllerMode = "bredr"; };
-  };
-
   # https://nixos.wiki/wiki/Nvidia
   hardware.nvidia = {
     modesetting.enable = true;

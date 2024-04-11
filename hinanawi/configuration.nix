@@ -20,6 +20,7 @@
     ../tpm.nix
     ../wine.nix
     ../hisame.nix
+    ../sway.nix
   ];
 
   networking.hostName = "hinanawi";
@@ -43,29 +44,13 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "ja_JP.UTF-8";
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
-
   #services.getty.autologinUser = "nyiyui";
   # TODO: remove when gui etc works
 
   # Brightness adjust
   programs.light.enable = true;
 
-  programs.sway.enable = true;
   xdg.portal.wlr.enable = true;
-  services.xserver.enable = true;
-
-  services.xserver.displayManager = {
-    lightdm = { enable = true; };
-    autoLogin = {
-      enable = true;
-      user = "nyiyui";
-    };
-  };
 
   hardware.opengl = {
     enable = true;
@@ -102,7 +87,11 @@
     path = "/home/nyiyui/inaba/quaderno";
   };
 
-  home-manager.users.nyiyui = {
-    imports = [ ../nyiyui/graphical.nix ../nyiyui/sway.nix ];
+  services.xserver.enable = true;
+  services.xserver.displayManager = {
+    autoLogin.enable = true;
+    autoLogin.user = "nyiyui";
+    lightdm = { enable = true; };
   };
+  security.polkit.enable = true;
 }
