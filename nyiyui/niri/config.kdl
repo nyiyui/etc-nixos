@@ -14,8 +14,8 @@ layout {
     struts {
         left 32
         right 32
-        top 0
-        bottom 0
+        top 32
+        bottom 32
     }
     focus-ring {
         width 2
@@ -44,7 +44,8 @@ animations {
 }
 
 output "HDMI-A-1" {
-  scale 1.5
+  mode "3840x2160@30.000"
+  scale 2.0
 }
 
 
@@ -52,7 +53,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return { spawn "foot"; }
-    Mod+D { spawn "dmenu_run"; }
+    Mod+D { spawn "fuzzel"; }
     Mod+Shift+Return { spawn "firefox"; }
     Super+Alt+L { spawn "swaylock"; }
 

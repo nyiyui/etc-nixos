@@ -6,6 +6,7 @@
     imports = [
       ./nyiyui/graphical.nix
       ./nyiyui/niri
+      ./nyiyui/fuzzel.nix
     ];
   };
   services.xserver.displayManager.defaultSession = "niri";
