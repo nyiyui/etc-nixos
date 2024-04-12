@@ -60,8 +60,6 @@
         specialArgs = attrs;
         modules = [
           ./chikusa/configuration.nix
-          niri.nixosModules.niri
-          { niri-flake.cache.enable = false; }
           agenix.nixosModules.default
         ];
       };

@@ -1,5 +1,9 @@
 { specialArgs, ... }:
 {
+  imports = [
+    specialArgs.niri.nixosModules.niri
+  ];
+
   programs.niri.enable = true;
   nixpkgs.overlays = [ specialArgs.niri.overlays.niri ];
   home-manager.users.nyiyui = {
@@ -10,4 +14,5 @@
     ];
   };
   services.xserver.displayManager.defaultSession = "niri";
+  niri-flake.cache.enable = false;
 }

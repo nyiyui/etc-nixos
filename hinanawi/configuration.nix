@@ -20,7 +20,7 @@
     ../tpm.nix
     ../wine.nix
     ../hisame.nix
-    ../sway.nix
+    ../niri.nix
   ];
 
   networking.hostName = "hinanawi";

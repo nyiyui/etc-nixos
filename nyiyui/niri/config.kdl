@@ -48,7 +48,6 @@ output "HDMI-A-1" {
   scale 2.0
 }
 
-
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
