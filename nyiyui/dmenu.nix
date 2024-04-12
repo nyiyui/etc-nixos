@@ -1,6 +1,6 @@
-{ ... }: {
+{ pkgs, ... }: {
   home.packages = [
-    (dmenu.overrideAttrs (oldAttrs: rec {
+    (pkgs.dmenu.overrideAttrs (oldAttrs: rec {
       configFile =
         writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
       postPatch = ''
