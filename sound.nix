@@ -32,5 +32,13 @@
     }
   ];
 
+  home-manager.users.nyiyui = {
+    imports = [
+      ({ pkgs, ... }: {
+        home.packages = [ pkgs.qpwgraph ];
+      })
+    ];
+  };
+
   environment.systemPackages = with pkgs; [ qjackctl jacktrip ];
 }
