@@ -12,7 +12,6 @@ jobs:
       - uses: cachix/install-nix-action@v20
         with:
           gitub_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: nix flake check
       - run: nix flake update
       - name: commit and push
         run: |

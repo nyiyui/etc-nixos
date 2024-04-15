@@ -11,6 +11,7 @@ jobs:
         with:
           gitub_access_token: ${{ secrets.GITHUB_TOKEN }}
       - run: "nix develop --command nixfmt */*.nix"
+      - run: nix flake check
       - name: commit and push
         run: |
           if git diff --exit-code; then
