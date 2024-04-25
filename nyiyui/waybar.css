@@ -77,7 +77,9 @@ button:hover {
 #mode,
 #idle_inhibitor,
 #scratchpad,
-#mpd {
+#mpd,
+#custom-systemd-backup,
+#custom-systemd-hisame {
     padding: 0 8px;
     color: #137a7f;
 }
@@ -278,3 +280,8 @@ label:focus {
 #mpris:not(.playing) {
   color: #2a5c45;
 }
+
+#custom-systemd-backup:not(.success), #custom-systemd-hisame:not(.success) {
+  background-color: rgba(255, 98, 0, 0.2);
+}
+

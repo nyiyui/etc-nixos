@@ -20,7 +20,24 @@ in {
       enable = true;
       systemd.enable = true;
       style = builtins.readFile ./waybar.css;
-      settings = {
+      settings = let
+        genServiceStatus = { serviceName }:
+          let
+            script = pkgs.writeShellScriptBin "get-last-active-time.sh" ''
+              export RESULT="$(systemctl show ${serviceName} --property=Result | cut -d= -f2)"
+              export DATE="$(date -d "$(systemctl show ${serviceName} --property=ActiveExitTimestamp | cut -d= -f2)" +'%m-%d %H')"
+              if [[ "$RESULT" == "success" ]]; then
+                printf '{"text": "○", "tooltip": "${serviceName} %s", "class": "success"}' "$DATE"
+              else
+                printf '{"text": "△", "tooltip": "${serviceName} %s: %s", "class": "%s"}' "$DATE" "$RESULT" "$RESULT"
+              fi
+            '';
+          in {
+            exec = "${script}/bin/get-last-active-time.sh";
+            return-type = "json";
+            interval = 60;
+          };
+      in {
         mainBar = {
           layer = "top";
           position = if config.home.file.hostname.text == "hinanawi" then
@@ -35,25 +52,14 @@ in {
             "pulseaudio"
             "mpris"
             (lib.mkIf cfg.hasBacklight "custom/light")
-            "custom/systemd"
+            "custom/systemd-backup"
+            "custom/systemd-hisame"
             "battery"
             "clock"
           ];
 
-          "custom/systemd" = let
-            script = pkgs.writeShellScriptBin "get-last-active-time.sh" ''
-              export RESULT="$(systemctl show backup-restic.service --property=Result | cut -d= -f2)"
-              if [[ "$RESULT" == "success" ]]; then
-                echo '○'
-              else
-                export DATE="$(date -d "$(systemctl show backup-restic.service --property=ActiveExitTimestamp | cut -d= -f2)" +'%m-%d %H')"
-                printf '△%s at %s' "$RESULT" "$DATE"
-              fi
-            '';
-          in {
-            exec = "${script}/bin/get-last-active-time.sh";
-            interval = 60;
-          };
+          "custom/systemd-backup" = genServiceStatus { serviceName = "backup-restic.service"; };
+          "custom/systemd-hisame" = genServiceStatus { serviceName = "hisame-sync.service"; };
           "battery" = {
             states.warning = 20;
             states.critical = 10;
