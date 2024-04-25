@@ -29,17 +29,31 @@ in {
             "top";
           height = 24;
           modules-right = [
-            "systemd-failed-units"
             "tray"
             "network"
             "temperature"
             "pulseaudio"
             "mpris"
             (lib.mkIf cfg.hasBacklight "custom/light")
+            "custom/systemd"
             "battery"
             "clock"
           ];
 
+          "custom/systemd" = let
+            script = pkgs.writeShellScriptBin "get-last-active-time.sh" ''
+              export RESULT="$(systemctl show backup-restic.service --property=Result | cut -d= -f2)"
+              if [[ "$RESULT" == "success" ]]; then
+                echo '○'
+              else
+                export DATE="$(date -d "$(systemctl show backup-restic.service --property=ActiveExitTimestamp | cut -d= -f2)" +'%m-%d %H')"
+                printf '△%s at %s' "$RESULT" "$DATE"
+              fi
+            '';
+          in {
+            exec = "${script}/bin/get-last-active-time.sh";
+            interval = 60;
+          };
           "battery" = {
             states.warning = 20;
             states.critical = 10;
@@ -105,7 +119,7 @@ in {
           };
           "custom/light" = lib.mkIf cfg.hasBacklight {
             exec = "${pkgs.light}/bin/light";
-            interval = 1;
+            interval = 10;
           };
         };
       };
