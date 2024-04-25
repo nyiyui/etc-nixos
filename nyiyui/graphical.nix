@@ -58,8 +58,10 @@ in {
             "clock"
           ];
 
-          "custom/systemd-backup" = genServiceStatus { serviceName = "backup-restic.service"; };
-          "custom/systemd-hisame" = genServiceStatus { serviceName = "hisame-sync.service"; };
+          "custom/systemd-backup" =
+            genServiceStatus { serviceName = "backup-restic.service"; };
+          "custom/systemd-hisame" =
+            genServiceStatus { serviceName = "hisame-sync.service"; };
           "battery" = {
             states.warning = 20;
             states.critical = 10;
