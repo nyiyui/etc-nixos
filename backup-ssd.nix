@@ -1,8 +1,9 @@
 { config, pkgs, ... }:
 let
   hostName = config.networking.hostName;
-  resticPassword = "${hostName}.backup-restic-password";
-  repository = "/mnt/backup/restic-backup";
+  resticPassword = "backup-ssd/restic-password-${hostName}";
+  sshKey = "backup-ssd/ssh-key-${hostName}.id_ed25519";
+  repository = "sftp:mizunami@asuna.umi:/mnt/mizunami/restic-repo";
 in {
   # TODO: port is open (not secure!)
   systemd.timers.backup-restic-ssd = {
@@ -14,16 +15,9 @@ in {
       AccuracySec = "30m";
     };
   };
-  fileSystems.${repository} = {
-    device = "/dev/disk/by-partuuid/702ddf9a-82df-47b1-88f6-4ce3b73d4ddc";
-    options = [
-      "x-systemd.automount"
-    ];
-  };
   systemd.services.backup-restic-ssd = let
     asUser = "${pkgs.doas}/bin/doas -u nyiyui";
     password = "$(cat ${config.age.secrets.${resticPassword}.path})";
-    inherit repository;
   in {
     wants = [ "backup-rclone-serve.service" ];
     after = [ "backup-rclone-serve.service" ];
@@ -32,7 +26,7 @@ in {
       export RESTIC_REPOSITORY="${repository}"
       export RESTIC_PASSWORD="${password}"
       export HOME="${config.users.users.nyiyui.home}"
-      ${pkgs.su}/bin/su --preserve-environment -- nyiyui ${pkgs.restic}/bin/restic backup --tag ${hostName},systemd -e /home/nyiyui/mcpt-backup-2023-07-08/all ${config.users.users.nyiyui.home}
+      ${pkgs.restic}/bin/restic backup --tag ${hostName},systemd "$HOME"
     '';
     unitConfig.StartLimitIntervalSec = 300;
     unitConfig.StartLimitBurst = 5;
@@ -42,7 +36,13 @@ in {
     wantedBy = [ "default.target" ];
   };
   age.secrets.${resticPassword} = {
-    file = ./secrets/backup-restic-password.age;
+    file = ./secrets + "${resticPassword}.age";
+    owner = "root";
+    group = "root";
+    mode = "400";
+  };
+  age.secrets.${sshKey} = {
+    file = ./secrets + "${sshKey}.age";
     owner = "root";
     group = "root";
     mode = "400";
