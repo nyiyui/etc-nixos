@@ -21,6 +21,7 @@
         "6ROWFH5-WMAJ5JO-TDJA22O-AOQYET7-SCRIF6T-Q6A3HMA-VP7263N-JMIIRQO";
       "hinanawi".id = "Q3DTKLX-XRLSA2W-UIFZHEV-X4EEVXH-6GNXGV6-EI3D2TZ-XVTXJ4X-4FZJDQT";
       "chikusa".id = "CC2QX3A-7ZX6BFF-QUBMGCH-6MXQ6JP-LGCUYU7-PXD34ZW-CIDIY4K-FG5WYQ6";
+      "sawako".id = "6UX4AQF-M2V2BIC-GUKGHBI-67CMCYC-KCLGCZN-D5HPIIB-T3IKTCX-5DIFFQ7";
     };
     settings.folders = {
       "inaba" = {
@@ -47,6 +48,17 @@
         label = "spool";
         path = "/home/nyiyui/inaba/spool";
         devices = [ "hinanawi" "makura" "asuna" "chikusa" ];
+        versioning.type = "staggered";
+        versioning.params = {
+          cleanInterval = "86400";
+          maxAge = "31536000";
+        };
+      };
+      "3d-spool" = {
+        id = "jjxwg-tol2t";
+        label = "3d-spool";
+        path = "/home/nyiyui/inaba/3d-spool";
+        devices = [ "hinanawi" "makura" "asuna" "chikusa" "sawako" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
