@@ -12,7 +12,7 @@ asuna.umi ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMp/4oh3cwQO0bYoKUH6lYHZtzto4eFHQI
 '';
 in {
   # TODO: port is open (not secure!)
-  systemd.timers.backup-restic-ssd = {
+  systemd.timers.backup-restic = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "daily";
@@ -21,12 +21,10 @@ in {
       AccuracySec = "30m";
     };
   };
-  systemd.services.backup-restic-ssd = let
+  systemd.services.backup-restic = let
     asUser = "${pkgs.doas}/bin/doas -u nyiyui";
     password = "$(cat ${config.age.secrets.${resticPassword}.path})";
   in {
-    wants = [ "backup-rclone-serve.service" ];
-    after = [ "backup-rclone-serve.service" ];
     script = let
       sftpCommand = ''${pkgs.openssh}/bin/ssh ${sshHost} -o IdentitiesOnly=yes -i ${config.age.secrets.${sshKey}.path} -o UserKnownHostsFile=${pkgs.writeText "backup-restic-ssd-known-hosts" knownHosts} -s sftp'';
     in ''
