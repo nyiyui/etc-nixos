@@ -24,6 +24,10 @@ in {
         genServiceStatus = { serviceName }:
           let
             script = pkgs.writeShellScriptBin "get-last-active-time.sh" ''
+              export LOAD_ERROR="$(systemctl show ${serviceName} --property=LoadError | cut -d= -f2)"
+              if [[ 0 != "$(echo -n "$LOAD_ERROR" | wc -w)" ]]; then
+                printf '{"text": "✕", "tooltip": "${serviceName}: %s", "class": "load-error"}' "$(echo -n "$LOAD_ERROR" | ${pkgs.jq}/bin/jq -Rsa .)"
+              fi
               export RESULT="$(systemctl show ${serviceName} --property=Result | cut -d= -f2)"
               export DATE="$(date -d "$(systemctl show ${serviceName} --property=ActiveExitTimestamp | cut -d= -f2)" +'%m-%d %H')"
               if [[ "$RESULT" == "success" ]]; then
