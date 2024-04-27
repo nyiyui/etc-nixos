@@ -58,7 +58,7 @@
         id = "jjxwg-tol2t";
         label = "3d-spool";
         path = "/home/nyiyui/inaba/3d-spool";
-        devices = [ "hinanawi" "makura" "asuna" "chikusa" "sawako" ];
+        devices = [ "hinanawi" "makura" "asuna" "chikusa" "sawako" "minato" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
