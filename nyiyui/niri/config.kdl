@@ -242,4 +242,10 @@ window-rule {
     open-fullscreen true
 }
 
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+
+    block-out-from "screencast"
+}
+
 prefer-no-csd
