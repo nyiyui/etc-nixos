@@ -10,6 +10,7 @@
       enableACME = true;
       forceSSL = true;
       locations."/" = {
+        # TODO: server_addr ≠ 10.59.0.0 most of the time (not set in stone).
         extraConfig = ''
           add_header Content-Type 'text/plain; charset=utf-8';
           if ($server_addr = '10.59.0.0') {

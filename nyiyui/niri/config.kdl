@@ -239,7 +239,7 @@ window-rule {
 
 window-rule {
     match app-id="foot"
-    open-fullscreen true
+    open-maximized true
 }
 
 window-rule {
