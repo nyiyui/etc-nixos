@@ -54,6 +54,7 @@ in {
       forwarding_rules = pkgs.writeText "dns-forwarding-rules.txt" ''
         q.nyiyui.ca ${hokutoAddr}
         umi 10.6.0.1
+        local 10.6.0.1
         kai 10.6.0.1
       '';
 
