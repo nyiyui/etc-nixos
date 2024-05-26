@@ -15,6 +15,7 @@
     ../wine.nix
     ../backup-ssd.nix
     ../niri.nix
+    ../autoUpgrade-https.nix
   ];
 
   networking.hostName = "chikusa";
