@@ -56,6 +56,8 @@ alias t='eza -abgln -F --extended --octal-permissions --no-permissions --git -T'
 alias tt='t -s modified'
 alias go='grc go'
 
+alias ip='ip -c'
+
 # Fix GPG ioctl error
 # https://stackoverflow.com/questions/51504367/gpg-agent-forwarding-inappropriate-ioctl-for-device
 export GPG_TTY=$(tty)
