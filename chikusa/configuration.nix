@@ -14,7 +14,7 @@
     ../docker.nix
     ../wine.nix
     ../backup-ssd.nix
-    ../niri.nix
+    ../sway.nix
     ../autoUpgrade-https.nix
   ];
 

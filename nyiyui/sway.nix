@@ -3,7 +3,7 @@
 
   wayland.windowManager.sway = let modifier = "Mod4";
   in {
-    enable = false;
+    enable = true;
     extraConfig = ''
       default_border none
       default_floating_border none

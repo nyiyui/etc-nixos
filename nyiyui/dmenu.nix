@@ -2,7 +2,7 @@
   home.packages = [
     (pkgs.dmenu.overrideAttrs (oldAttrs: rec {
       configFile =
-        writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
+        pkgs.writeText "config.def.h" (builtins.readFile ./dmenu.config.def.h);
       postPatch = ''
         ${oldAttrs.postPatch}
          cp ${configFile} config.def.h'';

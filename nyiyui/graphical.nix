@@ -8,6 +8,13 @@ in {
       default = false;
       description = "enable backlight features";
     };
+  options.nyiyui.nixosUpgrade = with lib;
+    with types;
+    mkOption {
+      type = bool;
+      default = false;
+      description = "enable nixos-upgrade.service feature";
+    };
 
   config = {
     i18n.inputMethod = {
@@ -58,6 +65,7 @@ in {
             (lib.mkIf cfg.hasBacklight "custom/light")
             "custom/systemd-backup"
             "custom/systemd-hisame"
+            (lib.mkIf cfg.nixosUpgrade "custom/systemd-nixos-upgrade")
             "battery"
             "clock"
           ];
@@ -66,6 +74,7 @@ in {
             genServiceStatus { serviceName = "backup-restic.service"; };
           "custom/systemd-hisame" =
             genServiceStatus { serviceName = "hisame-sync.service"; };
+          "custom/systemd-nixos-upgrade" = lib.mkIf cfg.nixosUpgrade (genServiceStatus { serviceName = "nixos-upgrade.service"; });
           "battery" = {
             states.warning = 20;
             states.critical = 10;
@@ -182,7 +191,7 @@ in {
     gtk.theme = { name = "Adwaita-dark"; };
 
     programs.swaylock = {
-      #enable = true;
+      enable = true;
       settings = {
         ignore-empty-password = false;
         show-failed-attempts = true;

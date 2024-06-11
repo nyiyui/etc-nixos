@@ -45,6 +45,12 @@ in {
     };
 
   config = {
+    home-manager.users.nyiyui = {
+      imports = [
+        { nyiyui.nixosUpgrade = true; }
+      ];
+    };
+
     system.autoUpgrade = {
       enable = true;
       rebootWindow.lower = "03:00";
