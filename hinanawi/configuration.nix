@@ -21,6 +21,7 @@
     ../wine.nix
     ../hisame.nix
     ../niri.nix
+    ../autoUpgrade-https.nix
   ];
 
   networking.hostName = "hinanawi";
