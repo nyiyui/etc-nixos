@@ -74,7 +74,8 @@ in {
             genServiceStatus { serviceName = "backup-restic.service"; };
           "custom/systemd-hisame" =
             genServiceStatus { serviceName = "hisame-sync.service"; };
-          "custom/systemd-nixos-upgrade" = lib.mkIf cfg.nixosUpgrade (genServiceStatus { serviceName = "nixos-upgrade.service"; });
+          "custom/systemd-nixos-upgrade" = lib.mkIf cfg.nixosUpgrade
+            (genServiceStatus { serviceName = "nixos-upgrade.service"; });
           "battery" = {
             states.warning = 20;
             states.critical = 10;
