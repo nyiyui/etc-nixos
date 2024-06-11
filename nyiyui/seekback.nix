@@ -18,4 +18,9 @@ in {
     };
     Install.WantedBy = [ "graphical-session.target" ];
   };
+  home.packages = [
+    (pkgs.writeShellScriptBin "seekback-signal" ''
+      ${pkgs.bash}/bin/bash ${../seekback-signal.sh}
+    '')
+  ];
 }
