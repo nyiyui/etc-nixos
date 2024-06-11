@@ -46,7 +46,7 @@
       init.defaultBranch = "main";
       url."ssh://git@github.com".insteadOf = "https://github.com";
       pull.rebase = true;
-      safe.directory = [ "/etc/nixos" ];
+      safe.directory = [ "/etc/nixos" "/etc/nixos/.git" ];
       user.signingkey = "711A0A03A5C5D824";
       #commit.gpgsign = true;
     };
