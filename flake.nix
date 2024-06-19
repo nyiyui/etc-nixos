@@ -47,14 +47,12 @@
         specialArgs = attrs;
         modules = [ ./hinanawi/configuration.nix agenix.nixosModules.default ];
       };
-      deploy.nodes.hinanawi = host-deploy "hinanawi";
       nixosConfigurations.chocolate-lemon = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
         modules =
           [ ./chocolate-lemon/configuration.nix agenix.nixosModules.default ];
       };
-      deploy.nodes.chocolate-lemon = host-deploy "chocolate-lemon";
       nixosConfigurations.chikusa = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
