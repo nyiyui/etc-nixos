@@ -52,17 +52,6 @@
           maxAge = "31536000";
         };
       };
-      "3d-spool" = {
-        id = "jjxwg-tol2t";
-        label = "3d-spool";
-        path = "/home/nyiyui/inaba/3d-spool";
-        devices = [ "hinanawi" "makura" "asuna" "chikusa" "sawako" "minato" ];
-        versioning.type = "staggered";
-        versioning.params = {
-          cleanInterval = "86400";
-          maxAge = "31536000";
-        };
-      };
     };
   };
 }
