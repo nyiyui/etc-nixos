@@ -44,11 +44,15 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
   # https://nixos.wiki/wiki/Nvidia
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
-    modesetting.enable = true;
-    open = false;
-    nvidiaSettings = true;
+    modesetting.enable = true; # required
+    open = false; # don't use open source kernel module ("alpha-quality/buggy")
+    nvidiaSettings = true; # enable Nvidia settings menu
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+  home-manager.users.nyiyui = {
+    wayland.windowManager.sway.extraOptions = [ "--unsupported-gpu" ]; # welp
   };
   hardware.opengl = {
     enable = true;
