@@ -66,10 +66,7 @@
     isNormalUser = true;
     description = "Temporary";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs;
-      [
-        firefox
-      ];
+    packages = with pkgs; [ firefox ];
   };
 
   nix.settings.trusted-users = [ "nyiyui" ];

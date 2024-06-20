@@ -44,7 +44,7 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
   # https://nixos.wiki/wiki/Nvidia
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true; # required
     open = false; # don't use open source kernel module ("alpha-quality/buggy")
