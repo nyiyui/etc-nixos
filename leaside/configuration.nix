@@ -33,18 +33,6 @@
 
   services.getty.autologinUser = "nyiyui";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.temporary = {
-    isNormalUser = true;
-    description = "Temporary";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs;
-      [
-        firefox
-        #  thunderbird
-      ];
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
