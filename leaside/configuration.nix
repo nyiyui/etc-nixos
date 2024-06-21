@@ -1,4 +1,4 @@
-{ config, lib, pkgs, specialArgs, home-manager, ... }:
+{ config, lib, pkgs, specialArgs, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ../autoUpgrade-https.nix ];
