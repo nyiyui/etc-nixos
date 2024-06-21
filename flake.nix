@@ -56,18 +56,12 @@
       nixosConfigurations.leaside = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [
-          ./leaside/configuration.nix
-          agenix.nixosModules.default
-        ];
+        modules = [ ./leaside/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.chikusa = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
-        modules = [
-          ./chikusa/configuration.nix
-          agenix.nixosModules.default
-        ];
+        modules = [ ./chikusa/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.minato = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
