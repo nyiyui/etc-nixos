@@ -6,6 +6,7 @@ in {
     user = "github-runner";
     group = "github-runner";
     tokenFile = config.age.secrets.${secretName}.path;
+    url = "https://github.com/yiurin";
   };
 
   age.secrets.${secretName} = {
