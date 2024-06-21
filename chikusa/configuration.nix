@@ -53,6 +53,7 @@
   };
   home-manager.users.nyiyui = {
     wayland.windowManager.sway.extraOptions = [ "--unsupported-gpu" ]; # welp
+    nyiyui.nixosUpgrade = true;
   };
   hardware.opengl = {
     enable = true;

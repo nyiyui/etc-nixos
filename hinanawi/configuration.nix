@@ -95,5 +95,8 @@
     lightdm = { enable = true; };
   };
   security.polkit.enable = true;
-  home-manager.users.nyiyui = { ... }: { nyiyui.hasBacklight = true; };
+  home-manager.users.nyiyui = { ... }: {
+    nyiyui.hasBacklight = true;
+    nyiyui.nixosUpgrade = true;
+  };
 }

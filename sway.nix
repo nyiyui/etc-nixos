@@ -9,4 +9,3 @@
   };
   services.xserver.displayManager.defaultSession = "sway";
 }
-
