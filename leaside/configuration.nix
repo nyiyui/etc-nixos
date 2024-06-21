@@ -1,7 +1,11 @@
 { config, lib, pkgs, specialArgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ../autoUpgrade-https.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../autoUpgrade-https.nix
+    ./github-runner.nix
+  ];
 
   networking.hostName = "leaside";
 
