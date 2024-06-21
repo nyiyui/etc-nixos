@@ -53,6 +53,14 @@
         modules =
           [ ./chocolate-lemon/configuration.nix agenix.nixosModules.default ];
       };
+      nixosConfigurations.leaside = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules = [
+          ./leaside/configuration.nix
+          agenix.nixosModules.default
+        ];
+      };
       nixosConfigurations.chikusa = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
