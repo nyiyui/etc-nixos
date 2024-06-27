@@ -100,7 +100,9 @@
     autoLogin.enable = true;
     autoLogin.user = "nyiyui";
   };
-  services.xserver.displayManager.lightdm = { enable = true; };
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+  };
   security.polkit.enable = true;
   home-manager.users.nyiyui =
     { ... }:
