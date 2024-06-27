@@ -17,6 +17,14 @@
     ../autoUpgrade-https.nix
   ];
 
+  services.qrystal-device-client.config.Clients.irinaka.PrivateKeyPath = config.age.secrets."qrystal2-irinaka.wgprivkey".path;
+  age.secrets."qrystal2-irinaka.wgprivkey" = {
+    file = ../secrets/qrystal2-irinaka-${config.networking.hostName}.wgprivkey.age;
+    owner = "qrystal-device";
+    group = "qrystal-device";
+    mode = "400";
+  };
+
   networking.hostName = "chikusa";
 
   # Bootloader.

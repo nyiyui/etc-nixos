@@ -1,4 +1,6 @@
 { config, libs, pkgs, lib, ... }: {
+  imports = [ ./fuzzel.nix ];
+
   wayland.windowManager.sway = let modifier = "Mod4";
   in {
     enable = true;
