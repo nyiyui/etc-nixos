@@ -1,6 +1,4 @@
 { config, libs, pkgs, lib, ... }: {
-  imports = [ ./dmenu.nix ];
-
   wayland.windowManager.sway = let modifier = "Mod4";
   in {
     enable = true;
@@ -73,12 +71,12 @@
         "${modifier}+Return" = "exec foot";
         "${modifier}+Alt+Return" = "exec ${pkgs.rnote}/bin/rnote";
         "${modifier}+Alt+N" =
-          "exec ${pkgs.mako}/bin/makoctl menu dmenu -p '通知'";
+          "exec ${pkgs.mako}/bin/makoctl menu 'fuzzel -d' -p '通知'";
         "${modifier}+N" = "exec ${pkgs.mako}/bin/makoctl dismiss";
         "${modifier}+Shift+N" = "exec ${pkgs.mako}/bin/makoctl restore";
         "${modifier}+Shift+S" = "exec bash ${../seekback-signal.sh}";
       };
-      menu = "dmenu_run";
+      menu = "fuzzel";
       input = {
         "*" = {
           tap = "enabled";

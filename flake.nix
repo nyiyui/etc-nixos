@@ -5,6 +5,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     qrystal.url = "github:nyiyui/qrystal/next1";
+    qrystal2.url = "github:nyiyui/qrystal/next2goal";
     touhoukou.url = "github:nyiyui/touhoukou";
     touhoukou.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
@@ -17,7 +18,7 @@
     niri.url = "github:sodiboo/niri-flake";
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, nix-serve-ng, flake-utils, niri
+  outputs = { self, agenix, nixpkgs, qrystal, qrystal2, nix-serve-ng, flake-utils, niri
     , deploy-rs, ... }@attrs:
     let
       pkgs = import nixpkgs { config.allowUnfree = true; };
@@ -75,7 +76,7 @@
       in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            nixfmt
+            nixfmt-rfc-style
             deploy-rs.packages.${system}.default
             (python3.withPackages (p: [ p.pyserial ]))
           ];

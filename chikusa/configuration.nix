@@ -9,8 +9,7 @@
     ../power.nix
     ../sound.nix
     ../vlc.nix
-    ../kuromiya.nix
-    ../miyamizu.nix
+    ../qrystal2.nix
     ../docker.nix
     ../wine.nix
     ../backup-ssd.nix
@@ -32,8 +31,6 @@
 
   xdg.portal.wlr.enable = true;
   xdg.portal.config.common.default = "*";
-
-  miyamizu.services.target.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
