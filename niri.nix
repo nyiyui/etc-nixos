@@ -6,6 +6,6 @@
   home-manager.users.nyiyui = {
     imports = [ ./nyiyui/graphical.nix ./nyiyui/niri ./nyiyui/fuzzel.nix ];
   };
-  services.xserver.displayManager.defaultSession = "niri";
+  services.displayManager.defaultSession = "niri";
   niri-flake.cache.enable = false;
 }

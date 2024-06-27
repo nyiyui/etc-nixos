@@ -31,6 +31,7 @@ in {
     group = "qrystal-device";
     mode = "400";
   };
+  networking.firewall.allowedUDPPorts = [ 60408 ];
 
   services.dnscrypt-proxy2 = {
     enable = true;

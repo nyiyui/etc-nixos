@@ -19,8 +19,7 @@
     ../fprint.nix
     ../sound.nix
     ../vlc.nix
-    ../kuromiya.nix
-    ../miyamizu.nix
+    ../qrystal2.nix
     ../docker.nix
     ../thunderbolt.nix
     ../restic.nix
@@ -75,8 +74,6 @@
   reimu.address = "10.42.0.6/32";
   reimu.udp2raw.enable = true;
 
-  miyamizu.services.target.enable = true;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -99,13 +96,11 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.displayManager = {
+  services.displayManager = {
     autoLogin.enable = true;
     autoLogin.user = "nyiyui";
-    lightdm = {
-      enable = true;
-    };
   };
+  services.xserver.displayManager.lightdm = { enable = true; };
   security.polkit.enable = true;
   home-manager.users.nyiyui =
     { ... }:
