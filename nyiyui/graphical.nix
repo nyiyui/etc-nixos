@@ -1,14 +1,24 @@
-{ config, libs, pkgs, lib, ... }:
-let cfg = config.nyiyui;
-in {
-  options.nyiyui.hasBacklight = with lib;
+{
+  config,
+  libs,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.nyiyui;
+in
+{
+  options.nyiyui.hasBacklight =
+    with lib;
     with types;
     mkOption {
       type = bool;
       default = false;
       description = "enable backlight features";
     };
-  options.nyiyui.nixosUpgrade = with lib;
+  options.nyiyui.nixosUpgrade =
+    with lib;
     with types;
     mkOption {
       type = bool;
@@ -19,7 +29,11 @@ in {
   config = {
     i18n.inputMethod = {
       enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-hangul fcitx5-gtk ];
+      fcitx5.addons = with pkgs; [
+        fcitx5-mozc
+        fcitx5-hangul
+        fcitx5-gtk
+      ];
     };
 
     programs.waybar = {
@@ -27,124 +41,121 @@ in {
       enable = true;
       systemd.enable = true;
       style = builtins.readFile ./waybar.css;
-      settings = let
-        genServiceStatus = { serviceName }:
-          let
-            script = pkgs.writeShellScriptBin "get-last-active-time.sh" ''
-              export LOAD_ERROR="$(systemctl show ${serviceName} --property=LoadError | cut -d= -f2)"
-              if [[ 0 != "$(echo -n "$LOAD_ERROR" | wc -w)" ]]; then
-                printf '{"text": "✕", "tooltip": %s, "class": "load-error"}' "$(echo -n "${serviceName}: $LOAD_ERROR" | ${pkgs.jq}/bin/jq -Rsa .)"
-              fi
-              export RESULT="$(systemctl show ${serviceName} --property=Result | cut -d= -f2)"
-              export DATE="$(date -d "$(systemctl show ${serviceName} --property=ActiveExitTimestamp | cut -d= -f2)" +'%m-%d %H')"
-              if [[ "$RESULT" == "success" ]]; then
-                printf '{"text": "○", "tooltip": "${serviceName} %s", "class": "success"}' "$DATE"
-              else
-                printf '{"text": "△", "tooltip": "${serviceName} %s: %s", "class": "%s"}' "$DATE" "$RESULT" "$RESULT"
-              fi
-            '';
-          in {
-            exec = "${script}/bin/get-last-active-time.sh";
-            return-type = "json";
-            interval = 60;
-          };
-      in {
-        mainBar = {
-          layer = "top";
-          position = if config.home.file.hostname.text == "hinanawi" then
-            "bottom"
-          else
-            "top";
-          height = 24;
-          modules-right = [
-            "tray"
-            "network"
-            "temperature"
-            "pulseaudio"
-            "mpris"
-            (lib.mkIf cfg.hasBacklight "custom/light")
-            "custom/systemd-backup"
-            "custom/systemd-hisame"
-            (lib.mkIf cfg.nixosUpgrade "custom/systemd-nixos-upgrade")
-            "battery"
-            "clock"
-          ];
+      settings =
+        let
+          genServiceStatus =
+            { serviceName }:
+            let
+              script = pkgs.writeShellScriptBin "get-last-active-time.sh" ''
+                export LOAD_ERROR="$(systemctl show ${serviceName} --property=LoadError | cut -d= -f2)"
+                if [[ 0 != "$(echo -n "$LOAD_ERROR" | wc -w)" ]]; then
+                  printf '{"text": "✕", "tooltip": %s, "class": "load-error"}' "$(echo -n "${serviceName}: $LOAD_ERROR" | ${pkgs.jq}/bin/jq -Rsa .)"
+                fi
+                export RESULT="$(systemctl show ${serviceName} --property=Result | cut -d= -f2)"
+                export DATE="$(date -d "$(systemctl show ${serviceName} --property=ActiveExitTimestamp | cut -d= -f2)" +'%m-%d %H')"
+                if [[ "$RESULT" == "success" ]]; then
+                  printf '{"text": "○", "tooltip": "${serviceName} %s", "class": "success"}' "$DATE"
+                else
+                  printf '{"text": "△", "tooltip": "${serviceName} %s: %s", "class": "%s"}' "$DATE" "$RESULT" "$RESULT"
+                fi
+              '';
+            in
+            {
+              exec = "${script}/bin/get-last-active-time.sh";
+              return-type = "json";
+              interval = 60;
+            };
+        in
+        {
+          mainBar = {
+            layer = "top";
+            position = if config.home.file.hostname.text == "hinanawi" then "bottom" else "top";
+            height = 24;
+            modules-right = [
+              "tray"
+              "network"
+              "temperature"
+              "pulseaudio"
+              "mpris"
+              (lib.mkIf cfg.hasBacklight "custom/light")
+              "custom/systemd-backup"
+              "custom/systemd-hisame"
+              (lib.mkIf cfg.nixosUpgrade "custom/systemd-nixos-upgrade")
+              "battery"
+              "clock"
+            ];
 
-          "custom/systemd-backup" =
-            genServiceStatus { serviceName = "backup-restic.service"; };
-          "custom/systemd-hisame" =
-            genServiceStatus { serviceName = "hisame-sync.service"; };
-          "custom/systemd-nixos-upgrade" = lib.mkIf cfg.nixosUpgrade
-            (genServiceStatus { serviceName = "nixos-upgrade.service"; });
-          "battery" = {
-            states.warning = 20;
-            states.critical = 10;
-            format = "{capacity} {time}";
-            tooltip-format = "{power}W";
-            format-time = "{H}:{m}";
-          };
-          "clock" = {
-            format = "{:%H:%M %Y-%m-%d}";
-            tooltip-format = "{calendar}";
-            calendar = {
-              mode = "month";
-              weeks-pos = "left";
-              format = {
-                months = "<span color='#ffead3'><b>{}</b></span>";
-                days = "<span color='#ecc6d9'><b>{}</b></span>";
-                weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-                weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-                today = "<span color='#ff6699'><b><u>{}</u></b></span>";
-              };
-              actions = {
-                on-click-right = "mode";
-                on-click-forward = "tz_up";
-                on-click-backward = "tz_down";
-                on-scroll-up = "shift_up";
-                on-scroll-down = "shift_down";
+            "custom/systemd-backup" = genServiceStatus { serviceName = "backup-restic.service"; };
+            "custom/systemd-hisame" = genServiceStatus { serviceName = "hisame-sync.service"; };
+            "custom/systemd-nixos-upgrade" = lib.mkIf cfg.nixosUpgrade (genServiceStatus {
+              serviceName = "nixos-upgrade.service";
+            });
+            "battery" = {
+              states.warning = 20;
+              states.critical = 10;
+              format = "{capacity} {time}";
+              tooltip-format = "{power}W";
+              format-time = "{H}:{m}";
+            };
+            "clock" = {
+              format = "{:%H:%M %Y-%m-%d}";
+              tooltip-format = "{calendar}";
+              calendar = {
+                mode = "month";
+                weeks-pos = "left";
+                format = {
+                  months = "<span color='#ffead3'><b>{}</b></span>";
+                  days = "<span color='#ecc6d9'><b>{}</b></span>";
+                  weeks = "<span color='#99ffdd'><b>W{}</b></span>";
+                  weekdays = "<span color='#ffcc66'><b>{}</b></span>";
+                  today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+                };
+                actions = {
+                  on-click-right = "mode";
+                  on-click-forward = "tz_up";
+                  on-click-backward = "tz_down";
+                  on-scroll-up = "shift_up";
+                  on-scroll-down = "shift_down";
+                };
               };
             };
-          };
-          "network" = {
-            format = "{ifname}";
-            format-wifi = "{essid}{signaldBm}";
-            format-disconnected = "";
-            on-click = "${pkgs.foot}/bin/foot ~/wifi_conn_new";
-            tooltip-format =
-              "{ifname} {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
-            tooltip-format-wifi =
-              "{ifname} {essid} {signaldBm} dBm ; {frequency} GHz ; {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
-            tooltip-format-disconnected = "切";
-          };
-          "pulseaudio" = {
-            format-icons = {
-              headphone = "ﾍ";
-              hdmi = "H";
-              bluetooth = "ᛒ";
+            "network" = {
+              format = "{ifname}";
+              format-wifi = "{essid}{signaldBm}";
+              format-disconnected = "";
+              on-click = "${pkgs.foot}/bin/foot ~/wifi_conn_new";
+              tooltip-format = "{ifname} {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
+              tooltip-format-wifi = "{ifname} {essid} {signaldBm} dBm ; {frequency} GHz ; {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
+              tooltip-format-disconnected = "切";
             };
-            format = "{volume}{icon}";
-            format-bluetooth = "{volume}{icon}";
-            on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
-            ignored-sinks = [ "Easy Effects Sink" ];
-          };
-          "mpris" = {
-            format = "{status_icon}{player_icon}{dynamic}";
-            interval = 1;
-            tooltip-format =
-              "{title} ; 作{artist} ; ア{album} ; {position} / {length}";
-            dynamic-len = 40;
-            player-icons.firefox = "ff";
-            player-icons.mpv = "mpv";
-            status-icons.playing = "生";
-            status-icons.paused = "停";
-            status-icons.stopped = "止";
-          };
-          "custom/light" = lib.mkIf cfg.hasBacklight {
-            exec = "${pkgs.light}/bin/light";
-            interval = 10;
+            "pulseaudio" = {
+              format-icons = {
+                headphone = "ﾍ";
+                hdmi = "H";
+                bluetooth = "ᛒ";
+              };
+              format = "{volume}{icon}";
+              format-bluetooth = "{volume}{icon}";
+              on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+              ignored-sinks = [ "Easy Effects Sink" ];
+            };
+            "mpris" = {
+              format = "{status_icon}{player_icon}{dynamic}";
+              interval = 1;
+              tooltip-format = "{title} ; 作{artist} ; ア{album} ; {position} / {length}";
+              dynamic-len = 40;
+              player-icons.firefox = "ff";
+              player-icons.mpv = "mpv";
+              status-icons.playing = "生";
+              status-icons.paused = "停";
+              status-icons.stopped = "止";
+            };
+            "custom/light" = lib.mkIf cfg.hasBacklight {
+              exec = "${pkgs.light}/bin/light";
+              interval = 10;
+            };
           };
         };
-      };
     };
 
     services.mako = {
@@ -184,12 +195,13 @@ in {
         border-color=#ffffff
       '';
     };
-    home.packages = with pkgs;
-      [
-        jq # required by mako for e.g. mako menu
-      ];
+    home.packages = with pkgs; [
+      jq # required by mako for e.g. mako menu
+    ];
 
-    gtk.theme = { name = "Adwaita-dark"; };
+    gtk.theme = {
+      name = "Adwaita-dark";
+    };
 
     programs.swaylock = {
       enable = true;

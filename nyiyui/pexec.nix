@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = [
     (pkgs.writeShellScriptBin "pexec" ''
       res="$(wl-paste | exec $@)"
@@ -6,4 +7,3 @@
     '')
   ];
 }
-

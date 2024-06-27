@@ -1,4 +1,10 @@
-{ config, lib, pkgs, specialArgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  specialArgs,
+  ...
+}:
 
 {
   imports = [
@@ -43,8 +49,18 @@
     isNormalUser = true;
     description = "Ken Shibata";
     group = "nyiyui";
-    extraGroups = [ "uucp" "networkmanager" "wheel" "dialout" ];
-    packages = with pkgs; [ firefox chromium syncthing git ];
+    extraGroups = [
+      "uucp"
+      "networkmanager"
+      "wheel"
+      "dialout"
+    ];
+    packages = with pkgs; [
+      firefox
+      chromium
+      syncthing
+      git
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
     ];
@@ -55,7 +71,10 @@
   users.users.temporary = {
     isNormalUser = true;
     description = "Temporary";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [ firefox ];
   };
 
@@ -65,7 +84,10 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ neovim wget ];
+  environment.systemPackages = with pkgs; [
+    neovim
+    wget
+  ];
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
-let secretName = "github-runner-token";
-in {
+let
+  secretName = "github-runner-token";
+in
+{
   services.github-runners.etc-nixos = {
     enable = true;
     user = "github-runner";

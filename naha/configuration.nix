@@ -1,7 +1,15 @@
-{ config, lib, pkgs, home-manager, nixos-hardware, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  home-manager,
+  nixos-hardware,
+  ...
+}:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     home-manager.nixosModule
     { }
@@ -31,7 +39,9 @@
   services.xserver.enable = true;
 
   services.xserver.displayManager = {
-    lightdm = { enable = true; };
+    lightdm = {
+      enable = true;
+    };
     autoLogin = {
       enable = true;
       user = "nyiyui";

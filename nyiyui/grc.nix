@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [ grc ];
   home.file.".grc/grc.conf".text = ''
     # Go

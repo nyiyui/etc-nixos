@@ -1,18 +1,29 @@
-{ config, lib, pkgs, ... }:
-let cfg = config.services.cloudflare-ddns-update;
-in {
-  options.services.cloudflare-ddns-update = with lib;
-    with types; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.services.cloudflare-ddns-update;
+in
+{
+  options.services.cloudflare-ddns-update =
+    with lib;
+    with types;
+    {
       enable = mkEnableOption "Cloudflare DDNS updater";
       authEmail = mkOption {
         type = str;
         description = "The email used to login 'https://dash.cloudflare.com'";
       };
       authMethod = mkOption {
-        type = enum [ "global" "token" ];
+        type = enum [
+          "global"
+          "token"
+        ];
         default = "token";
-        description = ''
-          Set to "global" for Global API Key or "token" for Scoped API Token'';
+        description = ''Set to "global" for Global API Key or "token" for Scoped API Token'';
       };
       authKeyPath = mkOption {
         type = path;

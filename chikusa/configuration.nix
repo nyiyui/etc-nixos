@@ -1,4 +1,11 @@
-{ config, lib, pkgs, specialArgs, home-manager, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  specialArgs,
+  home-manager,
+  ...
+}:
 
 {
   imports = [
@@ -17,7 +24,8 @@
     ../autoUpgrade-https.nix
   ];
 
-  services.qrystal-device-client.config.Clients.irinaka.PrivateKeyPath = config.age.secrets."qrystal2-irinaka.wgprivkey".path;
+  services.qrystal-device-client.config.Clients.irinaka.PrivateKeyPath =
+    config.age.secrets."qrystal2-irinaka.wgprivkey".path;
   age.secrets."qrystal2-irinaka.wgprivkey" = {
     file = ../secrets/qrystal2-irinaka-${config.networking.hostName}.wgprivkey.age;
     owner = "qrystal-device";
@@ -70,7 +78,9 @@
   services.xserver.displayManager = {
     autoLogin.enable = true;
     autoLogin.user = "nyiyui";
-    lightdm = { enable = true; };
+    lightdm = {
+      enable = true;
+    };
   };
   security.polkit.enable = true;
 }

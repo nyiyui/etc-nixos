@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   programs.chromium = {
     enable = true;
     extensions = [
@@ -7,5 +8,7 @@
       { id = "mclkkofklkfljcocdinagocijmpgbhab"; }
     ];
   };
-  programs.firefox = { enable = true; };
+  programs.firefox = {
+    enable = true;
+  };
 }

@@ -1,7 +1,15 @@
-{ config, lib, pkgs, home-manager, nixos-hardware, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  home-manager,
+  nixos-hardware,
+  ...
+}:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     home-manager.nixosModule
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
@@ -32,13 +40,13 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Setup keyfile
-  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
+  boot.initrd.secrets = {
+    "/crypto_keyfile.bin" = null;
+  };
 
   # Enable swap on luks
-  boot.initrd.luks.devices."luks-cfc0ad37-5315-44c7-ade3-24ebde45b146".device =
-    "/dev/disk/by-uuid/cfc0ad37-5315-44c7-ade3-24ebde45b146";
-  boot.initrd.luks.devices."luks-cfc0ad37-5315-44c7-ade3-24ebde45b146".keyFile =
-    "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-cfc0ad37-5315-44c7-ade3-24ebde45b146".device = "/dev/disk/by-uuid/cfc0ad37-5315-44c7-ade3-24ebde45b146";
+  boot.initrd.luks.devices."luks-cfc0ad37-5315-44c7-ade3-24ebde45b146".keyFile = "/crypto_keyfile.bin";
 
   networking.networkmanager.enable = true;
 
@@ -80,7 +88,9 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.settings = {
     # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
-    General = { ControllerMode = "bredr"; };
+    General = {
+      ControllerMode = "bredr";
+    };
   };
 
   hisame.services.sync = {
@@ -92,11 +102,15 @@
   services.xserver.displayManager = {
     autoLogin.enable = true;
     autoLogin.user = "nyiyui";
-    lightdm = { enable = true; };
+    lightdm = {
+      enable = true;
+    };
   };
   security.polkit.enable = true;
-  home-manager.users.nyiyui = { ... }: {
-    nyiyui.hasBacklight = true;
-    nyiyui.nixosUpgrade = true;
-  };
+  home-manager.users.nyiyui =
+    { ... }:
+    {
+      nyiyui.hasBacklight = true;
+      nyiyui.nixosUpgrade = true;
+    };
 }
