@@ -21,6 +21,7 @@
     ./kicad.nix
     ./wlsunset.nix
     ./neovim.nix
+    ./email.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
