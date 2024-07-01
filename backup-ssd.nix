@@ -37,7 +37,7 @@ in {
       export RESTIC_REPOSITORY="${repository}"
       export RESTIC_PASSWORD="${password}"
       export HOME="${config.users.users.nyiyui.home}"
-      ${pkgs.restic}/bin/restic backup --tag ${hostName},systemd "$HOME" -o sftp.command='${sftpCommand}'
+      ${pkgs.restic}/bin/restic backup --tag ${hostName},systemd "$HOME" -e /home/nyiyui/inaba/2024/helpfeel -o sftp.command='${sftpCommand}'
     '';
     unitConfig.StartLimitIntervalSec = 300;
     unitConfig.StartLimitBurst = 5;
