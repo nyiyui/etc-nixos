@@ -87,6 +87,7 @@
     # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
     General = {
       ControllerMode = "bredr";
+      Experimental = true;
     };
   };
 
