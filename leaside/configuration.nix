@@ -10,7 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     ../autoUpgrade-https.nix
-    ../bsae.nix
+    ../base.nix
     ./github-runner.nix
     ../qrystal2.nix
   ];
