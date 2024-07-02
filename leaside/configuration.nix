@@ -10,6 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     ../autoUpgrade-https.nix
+    ../bsae.nix
     ./github-runner.nix
     ../qrystal2.nix
   ];
@@ -42,33 +43,6 @@
 
   services.getty.autologinUser = "nyiyui";
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  users.groups.nyiyui = { };
-  users.users.nyiyui = {
-    isNormalUser = true;
-    description = "Ken Shibata";
-    group = "nyiyui";
-    extraGroups = [
-      "uucp"
-      "networkmanager"
-      "wheel"
-      "dialout"
-    ];
-    packages = with pkgs; [
-      firefox
-      chromium
-      syncthing
-      git
-    ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
-    ];
-    homeMode = "770";
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.                              
   users.users.temporary = {
     isNormalUser = true;
     description = "Temporary";
@@ -79,17 +53,8 @@
     packages = with pkgs; [ firefox ];
   };
 
-  nix.settings.trusted-users = [ "nyiyui" ];
-
-  environment.shells = [ pkgs.fish ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     neovim
     wget
   ];
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 }
