@@ -1273,11 +1273,11 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1719805358,
-        "narHash": "sha256-JQ7A3no7aKUDGUYs0r4WPeAfCdoiOrSCa4rZgYFhoOg=",
+        "lastModified": 1720249450,
+        "narHash": "sha256-ZixrP6BYje/lohJHGI/PY8diiOHTGYihXEMaTevyvus=",
         "owner": "nyiyui",
         "repo": "qrystal",
-        "rev": "68387681250e13f32c84a74f6b086fcfbe5ded1a",
+        "rev": "caebb903cb41aecc9f8f1a2ba1eb9b8a7cc05a70",
         "type": "github"
       },
       "original": {
