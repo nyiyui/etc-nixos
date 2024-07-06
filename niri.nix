@@ -1,4 +1,4 @@
-{ specialArgs, ... }: {
+{ specialArgs, pkgs, ... }: {
   imports = [ specialArgs.niri.nixosModules.niri ];
 
   programs.niri.enable = true;
@@ -8,4 +8,16 @@
   };
   services.displayManager.defaultSession = "niri";
   niri-flake.cache.enable = false;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      pkgs.xdg-desktop-portal-gnome
+      (pkgs.xdg-desktop-portal-gtk.override {
+        # Do not build portals that we already have.
+        buildPortalsInGnome = false;
+      })
+    ];
+    config.common.default = "wlr";
+  };
 }
