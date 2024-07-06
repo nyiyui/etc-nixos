@@ -2,8 +2,7 @@
   # TODO
   services.octoprint = {
     enable = true;
-    plugins = plugins: with plugins; [];
+    plugins = plugins: with plugins; [ ];
   };
-  services.nginx = {
-  };
+  services.nginx = { };
 }
