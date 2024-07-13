@@ -105,7 +105,7 @@ in {
       '' else ''
         export GIT_TERMINAL_PROMPT=0
         ${pkgs.git}/bin/git \
-          -c credential.helper='!f() { echo "username=${cfg.authMethod.https.username}" && printf "password=" && cat "${cfg.authMethod.https.passwordFile}"; }; f' \
+          -c credential.helper='!f() { echo "username=${cfg.authMethod.https.username}" && printf "password=" && cat "${cfg.authMethod.https.passwordFile}" | tr -d "[:space:]"; }; f' \
           -c 'safe.directory=/etc/nixos' \
           -c 'core.sharedRepository=group' \
           pull
