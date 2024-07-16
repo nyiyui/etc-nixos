@@ -7,7 +7,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - uses: DeterminateSystems/flake-checker-action@v8
       - uses: cachix/install-nix-action@v27
       - uses: DeterminateSystems/magic-nix-cache-action@v7
       - run: "nix flake check"
