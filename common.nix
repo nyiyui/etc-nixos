@@ -94,4 +94,8 @@
   services.locate.enable = true;
 
   services.automatic-timezoned.enable = true;
+  services.geoclue2 = {
+    enable = true;
+    geoProviderUrl = "https://beacondb.net/v1/geolocate";
+  };
 }
