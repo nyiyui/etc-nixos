@@ -92,6 +92,4 @@
   services.udisks2.enable = true;
 
   services.locate.enable = true;
-
-  services.automatic-timezoned.enable = true;
 }
