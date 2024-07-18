@@ -27,7 +27,8 @@
     ../tpm.nix
     ../wine.nix
     ../hisame.nix
-    ../niri.nix
+    #../niri.nix
+    ../sway.nix
     ../autoUpgrade-https.nix
   ];
 
