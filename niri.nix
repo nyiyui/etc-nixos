@@ -14,6 +14,6 @@
     extraPortals = with pkgs; [
       pkgs.xdg-desktop-portal-gnome
     ];
-    config.common.default = "wlr";
+    config.common.default = "gnome";
   };
 }
