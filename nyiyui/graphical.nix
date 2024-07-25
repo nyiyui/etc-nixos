@@ -17,6 +17,14 @@ in
       default = false;
       description = "enable backlight features";
     };
+  options.nyiyui.qrystal2 =
+    with lib;
+    with types;
+    mkOption {
+      type = bool;
+      default = false;
+      description = "enable qrystal-device-client.service feature";
+    };
   options.nyiyui.nixosUpgrade =
     with lib;
     with types;
@@ -44,19 +52,19 @@ in
       settings =
         let
           genServiceStatus =
-            { serviceName }:
+            { serviceName, key }:
             let
               script = pkgs.writeShellScriptBin "get-last-active-time.sh" ''
-                export LOAD_ERROR="$(systemctl show ${serviceName} --property=LoadError | cut -d= -f2)"
-                if [[ 0 != "$(echo -n "$LOAD_ERROR" | wc -w)" ]]; then
+                export LOAD_ERROR="$(systemctl show ${serviceName} --property=LoadError | ${pkgs.coreutils}/bin/cut -d= -f2)"
+                if [[ 0 != "$(echo -n "$LOAD_ERROR" | ${pkgs.coreutils}/bin/wc -w)" ]]; then
                   printf '{"text": "✕", "tooltip": %s, "class": "load-error"}' "$(echo -n "${serviceName}: $LOAD_ERROR" | ${pkgs.jq}/bin/jq -Rsa .)"
                 fi
-                export RESULT="$(systemctl show ${serviceName} --property=Result | cut -d= -f2)"
-                export DATE="$(date -d "$(systemctl show ${serviceName} --property=ActiveExitTimestamp | cut -d= -f2)" +'%m-%d %H')"
+                export RESULT="$(systemctl show ${serviceName} --property=Result | ${pkgs.coreutils}/bin/cut -d= -f2)"
+                export DATE="$(${pkgs.coreutils}/bin/date -d "$(systemctl show ${serviceName} --property=ActiveExitTimestamp | ${pkgs.coreutils}/bin/cut -d= -f2)" +'%m-%d %H')"
                 if [[ "$RESULT" == "success" ]]; then
-                  printf '{"text": "○", "tooltip": "${serviceName} %s", "class": "success"}' "$DATE"
+                  printf '{"text": "○${key}", "tooltip": "${serviceName} %s", "class": "success"}' "$DATE"
                 else
-                  printf '{"text": "△", "tooltip": "${serviceName} %s: %s", "class": "%s"}' "$DATE" "$RESULT" "$RESULT"
+                  printf '{"text": "△${key}", "tooltip": "${serviceName} %s: %s", "class": "%s"}' "$DATE" "$RESULT" "$RESULT"
                 fi
               '';
             in
@@ -81,14 +89,20 @@ in
               "custom/systemd-backup"
               "custom/systemd-hisame"
               (lib.mkIf cfg.nixosUpgrade "custom/systemd-nixos-upgrade")
+              (lib.mkIf cfg.nixosUpgrade "custom/systemd-qrystal-device-client")
               "battery"
               "clock"
             ];
 
-            "custom/systemd-backup" = genServiceStatus { serviceName = "backup-restic.service"; };
-            "custom/systemd-hisame" = genServiceStatus { serviceName = "hisame-sync.service"; };
+            "custom/systemd-hisame" = genServiceStatus { serviceName = "hisame-sync.service"; key = "氷雨"; };
+            "custom/systemd-backup" = genServiceStatus { serviceName = "backup-restic.service"; key = "b"; };
             "custom/systemd-nixos-upgrade" = lib.mkIf cfg.nixosUpgrade (genServiceStatus {
               serviceName = "nixos-upgrade.service";
+              key = "u";
+            });
+            "custom/systemd-qrystal-device-client" = lib.mkIf cfg.qrystal2 (genServiceStatus {
+              serviceName = "qrystal-device-client.service";
+              key = "q";
             });
             "battery" = {
               states.warning = 20;
