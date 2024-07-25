@@ -94,8 +94,14 @@ in
               "clock"
             ];
 
-            "custom/systemd-hisame" = genServiceStatus { serviceName = "hisame-sync.service"; key = "氷雨"; };
-            "custom/systemd-backup" = genServiceStatus { serviceName = "backup-restic.service"; key = "b"; };
+            "custom/systemd-hisame" = genServiceStatus {
+              serviceName = "hisame-sync.service";
+              key = "氷雨";
+            };
+            "custom/systemd-backup" = genServiceStatus {
+              serviceName = "backup-restic.service";
+              key = "b";
+            };
             "custom/systemd-nixos-upgrade" = lib.mkIf cfg.nixosUpgrade (genServiceStatus {
               serviceName = "nixos-upgrade.service";
               key = "u";
