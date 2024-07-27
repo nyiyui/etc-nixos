@@ -30,6 +30,7 @@
     #../niri.nix
     ../sway.nix
     ../autoUpgrade-https.nix
+    ../adb.nix
   ];
 
   networking.hostName = "hinanawi";
