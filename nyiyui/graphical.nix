@@ -44,6 +44,9 @@ in
       ];
     };
 
+    systemd.user.services.waybar = {
+      Unit.After = [ "sway-session.target" ];
+    };
     programs.waybar = {
       # TODO: run systemctl --user restart waybar on activation
       enable = true;
