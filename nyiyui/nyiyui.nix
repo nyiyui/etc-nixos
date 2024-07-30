@@ -58,6 +58,7 @@
       ];
       user.signingkey = "711A0A03A5C5D824";
       #commit.gpgsign = true;
+      merge.tool.path = "${pkgs.meld}/bin/meld";
     };
   };
   services.gpg-agent = {
