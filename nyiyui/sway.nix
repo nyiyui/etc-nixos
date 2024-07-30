@@ -95,7 +95,10 @@
     };
 
   programs.waybar.settings.mainBar = {
-    modules-left = [ "sway/worksapces" "sway/window" ];
+    modules-left = [
+      "sway/worksapces"
+      "sway/window"
+    ];
 
     "sway/workspaces" = {
       disable-scroll = true;
