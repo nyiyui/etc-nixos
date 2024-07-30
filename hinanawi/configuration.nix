@@ -113,4 +113,9 @@
       nyiyui.hasBacklight = true;
       nyiyui.nixosUpgrade = true;
     };
+
+  # MIPI camera workaround (works)
+  # cf. https://github.com/NixOS/nixpkgs/issues/225743#issuecomment-1523508154
+  hardware.ipu6.enable = true;
+  hardware.ipu6.platform = "ipu6ep";
 }
