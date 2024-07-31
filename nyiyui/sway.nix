@@ -44,14 +44,13 @@
         terminal = "foot";
         startup = [
           {
-            command = "systemctl --user restart waybar";
+            command = "${pkgs.firefox}/bin/firefox";
             always = true;
           }
           {
-            command = "systemctl --user restart wlsunset";
+            command = "${pkgs.thunderbird}/bin/thunderbird";
             always = true;
           }
-          { command = "${pkgs.foot}/bin/foot ssh-add $(ls -1 ~/.ssh/id_* | grep -v '\\.pub$')"; }
         ];
         keybindings = lib.mkOptionDefault {
           # use wev to find pressed keys
