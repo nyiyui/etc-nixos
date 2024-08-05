@@ -14,7 +14,7 @@
       breeze-qt5
       breeze-icons
 
-      kdenlive
+      pkgs.kdePackages.kdenlive
       glaxnimate
       ffmpeg-full
       frei0r
