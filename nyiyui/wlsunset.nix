@@ -2,8 +2,8 @@
 {
   services.wlsunset = {
     enable = true;
-    sunrise = "07:00";
-    sunset = "17:00";
+    latitude = lib.mkDefault "33.7488";
+    longitude = lib.mkDefault "-84.3877";
     temperature = {
       day = lib.mkDefault 5000;
       night = lib.mkDefault 1500;
