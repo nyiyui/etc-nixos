@@ -73,9 +73,6 @@
     homeMode = "770";
   };
 
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.power-profiles-daemon.enable = lib.mkForce false;
-
   nix.settings.trusted-users = [ "nyiyui" ];
 
   environment.shells = [ pkgs.fish ];
