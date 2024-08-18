@@ -27,6 +27,7 @@
         export QT_QPA_PLATFORM=wayland
         export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
         export GDK_BACKEND=wayland
+        export GSK_RENDERER=gl
         export XDG_CURRENT_DESKTOP=sway
         export GBM_BACKEND=nvidia-drm
         export __GLX_VENDOR_LIBRARY_NAME=nvidia
@@ -39,6 +40,7 @@
         export XMODIFIERS=@im=fcitx
         export XIM_SERVERS=fcitx
       '';
+      # GSK_RENDERER=gl is to fix Rnote (or GTK apps) https://github.com/flxzt/rnote/issues/1061#issuecomment-2027992630
       config = rec {
         inherit modifier;
         terminal = "foot";

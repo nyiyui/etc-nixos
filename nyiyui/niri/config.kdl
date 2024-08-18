@@ -36,6 +36,7 @@ environment {
     QT_QPA_PLATFORM "wayland"
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
     GDK_BACKEND "wayland"
+    GSK_RENDERER "gl" // https://github.com/flxzt/rnote/issues/1061#issuecomment-2027992630
     GBM_BACKEND "nvidia-drm"
     __GLX_VENDOR_LIBRARY_NAME "nvidia"
     MOZ_ENABLE_WAYLAND "1"
