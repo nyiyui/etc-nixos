@@ -96,3 +96,7 @@ end
 function pdf-remove-annotations
   pdftk "$argv[1]" output - uncompress | sed '/^\/Annots/d' | pdftk - output "$argv[2]" compress
 end
+
+function gtid
+  echo 903986453
+end
