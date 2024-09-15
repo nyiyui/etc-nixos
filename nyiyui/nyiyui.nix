@@ -113,7 +113,7 @@
       StartLimitBurst = 30;
     };
     Service = {
-      ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${../images/keikyu-signal.jpg}";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${../images/umekita.jpg}";
       Restart = "on-failure";
       RestartSec = 3;
     };
