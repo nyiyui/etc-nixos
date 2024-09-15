@@ -1,3 +1,6 @@
+@define-color fg #373b3e
+@define-color fg2 #86cecb
+
 * {
     font-family: 'Jetbrains Mono', 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
     font-size: 14px;
@@ -5,7 +8,7 @@
 
 window#waybar {
     background-color: rgba(0, 0, 0, 0);
-    color: #137a7f;
+    color: @fg;
     transition-property: background-color;
     transition-duration: .5s;
     -gtk-icon-effect: dim;
@@ -42,7 +45,7 @@ button:hover {
 #workspaces button {
     padding: 0 5px;
     background-color: transparent;
-    color: #137a7f;
+    color: @fg;
 }
 
 #workspaces button:hover {
@@ -51,7 +54,7 @@ button:hover {
 
 #workspaces button.focused {
     /* box-shadow: inset 0 -2px #86cecb; */
-    color: #86cecb;
+    color: @fg2;
 }
 
 #workspaces button.urgent {
