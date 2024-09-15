@@ -1,5 +1,5 @@
-@define-color fg #373b3e
-@define-color fg2 #86cecb
+@define-color fg #373b3e;
+@define-color fg2 #86cecb;
 
 * {
     font-family: 'Jetbrains Mono', 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
