@@ -6,12 +6,9 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
   };
 
   home-manager.users.nyiyui = {
     imports = [ ({ pkgs, ... }: { home.packages = [ pkgs.qpwgraph ]; }) ];
   };
-
-  environment.systemPackages = with pkgs; [ qjackctl ];
 }
