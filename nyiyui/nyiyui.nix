@@ -173,6 +173,8 @@
       krita
 
       quickemu
+
+      octave # for MATH1554
     ]
     ++ (with pkgs.libsForQt5; [
       okular
