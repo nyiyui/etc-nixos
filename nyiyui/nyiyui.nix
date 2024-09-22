@@ -159,6 +159,7 @@
       prusa-slicer
       capitaine-cursors
       pdftk
+      pdfchain # GUI for pdftk
       qrencode
       wl-clipboard
       jetbrains.idea-community
