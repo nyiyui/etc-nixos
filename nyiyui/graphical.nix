@@ -185,9 +185,11 @@ in
     services.mako = {
       enable = true;
       anchor = "bottom-right";
-      font = "Roboto 14";
+      font = "Roboto 12";
       backgroundColor = "#00000050";
       textColor = "#86cecb";
+      height = 150;
+      width = 500;
       #FORMAT SPECIFIERS
       #Format specification works similarly to printf(3), but with a different set of specifiers.
       #%% Literal "%"
