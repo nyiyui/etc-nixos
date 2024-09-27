@@ -21,6 +21,7 @@
     ../vlc.nix
     ../qrystal2.nix
     ../docker.nix
+    ../multipass.nix
     ../thunderbolt.nix
     ../restic.nix
     ../backup.nix
