@@ -31,7 +31,7 @@
             self.nixosConfigurations.${name};
         };
       };
-    in {
+    in rec {
       nixosConfigurations.naha = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
@@ -94,6 +94,7 @@
           })
         ];
       };
+      images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
       checks = builtins.mapAttrs
         (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
