@@ -60,7 +60,7 @@
         };
       };
       "hisame" = {
-        id = "wofgx-gaqxc";
+        id = "fzewo-z2hef";
         label = "hisame";
         path = "/home/nyiyui/inaba/hisame";
         devices = [ "hinanawi" "yagoto" ];
