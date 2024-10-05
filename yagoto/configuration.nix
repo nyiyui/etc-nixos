@@ -11,12 +11,6 @@
     ../base.nix
   ];
 
-  # https://github.com/NixOS/nixpkgs/issues/123725#issuecomment-1063370870
-  boot.kernelParams = lib.mkForce [
-    "console=ttyS0,115200n8"
-    "console=tty0"
-  ];
-
   networking.hostName = "yagoto";
 
   sdImage.compressImage = false;
@@ -31,19 +25,4 @@
     wireless.enable = false;
   };
   environment.systemPackages = with pkgs; [ ];
-  hardware = {
-    bluetooth = {
-      package = pkgs.bluez;
-      enable = true;
-      powerOnBoot = false;
-    };
-  };
-  hardware.bluetooth.settings = {
-    # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
-    General = {
-      ControllerMode = "bredr";
-    };
-    Policy.AutoEnable = "true"; # https://unix.stackexchange.com/a/676973
-  };
-  services.blueman.enable = true;
 }
