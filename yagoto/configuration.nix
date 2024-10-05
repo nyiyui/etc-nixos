@@ -41,9 +41,6 @@
   hardware.bluetooth.settings = {
     # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
     # https://unix.stackexchange.com/a/676973
-    Policy = {
-      AutoEnable = "true";
-    };
   };
   services.blueman.enable = true;
 }
