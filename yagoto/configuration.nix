@@ -5,6 +5,9 @@
     ../headless.nix
     ../base.nix
   ];
+
+  networking.hostName = "yagoto";
+
   sdImage.compressImage = false;
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_CA.UTF-8";
