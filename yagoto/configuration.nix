@@ -1,4 +1,9 @@
-{ lib, pkgs, modulesPath, ... }:
+{
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 {
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
@@ -7,7 +12,10 @@
   ];
 
   # https://github.com/NixOS/nixpkgs/issues/123725#issuecomment-1063370870
-  boot.kernelParams = lib.mkForce ["console=ttyS0,115200n8" "console=tty0"];
+  boot.kernelParams = lib.mkForce [
+    "console=ttyS0,115200n8"
+    "console=tty0"
+  ];
 
   networking.hostName = "yagoto";
 
