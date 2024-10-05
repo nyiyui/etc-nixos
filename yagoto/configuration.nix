@@ -40,7 +40,10 @@
   };
   hardware.bluetooth.settings = {
     # https://bbs.archlinux.org/viewtopic.php?pid=1998573#p1998573
-    # https://unix.stackexchange.com/a/676973
+    General = {
+      ControllerMode = "bredr";
+    };
+    Policy.AutoEnable = "true"; # https://unix.stackexchange.com/a/676973
   };
   services.blueman.enable = true;
 }
