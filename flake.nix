@@ -71,9 +71,7 @@
       };
       nixosConfigurations.yagoto = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
-        modules = [
-          ./yagoto/configuration.nix
-        ];
+        modules = [ ./yagoto/configuration.nix agenix.nixosModules.default ];
       };
       images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
       checks = builtins.mapAttrs
