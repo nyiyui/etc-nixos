@@ -1,4 +1,5 @@
-{ pkgs, modulesPath, ... }: {
+{ pkgs, modulesPath, ... }:
+{
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     ../headless.nix
@@ -15,6 +16,5 @@
   networking = {
     wireless.enable = false;
   };
-  environment.systemPackages = with pkgs; [
-  ];
+  environment.systemPackages = with pkgs; [ ];
 }
