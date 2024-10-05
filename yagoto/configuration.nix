@@ -9,6 +9,7 @@
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     ../headless.nix
     ../base.nix
+    ./hisame.nix
   ];
 
   networking.hostName = "yagoto";
