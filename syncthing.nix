@@ -25,12 +25,14 @@
         "6UX4AQF-M2V2BIC-GUKGHBI-67CMCYC-KCLGCZN-D5HPIIB-T3IKTCX-5DIFFQ7";
       "instance-20240723-093651".id = 
         "66HOFBV-RP5RWEX-3V2SYOS-SHUVTQU-GI2IYHO-2A34QPU-XXRRKV2-GLB3TA4";
+      "yagoto".id = 
+        "O4HUT3G-FXAVISB-MHSFOIU-2Q4CYM3-NRJS5PZ-4DC7TDF-GDU3JOZ-MO4BMQD";
     };
     settings.folders = {
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";
-        devices = [ "hinanawi" "makura" "minato" "chikusa" "instance-20240723-093651" ];
+        devices = [ "hinanawi" "makura" "minato" "chikusa" "instance-20240723-093651" "yagoto" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
@@ -57,17 +59,17 @@
           maxAge = "31536000";
         };
       };
-      #"hisame" = {
-      #  id = "wofgx-gaqxc";
-      #  label = "hisame";
-      #  path = "/home/nyiyui/inaba/hisame";
-      #  devices = [ "hinanawi" "yagoto" ];
-      #  versioning.type = "staggered";
-      #  versioning.params = {
-      #    cleanInterval = "86400";
-      #    maxAge = "31536000";
-      #  };
-      #};
+      "hisame" = {
+        id = "wofgx-gaqxc";
+        label = "hisame";
+        path = "/home/nyiyui/inaba/hisame";
+        devices = [ "hinanawi" "yagoto" ];
+        versioning.type = "staggered";
+        versioning.params = {
+          cleanInterval = "86400";
+          maxAge = "31536000";
+        };
+      };
     };
   };
 }
