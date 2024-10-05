@@ -30,7 +30,7 @@
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";
-        devices = [ "hinanawi" "makura" "minato" "chikusa" "instance-20240723-093651" ];
+        devices = [ "hinanawi" "makura" "minato" "chikusa" "instance-20240723-093651" "yagoto" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
@@ -51,6 +51,17 @@
         label = "spool";
         path = "/home/nyiyui/inaba/spool";
         devices = [ "hinanawi" "makura" "asuna" "chikusa" ];
+        versioning.type = "staggered";
+        versioning.params = {
+          cleanInterval = "86400";
+          maxAge = "31536000";
+        };
+      };
+      "hisame" = {
+        id = "wofgx-gaqxc";
+        label = "hisame";
+        path = "/home/nyiyui/inaba/hisame";
+        devices = [ "hinanawi" "yagoto" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";

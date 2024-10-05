@@ -9,8 +9,14 @@
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     ../headless.nix
     ../base.nix
+    ../syncthing.nix
     ./hisame.nix
   ];
+
+  hisame.services.sync = {
+    enable = true;
+    path = "/home/nyiyui/inaba/hisame";
+  };
 
   networking.hostName = "yagoto";
 
