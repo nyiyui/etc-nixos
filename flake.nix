@@ -72,26 +72,7 @@
       nixosConfigurations.yagoto = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
-          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-          ./headless.nix
-          ./base.nix
-          ({ ... }: {
-            config = {
-              sdImage.compressImage = false;
-              time.timeZone = "America/New_York";
-              i18n.defaultLocale = "en_CA.UTF-8";
-
-              users.users.root.initialHashedPassword = "$y$j9T$Oy.M1VzXQXFNXhLpsqbi..$lkvdnMD9WTyKc5ek7Dx3XoeyqKGtvEAuVhabHNyyz0D";
-              system = {
-                stateVersion = "24.05";
-              };
-              networking = {
-                wireless.enable = false;
-              };
-              environment.systemPackages = with pkgs; [
-              ];
-            };
-          })
+          ./yagoto/configuration.nix
         ];
       };
       images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
