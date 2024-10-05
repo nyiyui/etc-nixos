@@ -17,4 +17,6 @@
     wireless.enable = false;
   };
   environment.systemPackages = with pkgs; [ ];
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 }
