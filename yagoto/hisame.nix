@@ -31,13 +31,13 @@ in
       description = "sync with digital paper";
     };
     age.secrets."hisame/privatekey.dat" = {
-      file = ./secrets/hisame/privatekey.dat.age;
+      file = ../secrets/hisame/privatekey.dat.age;
       owner = "nyiyui";
       group = "nyiyui";
       mode = "400";
     };
     age.secrets."hisame/deviceid.dat" = {
-      file = ./secrets/hisame/deviceid.dat.age;
+      file = ../secrets/hisame/deviceid.dat.age;
       owner = "nyiyui";
       group = "nyiyui";
       mode = "400";
