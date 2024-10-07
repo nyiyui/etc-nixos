@@ -31,6 +31,7 @@
       coc-python
       vim-clang-format
       git-blame-nvim
+      copilot-vim
     ];
   };
 }
