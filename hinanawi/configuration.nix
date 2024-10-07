@@ -94,7 +94,7 @@
 
   hisame.services.sync = {
     enable = true;
-    path = "/home/nyiyui/inaba/quaderno";
+    path = "/home/nyiyui/inaba/hisame";
   };
 
   services.xserver.enable = true;

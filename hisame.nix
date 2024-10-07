@@ -104,11 +104,12 @@ in {
                   raise e
               print('connected.')
 
-              iface = get_interfaces()
-              print(f'interface to use: {iface}')
+              #iface = get_interfaces()
+              #print(f'interface to use: {iface}')
               print('writing ip address…')
               with open('${tmpIPAddrPath}', 'w') as file:
-                file.write(f'[{addr}%{iface}]')
+                #file.write(f'[{addr}%{iface}]')
+                file.write(f'{addr}')
               print('done.')
             ''
           }";
