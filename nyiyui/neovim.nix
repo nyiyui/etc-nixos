@@ -28,7 +28,7 @@
       coc-nvim
       coc-clangd
       coc-svelte
-      coc-python
+      coc-pyright
       vim-clang-format
       git-blame-nvim
       copilot-vim
