@@ -62,15 +62,14 @@
 
   xdg.portal.wlr.enable = true;
 
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-  };
+  #hardware.opengl = {
+  #  enable = true;
+  #  extraPackages = with pkgs; [
+  #    onevpl-intel-gpu # move to vpl-gpu-rt on NixOS >24.05
+  #    intel-media-driver
+  #    intel-vaapi-driver
+  #  ];
+  #};
 
   reimu.enable = true;
   reimu.address = "10.42.0.6/32";
@@ -117,4 +116,24 @@
   # cf. https://github.com/NixOS/nixpkgs/issues/225743#issuecomment-1523508154
   hardware.ipu6.enable = true;
   hardware.ipu6.platform = "ipu6ep";
+
+  networking.wireguard.interfaces = {
+    roji = {
+      ips = [ "10.9.0.1/32" ];
+      privateKeyFile = config.age.secrets.roji-privkey.path;
+      peers = [{
+        publicKey = "JFqCTZZkVfZnd+OD5Fq57NUXcngsfoNAuqXdaGHvpyw=";
+        allowedIPs = [ "10.9.0.2/32" ] ;
+        endpoint = "128.61.106.120:60409";
+        persistentKeepalive = 30;
+      }];
+    };
+  };
+
+  age.secrets.roji-privkey = {
+    file = ../secrets/roji-hinanawi.privkey.age;
+    owner = "nyiyui";
+    group = "nyiyui";
+    mode = "400";
+  };
 }

@@ -176,6 +176,8 @@
       quickemu
 
       octave # for MATH1554
+
+      remmina # for RDP from hinanawi to minato
     ]
     ++ (with pkgs.libsForQt5; [
       okular
