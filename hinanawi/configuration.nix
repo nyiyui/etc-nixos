@@ -121,12 +121,14 @@
     roji = {
       ips = [ "10.9.0.1/32" ];
       privateKeyFile = config.age.secrets.roji-privkey.path;
-      peers = [{
-        publicKey = "JFqCTZZkVfZnd+OD5Fq57NUXcngsfoNAuqXdaGHvpyw=";
-        allowedIPs = [ "10.9.0.2/32" ] ;
-        endpoint = "128.61.106.120:60409";
-        persistentKeepalive = 30;
-      }];
+      peers = [
+        {
+          publicKey = "JFqCTZZkVfZnd+OD5Fq57NUXcngsfoNAuqXdaGHvpyw=";
+          allowedIPs = [ "10.9.0.2/32" ];
+          endpoint = "128.61.106.120:60409";
+          persistentKeepalive = 30;
+        }
+      ];
     };
   };
 
