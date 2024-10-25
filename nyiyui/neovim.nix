@@ -32,6 +32,7 @@
       vim-clang-format
       git-blame-nvim
       copilot-vim
+      dart-vim-plugin
     ];
   };
 }
