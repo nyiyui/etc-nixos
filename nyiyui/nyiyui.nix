@@ -22,6 +22,7 @@
     ./wlsunset.nix
     ./neovim.nix
     ./email.nix
+    ./activitywatch.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
