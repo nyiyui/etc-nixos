@@ -26,7 +26,6 @@
     ../restic.nix
     ../backup.nix
     ../tpm.nix
-    ../wine.nix
     ../hisame.nix
     #../niri.nix
     ../sway.nix
