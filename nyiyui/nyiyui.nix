@@ -21,7 +21,6 @@
     ./kicad.nix
     ./wlsunset.nix
     ./neovim.nix
-    ./email.nix
     ./activitywatch.nix
   ];
 
