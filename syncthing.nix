@@ -27,12 +27,14 @@
         "66HOFBV-RP5RWEX-3V2SYOS-SHUVTQU-GI2IYHO-2A34QPU-XXRRKV2-GLB3TA4";
       "yagoto".id = 
         "O4HUT3G-FXAVISB-MHSFOIU-2Q4CYM3-NRJS5PZ-4DC7TDF-GDU3JOZ-MO4BMQD";
+      "sekisho".id =
+        "GZI3EIZ-THXPOCR-3JW4BSP-GVQDDF7-ENZ3N3Z-PTLLRG2-4VPUKI7-XZOIHQ6";
     };
     settings.folders = {
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";
-        devices = [ "hinanawi" "makura" "minato" "chikusa" "instance-20240723-093651" "yagoto" ];
+        devices = [ "hinanawi" "makura" "minato" "chikusa" "instance-20240723-093651" "yagoto" "sekisho" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
@@ -43,7 +45,7 @@
         id = "e2kwg-rebhd";
         label = "GF-01";
         path = "/home/nyiyui/inaba/geofront";
-        devices = [ "hinanawi" "makura" "chikusa" ];
+        devices = [ "hinanawi" "makura" "chikusa" "sekisho" ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
         ignoreDelete = true;
@@ -63,7 +65,7 @@
         id = "fzewo-z2hef";
         label = "hisame";
         path = "/home/nyiyui/inaba/hisame";
-        devices = [ "hinanawi" "yagoto" ];
+        devices = [ "hinanawi" "yagoto" "sekisho" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
