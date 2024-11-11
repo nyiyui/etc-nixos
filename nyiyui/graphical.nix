@@ -86,7 +86,6 @@ in
             modules-right = [
               "tray"
               "network"
-              "temperature"
               "pulseaudio"
               "mpris"
               (lib.mkIf cfg.hasBacklight "custom/light")
