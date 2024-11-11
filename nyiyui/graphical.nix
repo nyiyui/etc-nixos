@@ -185,7 +185,7 @@ in
       enable = true;
       anchor = "bottom-right";
       font = "Roboto 12";
-      backgroundColor = "#00000050";
+      backgroundColor = "#000000c0";
       textColor = "#86cecb";
       height = 150;
       width = 600;
