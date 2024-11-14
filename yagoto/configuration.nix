@@ -38,4 +38,8 @@
     fsType = "ext4";
     device = "/dev/disk/by-uuid/e44a6d2d-224c-410f-a4e8-39b34af3966a";
   };
+
+  services.syncthing.settings.folders."inaba".path = lib.mkForce "/portable0/inaba";
+  services.syncthing.settings.folders."GF-01".path = lib.mkForce "/portable0/GF-01";
+  services.syncthing.settings.folders."hisame".path = lib.mkForce "/portable0/hisame";
 }
