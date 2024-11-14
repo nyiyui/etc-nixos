@@ -40,6 +40,6 @@
   };
 
   services.syncthing.settings.folders."inaba".path = lib.mkForce "/portable0/inaba";
-  services.syncthing.settings.folders."GF-01".path = lib.mkForce "/portable0/GF-01";
+  services.syncthing.settings.folders."geofront".path = lib.mkForce "/portable0/GF-01";
   services.syncthing.settings.folders."hisame".path = lib.mkForce "/portable0/hisame";
 }
