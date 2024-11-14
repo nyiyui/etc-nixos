@@ -19,12 +19,8 @@
         "6ROWFH5-WMAJ5JO-TDJA22O-AOQYET7-SCRIF6T-Q6A3HMA-VP7263N-JMIIRQO";
       "hinanawi".id =
         "Q3DTKLX-XRLSA2W-UIFZHEV-X4EEVXH-6GNXGV6-EI3D2TZ-XVTXJ4X-4FZJDQT";
-      "chikusa".id =
-        "CC2QX3A-7ZX6BFF-QUBMGCH-6MXQ6JP-LGCUYU7-PXD34ZW-CIDIY4K-FG5WYQ6";
       "sawako".id =
         "6UX4AQF-M2V2BIC-GUKGHBI-67CMCYC-KCLGCZN-D5HPIIB-T3IKTCX-5DIFFQ7";
-      "instance-20240723-093651".id = 
-        "66HOFBV-RP5RWEX-3V2SYOS-SHUVTQU-GI2IYHO-2A34QPU-XXRRKV2-GLB3TA4";
       "yagoto".id = 
         "O4HUT3G-FXAVISB-MHSFOIU-2Q4CYM3-NRJS5PZ-4DC7TDF-GDU3JOZ-MO4BMQD";
       "sekisho".id =
@@ -34,7 +30,7 @@
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";
-        devices = [ "hinanawi" "makura" "minato" "chikusa" "instance-20240723-093651" "yagoto" "sekisho" ];
+        devices = [ "hinanawi" "makura" "minato" "yagoto" "sekisho" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
@@ -45,21 +41,10 @@
         id = "e2kwg-rebhd";
         label = "GF-01";
         path = "/home/nyiyui/inaba/geofront";
-        devices = [ "hinanawi" "makura" "chikusa" "sekisho" ];
+        devices = [ "hinanawi" "makura" "sekisho" ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
         ignoreDelete = true;
-      };
-      "spool" = {
-        id = "wofgx-gaqxc";
-        label = "spool";
-        path = "/home/nyiyui/inaba/spool";
-        devices = [ "hinanawi" "makura" "asuna" "chikusa" ];
-        versioning.type = "staggered";
-        versioning.params = {
-          cleanInterval = "86400";
-          maxAge = "31536000";
-        };
       };
       "hisame" = {
         id = "fzewo-z2hef";
