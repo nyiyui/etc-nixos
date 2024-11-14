@@ -32,4 +32,10 @@
     wireless.enable = false;
   };
   environment.systemPackages = with pkgs; [ ];
+
+  fileSystems."/mnt/portable0" = {
+    label = "portable0";
+    fsType = "ext4";
+    device = "/dev/disk/by-uuid/e44a6d2d-224c-410f-a4e8-39b34af3966a";
+  };
 }
