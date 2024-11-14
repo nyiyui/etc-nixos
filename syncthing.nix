@@ -11,8 +11,6 @@
     overrideDevices = true;
     overrideFolders = true;
     settings.devices = {
-      "asuna".id =
-        "Q5BN7WM-NFZG7XU-4Y266W3-OSAR4VJ-WI3GQOG-56Q54AR-X5XYMTL-RHSZTQJ";
       "makura".id =
         "Y3IYLHZ-SUS5JCX-QQENQUL-PI4XK7E-CPWJT3P-MVJGZVS-4XIM4HB-N4UNFAU";
       "minato".id =
