@@ -10,13 +10,13 @@ in
     '';
   };
   age.secrets.jks-config = {
-    file = ./secrets/jks-config.sh.age;
+    file = ../secrets/jks-config.sh.age;
   };
   age.secrets.origincert = {
-    file = ./secrets/jks.nyiyui.ca.origincert.pem.age;
+    file = ../secrets/jks.nyiyui.ca.origincert.pem.age;
   };
   age.secrets.privkey = {
-    file = ./secrets/jks.nyiyui.ca.privkey.pem.age;
+    file = ../secrets/jks.nyiyui.ca.privkey.pem.age;
   };
   services.caddy = {
     enable = true;
