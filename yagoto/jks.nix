@@ -12,9 +12,10 @@ in
   systemd.services.jks = {
     script = ''
       source ${config.age.secrets.jks-config.path}
-      ${jks.outputs.packages.aarch64-linux.jks}/bin/server -bind=0.0.0.0:8080
+      ${jks.outputs.packages.aarch64-linux.jks}/bin/server -bind 0.0.0.0:8080 -db-path $STATE_DIRECTORY/db.sqlite3
     '';
     serviceConfig.User = "jks";
+    serviceConfig.StateDirectory = "jks";
   };
   age.secrets.jks-config = {
     file = ../secrets/jks-config.sh.age;
