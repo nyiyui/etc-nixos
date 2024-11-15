@@ -12,7 +12,7 @@ in
   systemd.services.jks = {
     script = ''
       source ${config.age.secrets.jks-config.path}
-      ${jks}/bin/jks --port=0.0.0.0:8080
+      ${jks.outputs.packages.${config.currentSystem}.jks}/bin/jks --port=0.0.0.0:8080
     '';
     serviceConfig.User = "jks";
   };
