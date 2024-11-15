@@ -3,9 +3,11 @@ let
   jks = specialArgs.jks;
 in
 {
+  users.groups.jks = {};
   users.users.jks = {
     isSystemUser = true;
     description = "JKS services";
+    group = "jks";
   };
   systemd.services.jks = {
     script = ''
