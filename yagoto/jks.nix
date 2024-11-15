@@ -23,12 +23,12 @@ in
   };
   age.secrets.origincert = {
     file = ../secrets/jks.nyiyui.ca.origincert.pem.age;
-    owner = "jks";
+    owner = "caddy";
     mode = "400";
   };
   age.secrets.privkey = {
     file = ../secrets/jks.nyiyui.ca.privkey.pem.age;
-    owner = "jks";
+    owner = "caddy";
     mode = "400";
   };
   services.caddy = {
