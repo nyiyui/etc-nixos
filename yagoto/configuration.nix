@@ -10,6 +10,7 @@
     ../headless.nix
     ../base.nix
     ../syncthing.nix
+    ../autoUpgrade-https.nix
     ./jks.nix
   ];
 
@@ -37,4 +38,7 @@
   services.syncthing.settings.folders."inaba".path = lib.mkForce "/portable0/inaba";
   services.syncthing.settings.folders."geofront".path = lib.mkForce "/portable0/GF-01";
   services.syncthing.settings.folders."hisame".path = lib.mkForce "/portable0/hisame";
+
+  systemd.autoupgrade-pull.timerConfig.OnCalendar = lib.mkForce "daily";
+  system.autoUpgrade.dates = lib.mkForce "06:00";
 }
