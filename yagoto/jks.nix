@@ -12,6 +12,7 @@ in
   systemd.services.jks = {
     script = ''
       source ${config.age.secrets.jks-config.path}
+      export JKS_OAUTH_REDIRECT_URI=https://jks.nyiyui.ca/login/callback
       ${jks.outputs.packages.aarch64-linux.jks}/bin/server -bind 0.0.0.0:8080 -db-path $STATE_DIRECTORY/db.sqlite3
     '';
     serviceConfig.User = "jks";
