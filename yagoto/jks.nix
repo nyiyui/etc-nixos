@@ -33,11 +33,12 @@ in
   };
   services.caddy = {
     enable = true;
-    virtualHosts."https://jks.nyiyui.ca" = {
+    virtualHosts."jks.nyiyui.ca" = {
       extraConfig = ''
         encode gzip
-        reverse_proxy localhost:8080
+        reverse_proxy http://localhost:8080
         tls ${config.age.secrets.origincert.path} ${config.age.secrets.privkey.path}
+        admin disabled
       '';
     };
   };
