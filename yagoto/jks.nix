@@ -1,4 +1,7 @@
-{ config, specialArgs, ... }: let jks = specialArgs.jks; in
+{ config, specialArgs, ... }:
+let
+  jks = specialArgs.jks;
+in
 {
   systemd.services.jks = {
     script = ''
