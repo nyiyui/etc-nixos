@@ -11,6 +11,7 @@
     ../base.nix
     ../syncthing.nix
     ./hisame.nix
+    ./jks.nix
   ];
 
   hisame.services.sync = {

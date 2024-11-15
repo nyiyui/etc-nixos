@@ -6,6 +6,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     qrystal.url = "github:nyiyui/qrystal/next1";
     qrystal2.url = "github:nyiyui/qrystal/next2goal";
+    jks.url = "github:nyiyui/jks";
     touhoukou.url = "github:nyiyui/touhoukou";
     touhoukou.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
@@ -71,6 +72,7 @@
       };
       nixosConfigurations.yagoto = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
+        specialArgs = attrs;
         modules = [ ./yagoto/configuration.nix agenix.nixosModules.default ];
       };
       images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
