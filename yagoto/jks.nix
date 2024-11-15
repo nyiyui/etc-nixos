@@ -3,20 +3,31 @@ let
   jks = specialArgs.jks;
 in
 {
+  users.users.jks = {
+    isSystemUser = true;
+    description = "JKS services";
+  };
   systemd.services.jks = {
     script = ''
       source ${config.age.secrets.jks-config.path}
       ${jks}/bin/jks --port=0.0.0.0:8080
     '';
+    serviceConfig.User = "jks";
   };
   age.secrets.jks-config = {
     file = ../secrets/jks-config.sh.age;
+    owner = "jks";
+    mode = "400";
   };
   age.secrets.origincert = {
     file = ../secrets/jks.nyiyui.ca.origincert.pem.age;
+    owner = "jks";
+    mode = "400";
   };
   age.secrets.privkey = {
     file = ../secrets/jks.nyiyui.ca.privkey.pem.age;
+    owner = "jks";
+    mode = "400";
   };
   services.caddy = {
     enable = true;
