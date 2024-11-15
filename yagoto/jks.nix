@@ -3,7 +3,7 @@ let
   jks = specialArgs.jks;
 in
 {
-  users.groups.jks = {};
+  users.groups.jks = { };
   users.users.jks = {
     isSystemUser = true;
     description = "JKS services";
