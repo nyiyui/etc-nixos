@@ -178,6 +178,7 @@
       octave # for MATH1554
 
       remmina # for RDP from hinanawi to minato
+      thunderbird
     ]
     ++ (with pkgs.libsForQt5; [
       okular
