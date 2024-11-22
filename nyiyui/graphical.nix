@@ -45,7 +45,7 @@ in
     };
 
     systemd.user.services.waybar = {
-      Unit.After = [ "sway-session.target" ];
+      Unit.After = lib.mkForce [ "sway-session.target" ];
       Unit.Requires = [ "sway-session.target" ];
     };
     programs.waybar = {
