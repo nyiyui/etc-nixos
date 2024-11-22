@@ -17,7 +17,7 @@ in
     '';
     serviceConfig.User = "jks";
     serviceConfig.StateDirectory = "jks";
-    wantedBy = "multi-user.target";
+    wantedBy = [ "multi-user.target" ];
   };
   age.secrets.jks-config = {
     file = ../secrets/jks-config.sh.age;
