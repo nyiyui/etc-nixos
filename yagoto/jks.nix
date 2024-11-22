@@ -17,6 +17,7 @@ in
     '';
     serviceConfig.User = "jks";
     serviceConfig.StateDirectory = "jks";
+    wantedBy = "multi-user.target";
   };
   age.secrets.jks-config = {
     file = ../secrets/jks-config.sh.age;
@@ -40,7 +41,6 @@ in
         encode gzip
         reverse_proxy http://localhost:8080
         tls ${config.age.secrets.origincert.path} ${config.age.secrets.privkey.path}
-        admin disabled
       '';
     };
   };
