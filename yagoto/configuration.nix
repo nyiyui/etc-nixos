@@ -11,8 +11,14 @@
     ../base.nix
     ../syncthing.nix
     ../autoUpgrade-https.nix
+    ./hisame.nix
     ./jks.nix
   ];
+
+  hisame.services.sync = {
+    enable = true;
+    path = "/home/nyiyui/inaba/hisame";
+  };
 
   networking.hostName = "yagoto";
 
