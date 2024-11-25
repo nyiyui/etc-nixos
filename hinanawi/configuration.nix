@@ -91,8 +91,8 @@
   };
 
   hisame.services.sync = {
-    #enable = true;
-    #path = "/home/nyiyui/inaba/hisame";
+    enable = true;
+    path = "/home/nyiyui/inaba/hisame";
   };
 
   services.xserver.enable = true;
