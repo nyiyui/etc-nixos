@@ -11,7 +11,6 @@
     touhoukou.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
-    nix-serve-ng.url = "github:aristanetworks/nix-serve-ng";
     flake-utils.url = "github:numtide/flake-utils";
     deploy-rs.url = "github:serokell/deploy-rs";
     seekback.url = "github:nyiyui/seekback";
@@ -19,7 +18,7 @@
     niri.url = "github:sodiboo/niri-flake";
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, qrystal2, nix-serve-ng, flake-utils, niri
+  outputs = { self, agenix, nixpkgs, qrystal, qrystal2, flake-utils, niri
     , deploy-rs, ... }@attrs:
     let
       pkgs = import nixpkgs { config.allowUnfree = true; };
