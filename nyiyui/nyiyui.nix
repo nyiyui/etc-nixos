@@ -176,6 +176,7 @@
       quickemu
 
       octave # for MATH1554
+      calc # for CS2050
 
       remmina # for RDP from hinanawi to minato
       thunderbird
