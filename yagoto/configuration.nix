@@ -46,5 +46,5 @@
   services.syncthing.settings.folders."hisame".path = lib.mkForce "/portable0/hisame";
 
   systemd.timers.autoupgrade-pull.timerConfig.OnCalendar = lib.mkForce "daily";
-  system.autoUpgrade.dates = lib.mkForce "06:00";
+  system.autoUpgrade.dates = lib.mkForce "02:30";
 }
