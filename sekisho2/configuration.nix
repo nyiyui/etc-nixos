@@ -16,6 +16,8 @@
     ../autoUpgrade-https.nix
   ];
 
+  networking.hostName = "sekisho2";
+
   wsl.enable = true;
   wsl.defaultUser = "nyiyui";
 
