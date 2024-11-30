@@ -77,12 +77,6 @@
 
   environment.shells = [ pkgs.fish ];
 
-  # Syncthing
-  networking.firewall = {
-    allowedUDPPorts = [ 22000 21027 ];
-    allowedTCPPorts = [ 22 22000 ];
-  };
-
   # Polkit
   security.polkit.enable = true;
 

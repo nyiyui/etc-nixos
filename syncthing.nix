@@ -57,4 +57,10 @@
       };
     };
   };
+
+  # Syncthing
+  networking.firewall = {
+    allowedUDPPorts = [ 22000 21027 ];
+    allowedTCPPorts = [ 22 22000 ];
+  };
 }
