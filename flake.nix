@@ -86,7 +86,7 @@
         modules = [ ./yagoto/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.sekisho2 = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
+        system = "x86_64-linux";
         specialArgs = attrs;
         modules = [ ./sekisho2/configuration.nix ];
       };
