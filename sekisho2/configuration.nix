@@ -10,6 +10,10 @@
   imports = [
     specialArgs.nixos-wsl.nixosModules.default
     specialArgs.agenix.nixosModules.default
+    ../common.nix
+    home-manager.nixosModule
+    # syncthing is on Windows host (sekisho)
+    ../autoUpgrade-https.nix
   ];
 
   wsl.enable = true;
