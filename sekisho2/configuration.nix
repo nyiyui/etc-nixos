@@ -1,8 +1,14 @@
-{ config, lib, pkgs, specialArgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  specialArgs,
+  ...
+}:
 
 {
   imports = [
-    specialArgs.nixos-wsl.nixosModules.default  
+    specialArgs.nixos-wsl.nixosModules.default
     specialArgs.agenix.nixosModules.default
   ];
 
