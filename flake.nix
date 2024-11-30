@@ -5,17 +5,28 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     qrystal.url = "github:nyiyui/qrystal/next1";
+    qrystal.inputs.nixpkgs.follows = "nixpkgs";
+    qrystal.inputs.flake-utils.follows = "flake-utils";
     qrystal2.url = "github:nyiyui/qrystal/next2goal";
+    qrystal2.inputs.nixpkgs.follows = "nixpkgs";
+    qrystal2.inputs.flake-utils.follows = "flake-utils";
     jks.url = "github:nyiyui/jks";
+    jks.inputs.nixpkgs.follows = "nixpkgs";
+    jks.inputs.flake-utils.follows = "flake-utils";
     touhoukou.url = "github:nyiyui/touhoukou";
     touhoukou.inputs.nixpkgs.follows = "nixpkgs";
+    touhoukou.inputs.flake-utils.follows = "flake-utils";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     deploy-rs.url = "github:serokell/deploy-rs";
     seekback.url = "github:nyiyui/seekback";
     seekback.inputs.nixpkgs.follows = "nixpkgs";
+    seekback.inputs.flake-utils.follows = "flake-utils";
     niri.url = "github:sodiboo/niri-flake";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-wsl.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = { self, agenix, nixpkgs, qrystal, qrystal2, flake-utils, niri
