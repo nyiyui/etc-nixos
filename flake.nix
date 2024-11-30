@@ -85,6 +85,11 @@
         specialArgs = attrs;
         modules = [ ./yagoto/configuration.nix agenix.nixosModules.default ];
       };
+      nixosConfigurations.sekisho2 = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = attrs;
+        modules = [ ./sekisho2/configuration.nix ];
+      };
       images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
       checks = builtins.mapAttrs
         (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
