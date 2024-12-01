@@ -111,11 +111,6 @@
       nyiyui.nixosUpgrade = true;
     };
 
-  # MIPI camera workaround (works)
-  # cf. https://github.com/NixOS/nixpkgs/issues/225743#issuecomment-1523508154
-  hardware.ipu6.enable = true;
-  hardware.ipu6.platform = "ipu6ep";
-
   networking.wireguard.interfaces = {
     roji = {
       ips = [ "10.9.0.1/32" ];
