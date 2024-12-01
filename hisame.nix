@@ -89,20 +89,28 @@ in {
                 return m.group(0)[:-1]
 
 
-              print('checking already connected…')
-              try:
-                addr = wait_for_resolve(timeout=1)
-              except RuntimeError as e:
-                if str(e) == 'timeout':
-                  print('resolve doesn\'t work now; connecting via USB…')
-                  print('writing control sequence…')
-                  with serial.Serial('/dev/ttyACM0') as port: # assume this is Quaderno
-                    port.write(RNDIS)
-                  print('waiting for resolve to succeed…')
-                  addr = wait_for_resolve()
-                else:
-                  raise e
-              print('connected.')
+              print('checking already static IP…')
+              STATIC_IP_ADDR = '10.89.12.119'
+              # ping the device
+              completed = subprocess.run(['ping', '-c', '1', STATIC_IP_ADDR], capture_output=True)
+              if completed.returncode == 0:
+                print('already connected by static IP.')
+                addr = STATIC_IP_ADDR
+              else:
+                print('checking already connected…')
+                try:
+                  addr = wait_for_resolve(timeout=1)
+                except RuntimeError as e:
+                  if str(e) == 'timeout':
+                    print('resolve doesn\'t work now; connecting via USB…')
+                    print('writing control sequence…')
+                    with serial.Serial('/dev/ttyACM0') as port: # assume this is Quaderno
+                      port.write(RNDIS)
+                    print('waiting for resolve to succeed…')
+                    addr = wait_for_resolve()
+                  else:
+                    raise e
+                print('connected.')
 
               #iface = get_interfaces()
               #print(f'interface to use: {iface}')
