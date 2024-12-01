@@ -92,7 +92,7 @@ in {
               print('checking already static IP…')
               STATIC_IP_ADDR = '10.89.12.119'
               # ping the device
-              completed = subprocess.run(['ping', '-c', '1', STATIC_IP_ADDR], capture_output=True)
+              completed = subprocess.run(['/run/current-system/sw/bin/ping', '-c', '1', STATIC_IP_ADDR], capture_output=True)
               if completed.returncode == 0:
                 print('already connected by static IP.')
                 addr = STATIC_IP_ADDR
