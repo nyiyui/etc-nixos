@@ -169,7 +169,7 @@
       meld
       age
 
-      gnome.seahorse
+      seahorse
       gcr # for gnome keyring prompt https://github.com/NixOS/nixpkgs/issues/174099#issuecomment-1135974195
       krita
 
