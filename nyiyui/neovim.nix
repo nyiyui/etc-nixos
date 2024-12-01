@@ -20,6 +20,7 @@
       set tabstop=2
       set shiftwidth=2
       set expandtab
+      highlight Normal ctermbg=NONE guibg=NONE
     '';
     plugins = with pkgs.vimPlugins; [
       vim-nix
