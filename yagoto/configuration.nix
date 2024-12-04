@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   modulesPath,
@@ -17,7 +18,7 @@
 
   hisame.services.sync = {
     enable = true;
-    path = "/home/nyiyui/inaba/hisame";
+    path = "/portable0/hisame";
   };
 
   networking.hostName = "yagoto";
@@ -43,7 +44,7 @@
 
   services.syncthing.settings.folders."inaba".path = lib.mkForce "/portable0/inaba";
   services.syncthing.settings.folders."geofront".path = lib.mkForce "/portable0/GF-01";
-  services.syncthing.settings.folders."hisame".path = lib.mkForce "/portable0/hisame";
+  services.syncthing.settings.folders."hisame".path = lib.mkForce config.hisame.services.sync.path;
 
   systemd.timers.autoupgrade-pull.timerConfig.OnCalendar = lib.mkForce "daily";
   system.autoUpgrade.dates = lib.mkForce "02:30";
