@@ -11,7 +11,7 @@
     ../base.nix
     ../syncthing.nix
     ../autoUpgrade-https.nix
-    ./hisame.nix
+    ../hisame.nix
     ./jks.nix
   ];
 
