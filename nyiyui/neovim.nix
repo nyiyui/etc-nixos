@@ -21,6 +21,7 @@
       set shiftwidth=2
       set expandtab
       highlight Normal ctermbg=NONE guibg=NONE
+      colorscheme evening
     '';
     plugins = with pkgs.vimPlugins; [
       vim-nix
