@@ -103,7 +103,7 @@
     settings.colors.alpha = 0.5;
     settings.colors.background = "000000";
     settings.main.shell = "fish -c tmux";
-    settings.main.font = "JetBrainsMono:size=14,NotoColorEmoji:size=14,hack:size=14";
+    settings.main.font = "JetBrainsMono:size=12,NotoColorEmoji:size=12,hack:size=12";
   };
   systemd.user.services.swaybg = {
     Unit = {
