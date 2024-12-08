@@ -32,6 +32,10 @@
     ../autoUpgrade-https.nix
   ];
 
+  home-manager.users.nyiyui = {
+    nyiyui.qrystal2 = true;
+  };
+
   networking.hostName = "hinanawi";
 
   # Bootloader.
