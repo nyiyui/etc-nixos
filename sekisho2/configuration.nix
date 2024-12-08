@@ -15,6 +15,7 @@
     home-manager.nixosModule
     # syncthing is on Windows host (sekisho)
     ../autoUpgrade-https.nix
+    ../qrystal2.nix
   ];
 
   networking.hostName = "sekisho2";
