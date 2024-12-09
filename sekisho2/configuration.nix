@@ -19,6 +19,9 @@
   ];
 
   networking.hostName = "sekisho2";
+  wsl.wslConf.network.hostname = "sekisho2";
+  wsl.wslConf.network.generateResolvConf = false; # use qrystal2 nameservers
+  wsl.wslConf.user.default = "nyiyui";
 
   wsl.enable = true;
   wsl.defaultUser = "nyiyui";
