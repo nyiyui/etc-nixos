@@ -32,10 +32,6 @@
     ../autoUpgrade-https.nix
   ];
 
-  home-manager.users.nyiyui = {
-    nyiyui.qrystal2 = true;
-  };
-
   networking.hostName = "hinanawi";
 
   # Bootloader.
@@ -111,6 +107,7 @@
   home-manager.users.nyiyui =
     { ... }:
     {
+      nyiyui.qrystal2 = true;
       nyiyui.hasBacklight = true;
       nyiyui.nixosUpgrade = true;
     };
