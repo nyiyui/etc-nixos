@@ -35,6 +35,7 @@
       git-blame-nvim
       copilot-vim
       dart-vim-plugin
+      cornelis
     ];
   };
 }

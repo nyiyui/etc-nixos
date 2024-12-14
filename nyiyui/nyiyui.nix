@@ -182,6 +182,7 @@
       thunderbird
 
       links2
+      (agda.withPackages [ agdaPackages.standard-library ])
     ]
     ++ (with pkgs.libsForQt5; [
       okular
