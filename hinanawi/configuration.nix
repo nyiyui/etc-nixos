@@ -26,6 +26,7 @@
     ../restic.nix
     ../backup.nix
     ../tpm.nix
+    ../adb.nix
     ../hisame.nix
     #../niri.nix
     ../sway.nix
