@@ -31,6 +31,7 @@
     #../niri.nix
     ../sway.nix
     ../autoUpgrade-https.nix
+    ../vnc.nix
   ];
 
   networking.hostName = "hinanawi";
