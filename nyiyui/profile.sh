@@ -74,17 +74,6 @@ export XMODIFIERS=@im=fcitx
 if status is-interactive
 	fish_ssh_agent
 	ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/inaba/geofront/id_inaba
-
-	echo 'e: 85?'
-	echo 'm: 87'
-	echo 'c: 87'
-	echo 'b: 96/98'
-	echo 'study lolol'
-	echo 'TODO'
-	echo '  ka calc'
-	echo '  ka sat'
-	echo '  彼女と彼女の猫EF'
-	echo '  yarnkey 1 trial'
 end
 
 export PAGER=vimpager
