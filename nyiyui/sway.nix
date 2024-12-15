@@ -62,11 +62,15 @@
           "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
           "Control+grave" = "exec playerctl play-pause";
           # Screenshots
-          "Print" = "exec ${pkgs.grim}/bin/grim - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy";
-          "Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
-          "${modifier}+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(swaymsg -t get_tree | ${pkgs.jq}/bin/jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          "Print" =
+            "exec ${pkgs.grim}/bin/grim - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy";
+          "Shift+Print" =
+            ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          "${modifier}+Print" =
+            ''exec ${pkgs.grim}/bin/grim -g "$(swaymsg -t get_tree | ${pkgs.jq}/bin/jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | tee ~/.cache/screenshot.png | ${pkgs.wl-clipboard}/bin/wl-copy'';
           "XF86MonBrightnessUp" = "exec light -A 1";
-          "XF86MonBrightnessDown" = ''exec fish --command='if [ "$(light)" -le 1 ]; then; light -S 1; else; light -U 1; end' '';
+          "XF86MonBrightnessDown" =
+            ''exec fish --command='if [ "$(light)" -le 1 ]; then; light -S 1; else; light -U 1; end' '';
           "${modifier}+Alt+L" = "exec swaylock";
           "${modifier}+Shift+Return" = "exec firefox";
           "${modifier}+Alt+Shift+Return" = "exec chromium";
