@@ -9,6 +9,8 @@
     godef
     gopls
 
+    ocamlPackages.ocaml-lsp
+
     vimpager-latest
   ];
   programs.neovim = {
