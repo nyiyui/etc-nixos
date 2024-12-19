@@ -14,6 +14,7 @@
     ../autoUpgrade-https.nix
     ../hisame.nix
     ./jks.nix
+    ./seekback-server.nix
   ];
 
   hisame.services.sync = {

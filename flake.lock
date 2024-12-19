@@ -402,6 +402,7 @@
         "qrystal": "qrystal",
         "qrystal2": "qrystal2",
         "seekback": "seekback",
+        "seekback-server": "seekback-server",
         "touhoukou": "touhoukou"
       }
     },
@@ -425,6 +426,29 @@
       "original": {
         "owner": "nyiyui",
         "repo": "seekback",
+        "type": "github"
+      }
+    },
+    "seekback-server": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1734567543,
+        "narHash": "sha256-A2E9+AtrChkhLD+UjB38bdNSUfI3/oiHYm8f1sPHgiM=",
+        "owner": "nyiyui",
+        "repo": "seekback-server",
+        "rev": "9df20868412f50a95552dd0758fbe2d6c67dad24",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nyiyui",
+        "repo": "seekback-server",
         "type": "github"
       }
     },

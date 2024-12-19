@@ -24,12 +24,12 @@ in
     owner = "jks";
     mode = "400";
   };
-  age.secrets.origincert = {
+  age.secrets.jks-origincert = {
     file = ../secrets/jks.nyiyui.ca.origincert.pem.age;
     owner = "caddy";
     mode = "400";
   };
-  age.secrets.privkey = {
+  age.secrets.jks-privkey = {
     file = ../secrets/jks.nyiyui.ca.privkey.pem.age;
     owner = "caddy";
     mode = "400";
@@ -40,7 +40,7 @@ in
       extraConfig = ''
         encode gzip
         reverse_proxy http://localhost:8080
-        tls ${config.age.secrets.origincert.path} ${config.age.secrets.privkey.path}
+        tls ${config.age.secrets.jks-origincert.path} ${config.age.secrets.jks-privkey.path}
       '';
     };
   };
