@@ -1,9 +1,16 @@
-{ config, pkgs, specialArgs, ... }:
+{
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
 let
   seekback-server = specialArgs.seekback-server;
   port = "8712";
-  tokens = pkgs.writeText "tokens.json" (builtins.toJSON {
-  });
+  tokens = pkgs.writeText "tokens.json" (
+    builtins.toJSON {
+    }
+  );
 in
 {
   users.groups.seekback-server = { };
