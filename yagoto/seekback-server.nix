@@ -1,7 +1,9 @@
-{ config, specialArgs, ... }:
+{ config, pkgs, specialArgs, ... }:
 let
   seekback-server = specialArgs.seekback-server;
   port = "8712";
+  tokens = pkgs.writeText "tokens.json" (builtins.toJSON {
+  });
 in
 {
   users.groups.seekback-server = { };
@@ -13,9 +15,9 @@ in
   systemd.services.seekback-server = {
     script = ''
       source ${config.age.secrets.seekback-server-config.path}
-      export JKS_OAUTH_REDIRECT_URI=https://seekback-server.nyiyui.ca/login/callback
+      export SEEKBACK_SERVER_OAUTH_REDIRECT_URI=https://seekback-server.nyiyui.ca/login/callback
       export SEEKBACK_SERVER_SAMPLES_PATH=/home/nyiyui/inaba/seekback
-      ${seekback-server.outputs.packages.aarch64-linux.default}/bin/server -bind localhost:${port} -db-path $STATE_DIRECTORY/db.sqlite3 -base-uri 'https://seekback-server.nyiyui.ca/'
+      ${seekback-server.outputs.packages.aarch64-linux.default}/bin/server -bind localhost:${port} -db-path $STATE_DIRECTORY/db.sqlite3 -tokens-path ${tokens}
     '';
     serviceConfig.User = "seekback-server";
     serviceConfig.StateDirectory = "seekback-server";
