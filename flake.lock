@@ -167,11 +167,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1734521625,
-        "narHash": "sha256-33YHRxFdOymBX7gsDF2wDtoOD91XdWF7lEoP4GYy+yM=",
+        "lastModified": 1734694301,
+        "narHash": "sha256-9be9+UlDZ4w1+IDfG5ilI08uwzsDrdtreNZqPJ2lKM4=",
         "owner": "nyiyui",
         "repo": "jks",
-        "rev": "3ea46385882eac8eb865dc7aa4b67ed5443ae658",
+        "rev": "a23b1cea8f8255de5237a1df388d98b110c71988",
         "type": "github"
       },
       "original": {
@@ -374,11 +374,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1734054211,
-        "narHash": "sha256-y7HcQ3wxuOTkck/wqJViG5PvLurXqgTRLZnaB9ajpAk=",
+        "lastModified": 1734658033,
+        "narHash": "sha256-04Su8gORimuMkQHazrax79sgPRICtn4T3cbFWLYmhNk=",
         "owner": "nyiyui",
         "repo": "qrystal",
-        "rev": "38da4e7f3d20e1fc467349873949a43b58e94c23",
+        "rev": "6f7d39a937a986295ccef68069cd0b7b9021af99",
         "type": "github"
       },
       "original": {
