@@ -47,7 +47,7 @@ in {
   config = {
     system.autoUpgrade = {
       enable = true;
-      rebootWindow.lower = "03:00";
+      rebootWindow.lower = "01:00";
       rebootWindow.upper = "05:00";
       randomizedDelaySec = "1d";
       persistent = true;
