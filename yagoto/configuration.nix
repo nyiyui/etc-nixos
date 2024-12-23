@@ -48,6 +48,6 @@
   services.syncthing.settings.folders."geofront".path = lib.mkForce "/portable0/GF-01";
   services.syncthing.settings.folders."hisame".path = lib.mkForce config.hisame.services.sync.path;
 
-  systemd.timers.autoupgrade-pull.timerConfig.OnCalendar = lib.mkForce "daily";
-  system.autoUpgrade.dates = lib.mkForce "02:30";
+  systemd.timers.autoupgrade-pull.timerConfig.OnCalendar = lib.mkForce "hourly";
+  system.autoUpgrade.dates = lib.mkForce "hourly";
 }
