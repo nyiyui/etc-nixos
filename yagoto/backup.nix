@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   age.secrets.restic-password = {
     file = ../secrets/yagoto-restic-password.txt.age;
     owner = "root";
@@ -12,19 +13,21 @@
       Persistent = "true";
     };
   };
-  systemd.services.backup-restic = let
-    password = "$(cat ${config.age.secrets.restic-password.path})";
-  in {
-    script = ''
-      set -eu
-      export RESTIC_REPOSITORY="rest:https://yagoto:${password}@irinaka.nyiyui.ca:53955/yagoto/main"
-      ${pkgs.restic}/bin/restic backup --tag systemd /var/lib
-    '';
-    unitConfig.StartLimitIntervalSec = 300;
-    unitConfig.StartLimitBurst = 5;
-    serviceConfig.Nice = 19;
-    serviceConfig.Restart = "on-failure";
-    serviceConfig.RestartSec = 30;
-    wantedBy = [ "default.target" ];
-  };
+  systemd.services.backup-restic =
+    let
+      password = "$(cat ${config.age.secrets.restic-password.path})";
+    in
+    {
+      script = ''
+        set -eu
+        export RESTIC_REPOSITORY="rest:https://yagoto:${password}@irinaka.nyiyui.ca:53955/yagoto/main"
+        ${pkgs.restic}/bin/restic backup --tag systemd /var/lib
+      '';
+      unitConfig.StartLimitIntervalSec = 300;
+      unitConfig.StartLimitBurst = 5;
+      serviceConfig.Nice = 19;
+      serviceConfig.Restart = "on-failure";
+      serviceConfig.RestartSec = 30;
+      wantedBy = [ "default.target" ];
+    };
 }
