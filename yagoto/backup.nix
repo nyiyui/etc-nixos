@@ -17,7 +17,7 @@
   in {
     script = ''
       set -eu
-      export RESTIC_REPOSITORY="rest:https://yagoto:${password}@irinaka.nyiyui.ca:53955"
+      export RESTIC_REPOSITORY="rest:https://yagoto:${password}@irinaka.nyiyui.ca:53955/yagoto/main"
       ${pkgs.restic}/bin/restic backup --tag systemd /var/lib
     '';
     unitConfig.StartLimitIntervalSec = 300;
