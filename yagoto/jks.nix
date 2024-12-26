@@ -13,7 +13,7 @@ in
     script = ''
       source ${config.age.secrets.jks-config.path}
       export JKS_OAUTH_REDIRECT_URI=https://jks.nyiyui.ca/login/callback
-      ${jks.outputs.packages.aarch64-linux.jks}/bin/server -bind 0.0.0.0:8080 -db-path $STATE_DIRECTORY/db.sqlite3 -base-uri 'https://jks.nyiyui.ca/'
+      ${jks.outputs.packages.aarch64-linux.jks}/bin/server -bind 0.0.0.0:8080 -db-path $STATE_DIRECTORY/db.sqlite3 -base-uri 'https://jks.nyiyui.ca/' -seekback-server-base-uri 'https://seekback-server.nyiyui.ca/' -seekback-server-token "$(cat ${config.age.secrets.seekback-server-token-read-events.path})"
     '';
     serviceConfig.User = "jks";
     serviceConfig.StateDirectory = "jks";
@@ -21,6 +21,11 @@ in
   };
   age.secrets.jks-config = {
     file = ../secrets/jks-config.sh.age;
+    owner = "jks";
+    mode = "400";
+  };
+  age.secrets.seekback-server-token-read-events = {
+    file = ../secrets/seekback-server-token-read-events.txt.age;
     owner = "jks";
     mode = "400";
   };
