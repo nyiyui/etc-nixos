@@ -15,12 +15,12 @@
     home-manager.nixosModule
     # syncthing is on Windows host (sekisho)
     ../autoUpgrade-https.nix
-    ../qrystal2.nix
+    ../qrystal.nix
   ];
 
   networking.hostName = "sekisho2";
   wsl.wslConf.network.hostname = "sekisho2";
-  wsl.wslConf.network.generateResolvConf = false; # use qrystal2 nameservers
+  wsl.wslConf.network.generateResolvConf = false; # use qrystal nameservers
   wsl.wslConf.user.default = "nyiyui";
 
   wsl.enable = true;

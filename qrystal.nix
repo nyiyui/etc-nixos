@@ -1,11 +1,11 @@
-{ config, pkgs, qrystal2, ... }:
+{ config, pkgs, qrystal, ... }:
 let
   hostName = config.networking.hostName;
-  secretName = "qrystal2-irinaka.qrystalct";
+  secretName = "qrystal-irinaka.qrystalct";
   ula = "fda0:a4b2:2507::52";
   qrystalDNSAddr = "127.0.0.39";
 in {
-  imports = [ qrystal2.outputs.nixosModules.x86_64-linux.default ];
+  imports = [ qrystal.outputs.nixosModules.x86_64-linux.default ];
 
   environment.systemPackages = with pkgs; [ wireguard-tools ]; # for debugging
 
@@ -26,7 +26,7 @@ in {
   };
   systemd.services.qrystal-device-client.environment.QRYSTAL_LOGGING_CONFIG = "development";
   age.secrets.${secretName} = {
-    file = ./secrets/qrystal2-irinaka-${hostName}.qrystalct.age;
+    file = ./secrets/qrystal-irinaka-${hostName}.qrystalct.age;
     owner = "qrystal-device";
     group = "qrystal-device";
     mode = "400";

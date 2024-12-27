@@ -13,13 +13,14 @@ jobs:
         with:
           gitub_access_token: ${{ secrets.GITHUB_TOKEN }}
       - run: nix flake lock --update-input jks
-      - run: nix flake lock --update-input qrystal2
+      - run: nix flake lock --update-input seekback-server
+      - run: nix flake lock --update-input qrystal
       - name: commit and push
         run: |
           git config user.name 'GitHub Actions'
           git config user.email 'etc-nixos+github-actions@nyiyui.ca'
           git add flake.lock
-          git commit -am "nix flake update"
+          git commit -am "nix flake update (jks, seekback-server, qrystal)"
           rm keydb.cfg
           make keydb.cfg
           git add keydb.cfg

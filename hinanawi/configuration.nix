@@ -19,7 +19,7 @@
     ../fprint.nix
     ../sound.nix
     ../vlc.nix
-    ../qrystal2.nix
+    ../qrystal.nix
     ../docker.nix
     ../multipass.nix
     ../thunderbolt.nix
@@ -111,7 +111,7 @@
   home-manager.users.nyiyui =
     { ... }:
     {
-      nyiyui.qrystal2 = true;
+      nyiyui.qrystal = true;
       nyiyui.hasBacklight = true;
       nyiyui.nixosUpgrade = true;
     };

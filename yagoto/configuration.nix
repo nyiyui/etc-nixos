@@ -15,7 +15,7 @@
     ../hisame.nix
     ./jks.nix
     ./seekback-server.nix
-    ../qrystal2.nix
+    ../qrystal.nix
     ./backup.nix
   ];
 

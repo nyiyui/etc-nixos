@@ -17,7 +17,7 @@ in
       default = false;
       description = "enable backlight features";
     };
-  options.nyiyui.qrystal2 =
+  options.nyiyui.qrystal =
     with lib;
     with types;
     mkOption {
@@ -109,7 +109,7 @@ in
               serviceName = "nixos-upgrade.service";
               key = "u";
             });
-            "custom/systemd-qrystal-device-client" = lib.mkIf cfg.qrystal2 (genServiceStatus {
+            "custom/systemd-qrystal-device-client" = lib.mkIf cfg.qrystal (genServiceStatus {
               serviceName = "qrystal-device-client.service";
               key = "q";
             });

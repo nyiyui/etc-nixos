@@ -288,7 +288,7 @@
         "type": "github"
       }
     },
-    "qrystal2": {
+    "qrystal": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
@@ -322,7 +322,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
-        "qrystal2": "qrystal2",
+        "qrystal": "qrystal",
         "seekback": "seekback",
         "seekback-server": "seekback-server",
         "touhoukou": "touhoukou"

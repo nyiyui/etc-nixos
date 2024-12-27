@@ -12,7 +12,7 @@
     ../autoUpgrade-https.nix
     ../base.nix
     ./github-runner.nix
-    ../qrystal2.nix
+    ../qrystal.nix
   ];
 
   networking.hostName = "leaside";
