@@ -16,7 +16,6 @@
     ../common.nix
     ../sound.nix
     ../vlc.nix
-    ../kuromiya.nix
   ];
 
   networking.hostName = "mitsu8";
@@ -32,15 +31,10 @@
   networking.networkmanager.enable = true;
 
   services.xserver.enable = true;
-
-  services.xserver.displayManager = {
-    lightdm = {
-      enable = true;
-    };
-    autoLogin = {
-      enable = true;
-      user = "nyiyui";
-    };
+  services.xserver.displayManager.lightdm.enable = true;
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "nyiyui";
   };
 
   # Select internationalisation properties.
@@ -59,7 +53,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

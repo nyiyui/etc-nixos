@@ -16,7 +16,6 @@
     ../common.nix
     ../power.nix
     ../sound.nix
-    ../kuromiya.nix
     ../thunderbolt.nix
     ../syncthing.nix
   ];
@@ -32,9 +31,9 @@
 
   i18n.defaultLocale = "ja_JP.UTF-8";
 
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   services.openssh.enable = true;
@@ -46,20 +45,16 @@
   xdg.portal.wlr.enable = true;
   services.xserver.enable = true;
 
-  services.xserver.displayManager = {
-    lightdm = {
-      enable = true;
-    };
-    autoLogin = {
-      enable = true;
-      user = "nyiyui";
-    };
+  services.xserver.displayManager.lightdm.enable = true;
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "nyiyui";
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD

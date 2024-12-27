@@ -4,9 +4,6 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    qrystal.url = "github:nyiyui/qrystal/next1";
-    qrystal.inputs.nixpkgs.follows = "nixpkgs";
-    qrystal.inputs.flake-utils.follows = "flake-utils";
     qrystal2.url = "github:nyiyui/qrystal/next2goal";
     qrystal2.inputs.nixpkgs.follows = "nixpkgs";
     qrystal2.inputs.flake-utils.follows = "flake-utils";
@@ -22,7 +19,6 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
-    deploy-rs.url = "github:serokell/deploy-rs";
     seekback.url = "github:nyiyui/seekback";
     seekback.inputs.nixpkgs.follows = "nixpkgs";
     seekback.inputs.flake-utils.follows = "flake-utils";
@@ -32,8 +28,8 @@
     nixos-wsl.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, qrystal2, flake-utils, niri
-    , deploy-rs, ... }@attrs:
+  outputs = { self, agenix, nixpkgs, qrystal2, flake-utils, niri
+    , ... }@attrs:
     let
       pkgs = import nixpkgs { config.allowUnfree = true; };
     in rec {
@@ -68,15 +64,12 @@
         modules = [ ./sekisho2/configuration.nix ];
       };
       images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
-      checks = builtins.mapAttrs
-        (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nixfmt-rfc-style
-            deploy-rs.packages.${system}.default
             (python3.withPackages (p: [ p.pyserial ]))
           ];
         };
