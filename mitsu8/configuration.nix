@@ -17,7 +17,6 @@
     ../sound.nix
     ../vlc.nix
     ../kuromiya.nix
-    ../miyamizu.nix
   ];
 
   networking.hostName = "mitsu8";
@@ -95,6 +94,4 @@
   reimu.enable = true;
   reimu.address = "10.42.0.7/32";
   reimu.udp2raw.enable = false;
-
-  miyamizu.services.target.enable = true;
 }
