@@ -20,7 +20,6 @@
     ../sound.nix
     ../vlc.nix
     ../qrystal.nix
-    ../docker.nix
     ../multipass.nix
     ../thunderbolt.nix
     ../restic.nix

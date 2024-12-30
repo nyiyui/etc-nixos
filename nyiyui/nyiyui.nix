@@ -165,7 +165,6 @@
       wl-clipboard
       jetbrains.idea-community
       python310Packages.ipython
-      docker-credential-helpers
       poppler_utils
       meld
       age
@@ -243,13 +242,6 @@
     ];
   };
 
-  home.file.".docker/config.json".text = builtins.toJSON {
-    auths = {
-      "ghcr.io" = { };
-      "https://index.docker.io/v1/" = { };
-    };
-    credsStore = "secretservice";
-  };
   programs.yt-dlp.enable = true;
   programs.yt-dlp.settings = {
     write-subs = true;
