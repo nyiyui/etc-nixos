@@ -361,11 +361,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735199973,
-        "narHash": "sha256-B0m/MIp/p3OptN8/boIwKkUpNCOO4megP78fyfqAars=",
+        "lastModified": 1735658083,
+        "narHash": "sha256-1gcrmgX9BsX9DyGbNrFeh3cQuZKcyYcAGiWPcMC9khA=",
         "owner": "nyiyui",
         "repo": "seekback-server",
-        "rev": "6fbdb668938feec1a4ace9116e52bd427d959142",
+        "rev": "4026d2a3adc772c9a96d6021ca60190d98f6c6ca",
         "type": "github"
       },
       "original": {
