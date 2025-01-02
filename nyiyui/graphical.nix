@@ -45,8 +45,8 @@ in
     };
 
     systemd.user.services.waybar = {
-      Unit.After = lib.mkForce [ "sway-session.target" ];
-      Unit.Requires = [ "sway-session.target" ];
+      Unit.After = lib.mkForce [ "sway-session.target" "xdg-desktop-portal.service" ];
+      Unit.Requires = [ "sway-session.target" "xdg-desktop-portal.service" ];
     };
     programs.waybar = {
       # TODO: run systemctl --user restart waybar on activation
