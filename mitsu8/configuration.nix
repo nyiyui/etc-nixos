@@ -77,6 +77,12 @@
   reimu.address = "10.42.0.7/32";
   reimu.udp2raw.enable = false;
 
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-sans
+  ];
+
+
   home-manager.users.nyiyui = {
     services.wlsunset.temperature.night = 4000;
     wayland.windowManager.sway.config.startup = lib.mkForce [
