@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  home-manager,
   nixos-hardware,
   ...
 }:
@@ -11,9 +10,11 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    home-manager.nixosModule
     { }
-    ../common.nix
+    ../base.nix
+    ../i18n.nix
+    ../reimu.nix
+    ../doas.nix
     ../sound.nix
     ../vlc.nix
     ../sway.nix
@@ -31,6 +32,8 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  powerManagement.cpuFreqGovernor = "performance";
 
   services.xserver.enable = true;
   services.xserver.displayManager.lightdm.enable = true;

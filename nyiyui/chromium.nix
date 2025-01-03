@@ -3,9 +3,8 @@
   programs.chromium = {
     enable = true;
     extensions = [
-      { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; }
-      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
-      { id = "mclkkofklkfljcocdinagocijmpgbhab"; }
+      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # UBlock Origin
+      { id = "mclkkofklkfljcocdinagocijmpgbhab"; } # japanese input
     ];
   };
   programs.firefox = {
