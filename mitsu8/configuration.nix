@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  home-manager,
   nixos-hardware,
   ...
 }:
@@ -10,6 +11,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    home-manager.nixosModule
     { }
     ../base.nix
     ../i18n.nix
