@@ -86,10 +86,10 @@
     ];
     wayland.windowManager.sway.config = {
       output = {
-        "HDMI-A-1" = {
-          mode = "3840x2160@60.000Hz";
+        "HDMI-A-2" = {
+          mode = "1920x1080@60.000Hz";
           pos = "0 0";
-          scale = "2";
+          scale = "1";
         };
       };
     };
