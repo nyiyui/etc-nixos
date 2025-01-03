@@ -18,7 +18,6 @@
     ../reimu.nix
     ../doas.nix
     ../sound.nix
-    ../vlc.nix
     ../sway.nix
     ../autoUpgrade-https.nix
     ../qrystal.nix
