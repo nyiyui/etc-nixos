@@ -82,7 +82,6 @@
     noto-fonts-cjk-sans
   ];
 
-
   home-manager.users.nyiyui = {
     services.wlsunset.temperature.night = 4000;
     wayland.windowManager.sway.config.startup = lib.mkForce [
