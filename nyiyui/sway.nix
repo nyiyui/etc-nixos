@@ -99,7 +99,10 @@
       };
     };
 
-  home.packages = [ pkgs.pavucontrol pkgs.swaylock ];
+  home.packages = [
+    pkgs.pavucontrol
+    pkgs.swaylock
+  ];
 
   programs.waybar.settings.mainBar = {
     modules-left = [
