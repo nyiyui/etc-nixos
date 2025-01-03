@@ -87,7 +87,7 @@ in
         {
           mainBar = {
             layer = "top";
-            position = if config.home.file.hostname.text == "hinanawi" then "bottom" else "top";
+            position = "bottom";
             height = 24;
             modules-right = [
               "tray"
