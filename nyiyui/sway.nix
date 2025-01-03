@@ -99,6 +99,8 @@
       };
     };
 
+  home.packages = [ pkgs.pavucontrol pkgs.swaylock ];
+
   programs.waybar.settings.mainBar = {
     modules-left = [
       "sway/worksapces"
@@ -113,5 +115,20 @@
       format = "{app_id} {title}";
       icon = true;
     };
+  };
+
+  systemd.user.services.swaybg = {
+    Unit = {
+      Description = "swaywm background";
+      PartOf = [ "graphical-session.target" ];
+      StartLimitIntervalSec = 350;
+      StartLimitBurst = 30;
+    };
+    Service = {
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${../wallpapers/umekita.jpg}";
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 }

@@ -8,6 +8,7 @@
 
 {
   imports = [
+    ./base.nix
     ./kde.nix
     ./per.nix
     ./fonts.nix
@@ -25,25 +26,7 @@
     ./emacs.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   home.file.hostname.text = hostname;
-
-  home.username = "nyiyui";
-  home.homeDirectory = "/home/nyiyui";
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "22.11";
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 
   programs.git = {
     enable = true;
@@ -106,20 +89,6 @@
     settings.main.shell = "fish -c tmux";
     settings.main.font = "JetBrainsMono:size=12,NotoColorEmoji:size=12,hack:size=12";
   };
-  systemd.user.services.swaybg = {
-    Unit = {
-      Description = "swaywm background";
-      PartOf = [ "graphical-session.target" ];
-      StartLimitIntervalSec = 350;
-      StartLimitBurst = 30;
-    };
-    Service = {
-      ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${../wallpapers/umekita.jpg}";
-      Restart = "on-failure";
-      RestartSec = 3;
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
   home.packages =
     with pkgs;
     [
@@ -130,7 +99,6 @@
 
       easyeffects
       helvum
-      pavucontrol
 
       swaylock
       pulseaudio

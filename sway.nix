@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.sway.enable = true;
   home-manager.users.nyiyui = {
-    imports = [ ./nyiyui/graphical.nix ./nyiyui/sway.nix ];
+    imports = [ ./nyiyui/graphical.nix ./nyiyui/sway.nix ./nyiyui/base.nix ];
   };
   services.displayManager.defaultSession = "sway";
 
