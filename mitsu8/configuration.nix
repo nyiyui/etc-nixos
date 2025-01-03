@@ -77,4 +77,22 @@
   reimu.enable = true;
   reimu.address = "10.42.0.7/32";
   reimu.udp2raw.enable = false;
+
+  home-manager.users.nyiyui = {
+    services.wlsunset.temperature.night = 4000;
+    wayland.windowManager.sway.config = {
+      startup = [
+        {
+          command = "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'";
+        }
+      ];
+      output = {
+        "HDMI-A-1" = {
+          mode = "3840x2160@60.000Hz";
+          pos = "0 0";
+          scale = "2";
+        };
+      };
+    };
+  };
 }
