@@ -1,3 +1,12 @@
+# NixOS configuration
+
+## mitsu8 / living room TV PC
+
+Main configuration file is `mitsu8/configuration.nix`, and
+hardware configuration (e.g. disk partition UUIDs, architecture) is in `mitsu8/hardware-configuration.nix`.
+Please add configuration to the main configuration file for most edits.
+
+
 rclone - config contains access/refresh token, don't save here lol
 
 Temporarily disable lid switch:

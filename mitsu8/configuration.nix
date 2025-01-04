@@ -14,14 +14,14 @@
     home-manager.nixosModule
     { }
     ../base.nix
-    ../i18n.nix
-    ../reimu.nix
-    ../doas.nix
+    ../i18n.nix # japanese input / language settings
+    ../reimu.nix # VPN to Tokyo
+    ../doas.nix # sudo replacement
     ../sound.nix
-    ../sway.nix
-    ../autoUpgrade-https.nix
-    ../qrystal.nix
-    ../vlc.nix
+    ../sway.nix # window manager
+    ../autoUpgrade-https.nix # autoupgrade scripts
+    ../qrystal.nix # another VPN
+    ../vlc.nix # VLC with Blu-ray decode keys
   ];
 
   networking.hostName = "mitsu8";
@@ -31,20 +31,18 @@
   boot.loader.efi.canTouchEfiVariables = true;
   #boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   # Enable networking
   networking.networkmanager.enable = true;
 
-  powerManagement.cpuFreqGovernor = "performance";
-
   services.xserver.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
+  # autologin to main user
   services.displayManager.autoLogin = {
     enable = true;
     user = "nyiyui";
   };
 
+  # not sure if required
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_CA.UTF-8";
     LC_IDENTIFICATION = "en_CA.UTF-8";
@@ -57,8 +55,10 @@
     LC_TIME = "en_CA.UTF-8";
   };
 
+  # required? for something I forgot
   services.libinput.enable = true;
 
+  # Enable the OpenSSH server.
   services.openssh.enable = true;
 
   # This value determines the NixOS release from which the default
@@ -69,27 +69,34 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 
-  # Brightness adjust
+  # Brightness adjust using e.g. `light -S 50` to set to 50%
   programs.light.enable = true;
 
   xdg.portal.wlr.enable = true;
 
+  # VPN to Tokyo
   reimu.enable = true;
   reimu.address = "10.42.0.7/32";
   reimu.udp2raw.enable = false;
 
+  # Fonts to make Japanese text look readable
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
   ];
 
   home-manager.users.nyiyui = {
+    # gamma
     services.wlsunset.temperature.night = 4000;
+
+    # startup command line
     wayland.windowManager.sway.config.startup = lib.mkForce [
       {
         command = "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://plus.nhk.jp https://tver.jp";
       }
     ];
+
+    # output display config
     wayland.windowManager.sway.config = {
       output = {
         "HDMI-A-2" = {
