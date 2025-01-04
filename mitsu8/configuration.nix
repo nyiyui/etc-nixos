@@ -21,6 +21,7 @@
     ../sway.nix
     ../autoUpgrade-https.nix
     ../qrystal.nix
+    ../vlc.nix
   ];
 
   networking.hostName = "mitsu8";
