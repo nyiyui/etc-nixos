@@ -27,7 +27,7 @@ in
     script = ''
       source ${config.age.secrets.seekback-server-config.path}
       export SEEKBACK_SERVER_OAUTH_REDIRECT_URI=https://seekback-server.nyiyui.ca/login/callback
-      export SEEKBACK_SERVER_SAMPLES_PATH=/home/nyiyui/inaba/seekback
+      export SEEKBACK_SERVER_SAMPLES_PATH=${config.services.syncthing.settings.folders.inaba.path}/seekback
       ${seekback-server.outputs.packages.aarch64-linux.default}/bin/server -bind localhost:${port} -db-path $STATE_DIRECTORY/db.sqlite3 -tokens-path ${tokens}
     '';
     serviceConfig.User = "seekback-server";
