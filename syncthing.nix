@@ -67,7 +67,7 @@
   };
 
   home-manager.users.nyiyui = {
-    home.file."${config.services.syncthing.folders.inaba.path}/.stignore".text = ''
+    home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text = ''
       .direnv
     '';
   };
