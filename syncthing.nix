@@ -23,6 +23,8 @@
         "O4HUT3G-FXAVISB-MHSFOIU-2Q4CYM3-NRJS5PZ-4DC7TDF-GDU3JOZ-MO4BMQD";
       "sekisho".id =
         "GZI3EIZ-THXPOCR-3JW4BSP-GVQDDF7-ENZ3N3Z-PTLLRG2-4VPUKI7-XZOIHQ6";
+      "syncthing".id =
+        "???";
     };
     settings.folders = {
       "inaba" = {
