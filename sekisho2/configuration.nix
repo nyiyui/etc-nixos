@@ -15,7 +15,7 @@
     home-manager.nixosModule
     ../autoUpgrade-https.nix
     ../qrystal.nix
-    ./syncthing.nix
+    ../syncthing.nix
     # syncthing is on Windows host (sekisho)
     # have a syncthing for WSL instead, so we don't have filename restrictions ):
   ];
