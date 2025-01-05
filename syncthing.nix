@@ -28,7 +28,7 @@
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";
-        devices = [ "hinanawi" "makura" "minato" "yagoto" "sekisho" ];
+        devices = [ "hinanawi" "makura" "minato" "yagoto" "sekisho" "sekisho2" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
@@ -39,7 +39,7 @@
         id = "e2kwg-rebhd";
         label = "GF-01";
         path = "/home/nyiyui/inaba/geofront";
-        devices = [ "hinanawi" "makura" "sekisho" "yagoto" ];
+        devices = [ "hinanawi" "makura" "sekisho" "yagoto" "sekisho2" ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
         ignoreDelete = true;
@@ -48,7 +48,7 @@
         id = "fzewo-z2hef";
         label = "hisame";
         path = "/home/nyiyui/inaba/hisame";
-        devices = [ "hinanawi" "yagoto" "sekisho" ];
+        devices = [ "hinanawi" "yagoto" "sekisho" "sekisho2" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";

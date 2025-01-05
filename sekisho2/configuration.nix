@@ -13,9 +13,11 @@
     specialArgs.agenix.nixosModules.default
     ../common.nix
     home-manager.nixosModule
-    # syncthing is on Windows host (sekisho)
     ../autoUpgrade-https.nix
     ../qrystal.nix
+    ./syncthing.nix
+    # syncthing is on Windows host (sekisho)
+    # have a syncthing for WSL instead, so we don't have filename restrictions ):
   ];
 
   networking.hostName = "sekisho2";
