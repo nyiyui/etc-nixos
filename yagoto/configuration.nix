@@ -16,7 +16,7 @@
     ./jks.nix
     ./seekback-server.nix
     ./backup.nix
-    ./qrystal.nix
+    ../qrystal.nix
   ];
 
   hisame.services.sync = {
