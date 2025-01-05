@@ -1,11 +1,11 @@
-{ config, pkgs, qrystal, ... }:
+{ config, pkgs, specialArgs, qrystal, ... }:
 let
   hostName = config.networking.hostName;
   secretName = "qrystal-irinaka.qrystalct";
   ula = "fda0:a4b2:2507::52";
   qrystalDNSAddr = "127.0.0.39";
 in {
-  imports = [ qrystal.outputs.nixosModules.x86_64-linux.default ];
+  imports = [ qrystal.outputs.nixosModules.${specialArgs.system}.default ];
 
   environment.systemPackages = with pkgs; [ wireguard-tools ]; # for debugging
 

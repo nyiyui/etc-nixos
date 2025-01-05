@@ -33,34 +33,34 @@
     let
       pkgs = import nixpkgs { config.allowUnfree = true; };
     in rec {
-      nixosConfigurations.mitsu8 = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.mitsu8 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs;
+        specialArgs = attrs // { inherit system; };
         modules = [ ./mitsu8/configuration.nix agenix.nixosModules.default ];
       };
-      nixosConfigurations.hinanawi = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.hinanawi = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs;
+        specialArgs = attrs // { inherit system; };
         modules = [ ./hinanawi/configuration.nix agenix.nixosModules.default ];
       };
-      nixosConfigurations.leaside = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.leaside = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs;
+        specialArgs = attrs // { inherit system; };
         modules = [ ./leaside/configuration.nix agenix.nixosModules.default ];
       };
-      nixosConfigurations.minato = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.minato = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs;
+        specialArgs = attrs // { inherit system; };
         modules = [ ./minato/configuration.nix agenix.nixosModules.default ];
       };
-      nixosConfigurations.yagoto = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.yagoto = nixpkgs.lib.nixosSystem rec {
         system = "aarch64-linux";
-        specialArgs = attrs;
+        specialArgs = attrs // { inherit system; };
         modules = [ ./yagoto/configuration.nix agenix.nixosModules.default ];
       };
-      nixosConfigurations.sekisho2 = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.sekisho2 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs;
+        specialArgs = attrs // { inherit system; };
         modules = [ ./sekisho2/configuration.nix ];
       };
       images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
