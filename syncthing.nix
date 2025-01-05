@@ -65,4 +65,10 @@
     allowedUDPPorts = [ 22000 21027 ];
     allowedTCPPorts = [ 22 22000 ];
   };
+
+  home-manager.users.nyiyui = {
+    home.file."${config.services.syncthing.folders.inaba.path}/.stignore".text = ''
+      .direnv
+    '';
+  };
 }
