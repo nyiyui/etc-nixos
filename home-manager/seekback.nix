@@ -24,7 +24,7 @@ in
   };
   home.packages = [
     (pkgs.writeShellScriptBin "seekback-signal" ''
-      ${pkgs.bash}/bin/bash ${../seekback-signal.sh}
+      ${pkgs.bash}/bin/bash ${./seekback-signal.sh}
     '')
   ];
 }

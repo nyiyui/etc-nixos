@@ -1,5 +1,5 @@
 { config, lib, pkgs, specialArgs, ... }: {
-  imports = [ ./virt.nix ./reimu.nix ./i18n.nix ./doas.nix ./man.nix ./home-manager.nix ];
+  imports = [ ./reimu.nix ./i18n.nix ./doas.nix ./man.nix ./home-manager.nix ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -15,14 +15,11 @@
     ./chromium.nix
     ./seekback.nix
     ./grc.nix
-    ./virtual-ti83
     ./rclone.nix
     ./pexec.nix
-    ./kicad.nix
     ./wlsunset.nix
     ./neovim.nix
     ./activitywatch.nix
-    ./emacs.nix
   ];
 
   programs.git = {
