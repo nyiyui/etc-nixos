@@ -89,7 +89,7 @@ in {
                 return m.group(0)[:-1]
 
 
-              print('checking already static IP…')
+              print('checking static IP…')
               STATIC_IP_ADDR = '143.215.191.43'
               # ping the device
               completed = subprocess.run(['/run/current-system/sw/bin/ping', '-c', '1', STATIC_IP_ADDR], capture_output=True)
