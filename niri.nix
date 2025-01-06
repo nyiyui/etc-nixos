@@ -4,7 +4,7 @@
   programs.niri.enable = true;
   nixpkgs.overlays = [ specialArgs.niri.overlays.niri ];
   home-manager.users.nyiyui = {
-    imports = [ ./nyiyui/graphical.nix ./nyiyui/niri ./nyiyui/fuzzel.nix ];
+    imports = [ ./home-manager/graphical.nix ./home-manager/niri ./home-manager/fuzzel.nix ];
   };
   services.displayManager.defaultSession = "niri";
   niri-flake.cache.enable = false;

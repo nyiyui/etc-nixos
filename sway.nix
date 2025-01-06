@@ -3,7 +3,7 @@
 
   programs.sway.enable = true;
   home-manager.users.nyiyui = {
-    imports = [ ./nyiyui/graphical.nix ./nyiyui/sway.nix ];
+    imports = [ ./home-manager/graphical.nix ./home-manager/sway.nix ];
   };
   services.displayManager.defaultSession = "sway";
 

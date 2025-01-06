@@ -55,7 +55,7 @@
   # https://discourse.nixos.org/t/get-hostname-in-home-manager-flake-for-host-dependent-user-configs/18859/2
 
   home-manager.users.nyiyui = {
-    imports = [ ./nyiyui/common.nix ];
+    imports = [ ./home-manager/common.nix ];
   };
   home-manager.extraSpecialArgs = specialArgs;
 
