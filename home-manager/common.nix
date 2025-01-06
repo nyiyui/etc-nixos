@@ -19,6 +19,7 @@
     ./wlsunset.nix
     ./neovim.nix
     ./activitywatch.nix
+    ./fonts.nix
   ];
 
   programs.git = {
