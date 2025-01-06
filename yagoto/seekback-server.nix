@@ -29,7 +29,10 @@ in
       export SEEKBACK_SERVER_OAUTH_REDIRECT_URI=https://seekback-server.nyiyui.ca/login/callback
       export SEEKBACK_SERVER_SAMPLES_PATH=${config.services.syncthing.settings.folders.inaba.path}/seekback
       export PATH=${pkgs.ffmpeg}/bin:$PATH # ffprobe used to get sample duration
-      ${seekback-server.outputs.packages.aarch64-linux.default}/bin/server -bind localhost:${port} -db-path $STATE_DIRECTORY/db.sqlite3 -tokens-path ${tokens}
+      ${seekback-server.outputs.packages.aarch64-linux.default}/bin/server \
+        -bind localhost:${port} \
+        -db-path $STATE_DIRECTORY/db.sqlite3 \
+        -tokens-path ${tokens}
     '';
     serviceConfig.User = "seekback-server";
     serviceConfig.StateDirectory = "seekback-server";
