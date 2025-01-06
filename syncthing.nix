@@ -1,4 +1,6 @@
 { config, ... }: {
+  imports = [ ./home-manager.nix ];
+
   services.syncthing = {
     enable = true;
     dataDir = "/home/nyiyui";
