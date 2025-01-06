@@ -1,4 +1,3 @@
-{ hostname }:
 {
   config,
   lib,
@@ -25,8 +24,6 @@
     ./activitywatch.nix
     ./emacs.nix
   ];
-
-  home.file.hostname.text = hostname;
 
   programs.git = {
     enable = true;

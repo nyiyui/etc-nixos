@@ -1,5 +1,5 @@
 { config, lib, pkgs, specialArgs, ... }: {
-  imports = [ ./virt.nix ./reimu.nix ./i18n.nix ./doas.nix ./man.nix ];
+  imports = [ ./virt.nix ./reimu.nix ./i18n.nix ./doas.nix ./man.nix ./home-manager.nix ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -54,8 +54,9 @@
   # TODO: use username@hostname syntax to separate per-host home manager flake thingl
   # https://discourse.nixos.org/t/get-hostname-in-home-manager-flake-for-host-dependent-user-configs/18859/2
 
-  home-manager.users.nyiyui =
-    (import ./nyiyui/nyiyui.nix { hostname = config.networking.hostName; });
+  home-manager.users.nyiyui = {
+    imports = [ ./nyiyui/common.nix ];
+  };
   home-manager.extraSpecialArgs = specialArgs;
 
   users.groups.nyiyui = { };
