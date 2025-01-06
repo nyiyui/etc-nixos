@@ -43,11 +43,6 @@
         specialArgs = attrs // { inherit system; };
         modules = [ ./hinanawi/configuration.nix agenix.nixosModules.default ];
       };
-      nixosConfigurations.leaside = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = attrs // { inherit system; };
-        modules = [ ./leaside/configuration.nix agenix.nixosModules.default ];
-      };
       nixosConfigurations.minato = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // { inherit system; };
