@@ -10,7 +10,6 @@
     ./base.nix
     ./kde.nix
     ./per.nix
-    ./fonts.nix
     ./tmux.nix
     ./chromium.nix
     ./seekback.nix
