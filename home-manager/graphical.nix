@@ -46,11 +46,9 @@ in
 
     systemd.user.services.waybar = {
       Unit.After = lib.mkForce [
-        "sway-session.target"
         "xdg-desktop-portal.service"
       ];
       Unit.Requires = [
-        "sway-session.target"
         "xdg-desktop-portal.service"
       ];
     };
