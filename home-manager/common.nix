@@ -50,6 +50,7 @@
   programs.fish = {
     enable = true;
     shellInit = ''
+      set fish_greeting
       ${builtins.readFile ./profile.sh}
       export QT_IM_MODULE=fcitx
       export GTK_IM_MODULE=fcitx
