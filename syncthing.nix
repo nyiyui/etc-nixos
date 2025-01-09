@@ -60,7 +60,7 @@
         id = "z2hef-fzewo";
         label = "seekback";
         path = "/home/nyiyui/inaba/seekback";
-        devices = [ "samsung-smart-space-heater" "hinanawi" ];
+        devices = [ "samsung-smart-space-heater" "hinanawi" "sekisho2" ];
       };
     };
   };
