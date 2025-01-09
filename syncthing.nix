@@ -53,11 +53,6 @@
         label = "hisame";
         path = "/home/nyiyui/inaba/hisame";
         devices = [ "hinanawi" "yagoto" "sekisho" "sekisho2" ];
-        versioning.type = "staggered";
-        versioning.params = {
-          cleanInterval = "86400";
-          maxAge = "31536000";
-        };
       };
     };
   };
