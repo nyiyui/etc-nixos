@@ -21,8 +21,4 @@ jobs:
           git config user.email 'etc-nixos+github-actions@nyiyui.ca'
           git add flake.lock
           git commit -am "nix flake update (jks, seekback-server, qrystal)"
-          rm keydb.cfg
-          make keydb.cfg
-          git add keydb.cfg
-          git commit -am "update keydb.cfg"
           git push
