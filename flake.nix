@@ -25,7 +25,6 @@
     niri.url = "github:sodiboo/niri-flake";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-wsl.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = { self, agenix, nixpkgs, qrystal, flake-utils, niri
