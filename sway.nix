@@ -1,20 +1,15 @@
 { pkgs, ... }: {
   imports = [ ./home-manager.nix ];
-
-  programs.sway.enable = true;
   home-manager.users.nyiyui = {
     imports = [ ./home-manager/graphical.nix ./home-manager/sway.nix ];
   };
+
+  programs.sway.enable = true;
   services.displayManager.defaultSession = "sway";
 
   xdg.portal = {
     enable = true;
-    configPackages = with pkgs; [
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
-    ];
     extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
       xdg-desktop-portal-wlr
     ];
     wlr.enable = true;

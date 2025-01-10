@@ -44,14 +44,6 @@ in
       ];
     };
 
-    systemd.user.services.waybar = {
-      Unit.After = lib.mkForce [
-        "xdg-desktop-portal.service"
-      ];
-      Unit.Requires = [
-        "xdg-desktop-portal.service"
-      ];
-    };
     programs.waybar = {
       # TODO: run systemctl --user restart waybar on activation
       enable = true;

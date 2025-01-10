@@ -14,6 +14,7 @@
     in
     {
       enable = true;
+      wrapperFeatures.gtk = true;
       extraConfig = ''
         default_border none
         default_floating_border none
