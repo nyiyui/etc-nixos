@@ -19,8 +19,8 @@ jobs:
           git config user.email 'etc-nixos+github-actions@nyiyui.ca'
           git add flake.lock
           git commit -am "nix flake update"
-          rm keydb.cfg
-          make keydb.cfg
-          git add keydb.cfg
-          git commit -am "update keydb.cfg"
+          rm home-manager/keydb.cfg
+          make home-manager/keydb.cfg
+          git add home-manager/keydb.cfg
+          git commit -am "update home-manager/keydb.cfg"
           git push
