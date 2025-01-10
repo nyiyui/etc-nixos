@@ -1,4 +1,4 @@
-name: nix flake update
+name: update flake.lock and keydb.cfg
 on:
   schedule:
     - cron: "0 0 * * 5"
