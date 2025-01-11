@@ -314,11 +314,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736633078,
-        "narHash": "sha256-+eRYKDoJkpdwAWfXzSYayD1Dzz18gEtKARrfLcT8/BA=",
+        "lastModified": 1736634385,
+        "narHash": "sha256-u+QACKEbEyzLDfRb0mGTFmJ/jJeopgK69tnlh9vqM+E=",
         "owner": "nyiyui",
         "repo": "qrystal",
-        "rev": "d59befdd3cfa3a4fe63528a2deb364773062f133",
+        "rev": "72e201df2f2f233d43de8f6f2826729ef9a833ae",
         "type": "github"
       },
       "original": {
