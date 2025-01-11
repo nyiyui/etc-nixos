@@ -20,6 +20,8 @@
     # have a syncthing for WSL instead, so we don't have filename restrictions ):
   ];
 
+  services.qrystal-device-client.config.CanForward = false; # WSL
+
   networking.hostName = "sekisho2";
   wsl.wslConf.network.hostname = "sekisho2";
   wsl.wslConf.network.generateResolvConf = false; # use qrystal nameservers
