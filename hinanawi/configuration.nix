@@ -136,7 +136,4 @@
     group = "nyiyui";
     mode = "400";
   };
-
-  networking.firewall.allowPing = true;
-  # I want to be able to see if my PC is alive
 }
