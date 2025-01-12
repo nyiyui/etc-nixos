@@ -27,8 +27,6 @@
         "GZI3EIZ-THXPOCR-3JW4BSP-GVQDDF7-ENZ3N3Z-PTLLRG2-4VPUKI7-XZOIHQ6";
       "sekisho2".id =
         "U4JDJNS-R4HRVK4-VZC7TZ5-IP74TKJ-TUVNTYJ-L3MUM3Y-AMGBYKO-NFSQGQW";
-      "samsung-smart-space-heater".id =
-        "55JJ5ZQ-AM5627U-QGRA6WI-V56CTCQ-7DO55YK-JMWYZVP-ITWURHC-YMT35QH";
     };
     settings.folders = {
       "inaba" = {
@@ -55,12 +53,6 @@
         label = "hisame";
         path = "/home/nyiyui/inaba/hisame";
         devices = [ "hinanawi" "yagoto" "sekisho" "sekisho2" ];
-      };
-      "seekback" = {
-        id = "z2hef-fzewo";
-        label = "seekback";
-        path = "/home/nyiyui/inaba/seekback";
-        devices = [ "samsung-smart-space-heater" "hinanawi" "sekisho2" ];
       };
     };
   };
