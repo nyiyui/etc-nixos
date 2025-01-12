@@ -19,6 +19,8 @@
     ../qrystal.nix
   ];
 
+  networking.firewall.allowedUDPPorts = [ 60410 ];
+
   hisame.services.sync = {
     enable = true;
     path = "/portable0/hisame";
