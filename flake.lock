@@ -314,11 +314,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736727298,
-        "narHash": "sha256-YtwOwWLJT0C2IrPcl7Z1PAlL7eBhpf/EdgTRAjvnBHk=",
+        "lastModified": 1736745682,
+        "narHash": "sha256-em/75wzJSMRhZGVIx0vYRcvPdTdAJ346e4bhzSwzkzg=",
         "owner": "nyiyui",
         "repo": "qrystal",
-        "rev": "96ccb11d5d5dcc49c93ea56bd8f7d7c21ce05522",
+        "rev": "17f031feaa564b5c6c6c8ec737ffe10fd71ac26d",
         "type": "github"
       },
       "original": {
@@ -377,11 +377,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736178904,
-        "narHash": "sha256-YWxo4XndEUD8sLiage9oXyB0I/PHOmiHBFMxzhNPlLc=",
+        "lastModified": 1736812715,
+        "narHash": "sha256-a7iE0omUKDiQmyTmNnwGfCTiRAs4qFs4fSsVqNINNAo=",
         "owner": "nyiyui",
         "repo": "seekback-server",
-        "rev": "46137f7fac73ccec4ba47d816cbf63c79b7628c9",
+        "rev": "1d50e00b83dabb436e928ac5d52300bac10d70c8",
         "type": "github"
       },
       "original": {
