@@ -17,7 +17,7 @@
     script = ''
       set -eu
       export RESTIC_REPOSITORY='rest:https://irinaka.nyiyui.ca:53955/yagoto/main'
-      export RESTIC_PASSWORD_FILE='${config.age.secrets.restic-password.path}"
+      export RESTIC_PASSWORD_FILE='${config.age.secrets.restic-password.path}'
       ${pkgs.restic}/bin/restic backup --tag systemd /var/lib
     '';
     unitConfig.StartLimitIntervalSec = 300;
