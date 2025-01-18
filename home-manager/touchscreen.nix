@@ -15,6 +15,7 @@
           command = "${pkgs.notify-desktop}/bin/notify-desktop 'right'";
         };
       };
+      pinch."2".in.command = "niri msg action focus-column-right";
     };
   };
 }
