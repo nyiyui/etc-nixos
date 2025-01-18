@@ -126,7 +126,6 @@
       pdfchain # GUI for pdftk
       qrencode
       wl-clipboard
-      jetbrains.idea-community
       python310Packages.ipython
       poppler_utils
       meld
