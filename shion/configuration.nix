@@ -18,7 +18,7 @@
     ../sound.nix
     ../thunderbolt.nix
     ../tpm.nix
-    ../sway.nix
+    ../niri.nix
     ../autoUpgrade-https.nix
   ];
 
