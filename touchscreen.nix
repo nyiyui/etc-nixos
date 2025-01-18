@@ -25,7 +25,16 @@ in {
           "-g '1,LR,L,*,R,niri msg action focus-column-left' " +
           "-g '1,RL,R,*,R,niri msg action focus-column-right' " +
           "-g '1,UD,U,*,R,niri msg action focus-workspace-up' " +
-          "-g '1,DU,D,*,R,niri msg action focus-workspace-down' ";
+          "-g '1,DU,D,*,R,niri msg action focus-workspace-down' " +
+          "-g '2,LR,L,*,R,niri msg action move-column-left' " +
+          "-g '2,RL,R,*,R,niri msg action move-column-right' " +
+          "-g '2,UD,U,*,R,niri msg action move-workspace-up' " +
+          "-g '2,DU,D,*,R,niri msg action move-workspace-down' " +
+          "-g '1,URDL,*,*,R,foot' " +
+          "-g '1,ULDR,*,*,R,firefox' " +
+          "-g '2,ULDR,*,*,R,seekback-signal' " +
+          "-g '3,UD,*,*,R,niri msg action close-window' " +
+          "-g '3,UD,U,*,R,niri msg action screenshot' ";
       };
     };
   };
