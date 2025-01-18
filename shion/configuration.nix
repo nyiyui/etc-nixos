@@ -67,4 +67,3 @@
       nyiyui.nixosUpgrade = true;
     };
 }
-
