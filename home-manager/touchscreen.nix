@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.fusuma = {
     enable = true;
     extraPackages = [ pkgs.wtype ];
