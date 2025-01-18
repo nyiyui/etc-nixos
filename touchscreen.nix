@@ -22,10 +22,10 @@ in {
           PartOf = [ "graphical-session.target" ];
         };
         Service.ExecStart = "${pkgs.lisgd}/bin/lisgd -d ${cfg.touchscreenDevice} " +
-          "-g '2,LR,*,*,R,niri msg action focus-column-left'" +
-          "-g '2,RL,*,*,R,niri msg action focus-column-right'" +
-          "-g '2,UD,*,*,R,niri msg action focus-workspace-up'" +
-          "-g '2,DU,*,*,R,niri msg action focus-workspace-down'";
+          "-g '2,LR,*,*,R,niri msg action focus-column-left' " +
+          "-g '2,RL,*,*,R,niri msg action focus-column-right' " +
+          "-g '2,UD,*,*,R,niri msg action focus-workspace-up' " +
+          "-g '2,DU,*,*,R,niri msg action focus-workspace-down' ";
       };
     };
   };
