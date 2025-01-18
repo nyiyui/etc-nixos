@@ -16,6 +16,7 @@
         };
       };
       pinch."2"."in".command = "niri msg action focus-column-right";
+      hold."1".command = "${pkgs.notify-desktop}/bin/notify-desktop 'hold'";
     };
   };
 }
