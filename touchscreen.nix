@@ -46,5 +46,22 @@ in {
           "";
       };
     };
+    programs.waybar.settings.mainBar = {
+      modules-left = [
+        "custom/launch1"
+        "custom/launch2"
+      ];
+
+      "custom/launch1" = {
+        exec = "echo term";
+        interval = "once";
+        on-click = "foot";
+      };
+      "custom/launch2" = {
+        exec = "echo ff";
+        interval = "once";
+        on-click = "firefox";
+      };
+    };
   };
 }

@@ -88,7 +88,7 @@ in
               "custom/systemd-backup"
               "custom/systemd-hisame"
               (lib.mkIf cfg.nixosUpgrade "custom/systemd-nixos-upgrade")
-              (lib.mkIf cfg.nixosUpgrade "custom/systemd-qrystal-device-client")
+              (lib.mkIf cfg.qrystal "custom/systemd-qrystal-device-client")
               "battery"
               "clock"
             ];
