@@ -21,7 +21,7 @@ in {
           Documentation = [ "man:lisgd(1)" ];
           PartOf = [ "graphical-session.target" ];
         };
-        Service.ExecStart = "${pkgs.lisgd}/bin/lisgd -d ${cfg.touchscreenDevice} -v " +
+        Service.ExecStart = "${pkgs.lisgd}/bin/lisgd -d ${cfg.touchscreenDevice} -v -m 800 " +
           "-g '1,LR,L,*,R,niri msg action focus-column-left' " +
           "-g '1,RL,R,*,R,niri msg action focus-column-right' " +
           "-g '1,UD,U,*,R,niri msg action focus-workspace-up' " +
@@ -38,11 +38,12 @@ in {
           "-g '3,RL,*,*,R,niri msg action move-column-left' " +
           "-g '3,UD,*,*,R,niri msg action move-column-to-workspace-up' " +
           "-g '3,DU,*,*,R,niri msg action move-column-to-workspace-down' " +
-          "-g '1,URDL,TR,*,R,foot' " +
-          "-g '1,ULDR,TL,*,R,firefox' " +
-          "-g '2,ULDR,TL,*,R,seekback-signal' " +
+          #"-g '1,URDL,TR,*,R,foot' " +
+          #"-g '1,ULDR,TL,*,R,firefox' " +
+          #"-g '2,ULDR,TL,*,R,seekback-signal' " +
           #"-g '2,DU,D,*,R,niri msg action close-window' " +
-          "-g '1,UD,U,*,R,niri msg action screenshot' ";
+          #"-g '1,UD,U,*,R,niri msg action screenshot' " +
+          "";
       };
     };
   };
