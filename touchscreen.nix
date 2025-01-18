@@ -33,8 +33,8 @@ in {
           "-g '1,URDL,*,*,R,foot' " +
           "-g '1,ULDR,*,*,R,firefox' " +
           "-g '2,ULDR,*,*,R,seekback-signal' " +
-          "-g '3,DU,D,*,R,niri msg action close-window' " +
-          "-g '3,UD,U,*,R,niri msg action screenshot' ";
+          "-g '2,DU,D,*,R,niri msg action close-window' " +
+          "-g '1,UD,U,*,R,niri msg action screenshot' ";
       };
     };
   };
