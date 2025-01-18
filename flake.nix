@@ -52,12 +52,17 @@
         specialArgs = attrs // { inherit system; };
         modules = [ ./yagoto/configuration.nix agenix.nixosModules.default ];
       };
+      images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
       nixosConfigurations.sekisho2 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // { inherit system; };
         modules = [ ./sekisho2/configuration.nix ];
       };
-      images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
+      nixosConfigurations.shion = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = attrs // { inherit system; };
+        modules = [ ./shion/configuration.nix ];
+      };
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
