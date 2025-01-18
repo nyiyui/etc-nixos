@@ -28,8 +28,8 @@ in {
           "-g '2,DU,*,*,R,niri msg action focus-workspace-down' " +
           "-g '3,LR,*,*,R,niri msg action move-column-right' " +
           "-g '3,RL,*,*,R,niri msg action move-column-left' " +
-          "-g '3,UD,*,*,R,niri msg action move-workspace-down' " +
-          "-g '3,DU,*,*,R,niri msg action move-workspace-up' " +
+          "-g '3,UD,*,*,R,niri msg action move-column-to-workspace-down' " +
+          "-g '3,DU,*,*,R,niri msg action move-column-to-workspace-up' " +
           "-g '1,URDL,TR,*,R,foot' " +
           "-g '1,ULDR,TL,*,R,firefox' " +
           "-g '2,ULDR,TL,*,R,seekback-signal' " +
