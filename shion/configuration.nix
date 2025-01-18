@@ -19,6 +19,7 @@
     ../thunderbolt.nix
     ../tpm.nix
     ../niri.nix
+    ../touchscreen.nix
     ../autoUpgrade-https.nix
   ];
 
