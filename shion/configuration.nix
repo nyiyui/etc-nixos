@@ -28,6 +28,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.initrd.luks.devices."luks-3fd3cf43-8dcb-4744-8f21-f504aa4a300e".device =
+    "/dev/disk/by-uuid/3fd3cf43-8dcb-4744-8f21-f504aa4a300e";
+
   networking.networkmanager.enable = true;
 
   i18n.defaultLocale = "ja_JP.UTF-8";
