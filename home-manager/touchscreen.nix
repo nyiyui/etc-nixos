@@ -2,7 +2,10 @@
 {
   services.fusuma = {
     enable = true;
-    extraPackages = [ pkgs.wtype ];
+    extraPackages = [
+      pkgs.wtype
+      pkgs.coreutils-full # uname is used by fusuma
+    ];
     settings = {
       swipe."3" = {
         left = {
