@@ -33,7 +33,7 @@ in {
           "-g '1,URDL,TR,*,R,foot' " +
           "-g '1,ULDR,TL,*,R,firefox' " +
           "-g '2,ULDR,TL,*,R,seekback-signal' " +
-          "-g '2,DU,D,*,R,niri msg action close-window' " +
+          #"-g '2,DU,D,*,R,niri msg action close-window' " +
           "-g '1,UD,U,*,R,niri msg action screenshot' ";
       };
     };
