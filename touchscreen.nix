@@ -30,9 +30,9 @@ in {
           "-g '3,RL,*,*,R,niri msg action move-column-left' " +
           "-g '3,UD,*,*,R,niri msg action move-workspace-down' " +
           "-g '3,DU,*,*,R,niri msg action move-workspace-up' " +
-          "-g '1,URDL,*,*,R,foot' " +
-          "-g '1,ULDR,*,*,R,firefox' " +
-          "-g '2,ULDR,*,*,R,seekback-signal' " +
+          "-g '1,URDL,TR,*,R,foot' " +
+          "-g '1,ULDR,TL,*,R,firefox' " +
+          "-g '2,ULDR,TL,*,R,seekback-signal' " +
           "-g '2,DU,D,*,R,niri msg action close-window' " +
           "-g '1,UD,U,*,R,niri msg action screenshot' ";
       };
