@@ -22,14 +22,22 @@ in {
           PartOf = [ "graphical-session.target" ];
         };
         Service.ExecStart = "${pkgs.lisgd}/bin/lisgd -d ${cfg.touchscreenDevice} -v " +
+          "-g '1,LR,L,*,R,niri msg action focus-column-left' " +
+          "-g '1,RL,R,*,R,niri msg action focus-column-right' " +
+          "-g '1,UD,U,*,R,niri msg action focus-workspace-up' " +
+          "-g '1,DU,D,*,R,niri msg action focus-workspace-down' " +
           "-g '2,LR,*,*,R,niri msg action focus-column-left' " +
           "-g '2,RL,*,*,R,niri msg action focus-column-right' " +
           "-g '2,UD,*,*,R,niri msg action focus-workspace-up' " +
           "-g '2,DU,*,*,R,niri msg action focus-workspace-down' " +
+          "-g '2,LR,L,*,R,niri msg action move-column-right' " +
+          "-g '2,RL,R,*,R,niri msg action move-column-left' " +
+          "-g '2,UD,U,*,R,niri msg action move-column-to-workspace-up' " +
+          "-g '2,DU,D,*,R,niri msg action move-column-to-workspace-down' " +
           "-g '3,LR,*,*,R,niri msg action move-column-right' " +
           "-g '3,RL,*,*,R,niri msg action move-column-left' " +
-          "-g '3,UD,*,*,R,niri msg action move-column-to-workspace-down' " +
-          "-g '3,DU,*,*,R,niri msg action move-column-to-workspace-up' " +
+          "-g '3,UD,*,*,R,niri msg action move-column-to-workspace-up' " +
+          "-g '3,DU,*,*,R,niri msg action move-column-to-workspace-down' " +
           "-g '1,URDL,TR,*,R,foot' " +
           "-g '1,ULDR,TL,*,R,firefox' " +
           "-g '2,ULDR,TL,*,R,seekback-signal' " +
