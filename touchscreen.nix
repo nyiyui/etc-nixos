@@ -26,10 +26,10 @@ in {
           "-g '2,RL,*,*,R,niri msg action focus-column-right' " +
           "-g '2,UD,*,*,R,niri msg action focus-workspace-up' " +
           "-g '2,DU,*,*,R,niri msg action focus-workspace-down' " +
-          "-g '3,LR,*,*,R,niri msg action move-column-left' " +
-          "-g '3,RL,*,*,R,niri msg action move-column-right' " +
-          "-g '3,UD,*,*,R,niri msg action move-workspace-up' " +
-          "-g '3,DU,*,*,R,niri msg action move-workspace-down' " +
+          "-g '3,LR,*,*,R,niri msg action move-column-right' " +
+          "-g '3,RL,*,*,R,niri msg action move-column-left' " +
+          "-g '3,UD,*,*,R,niri msg action move-workspace-down' " +
+          "-g '3,DU,*,*,R,niri msg action move-workspace-up' " +
           "-g '1,URDL,*,*,R,foot' " +
           "-g '1,ULDR,*,*,R,firefox' " +
           "-g '2,ULDR,*,*,R,seekback-signal' " +
