@@ -13,8 +13,6 @@
     ./hardware-configuration.nix
     home-manager.nixosModule
     ../common.nix
-    ../power.nix
-    ../fprint.nix
     ../sound.nix
     ../thunderbolt.nix
     ../tpm.nix
