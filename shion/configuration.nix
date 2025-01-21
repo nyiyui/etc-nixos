@@ -65,9 +65,4 @@
       nyiyui.hasBacklight = true;
       nyiyui.nixosUpgrade = true;
     };
-
-  services.lisgd = {
-    enable = true;
-    touchscreenDevice = "/dev/input/event13";
-  };
 }
