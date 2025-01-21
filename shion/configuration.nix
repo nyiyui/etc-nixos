@@ -19,6 +19,8 @@
     ../thunderbolt.nix
     ../tpm.nix
     ../autoUpgrade-https.nix
+    ../gnome.nix
+    ../home-manager.nix
   ];
 
   networking.hostName = "shion";
@@ -59,10 +61,4 @@
     autoLogin.user = "nyiyui";
   };
   security.polkit.enable = true;
-  home-manager.users.nyiyui =
-    { ... }:
-    {
-      nyiyui.hasBacklight = true;
-      nyiyui.nixosUpgrade = true;
-    };
 }
