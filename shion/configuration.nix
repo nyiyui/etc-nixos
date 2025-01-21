@@ -18,7 +18,6 @@
     ../sound.nix
     ../thunderbolt.nix
     ../tpm.nix
-    ../touchscreen.nix
     ../autoUpgrade-https.nix
   ];
 
