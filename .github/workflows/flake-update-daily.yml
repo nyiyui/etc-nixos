@@ -19,6 +19,8 @@ jobs:
         run: |
           git config user.name 'GitHub Actions'
           git config user.email 'etc-nixos+github-actions@nyiyui.ca'
-          git add flake.lock
-          git commit -am "nix flake update (jks, seekback-server, qrystal)"
-          git push
+          if test -n $(git diff-index @); then
+            git add flake.lock
+            git commit -am "nix flake update (jks, seekback-server, qrystal)"
+            git push
+          fi
