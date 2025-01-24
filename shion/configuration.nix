@@ -17,7 +17,7 @@
     ../thunderbolt.nix
     ../tpm.nix
     ../autoUpgrade-https.nix
-    ../gnome.nix
+    ../sway.nix
     ../home-manager.nix
     ../syncthing.nix
     ../secureboot.nix
