@@ -27,12 +27,13 @@
         "GZI3EIZ-THXPOCR-3JW4BSP-GVQDDF7-ENZ3N3Z-PTLLRG2-4VPUKI7-XZOIHQ6";
       "sekisho2".id =
         "U4JDJNS-R4HRVK4-VZC7TZ5-IP74TKJ-TUVNTYJ-L3MUM3Y-AMGBYKO-NFSQGQW";
+      "shion".id = "";
     };
     settings.folders = {
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/nyiyui/inaba";
-        devices = [ "hinanawi" "makura" "minato" "yagoto" "sekisho" "sekisho2" ];
+        devices = [ "hinanawi" "makura" "minato" "yagoto" "sekisho" "sekisho2" "shion" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
@@ -52,7 +53,7 @@
         id = "fzewo-z2hef";
         label = "hisame";
         path = "/home/nyiyui/inaba/hisame";
-        devices = [ "hinanawi" "yagoto" "sekisho" "sekisho2" ];
+        devices = [ "hinanawi" "yagoto" "sekisho" "sekisho2" "shion" ];
       };
     };
   };
@@ -63,8 +64,8 @@
     allowedTCPPorts = [ 22 22000 ];
   };
 
-  home-manager.users.nyiyui = {
-    home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text = ''
+  home-manager.users.nyiyui = { lib, ... }: {
+    home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text = lib.mkDefault ''
       .direnv
       /hisame
     '';

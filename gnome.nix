@@ -11,15 +11,14 @@
   environment.gnome.excludePackages = with pkgs; [
     orca
     file-roller
-    # geary
+    geary # use thunderbird instead
     gnome-disk-utility
     # seahorse
-    # sushi
     # sysprof
     # gnome-shell-extensions
     # adwaita-icon-theme
     # nixos-background-info
-    # gnome-backgrounds
+    gnome-backgrounds
     # gnome-bluetooth
     # gnome-color-manager
     # gnome-control-center
