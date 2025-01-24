@@ -20,6 +20,7 @@
     ../gnome.nix
     ../home-manager.nix
     ../syncthing.nix
+    ../secureboot.nix
   ];
 
   networking.hostName = "shion";
