@@ -24,15 +24,17 @@
     {
       enable = true;
       wrapperFeatures.gtk = true;
-      extraConfig = ''
-        mode passthrough {
-          bindsym ${modifier}+Home mode default
-        }
-        bindsym ${modifier}+Home mode passthrough
-      '' + (lib.optionalString config.nyiyui.sway.noBorder ''
-        default_border none
-        default_floating_border none
-      '');
+      extraConfig =
+        ''
+          mode passthrough {
+            bindsym ${modifier}+Home mode default
+          }
+          bindsym ${modifier}+Home mode passthrough
+        ''
+        + (lib.optionalString config.nyiyui.sway.noBorder ''
+          default_border none
+          default_floating_border none
+        '');
       extraSessionCommands = ''
         export QT_AUTO_SCREEN_SCALE_FACTOR=1
         export QT_QPA_PLATFORM=wayland
