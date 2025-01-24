@@ -9,6 +9,21 @@
   imports = [
     ./fuzzel.nix
     ./wlsunset.nix
+    ({ config, lib, pkgs, ... }: {
+      config.programs.waybar.settings.mainBar = let
+        toggleScript = pkgs.writeShellScriptBin "toggle-wvkbd" ''
+          systemctl --user is-active wvkbd && systemctl --user stop wvkbd || systemctl --user start wvkbd
+        '';
+      in lib.mkIf config.nyiyui.graphical.onScreenKeyboard.enable {
+        modules-left = [ "custom/keyboard-toggle" ];
+
+        "custom/keyboard-toggle" = {
+          exec = "echo keyboard";
+          interval = "once";
+          on-click = toggleScript;
+        };
+      };
+    })
   ];
 
   options.nyiyui.sway.noBorder = lib.mkOption {
@@ -158,7 +173,7 @@
       StartLimitBurst = 30;
     };
     Service = {
-      ExecStart = "${pkgs.wvkbd}/bin/wvkbd-mobintl --alpha 128";
+      ExecStart = "${pkgs.wvkbd}/bin/wvkbd-mobintl --alpha 128 -L 256";
       Restart = "on-failure";
       RestartSec = 3;
     };

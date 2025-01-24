@@ -142,7 +142,6 @@ in
               format = "{ifname}";
               format-wifi = "{essid}{signaldBm}";
               format-disconnected = "";
-              on-click = "${pkgs.foot}/bin/foot ~/wifi_conn_new";
               tooltip-format = "{ifname} {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
               tooltip-format-wifi = "{ifname} {essid} {signaldBm} dBm ; {frequency} GHz ; {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
               tooltip-format-disconnected = "切";
