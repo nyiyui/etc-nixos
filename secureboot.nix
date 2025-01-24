@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   # cf. https://discourse.nixos.org/t/tpm2-luks-unlock-not-working/52342
 
   environment.systemPackages = with pkgs; [
@@ -23,7 +23,6 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  boot.initrd.systemd.enable = true;
   boot.initrd.systemd.enableTpm2 = true;
   security.tpm2.enable = true;
 }
