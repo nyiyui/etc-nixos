@@ -21,6 +21,7 @@
     ../home-manager.nix
     ../syncthing.nix
     ../secureboot.nix
+    ../power.nix
   ];
 
   networking.hostName = "shion";
