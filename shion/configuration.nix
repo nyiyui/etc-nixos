@@ -65,13 +65,13 @@
     { lib, ... }:
     {
       home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text = lib.mkForce ''
-        /**
         .direnv
         /hisame
         /geofront
         !/2025
         !/seekback
         !/music-library
+        /**
       '';
     };
 }
