@@ -9,31 +9,26 @@
   imports = [
     ./fuzzel.nix
     ./wlsunset.nix
-    (
-      {
-        config,
-        lib,
-        pkgs,
-        ...
-      }:
-      {
-        config.programs.waybar.settings.mainBar =
-          let
-            toggleScript = pkgs.writeShellScriptBin "toggle-wvkbd" ''
-              systemctl --user is-active wvkbd && systemctl --user stop wvkbd || systemctl --user start wvkbd
-            '';
-          in
-          lib.mkIf config.nyiyui.graphical.onScreenKeyboard.enable {
-            modules-left = [ "custom/keyboard-toggle" ];
+    ({ config, lib, pkgs, ... }: {
+      config.programs.waybar.settings.mainBar = let
+        toggleScript = pkgs.writeShellScriptBin "toggle-wvkbd" ''
+          systemctl --user is-active wvkbd && systemctl --user stop wvkbd || systemctl --user start wvkbd
+        '';
+      in lib.mkIf config.nyiyui.graphical.onScreenKeyboard.enable {
+        modules-left = [ "custom/keyboard-toggle" "custom/fuzzel-launch" ];
 
-            "custom/keyboard-toggle" = {
-              exec = "echo keyboard";
-              interval = "once";
-              on-click = toggleScript;
-            };
-          };
-      }
-    )
+        "custom/keyboard-toggle" = {
+          exec = "echo keyboard";
+          interval = "once";
+          on-click = toggleScript;
+        };
+        "custom/fuzzel-launch" = {
+          exec = "echo fuzzel";
+          interval = "once";
+          on-click = "fuzzel";
+        };
+      };
+    })
   ];
 
   options.nyiyui.sway.noBorder = lib.mkOption {
