@@ -8,16 +8,12 @@
 {
   imports = [
     ./base.nix
-    ./kde.nix
     ./per.nix
     ./tmux.nix
     ./seekback.nix
     ./grc.nix
-    ./rclone.nix
     ./pexec.nix
-    ./wlsunset.nix
     ./neovim.nix
-    ./activitywatch.nix
     ./fonts.nix
   ];
 

@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = [ ./fuzzel.nix ];
+  imports = [ ./fuzzel.nix ./wlsunset.nix ];
 
   wayland.windowManager.sway =
     let

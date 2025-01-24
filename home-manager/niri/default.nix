@@ -1,4 +1,7 @@
 { ... }: {
+  imports = [
+    ../wlsunset.nix
+  ];
   programs.niri.config = builtins.readFile ./config.kdl;
   programs.waybar.settings.mainBar = {
     modules-left = [
