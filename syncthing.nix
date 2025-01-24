@@ -27,7 +27,7 @@
         "GZI3EIZ-THXPOCR-3JW4BSP-GVQDDF7-ENZ3N3Z-PTLLRG2-4VPUKI7-XZOIHQ6";
       "sekisho2".id =
         "U4JDJNS-R4HRVK4-VZC7TZ5-IP74TKJ-TUVNTYJ-L3MUM3Y-AMGBYKO-NFSQGQW";
-      "shion".id = "";
+      "shion".id = "JG5NYZS-76SE5ES-NDWJFMI-KXNW72M-5DQVZWE-YLBMT6J-XHIULA5-QXMXJQZ";
     };
     settings.folders = {
       "inaba" = {
