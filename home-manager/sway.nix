@@ -32,12 +32,12 @@
             "custom/keyboard-toggle" = {
               exec = "echo keyboard";
               interval = "once";
-              on-click = toggleScript;
+              on-click = "${toggleScript}/bin/toggle-wvkbd";
             };
             "custom/fuzzel-launch" = {
               exec = "echo fuzzel";
               interval = "once";
-              on-click = "fuzzel";
+              on-click = "${pkgs.fuzzel}/bin/fuzzel";
             };
           };
       }
