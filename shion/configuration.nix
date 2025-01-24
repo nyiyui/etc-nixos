@@ -74,5 +74,6 @@
         !/music-library
         /**
       '';
+      nyiyui.sway.noBorder = false; # borders needed for dragging on touchscreen
     };
 }

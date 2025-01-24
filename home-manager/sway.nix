@@ -11,7 +11,13 @@
     ./wlsunset.nix
   ];
 
-  wayland.windowManager.sway =
+  options.nyiyui.sway.noBorder = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Disable window borders";
+  };
+
+  config.wayland.windowManager.sway =
     let
       modifier = "Mod4";
     in
@@ -19,13 +25,14 @@
       enable = true;
       wrapperFeatures.gtk = true;
       extraConfig = ''
-        default_border none
-        default_floating_border none
         mode passthrough {
           bindsym ${modifier}+Home mode default
         }
         bindsym ${modifier}+Home mode passthrough
-      '';
+      '' + (lib.optionalString config.nyiyui.sway.noBorder ''
+        default_border none
+        default_floating_border none
+      '');
       extraSessionCommands = ''
         export QT_AUTO_SCREEN_SCALE_FACTOR=1
         export QT_QPA_PLATFORM=wayland
@@ -103,12 +110,12 @@
       };
     };
 
-  home.packages = [
+  config.home.packages = [
     pkgs.pavucontrol
     pkgs.swaylock
   ];
 
-  programs.waybar.settings.mainBar = {
+  config.programs.waybar.settings.mainBar = {
     modules-left = [
       "sway/worksapces"
       "sway/window"
@@ -124,7 +131,7 @@
     };
   };
 
-  systemd.user.services.swaybg = {
+  config.systemd.user.services.swaybg = {
     Unit = {
       Description = "swaywm background";
       PartOf = [ "graphical-session.target" ];
