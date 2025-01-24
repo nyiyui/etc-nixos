@@ -110,6 +110,7 @@
   home-manager.users.nyiyui =
     { ... }:
     {
+      imports = [ ../home-manager/chromium.nix ];
       nyiyui.qrystal = true;
       nyiyui.hasBacklight = true;
       nyiyui.nixosUpgrade = true;

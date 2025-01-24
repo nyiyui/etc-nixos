@@ -11,7 +11,6 @@
     ./kde.nix
     ./per.nix
     ./tmux.nix
-    ./chromium.nix
     ./seekback.nix
     ./grc.nix
     ./rclone.nix
