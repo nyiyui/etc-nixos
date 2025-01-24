@@ -10,7 +10,6 @@
     ./base.nix
     ./per.nix
     ./tmux.nix
-    ./seekback.nix
     ./grc.nix
     ./pexec.nix
     ./neovim.nix

@@ -115,6 +115,7 @@
         ../home-manager/kde.nix
         ../home-manager/rclone.nix
         ../home-manager/activitywatch.nix
+        ../home-manager/seekback.nix
       ];
       nyiyui.qrystal = true;
       nyiyui.hasBacklight = true;
