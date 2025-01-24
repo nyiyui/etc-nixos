@@ -44,7 +44,7 @@
         id = "e2kwg-rebhd";
         label = "GF-01";
         path = "/home/nyiyui/inaba/geofront";
-        devices = [ "hinanawi" "makura" "sekisho" "yagoto" "sekisho2" ];
+        devices = [ "hinanawi" "makura" "sekisho" "yagoto" "sekisho2" "shion" ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
         ignoreDelete = true;
