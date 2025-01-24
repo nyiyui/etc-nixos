@@ -85,71 +85,46 @@
       nmap
       git-filter-repo
 
-      freecad
-
-      easyeffects
-      helvum
-
-      swaylock
       pulseaudio
       playerctl
       keepassxc
-      tor
-      tor-browser-bundle-bin
       clipman
       ark
       eza
       networkmanagerapplet # provides nm-connection-editor
-      obs-studio
-      obs-studio-plugins.wlrobs
-      obs-studio-plugins.obs-pipewire-audio-capture
-      urn-timer
-      safeeyes
-      gimp
       darktable
       imagemagick
-      xournalpp
-      rnote
-      hunspell
       libreoffice-qt
       anki
       notify-desktop
       audacity
-      prusa-slicer
-      capitaine-cursors
       pdftk
       pdfchain # GUI for pdftk
       qrencode
-      wl-clipboard
       python310Packages.ipython
       poppler_utils
       meld
       age
+      xournalpp
+      rnote
+
+      hunspell
 
       seahorse
       gcr # for gnome keyring prompt https://github.com/NixOS/nixpkgs/issues/174099#issuecomment-1135974195
       krita
+      gimp
 
-      quickemu
-
-      octave # for MATH1554
-      calc # for CS2050
+      calc
 
       remmina # for RDP from hinanawi to minato
       thunderbird
-
-      links2
-      (agda.withPackages [ agdaPackages.standard-library ])
     ]
     ++ (with pkgs.libsForQt5; [
       okular
       gwenview
-      dolphin
       kate
       ctags
-      systemsettings
-      akregator
-      kmplot
       sayonara
     ])
     ++ (with pkgs.hunspellDicts; [

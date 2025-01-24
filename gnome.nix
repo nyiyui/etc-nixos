@@ -55,5 +55,6 @@
     totem
     yelp
     gnome-software
+    evince
   ];
 }
