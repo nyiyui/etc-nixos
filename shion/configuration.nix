@@ -74,6 +74,9 @@
         !/music-library
         /**
       '';
-      nyiyui.sway.noBorder = false; # borders needed for dragging on touchscreen
+
+      # borders needed for dragging on touchscreen
+      nyiyui.sway.noBorder = false;
+      wayland.windowManager.sway.config.window.titlebar = true;
     };
 }
