@@ -25,9 +25,11 @@
     niri.url = "github:sodiboo/niri-flake";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, flake-utils, niri
+  outputs = { self, agenix, nixpkgs, qrystal, flake-utils, niri, lanzaboote
     , ... }@attrs:
     let
       pkgs = import nixpkgs { config.allowUnfree = true; };
@@ -61,7 +63,7 @@
       nixosConfigurations.shion = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // { inherit system; };
-        modules = [ ./shion/configuration.nix agenix.nixosModules.default ];
+        modules = [ ./shion/configuration.nix agenix.nixosModules.default lanzaboote.nixosModules.lanzaboote ];
       };
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
