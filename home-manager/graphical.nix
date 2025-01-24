@@ -242,7 +242,5 @@ in
         ring-caps-lock-color = "e12885";
       };
     };
-
-    programs.alacritty.enable = true;
   };
 }
