@@ -56,4 +56,19 @@
     gnome-software
     evince
   ];
+
+  environment.systemPackages = with pkgs; [
+    gnomeExtensions.paperwm
+  ];
+  home-manager.users.nyiyui.dconf.settings = {
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = [
+        "paperwm@hedning:matrix.org"
+      ];
+    };
+    "org/gnome/settings-daemon/plugins/color" = {
+      night-light-enabled = true;
+    };
+  };
 }
