@@ -79,5 +79,6 @@
       # borders needed for dragging on touchscreen
       nyiyui.sway.noBorder = false;
       wayland.windowManager.sway.config.window.titlebar = true;
+      nyiyui.graphical.onScreenKeyboard.enable = true;
     };
 }

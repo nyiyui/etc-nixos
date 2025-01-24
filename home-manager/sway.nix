@@ -17,6 +17,8 @@
     description = "Disable window borders";
   };
 
+  options.nyiyui.graphical.onScreenKeyboard.enable = lib.mkEnableOption "on-screen keyboard";
+
   config.wayland.windowManager.sway =
     let
       modifier = "Mod4";
@@ -142,6 +144,21 @@
     };
     Service = {
       ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${../wallpapers/umekita.jpg}";
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
+  config.systemd.user.services.wvkbd = lib.mkIf config.nyiyui.graphical.onScreenKeyboard.enable {
+    Unit = {
+      Description = "on-screen keyboard";
+      PartOf = [ "graphical-session.target" ];
+      StartLimitIntervalSec = 350;
+      StartLimitBurst = 30;
+    };
+    Service = {
+      ExecStart = "${pkgs.wvkbd}/bin/wvkbd-mobintl --alpha 128";
       Restart = "on-failure";
       RestartSec = 3;
     };
