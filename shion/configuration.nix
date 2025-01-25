@@ -57,14 +57,17 @@
   };
 
   services.xserver.enable = true;
-  services.displayManager.sddm = {
+  services.xserver.displayManager.gdm = {
     enable = true;
-    wayland.enable = true;
-    extraPackages = [
-      pkgs.libsForQt5.qtvirtualkeyboard
-    ];
-    settings.General.InputMethod = "qtvirtualkeyboard";
+    wayland = true;
   };
+  programs.dconf.profiles.gdm.databases = [
+    {
+      settings."desktop/gnome/applications/at" = {
+        screen_keyboard_enabled = true;
+      };
+    }
+  ];
   security.polkit.enable = true;
 
   home-manager.users.nyiyui =
