@@ -63,6 +63,7 @@
     extraPackages = [
       pkgs.libsForQt5.qtvirtualkeyboard
     ];
+    settings.General.InputMethod = "qtvirtualkeyboard";
   };
   security.polkit.enable = true;
 
