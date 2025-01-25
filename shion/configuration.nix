@@ -57,7 +57,13 @@
   };
 
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    extraPackages = [
+      pkgs.libsForQt5.qtvirtualkeyboard
+    ];
+  };
   security.polkit.enable = true;
 
   home-manager.users.nyiyui =
