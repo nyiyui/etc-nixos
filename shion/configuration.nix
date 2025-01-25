@@ -57,7 +57,7 @@
   };
 
   services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
   security.polkit.enable = true;
 
   home-manager.users.nyiyui =
