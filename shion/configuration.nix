@@ -57,10 +57,7 @@
   };
 
   services.xserver.enable = true;
-  services.displayManager = {
-    autoLogin.enable = true;
-    autoLogin.user = "nyiyui";
-  };
+  services.xserver.displayManager.sddm.enable = true;
   security.polkit.enable = true;
 
   home-manager.users.nyiyui =
