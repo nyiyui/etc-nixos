@@ -57,14 +57,16 @@
   };
 
   services.xserver.enable = true;
-  services.displayManager.sddm = {
+  services.xserver.displayManager.lightdm = {
     enable = true;
-    wayland.enable = true;
-    extraPackages = [
-      pkgs.libsForQt5.qtvirtualkeyboard
-    ];
-    settings.General.InputMethod = "qtvirtualkeyboard";
+    greeters.gtk = {
+      enable = true;
+      extraConfig = ''
+        keyboard=onboard
+      '';
+    };
   };
+  environment.systemPackages = [ pkgs.onboard ];
   security.polkit.enable = true;
 
   home-manager.users.nyiyui =
