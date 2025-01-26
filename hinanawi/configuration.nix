@@ -144,8 +144,8 @@
     mode = "400";
   };
 
-    nyiyui.networks.er605 = {
-      enable = true;
-      address = "10.9.0.97/32";
-    };
+  nyiyui.networks.er605 = {
+    enable = true;
+    address = "10.9.0.97/32";
+  };
 }

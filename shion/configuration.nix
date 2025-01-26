@@ -89,8 +89,8 @@
       nyiyui.graphical.onScreenKeyboard.enable = true;
     };
 
-    nyiyui.networks.er605 = {
-      enable = true;
-      address = "10.9.0.98/32";
-    };
+  nyiyui.networks.er605 = {
+    enable = true;
+    address = "10.9.0.98/32";
+  };
 }
