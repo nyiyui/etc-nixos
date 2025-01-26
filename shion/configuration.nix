@@ -17,11 +17,11 @@
     ../thunderbolt.nix
     ../tpm.nix
     ../autoUpgrade-https.nix
-    #../sway.nix
+    ../sway.nix
     ../home-manager.nix
     ../syncthing.nix
     ../secureboot.nix
-    #../power.nix
+    ../power.nix
   ];
 
   networking.hostName = "shion";
@@ -57,29 +57,14 @@
   };
 
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
   services.displayManager.sddm = {
-    #enable = true;
-    #package = pkgs.kdePackages.sddm;
-    #theme = "breeze";
-    #wayland.enable = true;
-    #wayland.compositor = "kwin";
-    extraPackages = with pkgs.kdePackages; [
-      qtvirtualkeyboard
-      #breeze-icons
-      #kirigami
-      #libplasma
-      #plasma5support
-      #qtsvg
-      pkgs.maliit-keyboard
-      pkgs.maliit-framework
+    enable = true;
+    wayland.enable = true;
+    extraPackages = [
+      pkgs.libsForQt5.qtvirtualkeyboard
     ];
-    settings.General.InputMethod = "maliit-keyboard";
-    #settings.General.InputMethod = "qtvirtualkeyboard";
-    #settings.Wayland.CompositorCommand = "kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1 --inputmethod qtvirtualkeyboard";
+    settings.General.InputMethod = "qtvirtualkeyboard";
   };
-  services.desktopManager.plasma6.enable = true;
-  boot.loader.timeout = 1;
   security.polkit.enable = true;
 
   home-manager.users.nyiyui =
@@ -89,7 +74,6 @@
         .direnv
         /hisame
         /geofront
-        /2025/sony-camera
         !/2025
         !/seekback
         !/music-library
@@ -97,13 +81,8 @@
       '';
 
       # borders needed for dragging on touchscreen
-      #nyiyui.sway.noBorder = false;
-      #wayland.windowManager.sway.config.window.titlebar = true;
-      #nyiyui.graphical.onScreenKeyboard.enable = true;
+      nyiyui.sway.noBorder = false;
+      wayland.windowManager.sway.config.window.titlebar = true;
+      nyiyui.graphical.onScreenKeyboard.enable = true;
     };
-
-    environment.systemPackages = with pkgs; [
-maliit-keyboard
-maliit-framework
-];
 }
