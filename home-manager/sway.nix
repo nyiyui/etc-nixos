@@ -87,6 +87,8 @@
         export GTK_IM_MODULE=fcitx
         export XMODIFIERS=@im=fcitx
         export XIM_SERVERS=fcitx
+        #exec systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP &
+        #exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river &
       '';
       # GSK_RENDERER=gl is to fix Rnote (or GTK apps) https://github.com/flxzt/rnote/issues/1061#issuecomment-2027992630
       config = rec {

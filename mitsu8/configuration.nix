@@ -41,6 +41,7 @@
     enable = true;
     user = "nyiyui";
   };
+  nyiyui.desktop.sway.enable = true;
 
   # not sure if required
   i18n.extraLocaleSettings = {

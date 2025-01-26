@@ -106,6 +106,7 @@
   services.xserver.displayManager.lightdm = {
     enable = true;
   };
+  nyiyui.desktop.sway.enable = true;
   security.polkit.enable = true;
   home-manager.users.nyiyui =
     { ... }:
