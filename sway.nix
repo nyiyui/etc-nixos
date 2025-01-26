@@ -9,7 +9,15 @@
     };
   
     programs.sway.enable = true;
-    services.displayManager.defaultSession = "sway";
+    services.displayManager.defaultSession = "sway-uwsm";
+    programs.uwsm = {
+      enable = true;
+      waylandCompositors.sway = {
+        binPath = "/run/current-system/sw/bin/sway";
+        prettyName = "Sway";
+        comment = "Sway-based session managed by UWSM";
+      };
+    };
   
     xdg.portal = {
       enable = true;

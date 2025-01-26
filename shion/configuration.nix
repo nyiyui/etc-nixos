@@ -66,6 +66,7 @@
         keyboard=onboard
       '';
     };
+    background = ../wallpapers/keikyu2.jpg;
   };
   environment.systemPackages = [ pkgs.onboard ];
 
