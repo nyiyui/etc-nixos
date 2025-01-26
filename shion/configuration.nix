@@ -89,28 +89,8 @@
       nyiyui.graphical.onScreenKeyboard.enable = true;
     };
 
-  networking.wireguard.interfaces = {
-    er605 = {
-      ips = [ "10.9.0.98/32" ];
-      privateKeyFile = config.age.secrets.er605-shion-privkey.path;
-      peers = [
-        {
-          publicKey = "f2Q0N7rAHME0NQCnOWmhD6yHAtNzGM7GKiqfe+39rEo=";
-          allowedIPs = [
-            "10.8.0.0/16"
-            "10.9.0.0/24"
-          ];
-          endpoint = "128.61.106.120:24134";
-          persistentKeepalive = 30;
-        }
-      ];
+    nyiyui.networks.er605 = {
+      enable = true;
+      address = "10.9.0.98/32";
     };
-  };
-
-  age.secrets.er605-shion-privkey = {
-    file = ../secrets/er605-shion.privkey.age;
-    owner = "nyiyui";
-    group = "nyiyui";
-    mode = "400";
-  };
 }
