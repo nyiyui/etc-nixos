@@ -68,7 +68,6 @@
     };
   };
   environment.systemPackages = [ pkgs.onboard ];
-  security.polkit.enable = true;
 
   home-manager.users.nyiyui =
     { lib, ... }:
