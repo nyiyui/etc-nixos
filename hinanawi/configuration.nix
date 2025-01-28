@@ -20,7 +20,6 @@
     ../sound.nix
     ../vlc.nix
     ../qrystal.nix
-    ../multipass.nix
     ../thunderbolt.nix
     ../restic.nix
     ../backup.nix
@@ -148,4 +147,6 @@
     enable = true;
     address = "10.9.0.97/32";
   };
+
+  virtualisation.multipass.enable = true;
 }
