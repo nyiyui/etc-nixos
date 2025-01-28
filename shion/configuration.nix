@@ -85,17 +85,6 @@
       sway
     '';
   };
-  #services.xserver.enable = true;
-  #services.xserver.displayManager.lightdm = {
-  #  enable = true;
-  #  greeters.gtk = {
-  #    enable = true;
-  #    extraConfig = ''
-  #      keyboard=onboard
-  #    '';
-  #  };
-  #  background = ../wallpapers/keikyu2.jpg;
-  #};
   environment.systemPackages = [ pkgs.onboard ];
 
   home-manager.users.nyiyui =
