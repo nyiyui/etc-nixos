@@ -113,6 +113,13 @@
       nyiyui.sway.noBorder = false;
       wayland.windowManager.sway.config.window.titlebar = true;
       nyiyui.graphical.onScreenKeyboard.enable = true;
+
+      wayland.windowManager.sway.config.input."1386:20762:Wacom_HID_511A_Finger" = {
+        map_to_output = "eDP-1";
+      };
+      wayland.windowManager.sway.config.input."1386:20762:Wacom_HID_511A_Pen" = {
+        map_to_output = "eDP-1";
+      };
     };
 
   nyiyui.networks.er605 = {
