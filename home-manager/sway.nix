@@ -9,6 +9,7 @@
   imports = [
     ./fuzzel.nix
     ./wlsunset.nix
+    ./wayland.nix
     (
       {
         config,
@@ -149,9 +150,9 @@
       };
     };
 
-  config.home.packages = [
-    pkgs.pavucontrol
-    pkgs.swaylock
+  config.home.packages = with pkgs; [
+    pavucontrol
+    swaylock
   ];
 
   config.programs.waybar.settings.mainBar = {
