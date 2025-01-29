@@ -1,4 +1,4 @@
-{ specialArgs, pkgs, lib, ... }: {
+{ specialArgs, config, pkgs, lib, ... }: {
   imports = [ specialArgs.niri.nixosModules.niri ];
 
   options.nyiyui.desktop.niri.enable = lib.mkEnableOption "Niri";

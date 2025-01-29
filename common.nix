@@ -69,6 +69,7 @@
     packages = with pkgs; [ firefox chromium syncthing git ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBbPVUjEWdEEWgE7z78euFUVJtNzQ4267esBzytfqeWmGhfjkEoe9TdJRvOily0jn0TVrvAxdXYqMksB4WUkhfY="
     ];
     homeMode = "770";
   };

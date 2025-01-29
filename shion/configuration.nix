@@ -117,4 +117,7 @@
     enable = true;
     address = "10.9.0.98/32";
   };
+
+  virtualisation.docker.enable = true;
+  users.users.nyiyui.extraGroups = [ "docker" ];
 }
