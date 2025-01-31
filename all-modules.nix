@@ -4,5 +4,6 @@
     ./er605.nix
     ./sway.nix
     ./niri.nix
+    ./displaylink.nix
   ];
 }
