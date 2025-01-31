@@ -120,6 +120,6 @@
 
   virtualisation.docker.enable = true;
   users.users.nyiyui.extraGroups = [ "docker" ];
-  
+
   nyiyui.displayLink.enable = true;
 }
