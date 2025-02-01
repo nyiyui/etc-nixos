@@ -118,4 +118,7 @@
   };
 
   nyiyui.displayLink.enable = true;
+
+  virtualisation.docker.enable = true;
+  users.users.nyiyui.extraGroups = [ "docker" ];
 }

@@ -8,7 +8,10 @@
       imports = [ ./home-manager/graphical.nix ./home-manager/sway.nix ];
     };
   
-    programs.sway.enable = true;
+    programs.sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+    };
     services.displayManager.defaultSession = "sway-uwsm";
     programs.uwsm = {
       enable = true;
