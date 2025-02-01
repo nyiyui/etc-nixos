@@ -1,4 +1,4 @@
-{ ... }: {
+{ config, ... }: {
   age.secrets.eaasi-playground-origincert = {
     file = ../secrets/eaasi-playground.nyiyui.ca.origincert.pem.age;
     owner = "caddy";
@@ -16,7 +16,7 @@
         reverse_proxy http://10.8.0.106:80
         tls ${config.age.secrets.jks-origincert.path} ${config.age.secrets.jks-privkey.path}
       '';
-    }
+    };
   };
   networking.firewall.allowedTCPPorts = [
     80
