@@ -17,6 +17,7 @@
     ./seekback-server.nix
     ./backup.nix
     ../qrystal.nix
+    ./eaasi-playground.nix
   ];
 
   networking.firewall.allowedUDPPorts = [ 60410 ];
