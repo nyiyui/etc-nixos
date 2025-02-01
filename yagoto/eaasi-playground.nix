@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   age.secrets.eaasi-playground-origincert = {
     file = ../secrets/eaasi-playground.nyiyui.ca.origincert.pem.age;
     owner = "caddy";
