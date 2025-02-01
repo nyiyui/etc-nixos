@@ -85,7 +85,6 @@
       sway
     '';
   };
-  environment.systemPackages = [ pkgs.onboard ];
 
   home-manager.users.nyiyui =
     { lib, ... }:
