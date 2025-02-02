@@ -18,6 +18,7 @@
     ./backup.nix
     ../qrystal.nix
     ./eaasi-playground.nix
+    ./bulletin.nix
   ];
 
   networking.firewall.allowedUDPPorts = [ 60410 ];

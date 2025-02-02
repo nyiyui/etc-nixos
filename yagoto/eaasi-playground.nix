@@ -15,7 +15,7 @@
     virtualHosts."https://eaasi-playground.nyiyui.ca" = {
       extraConfig = ''
         reverse_proxy http://10.8.0.106:80
-        tls ${config.age.secrets.jks-origincert.path} ${config.age.secrets.jks-privkey.path}
+        tls ${config.age.secrets.eaasi-playground-origincert.path} ${config.age.secrets.eaasi-playground-privkey.path}
       '';
     };
   };
