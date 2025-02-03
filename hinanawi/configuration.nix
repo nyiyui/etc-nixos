@@ -30,6 +30,7 @@
     ../sway.nix
     ../autoUpgrade-https.nix
     ../vnc.nix
+    ../secureboot.nix
   ];
 
   networking.hostName = "hinanawi";
