@@ -5,5 +5,6 @@
     ./sway.nix
     ./niri.nix
     ./displaylink.nix
+    ./gtkgreet.nix
   ];
 }
