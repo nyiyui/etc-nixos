@@ -98,15 +98,8 @@
     path = "/home/nyiyui/inaba/hisame";
   };
 
-  services.xserver.enable = true;
-  services.displayManager = {
-    autoLogin.enable = true;
-    autoLogin.user = "nyiyui";
-  };
-  services.xserver.displayManager.lightdm = {
-    enable = true;
-  };
   nyiyui.desktop.sway.enable = true;
+  nyiyui.greeter.gtkgreet.enable = true;
   home-manager.users.nyiyui =
     { ... }:
     {
