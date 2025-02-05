@@ -1,4 +1,10 @@
-{ config, pkgs, lib, specialArgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  specialArgs,
+  ...
+}:
 let
   sockPath = "/home/nyiyui/.cache/seekback.sock";
 in
