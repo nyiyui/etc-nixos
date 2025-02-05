@@ -143,4 +143,7 @@
   };
 
   virtualisation.multipass.enable = true;
+
+  virtualisation.docker.enable = true;
+  users.users.nyiyui.extraGroups = [ "docker" ];
 }
