@@ -1,4 +1,9 @@
 {
+  # import modules with mkEnableOption
+  imports = [
+    ./seekback.nix
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   home.username = "nyiyui";

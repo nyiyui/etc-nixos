@@ -108,11 +108,11 @@
         ../home-manager/kde.nix
         ../home-manager/rclone.nix
         ../home-manager/activitywatch.nix
-        ../home-manager/seekback.nix
       ];
       nyiyui.qrystal = true;
       nyiyui.hasBacklight = true;
       nyiyui.nixosUpgrade = true;
+      nyiyui.services.seekback.enable = true;
     };
 
   networking.wireguard.interfaces = {

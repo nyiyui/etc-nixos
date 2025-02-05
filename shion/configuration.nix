@@ -86,6 +86,8 @@
       wayland.windowManager.sway.config.input."1386:20762:Wacom_HID_511A_Pen" = {
         map_to_output = "eDP-1";
       };
+
+      nyiyui.services.seekback.enable = true;
     };
 
   nyiyui.networks.er605 = {
