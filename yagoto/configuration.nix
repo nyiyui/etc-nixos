@@ -19,6 +19,7 @@
     ../qrystal.nix
     ./eaasi-playground.nix
     ./bulletin.nix
+    ./eaasi-3playground.nix
   ];
 
   networking.firewall.allowedUDPPorts = [ 60410 ];
