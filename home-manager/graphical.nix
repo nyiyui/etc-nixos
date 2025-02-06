@@ -226,7 +226,7 @@ in
     programs.swaylock = {
       enable = true;
       settings = {
-        ignore-empty-password = false;
+        ignore-empty-password = false; # e.g. PAM requires fingerprint, so make sure Enter key can trigger PAM
         show-failed-attempts = true;
         show-keyboard-layout = true;
         color = "000000";
@@ -239,6 +239,8 @@ in
         ring-ver-color = "137a7f";
         ring-wrong-color = "86cecb";
         ring-caps-lock-color = "e12885";
+        indicator = true;
+        image = "${../wallpapers/keikyu-signal.jpg}";
       };
     };
   };
