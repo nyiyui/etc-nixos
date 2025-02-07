@@ -99,4 +99,7 @@
 
   virtualisation.docker.enable = true;
   users.users.nyiyui.extraGroups = [ "docker" ];
+
+  nyiyui.lisgd.enable = true;
+  nyiyui.lisgd.touchscreenDevice = "/dev/input/event11";
 }

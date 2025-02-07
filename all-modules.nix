@@ -6,5 +6,6 @@
     ./niri.nix
     ./displaylink.nix
     ./gtkgreet.nix
+    ./lisgd.nix
   ];
 }
