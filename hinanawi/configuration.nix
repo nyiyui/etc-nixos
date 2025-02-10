@@ -147,7 +147,10 @@
   virtualisation.multipass.enable = true;
 
   virtualisation.docker.enable = true;
-  users.users.nyiyui.extraGroups = [ "docker" config.programs.ydotool.group ];
+  users.users.nyiyui.extraGroups = [
+    "docker"
+    config.programs.ydotool.group
+  ];
 
   programs.ydotool.enable = true;
 
