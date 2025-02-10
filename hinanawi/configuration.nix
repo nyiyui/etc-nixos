@@ -147,5 +147,21 @@
   virtualisation.multipass.enable = true;
 
   virtualisation.docker.enable = true;
-  users.users.nyiyui.extraGroups = [ "docker" ];
+  users.users.nyiyui.extraGroups = [ "docker" config.programs.ydotool.group ];
+
+  programs.ydotool.enable = true;
+
+  services.synergy.server = {
+    enable = true;
+    address = "10.9.0.97";
+    configFile = ''
+      section: links
+        hinanawi:
+          right = shion
+        shion:
+          left = hinanawi
+      end
+    '';
+  };
+  systemd.user.services.synergy-server.after = [ "wireguard-er605.service" ];
 }

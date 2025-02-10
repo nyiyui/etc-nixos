@@ -102,4 +102,10 @@
 
   nyiyui.lisgd.enable = true;
   nyiyui.lisgd.touchscreenDevice = "/dev/input/event11";
+
+  services.synergy.client = {
+    enable = true;
+    serverAddress = "10.9.0.97";
+  };
+  systemd.user.services.synergy-client.after = [ "wireguard-er605.service" ];
 }
