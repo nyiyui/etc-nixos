@@ -181,5 +181,5 @@
     configFile = "/etc/synergy-server.conf";
   };
   systemd.user.services.synergy-server.after = [ "wireguard-er605.service" ];
-  networking.firewall.interfaces.er605.allowedTCPPorts = [ 24800 ];
+  networking.firewall.allowedTCPPorts = [ 24800 ];
 }
