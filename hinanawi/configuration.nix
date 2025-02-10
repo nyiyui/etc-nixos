@@ -117,28 +117,6 @@
       programs.swaylock.settings.submit-on-touch = true;
     };
 
-  networking.wireguard.interfaces = {
-    roji = {
-      ips = [ "10.9.0.1/32" ];
-      privateKeyFile = config.age.secrets.roji-privkey.path;
-      peers = [
-        {
-          publicKey = "JFqCTZZkVfZnd+OD5Fq57NUXcngsfoNAuqXdaGHvpyw=";
-          allowedIPs = [ "10.9.0.2/32" ];
-          endpoint = "128.61.106.120:60409";
-          persistentKeepalive = 30;
-        }
-      ];
-    };
-  };
-
-  age.secrets.roji-privkey = {
-    file = ../secrets/roji-hinanawi.privkey.age;
-    owner = "nyiyui";
-    group = "nyiyui";
-    mode = "400";
-  };
-
   nyiyui.networks.er605 = {
     enable = true;
     address = "10.9.0.97/32";
