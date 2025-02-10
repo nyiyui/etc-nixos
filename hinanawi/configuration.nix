@@ -154,17 +154,32 @@
 
   programs.ydotool.enable = true;
 
-  services.synergy.server = {
+  environment.etc."synergy-server.conf" = {
     enable = true;
-    address = "10.9.0.97";
-    configFile = ''
+    text = ''
+      section: screens
+        hinanawi:
+        shion:
+      end
       section: links
         hinanawi:
+          left = shion
           right = shion
         shion:
           left = hinanawi
+          right = hinanawi
+      end
+      section: options
+        clipboardSharing = true
+        keystroke(Alt+Tilde) = switchInDirection(right)
       end
     '';
   };
+  services.synergy.server = {
+    enable = true;
+    address = "10.8.0.100";
+    configFile = "/etc/synergy-server.conf";
+  };
   systemd.user.services.synergy-server.after = [ "wireguard-er605.service" ];
+  networking.firewall.interfaces.er605.allowedTCPPorts = [ 24800 ];
 }

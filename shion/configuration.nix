@@ -105,7 +105,7 @@
 
   services.synergy.client = {
     enable = true;
-    serverAddress = "10.9.0.97";
+    serverAddress = "10.8.0.100"; # only needs to work inside local network anyway
   };
   systemd.user.services.synergy-client.after = [ "wireguard-er605.service" ];
 }
