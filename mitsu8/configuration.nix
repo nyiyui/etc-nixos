@@ -36,12 +36,14 @@
 
   services.xserver.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
-  # autologin to main user
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "nyiyui";
-  };
   nyiyui.desktop.sway.enable = true;
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = "uwsm start /run/current-system/sw/bin/sway";
+      user = "nyiyui";
+    };
+  };
 
   # not sure if required
   i18n.extraLocaleSettings = {
