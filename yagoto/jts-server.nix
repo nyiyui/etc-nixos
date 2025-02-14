@@ -9,6 +9,10 @@ let
   port = "8713";
   tokens = pkgs.writeText "tokens.json" (
     builtins.toJSON {
+      "jts_server_token_hash_765786e9efaecfc958d5b46d347e65d3af25b0d02d36d9a9272f88a1a4b44159" = {
+        Name = "hinanawi";
+        Permissions = [ "database:sync" ];
+      };
     }
   );
 in
