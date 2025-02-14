@@ -228,11 +228,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1739573577,
-        "narHash": "sha256-p60gnA6ZezGpXZsMeC5avQLiFSdholDclQ2xFOGFjOo=",
+        "lastModified": 1739573704,
+        "narHash": "sha256-6ErzbUmO76hJp+zvoe74KEhGnlG5nGn11rR+5l3kEME=",
         "owner": "nyiyui",
         "repo": "jts",
-        "rev": "dcbe546344e5578776f8c8fcae052cea570c566b",
+        "rev": "7ff0e9211ed413337da810e74026ff10ca5c2241",
         "type": "github"
       },
       "original": {
