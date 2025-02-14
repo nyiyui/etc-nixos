@@ -218,6 +218,29 @@
         "type": "github"
       }
     },
+    "jts": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739492111,
+        "narHash": "sha256-zknR8wfGWpJJVkCwmyRKkPuQa57iRCYymCNbMcbCLBg=",
+        "owner": "nyiyui",
+        "repo": "jts",
+        "rev": "6c4855ce1bc2471ee86a8938a9be78488d9a476d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nyiyui",
+        "repo": "jts",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -458,6 +481,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
         "jks": "jks",
+        "jts": "jts",
         "lanzaboote": "lanzaboote",
         "niri": "niri",
         "nixos-hardware": "nixos-hardware",
