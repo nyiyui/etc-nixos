@@ -11,4 +11,6 @@
       package = pkgs.gnome.gnome-themes-extra;
     };
   };
+
+  environment.systemPackages = [ pkgs.adwaita-icon-theme ];
 }
