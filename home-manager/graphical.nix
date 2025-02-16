@@ -78,7 +78,7 @@ in
           mainBar = {
             layer = "top";
             position = "bottom";
-            height = 24;
+            height = 20;
             modules-right = [
               "tray"
               "network"

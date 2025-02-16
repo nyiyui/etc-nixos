@@ -160,4 +160,6 @@
   };
   systemd.user.services.synergy-server.after = [ "wireguard-er605.service" ];
   networking.firewall.allowedTCPPorts = [ 24800 ];
+
+  environment.systemPackages = [ pkgs.dnsmasq ];
 }
