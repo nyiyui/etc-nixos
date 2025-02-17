@@ -1,4 +1,5 @@
 {
+  specialArgs,
   config,
   lib,
   pkgs,
@@ -110,4 +111,8 @@
       };
     };
   };
+
+  environment.systemPackages = [
+    specialArgs.jts.packages.x86_64-linux.gtkui
+  ];
 }

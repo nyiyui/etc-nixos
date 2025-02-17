@@ -1,4 +1,5 @@
 {
+  specialArgs,
   config,
   lib,
   pkgs,
@@ -161,5 +162,8 @@
   systemd.user.services.synergy-server.after = [ "wireguard-er605.service" ];
   networking.firewall.allowedTCPPorts = [ 24800 ];
 
-  environment.systemPackages = [ pkgs.dnsmasq ];
+  environment.systemPackages = [
+    pkgs.dnsmasq
+    specialArgs.jts.packages.x86_64-linux.gtkui
+  ];
 }
