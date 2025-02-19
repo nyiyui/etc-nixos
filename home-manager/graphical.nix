@@ -184,6 +184,7 @@ in
       textColor = "#86cecb";
       height = 150;
       width = 600;
+      icons = false; # disable icons
       #FORMAT SPECIFIERS
       #Format specification works similarly to printf(3), but with a different set of specifiers.
       #%% Literal "%"
