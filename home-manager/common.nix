@@ -118,6 +118,8 @@
 
       remmina # for RDP from hinanawi to minato
       thunderbird
+
+      cachix
     ]
     ++ (with pkgs.libsForQt5; [
       okular
