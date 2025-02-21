@@ -68,6 +68,11 @@
         specialArgs = attrs // { inherit system; };
         modules = [ ./shion/configuration.nix agenix.nixosModules.default ];
       };
+      nixosConfigurations.yukata = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = attrs // { inherit system; };
+        modules = [ ./yukata/configuration.nix agenix.nixosModules.default ];
+      };
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
