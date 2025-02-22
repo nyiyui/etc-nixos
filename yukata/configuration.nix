@@ -18,6 +18,7 @@
     ../thunderbolt.nix
     ../autoUpgrade-https.nix
     ../home-manager.nix
+    ./sourcehut.nix
   ];
 
   networking.hostName = "yukata";
