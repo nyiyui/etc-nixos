@@ -42,4 +42,6 @@
     AllowHybridSleep=no
     AllowSuspendThenHibernate=no
   '';
+
+  boot.kernelParams = [ "nomodeset" ]; # wack drivers ig
 }
