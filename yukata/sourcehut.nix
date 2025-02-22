@@ -2,6 +2,10 @@
   fqdn = "srht.kiyuri.ca";
 in {
   networking.firewall.allowedTCPPorts = [ 443 ];
+
+  services.postgresql = {
+    enable = true;
+  };
   
   services.sourcehut = {
     enable = true;
@@ -25,11 +29,15 @@ in {
     };
   };
 
-  security.acme.certs."${fqdn}".extraDomainNames = [
-    "meta.${fqdn}"
-    "man.${fqdn}"
-    "git.${fqdn}"
-  ];
+  security.acme.acceptTerms = true;
+  security.acme.certs."${fqdn}" = {
+    email = "srht+acme@nyiyui.ca";
+    extraDomainNames = [
+      "meta.${fqdn}"
+      "man.${fqdn}"
+      "git.${fqdn}"
+    ];
+  };
 
   services.nginx = {
     enable = true;
