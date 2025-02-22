@@ -1,12 +1,14 @@
-{ config, ... }: let
+{ config, ... }:
+let
   fqdn = "srht.kiyuri.ca";
-in {
+in
+{
   networking.firewall.allowedTCPPorts = [ 443 ];
 
   services.postgresql = {
     enable = true;
   };
-  
+
   services.sourcehut = {
     enable = true;
     #git.enable = true;
