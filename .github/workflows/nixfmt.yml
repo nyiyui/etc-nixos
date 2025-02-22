@@ -8,15 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v20
-      - run: "nix develop --command nixfmt */*.nix"
-      - name: commit and push
-        run: |
-          if git diff --exit-code; then
-            echo 'no changes!'
-          else
-            git config user.name 'GitHub Actions'
-            git config user.email 'etc-nixos+github-actions@nyiyui.ca'
-            git add .
-            git commit -am "nixfmt"
-            git push
-          fi
+      - uses: check formatting
+        run: "nix develop --command nixfmt --check */*.nix"
