@@ -47,17 +47,19 @@ in
     recommendedProxySettings = true;
 
     # Settings to setup what certificates are used for which endpoint.
-    virtualHosts = let
-      conf = {
-        sslCertificate = config.age.secrets.sourcehut-origincert.path;
-        sslCertificateKey = config.age.secrets.sourcehut-privkey.path;
+    virtualHosts =
+      let
+        conf = {
+          sslCertificate = config.age.secrets.sourcehut-origincert.path;
+          sslCertificateKey = config.age.secrets.sourcehut-privkey.path;
+        };
+      in
+      {
+        "${fqdn}" = conf;
+        "meta.${fqdn}" = conf;
+        "man.${fqdn}" = conf;
+        "git.${fqdn}" = conf;
       };
-    in {
-      "${fqdn}" = conf;
-      "meta.${fqdn}" = conf;
-      "man.${fqdn}" = conf;
-      "git.${fqdn}" = conf;
-    };
   };
 
   age.secrets.sourcehut-network-key = {
