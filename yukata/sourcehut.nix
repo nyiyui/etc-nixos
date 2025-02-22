@@ -9,8 +9,8 @@ in {
   
   services.sourcehut = {
     enable = true;
-    git.enable = true;
-    man.enable = true;
+    #git.enable = true;
+    #man.enable = true;
     meta.enable = true;
     nginx.enable = true;
     # postfix.enable = true; # no money for email lol
