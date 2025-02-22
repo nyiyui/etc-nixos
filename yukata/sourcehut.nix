@@ -38,16 +38,6 @@ in
     };
   };
 
-  security.acme.acceptTerms = true;
-  security.acme.certs."${fqdn}" = {
-    email = "srht+acme@nyiyui.ca";
-    extraDomainNames = [
-      "meta.${fqdn}"
-      "man.${fqdn}"
-      "git.${fqdn}"
-    ];
-  };
-
   services.nginx = {
     enable = true;
     # only recommendedProxySettings are strictly required, but the rest make sense as well.
@@ -57,11 +47,16 @@ in
     recommendedProxySettings = true;
 
     # Settings to setup what certificates are used for which endpoint.
-    virtualHosts = {
-      "${fqdn}".enableACME = true;
-      "meta.${fqdn}".useACMEHost = fqdn;
-      "man.${fqdn}".useACMEHost = fqdn;
-      "git.${fqdn}".useACMEHost = fqdn;
+    virtualHosts = let
+      conf = {
+        sslCertificate = config.age.secrets.sourcehut-origincert.path;
+        sslCertificateKey = config.age.secrets.sourcehut-privkey.path;
+      };
+    in {
+      "${fqdn}" = conf;
+      "meta.${fqdn}" = conf;
+      "man.${fqdn}" = conf;
+      "git.${fqdn}" = conf;
     };
   };
 
@@ -75,5 +70,13 @@ in
 
   age.secrets.sourcehut-webhook-key = {
     file = ../secrets/sourcehut-webhook-key.age;
+  };
+
+  age.secrets.sourcehut-origincert = {
+    file = ../secrets/sourcehut-origincert.pem.age;
+  };
+
+  age.secrets.sourcehut-privkey = {
+    file = ../secrets/sourcehut-privkey.pem.age;
   };
 }
