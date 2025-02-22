@@ -74,9 +74,13 @@ in
 
   age.secrets.sourcehut-origincert = {
     file = ../secrets/sourcehut-origincert.pem.age;
+    owner = config.services.nginx.user;
+    mode = "400";
   };
 
   age.secrets.sourcehut-privkey = {
     file = ../secrets/sourcehut-privkey.pem.age;
+    owner = config.services.nginx.user;
+    mode = "400";
   };
 }
