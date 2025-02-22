@@ -25,6 +25,13 @@ in {
         network-key = config.age.secrets.sourcehut-network-key.path;
         service-key = config.age.secrets.sourcehut-service-key.path;
       };
+      mail = {
+        pgp-key-id = "todo";
+        pgp-privkey = "/tmp/todo";
+        pgp-pubkey = "/tmp/todo";
+        smtp-from = "srht@srht.kiyuri.ca";
+        smtp-host = "srht@srht.kiyuri.ca";
+      };
       webhooks.private-key = config.age.secrets.sourcehut-webhook-key.path;
     };
   };
