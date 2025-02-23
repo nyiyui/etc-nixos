@@ -34,5 +34,6 @@
       config.common.default = "wlr";
     };
     environment.systemPackages = with pkgs; [ pkgs.libsForQt5.qt5.qtwayland ];
+    services.systemd-lock-handler.enable = true;
   };
 }

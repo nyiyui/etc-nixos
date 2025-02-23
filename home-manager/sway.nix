@@ -170,6 +170,36 @@
     };
   };
 
+  config.systemd.user.services.swayidle = {
+    Unit = {
+      Description = "swaywm: sleep, lock, etc on idle";
+      PartOf = [ "graphical-session.target" ];
+      StartLimitIntervalSec = 350;
+      StartLimitBurst = 30;
+    };
+    Service = {
+      ExecStart = ''
+        ${pkgs.swayidle}/bin/swayidle} -w \
+            timeout 600 'swaymsg "output * dpms off"' \
+            resume 'swaymsg "output * dpms on"' \
+            timeout 3600 'systemctl suspend'
+      '';
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
+  config.systemd.user.services.systemd-lock-handler = {
+    Service = {
+      ExecStart = "swaylock";
+      Type = "forking";
+      Restart = "on-failure";
+      RestartSec = 0;
+    };
+    Install.WantedBy = [ "lock.target" ];
+  };
+
   config.systemd.user.services.swaybg = {
     Unit = {
       Description = "swaywm background";
