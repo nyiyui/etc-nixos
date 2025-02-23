@@ -157,14 +157,13 @@
 
   config.programs.waybar.settings.mainBar = {
     modules-left = [
-      "sway/worksapces"
+      "sway/workspaces"
       "sway/window"
     ];
 
     "sway/workspaces" = {
-      format = "{name}";
+      format = "{index}";
       disable-scroll = true;
-      all-outputs = true;
     };
     "sway/window" = {
       format = "{title}";
