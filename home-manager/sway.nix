@@ -167,8 +167,7 @@
       all-outputs = true;
     };
     "sway/window" = {
-      format = "{app_id} {title}";
-      icon = true;
+      format = "{title}";
     };
   };
 
