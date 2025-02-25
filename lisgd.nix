@@ -5,10 +5,10 @@ in {
 
   options.nyiyui.lisgd = {
     enable = lib.mkEnableOption "lisgd";
-    touchscreenDevice = lib.mkOption {
-      type = lib.types.path;
-      description = "touchscreen device to bind gestures on";
-      example = "/dev/input/event13";
+    touchscreenDeviceName = lib.mkOption {
+      type = lib.types.str;
+      description = "touchscreen device name to bind gestures on";
+      example = "Wacom HID 511A Finger";
     };
   };
 
@@ -21,10 +21,12 @@ in {
           Documentation = [ "man:lisgd(1)" ];
           PartOf = [ "graphical-session.target" ];
         };
-        Service.ExecStart = "${pkgs.lisgd}/bin/lisgd -d ${cfg.touchscreenDevice} -v -m 800 " +
-          "-g '1,LR,L,*,*,swaymsg workspace prev' " +
-          "-g '1,RL,R,*,*,swaymsg workspace next' " +
-          "";
+        Service.ExecStart = pkgs.writeShellScript "lisgd.sh" ''
+          device=$(${pkgs.libinput}/bin/libinput list-devices | /run/current-system/sw/bin/grep -A 1 '${cfg.touchscreenDeviceName}' | /run/current-system/sw/bin/grep /dev/input | /run/current-system/sw/bin/awk '{print $2}')
+          ${pkgs.lisgd}/bin/lisgd -d "$device" -v -m 800 \
+            -g '1,LR,L,*,*,swaymsg workspace prev' \
+            -g '1,RL,R,*,*,swaymsg workspace next'
+        '';
         Install.WantedBy = [ "graphical-session.target" ];
       };
       programs.waybar.settings.mainBar = {

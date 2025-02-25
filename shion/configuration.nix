@@ -102,7 +102,7 @@
   users.users.nyiyui.extraGroups = [ "docker" ];
 
   nyiyui.lisgd.enable = true;
-  nyiyui.lisgd.touchscreenDevice = "/dev/input/event11";
+  nyiyui.lisgd.touchscreenDeviceName = "Wacom HID 511A Finger";
 
   services.synergy.client = {
     enable = true;
