@@ -32,6 +32,7 @@
     ../autoUpgrade-https.nix
     ../vnc.nix
     ../secureboot.nix
+    ../virt.nix
   ];
 
   networking.hostName = "hinanawi";
