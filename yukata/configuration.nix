@@ -19,6 +19,7 @@
     ../autoUpgrade-https.nix
     ../home-manager.nix
     ./sourcehut.nix
+    ./ollama.nix
   ];
 
   networking.hostName = "yukata";

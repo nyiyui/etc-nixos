@@ -179,7 +179,7 @@
     };
     Service = {
       ExecStart = ''
-        ${pkgs.swayidle}/bin/swayidle} -w \
+        ${pkgs.swayidle}/bin/swayidle -w \
             timeout 600 'swaymsg "output * dpms off"' \
             resume 'swaymsg "output * dpms on"' \
             timeout 3600 'systemctl suspend'
