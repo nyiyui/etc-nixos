@@ -166,5 +166,6 @@
   environment.systemPackages = [
     pkgs.dnsmasq
     specialArgs.jts.packages.x86_64-linux.gtkui
+    pkgs.unityhub
   ];
 }
