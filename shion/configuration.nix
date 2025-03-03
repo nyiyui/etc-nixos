@@ -70,6 +70,7 @@
         .direnv
         /hisame
         /geofront
+        /2025/sony-camera
         !/2025
         !/seekback
         !/music-library
