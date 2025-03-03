@@ -60,6 +60,10 @@ in
     config.age.secrets.sourcehut-gpg-privkey.path
   ];
 
+  systemd.services.gitsrht-api.serviceConfig.BindReadOnlyPaths = [
+    config.age.secrets.sourcehut-gpg-privkey.path
+  ];
+
   security.acme.acceptTerms = true;
   security.acme.certs."${fqdn}" = {
     email = "srht+acme@nyiyui.ca";
