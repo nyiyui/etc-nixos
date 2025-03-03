@@ -83,7 +83,7 @@ in
     file = ../secrets/sourcehut-webhook-key.age;
   };
 
-  age.secertes.sourcehut-gpg-privkey = {
+  age.secrets.sourcehut-gpg-privkey = {
     file = ../secrets/sourcehut-gpg-privkey.pem.age;
   };
 }
