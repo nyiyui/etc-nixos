@@ -61,7 +61,7 @@ in
   ];
 
   systemd.services.gitsrht-api.serviceConfig.BindReadOnlyPaths = [
-    config.age.secrets.sourcehut-gpg-privkey.path
+    config.age.secrets.sourcehut-gpg-privkey-gitsrht.path
   ];
 
   security.acme.acceptTerms = true;
@@ -107,6 +107,12 @@ in
     file = ../secrets/sourcehut-gpg-privkey.pem.age;
     owner = config.services.sourcehut.meta.user;
     # do not include config.services.sourcehut.meta.group here! only user is for secrets.
+    mode = "0600";
+  };
+
+  age.secrets.sourcehut-gpg-privkey-gitsrht = {
+    file = ../secrets/sourcehut-gpg-privkey.pem.age;
+    owner = config.services.sourcehut.git.user;
     mode = "0600";
   };
 
