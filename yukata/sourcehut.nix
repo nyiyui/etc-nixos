@@ -36,9 +36,9 @@ in
         site-name = "sourcehut";
       };
       mail = {
-        pgp-key-id = "todo";
-        pgp-privkey = config.age.secrets.sourcehut-gpg-privkey.path;
-        pgp-pubkey = "${./sourcehut-gpg-pubkey.pem}";
+        #pgp-key-id = "todo";
+        #pgp-privkey = config.age.secrets.sourcehut-gpg-privkey.path;
+        #pgp-pubkey = "${./sourcehut-gpg-pubkey.pem}";
         smtp-from = "srht@srht.kiyuri.ca";
         smtp-host = "srht@srht.kiyuri.ca";
       };
@@ -61,7 +61,7 @@ in
   ];
 
   systemd.services.gitsrht-api.serviceConfig.BindReadOnlyPaths = [
-    config.age.secrets.sourcehut-gpg-privkey-gitsrht.path
+    config.age.secrets.sourcehut-gpg-privkey.path
   ];
 
   security.acme.acceptTerms = true;
@@ -107,12 +107,6 @@ in
     file = ../secrets/sourcehut-gpg-privkey.pem.age;
     owner = config.services.sourcehut.meta.user;
     # do not include config.services.sourcehut.meta.group here! only user is for secrets.
-    mode = "0600";
-  };
-
-  age.secrets.sourcehut-gpg-privkey-gitsrht = {
-    file = ../secrets/sourcehut-gpg-privkey.pem.age;
-    owner = config.services.sourcehut.git.user;
     mode = "0600";
   };
 
