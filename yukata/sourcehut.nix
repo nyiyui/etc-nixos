@@ -85,5 +85,8 @@ in
 
   age.secrets.sourcehut-gpg-privkey = {
     file = ../secrets/sourcehut-gpg-privkey.pem.age;
+    owner = config.services.sourcehut.meta.user;
+    # do not include config.services.sourcehut.meta.group here! only user is for secrets.
+    mode = "0600";
   };
 }
