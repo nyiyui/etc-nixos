@@ -14,7 +14,7 @@ in
 
   services.sourcehut = {
     enable = true;
-    #git.enable = true;
+    git.enable = true;
     #man.enable = true;
     meta.enable = true;
     nginx.enable = true;
