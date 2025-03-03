@@ -44,6 +44,10 @@ in
     };
   };
 
+  systemd.services.metasrht-api.serviceConfig.ReadOnlyPaths = [
+    config.age.secrets.sourcehut-gpg-privkey.path
+  ];
+
   security.acme.acceptTerms = true;
   security.acme.certs."${fqdn}" = {
     email = "srht+acme@nyiyui.ca";
