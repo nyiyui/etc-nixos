@@ -44,7 +44,7 @@ in
     };
   };
 
-  systemd.services.metasrht-api.serviceConfig.ReadOnlyPaths = [
+  systemd.services.metasrht-api.serviceConfig.BindReadOnlyPaths = [
     config.age.secrets.sourcehut-gpg-privkey.path
   ];
 
