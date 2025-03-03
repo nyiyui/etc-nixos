@@ -35,8 +35,8 @@ in
       };
       mail = {
         pgp-key-id = "todo";
-        #pgp-privkey = config.age.secrets.sourcehut-gpg-key.path;
-        #pgp-pubkey = "/tmp/todo";
+        pgp-privkey = config.age.secrets.sourcehut-gpg-privkey.path;
+        pgp-pubkey = ./sourcehut-gpg-pubkey.pem;
         smtp-from = "srht@srht.kiyuri.ca";
         smtp-host = "srht@srht.kiyuri.ca";
       };
@@ -81,5 +81,9 @@ in
 
   age.secrets.sourcehut-webhook-key = {
     file = ../secrets/sourcehut-webhook-key.age;
+  };
+
+  age.secertes.sourcehut-gpg-privkey = {
+    file = ../secrets/sourcehut-gpg-privkey.pem.age;
   };
 }
