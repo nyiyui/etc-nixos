@@ -36,7 +36,7 @@ in
       mail = {
         pgp-key-id = "todo";
         pgp-privkey = config.age.secrets.sourcehut-gpg-privkey.path;
-        pgp-pubkey = ./sourcehut-gpg-pubkey.pem;
+        pgp-pubkey = "${./sourcehut-gpg-pubkey.pem}";
         smtp-from = "srht@srht.kiyuri.ca";
         smtp-host = "srht@srht.kiyuri.ca";
       };
