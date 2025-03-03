@@ -41,7 +41,17 @@ in
         smtp-host = "srht@srht.kiyuri.ca";
       };
       webhooks.private-key = config.age.secrets.sourcehut-webhook-key.path;
+      "git.sr.ht" = {
+        oauth-client-id = "76d5d8fd-9f50-4e49-9f30-b668dc3b9478";
+        oauth-client-secret = config.age.secrets.sourcehut-gitsrht-oauth-client-secret.path;
+      };
     };
+  };
+
+  services.openssh.settings = {
+    AuthorizedKeysCommand = ''/run/current-system/sw/bin/gitsrht-dispatch "%u" "%h" "%t" "%k"'';
+    AuthorizedKeysCommandUser = "root";
+    PermitUserEnvironment = "SRHT_*";
   };
 
   systemd.services.metasrht-api.serviceConfig.BindReadOnlyPaths = [
@@ -92,5 +102,9 @@ in
     owner = config.services.sourcehut.meta.user;
     # do not include config.services.sourcehut.meta.group here! only user is for secrets.
     mode = "0600";
+  };
+
+  age.secrets.sourcehut-gitsrht-oauth-client-secret = {
+    file = ../secrets/sourcehut-gitsrht-oauth-client-secret.age;
   };
 }
