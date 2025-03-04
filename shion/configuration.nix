@@ -23,6 +23,7 @@
     ../syncthing.nix
     ../secureboot.nix
     ../power.nix
+    ../virt.nix
   ];
 
   networking.hostName = "shion";
