@@ -16,6 +16,7 @@
     ../autoUpgrade-https.nix
     ../qrystal.nix
     ../syncthing.nix
+    ../virt.nix
     # syncthing is on Windows host (sekisho)
     # have a syncthing for WSL instead, so we don't have filename restrictions ):
   ];
