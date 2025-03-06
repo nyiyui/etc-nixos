@@ -17,9 +17,7 @@
     ./seekback-server.nix
     ./backup.nix
     ../qrystal.nix
-    ./eaasi-playground.nix
     ./bulletin.nix
-    ./eaasi-3playground.nix
     ./jts-server.nix
   ];
 
