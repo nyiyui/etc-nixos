@@ -12,7 +12,7 @@ in
     enable = true;
   };
 
-  services.sourcehut = {
+  kiyurica.sourcehut = {
     enable = true;
     meta.enable = true;
     meta.port = 5001;
@@ -105,8 +105,8 @@ in
 
   age.secrets.sourcehut-gpg-privkey = {
     file = ../secrets/sourcehut-gpg-privkey.pem.age;
-    owner = config.services.sourcehut.meta.user;
-    # do not include config.services.sourcehut.meta.group here! only user is for secrets.
+    owner = config.kiyurica.sourcehut.meta.user;
+    # do not include config.kiyurica.sourcehut.meta.group here! only user is for secrets.
     mode = "0600";
   };
 

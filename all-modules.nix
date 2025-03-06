@@ -6,6 +6,6 @@
     ./niri.nix
     ./gtkgreet.nix
     ./lisgd.nix
-    ./cosense-vector-search
+    ./sourcehut
   ];
 }
