@@ -63,4 +63,17 @@
     enable = true;
     virtualHost = "https://cosense-vector-search.etc.kiyuri.ca";
   };
+  age.secrets.cosense-vector-search-origincert = {
+    file = ../secrets/cosense-vector-search.etc.kiyuri.ca.origincert.pem.age;
+    owner = "caddy";
+    mode = "400";
+  };
+  age.secrets.cosense-vector-search-privkey = {
+    file = ../secrets/cosense-vector-search.etc.kiyuri.ca.privkey.pem.age;
+    owner = "caddy";
+    mode = "400";
+  };
+  services.caddy.virtualHosts.${config.kiyurica.services.cosense-vector-search.virtualHost}.extraConfig = ''
+    tls ${config.age.secrets.cosense-vector-search-origincert.path} ${config.age.secrets.cosense-vector-search-privkey.path}
+  '';
 }
