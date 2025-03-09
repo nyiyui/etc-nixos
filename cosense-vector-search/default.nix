@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
   cfg = config.kiyurica.services.cosense-vector-search;
-in {
+in
+{
   options.kiyurica.services.cosense-vector-search = {
     enable = lib.mkEnableOption "Vector search service for Cosense.";
     virtualHost = lib.mkOption {
