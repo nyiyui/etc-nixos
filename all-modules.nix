@@ -7,5 +7,6 @@
     ./displaylink.nix
     ./gtkgreet.nix
     ./lisgd.nix
+    ./cosense-vector-search
   ];
 }
