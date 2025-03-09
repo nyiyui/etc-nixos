@@ -39,7 +39,7 @@ in
       enable = true;
       virtualHosts.${cfg.virtualHost} = {
         extraConfig = ''
-          basicauth {
+          basic_auth {
             kiyurica $2a$14$x2ZaCNUjl1Mf8.DORvBeVuDlw3W/8pZV.mR4j1MsMjWg3coaaatdW
           }
           reverse_proxy 127.0.0.1:${builtins.toString cfg.port}
