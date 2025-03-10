@@ -20,6 +20,7 @@
     ../home-manager.nix
     ./sourcehut.nix
     ./ollama.nix
+    ../cosense-vector-search
   ];
 
   networking.hostName = "yukata";

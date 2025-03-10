@@ -21,7 +21,6 @@
     ./bulletin.nix
     ./eaasi-3playground.nix
     ./jts-server.nix
-    ../cosense-vector-search
   ];
 
   networking.firewall.allowedUDPPorts = [ 60410 ];
