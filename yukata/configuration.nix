@@ -52,4 +52,9 @@
     enable = true;
     virtualHost = "https://cosense-vector-search.etc.kiyuri.ca";
   };
+
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }
