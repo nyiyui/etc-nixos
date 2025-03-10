@@ -26,8 +26,9 @@ in
       image = "library/solr:9.8.0-slim@sha256:fd236ed14ace4718c99d007d7c0360307ecba380ac4927abdf91fbf105804f28";
       ports = [ "127.0.0.1:${builtins.toString cfg.port}:8983" ];
       volumes = [
-        "/var/lib/cosense-vector-search:/var/solr/data"
+        "/var/lib/cosense-vector-search:/var/solr"
       ];
+      cmd = [ "solr" "-c" ];
     };
     systemd.services.${config.virtualisation.oci-containers.containers.cosense-vector-search.serviceName} = {
       serviceConfig = {
