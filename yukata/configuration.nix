@@ -46,4 +46,9 @@
   '';
 
   boot.kernelParams = [ "nomodeset" ]; # wack drivers ig
+
+  kiyurica.services.cosense-vector-search = {
+    enable = true;
+    virtualHost = "https://cosense-vector-search.etc.kiyuri.ca";
+  };
 }
