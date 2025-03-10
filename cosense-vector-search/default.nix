@@ -29,11 +29,11 @@ in
         "/var/lib/cosense-vector-search:/var/solr/data"
       ];
     };
-    # systemd.services."container@cosense-vector-search" = {
-    #   serviceConfig = {
-    #     StateDirectory = "cosense-vector-search";
-    #   };
-    # };
+    systemd.services.${config.virtualisation.oci-containers.containers.cosense-vector-search.serviceName} = {
+      serviceConfig = {
+        StateDirectory = "cosense-vector-search";
+      };
+    };
 
     services.caddy = {
       enable = true;
