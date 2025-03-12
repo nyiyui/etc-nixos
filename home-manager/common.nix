@@ -122,6 +122,8 @@
       thunderbird
 
       cachix
+
+      nixfmt
     ]
     ++ (with pkgs.libsForQt5; [
       okular
