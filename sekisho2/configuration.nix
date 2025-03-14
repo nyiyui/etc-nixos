@@ -40,19 +40,4 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
   services.openssh.enable = true;
-
-  home-manager.users.nyiyui =
-    { lib, ... }:
-    {
-      home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text = lib.mkForce ''
-        .direnv
-        /hisame
-        /geofront
-        /2025/sony-camera
-        !/2025
-        !/seekback
-        !/music-library
-        /**
-      '';
-    };
 }
