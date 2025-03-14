@@ -848,7 +848,9 @@ in
       # For proxyPass= in virtual-hosts for Sourcehut services.
       services.nginx.recommendedProxySettings = mkDefault true;
     })
-    (mkIf (cfg.builds.enable || cfg.git.enable || cfg.hg.enable) {
+    (mkIf (cfg.builds.enable
+    || cfg.git.enable
+    || cfg.hg.enable) {
       services.openssh = {
         # Note that sshd will continue to honor AuthorizedKeysFile.
         # Note that you may want automatically rotate

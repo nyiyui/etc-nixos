@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  imports = [
+    ./all-modules.nix
+  ];
+
   users.groups.nyiyui = { };
   users.users.nyiyui = {
     isNormalUser = true;

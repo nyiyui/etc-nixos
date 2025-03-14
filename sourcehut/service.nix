@@ -102,8 +102,11 @@ let
               + pkgs.writeShellScript "${serviceName}-credentials" ''
                 set -x
                 # Replace values beginning with a '<' by the content of the file whose name is after.
-                gawk '{ if (match($0,/^([^=]+=)<(.+)/,m)) { getline f < m[2]; print m[1] f } else print $0 }' ${configIni} |
+                # Replace values beginning with a '>' with the corresponding credential from systemd.
+                cat ${configIni} |
+                gawk '{ if (match($0,/^([^=]+=)<(.+)/,m)) { getline f < m[2]; print m[1] f } else print $0 }' - |
                 ${optionalString (!allowStripe) "gawk '!/^stripe-secret-key=/' |"}
+                gawk '{ if (match($0,/^([^=]+=)>(.+)/,m)) { getline f < (ENVIRON["CREDENTIALS_DIRECTORY"] "/" m[2]); print m[1] f } else print $0 }' -
                 install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
               ''
             )

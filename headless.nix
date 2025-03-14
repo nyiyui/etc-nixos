@@ -1,5 +1,6 @@
 { modulesPath, ... }: {
   imports = [
+    ./all-modules.nix
     "${modulesPath}/profiles/headless.nix"
     "${modulesPath}/profiles/minimal.nix"
   ];

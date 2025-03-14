@@ -37,8 +37,8 @@ in
       };
       mail = {
         #pgp-key-id = "todo";
-        #pgp-privkey = config.age.secrets.sourcehut-gpg-privkey.path;
-        #pgp-pubkey = "${./sourcehut-gpg-pubkey.pem}";
+        pgp-privkey = ">gpg-privkey";
+        pgp-pubkey = "${./sourcehut-gpg-pubkey.pem}";
         smtp-from = "srht@srht.kiyuri.ca";
         smtp-host = "srht@srht.kiyuri.ca";
       };
@@ -50,11 +50,6 @@ in
     };
   };
 
-  services.openssh.settings = {
-    AuthorizedKeysCommand = ''/run/current-system/sw/bin/gitsrht-dispatch "%u" "%h" "%t" "%k"'';
-    AuthorizedKeysCommandUser = "root";
-    PermitUserEnvironment = "SRHT_*";
-  };
 
   systemd.services.metasrht-api.serviceConfig.BindReadOnlyPaths = [
     config.age.secrets.sourcehut-gpg-privkey.path
@@ -62,6 +57,10 @@ in
 
   systemd.services.gitsrht-api.serviceConfig.BindReadOnlyPaths = [
     config.age.secrets.sourcehut-gpg-privkey.path
+  ];
+
+  systemd.services.gitsrht-api.serviceConfig.LoadCredential = [
+    "gpg-privkey:${config.age.secrets.sourcehut-gpg-privkey.path}"
   ];
 
   security.acme.acceptTerms = true;
