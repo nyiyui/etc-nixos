@@ -33,7 +33,7 @@ let
   inherit (config.services) postgresql;
   redis = config.services.redis.servers."sourcehut-${srvsrht}";
   inherit (config.users) users;
-  cfg = config.services.sourcehut;
+  cfg = config.kiyurica.sourcehut;
   configIni = configIniOfService srv;
   srvCfg = cfg.${srv};
   baseService =
@@ -161,7 +161,7 @@ let
     ];
 in
 {
-  options.services.sourcehut.${srv} =
+  options.kiyurica.sourcehut.${srv} =
     {
       enable = mkEnableOption "${srv} service";
 
@@ -211,7 +211,7 @@ in
           default = "${srv}.sr.ht";
           description = ''
             PostgreSQL database name for the ${srv}.sr.ht service,
-            used if [](#opt-services.sourcehut.postgresql.enable) is `true`.
+            used if [](#opt-kiyurica.sourcehut.postgresql.enable) is `true`.
           '';
         };
       };
@@ -319,7 +319,7 @@ in
         }) [ srvCfg.user ];
       };
 
-      services.sourcehut.settings = mkMerge [
+      kiyurica.sourcehut.settings = mkMerge [
         {
           "${srv}.sr.ht".origin = mkDefault "https://${srv}.${cfg.settings."sr.ht".global-domain}";
         }
