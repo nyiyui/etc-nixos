@@ -6,6 +6,5 @@
     ./niri.nix
     ./gtkgreet.nix
     ./lisgd.nix
-    ./sourcehut
   ];
 }

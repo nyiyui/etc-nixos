@@ -18,7 +18,6 @@
     ../thunderbolt.nix
     ../autoUpgrade-https.nix
     ../home-manager.nix
-    #./sourcehut.nix # TODO: fix sourcehut
     ./ollama.nix
     ../cosense-vector-search
   ];
