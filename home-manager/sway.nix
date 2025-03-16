@@ -192,7 +192,7 @@
 
   config.systemd.user.services.systemd-lock-handler = {
     Service = {
-      ExecStart = "swaylock";
+      ExecStart = "/run/current-system/sw/bin/swaylock";
       Type = "forking";
       Restart = "on-failure";
       RestartSec = 0;
