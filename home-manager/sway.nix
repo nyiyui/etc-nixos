@@ -53,6 +53,12 @@
 
   options.nyiyui.graphical.onScreenKeyboard.enable = lib.mkEnableOption "on-screen keyboard";
 
+  options.nyiyui.graphical.idle = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Sleep, lock, etc on idle";
+  };
+
   config.wayland.windowManager.sway =
     let
       modifier = "Mod4";
@@ -170,7 +176,7 @@
     };
   };
 
-  config.systemd.user.services.swayidle = {
+  config.systemd.user.services.swayidle = lib.mkIf config.nyiyui.graphical.idle {
     Unit = {
       Description = "swaywm: sleep, lock, etc on idle";
       PartOf = [ "graphical-session.target" ];
@@ -190,7 +196,7 @@
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
-  config.systemd.user.services.systemd-lock-handler = {
+  config.systemd.user.services.systemd-lock-handler = lib.mkIf config.nyiyui.graphical.idle {
     Service = {
       ExecStart = "/run/current-system/sw/bin/swaylock";
       Type = "forking";

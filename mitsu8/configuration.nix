@@ -110,6 +110,8 @@
         };
       };
     };
+
+    nyiyui.graphical.idle = false;
   };
 
   environment.systemPackages = [
