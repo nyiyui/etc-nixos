@@ -28,13 +28,17 @@ in
       volumes = [
         "/var/lib/cosense-vector-search:/var/solr"
       ];
-      cmd = [ "solr" "-c" ];
+      cmd = [
+        "solr"
+        "-c"
+      ];
     };
-    systemd.services.${config.virtualisation.oci-containers.containers.cosense-vector-search.serviceName} = {
-      serviceConfig = {
-        StateDirectory = "cosense-vector-search";
+    systemd.services.${config.virtualisation.oci-containers.containers.cosense-vector-search.serviceName} =
+      {
+        serviceConfig = {
+          StateDirectory = "cosense-vector-search";
+        };
       };
-    };
 
     services.caddy = {
       enable = true;
