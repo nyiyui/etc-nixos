@@ -1,4 +1,4 @@
-{ ... }: let
+{ config, ... }: let
   port = "8714";
 in {
   systemd.services.polar-data-collector-server = {
