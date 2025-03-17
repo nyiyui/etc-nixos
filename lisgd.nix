@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }: let
   cfg = config.nyiyui.lisgd;
 in {
-  imports = [ ./home-manager.nix ./niri.nix ];
+  imports = [ ./home-manager.nix ];
 
   options.nyiyui.lisgd = {
     enable = lib.mkEnableOption "lisgd";

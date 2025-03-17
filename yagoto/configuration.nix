@@ -19,6 +19,7 @@
     ../qrystal.nix
     ./bulletin.nix
     ./jts-server.nix
+    ./gtxr-vrsa.nix
   ];
 
   networking.firewall.allowedUDPPorts = [ 60410 ];

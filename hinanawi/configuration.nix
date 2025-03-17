@@ -27,7 +27,6 @@
     ../tpm.nix
     ../adb.nix
     ../hisame.nix
-    #../niri.nix
     ../sway.nix
     ../autoUpgrade-https.nix
     ../vnc.nix
