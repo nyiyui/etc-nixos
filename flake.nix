@@ -30,6 +30,8 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+    polar-data-collector.url = "github:VR-state-analysis/polar-data-collector";
+    polar-data-collector.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, agenix, nixpkgs, qrystal, flake-utils, niri, lanzaboote

@@ -1,11 +1,11 @@
-{ config, ... }:
+{ config, pkgs, specialArgs, ... }:
 let
   port = "8714";
 in
 {
   systemd.services.polar-data-collector-server = {
     script = ''
-      /nix/store/0xc00l44hi7z10zp7xdvvg6xkwh6326n-polar-data-collector/bin/server -addr localhost:${port}
+      ${specialArgs.polar-data-collector.packages.${pkgs.system}.server}/bin/server -addr localhost:${port}
     '';
     wantedBy = [ "multi-user.target" ];
   };
