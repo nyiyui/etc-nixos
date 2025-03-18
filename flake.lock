@@ -450,11 +450,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742240440,
-        "narHash": "sha256-fVrEfIhebO2579E6IdKjKgVGT7OEHFaGm39c4ErHU98=",
+        "lastModified": 1742331340,
+        "narHash": "sha256-C8XfHX/RCNWpxm5GRhqaqwYXqYsCX6PrAQK40cWFb9I=",
         "owner": "VR-state-analysis",
         "repo": "polar-data-collector",
-        "rev": "caf407a249c9752a9b39719740548440885a1bcb",
+        "rev": "8b82c31b7c046e9e6d74e23718e166b2d71ebe92",
         "type": "github"
       },
       "original": {
