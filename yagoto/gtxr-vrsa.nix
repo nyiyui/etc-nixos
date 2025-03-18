@@ -1,11 +1,18 @@
-{ config, pkgs, specialArgs, ... }:
+{
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
 let
   port = "8714";
 in
 {
   systemd.services.polar-data-collector-server = {
     script = ''
-      ${specialArgs.polar-data-collector.packages.${pkgs.system}.server}/bin/server -addr localhost:${port} -db $STATE_DIRECTORY/db.sqlite3
+      ${
+        specialArgs.polar-data-collector.packages.${pkgs.system}.server
+      }/bin/server -addr localhost:${port} -db $STATE_DIRECTORY/db.sqlite3
     '';
     serviceConfig.StateDirectory = "polar-data-collector-server";
     wantedBy = [ "multi-user.target" ];
