@@ -96,7 +96,10 @@
     # startup command line
     wayland.windowManager.sway.config.startup = lib.mkForce [
       {
-        command = "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://plus.nhk.jp https://tver.jp";
+        command = "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://tver.jp";
+      }
+      {
+        command = "${pkgs.microsoft-edge}/bin/microsoft-edge '--proxy-server=socks5://10.42.0.1:1080' https://plus.nhk.jp https://tver.jp";
       }
     ];
 
