@@ -20,6 +20,7 @@
     ./bulletin.nix
     ./jts-server.nix
     ./gtxr-vrsa.nix
+    ./headscale.nix
   ];
 
   networking.firewall.allowedUDPPorts = [ 60410 ];
