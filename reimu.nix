@@ -7,7 +7,7 @@ in {
       enable = mkEnableOption "reimu VPN";
       endpoint = mkOption {
         type = str;
-        default = "reimu.nyiyui.ca:42420";
+        default = "reimu.dev.kiyuri.ca:42420";
         description = "endpoint for wireguard";
       };
       address = mkOption {
