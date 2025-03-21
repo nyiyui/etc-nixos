@@ -114,7 +114,15 @@
       };
     };
 
+    # mainly for watching tv, so we don't want idle-lock
     nyiyui.graphical.idle = false;
+    # borders needed for normies
+    nyiyui.sway.noBorder = false;
+    wayland.windowManager.sway.config.window.titlebar = true;
+    # we want each window to be ~fullscreen
+    wayland.windowManager.sway.extraConfig = ''
+      layout tabbed
+    '';
   };
 
   environment.systemPackages = [
