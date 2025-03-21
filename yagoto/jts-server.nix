@@ -13,10 +13,6 @@ let
         Name = "hinanawi";
         Permissions = [ "database:sync" ];
       };
-      "jts_server_token_hash_1b92521afdc51441c463cd8061ed684ba9874f05640ab04aa95a312c5adcb9b3" = {
-        Name = "shion";
-        Permissions = [ "database:sync" ];
-      };
       "jts_server_token_hash_e84fb02d9a44799e039c3d2b9d74781dba278ec77d16043832f1e36945107ea7" = {
         Name = "mitsu8";
         Permissions = [ "database:sync" ];

@@ -65,11 +65,6 @@
         specialArgs = attrs // { inherit system; };
         modules = [ ./sekisho2/configuration.nix ];
       };
-      nixosConfigurations.shion = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = attrs // { inherit system; };
-        modules = [ ./shion/configuration.nix agenix.nixosModules.default ];
-      };
       nixosConfigurations.yukata = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // { inherit system; };
