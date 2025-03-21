@@ -121,7 +121,7 @@
     wayland.windowManager.sway.config.window.titlebar = true;
     # we want each window to be ~fullscreen
     wayland.windowManager.sway.extraConfig = ''
-      layout tabbed
+      workspace_layout tabbed
     '';
   };
 
