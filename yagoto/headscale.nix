@@ -1,6 +1,8 @@
-{ ... }: let
+{ ... }:
+let
   port = 39254;
-in {
+in
+{
   services.headscale = {
     enable = true;
     inherit port;
