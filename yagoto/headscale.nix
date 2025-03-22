@@ -13,6 +13,7 @@ in
       tls_key_path = "";
       # TODO: TS2021 Noise Protocol
       prefixes.v4 = [ "10.9.0.0/16" ];
+      dns.base_domain = "tailnet.kiyuri.ca";
     };
   };
   services.caddy = {
