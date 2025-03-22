@@ -123,6 +123,7 @@
     wayland.windowManager.sway.extraConfig = ''
       workspace_layout tabbed
     '';
+    nyiyui.graphical.background = false;
   };
 
   environment.systemPackages = [

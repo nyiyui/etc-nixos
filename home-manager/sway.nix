@@ -59,6 +59,12 @@
     description = "Sleep, lock, etc on idle";
   };
 
+  options.nyiyui.graphical.background = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "background/wallpaper image";
+  };
+
   config.wayland.windowManager.sway =
     let
       modifier = "Mod4";
@@ -206,7 +212,7 @@
     Install.WantedBy = [ "lock.target" ];
   };
 
-  config.systemd.user.services.swaybg = {
+  config.systemd.user.services.swaybg = lib.mkIf config.nyiyui.graphical.background {
     Unit = {
       Description = "swaywm background";
       PartOf = [ "graphical-session.target" ];
