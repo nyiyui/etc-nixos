@@ -26,23 +26,33 @@ in
       description = "enable qrystal-device-client.service feature";
     };
   options.nyiyui.service-status = lib.mkOption {
-    type = (lib.types.listOf (lib.types.submodule {
-      options = {
-        serviceName = lib.mkOption {
-          type = lib.types.str;
-          default = "";
-          description = "service name to show in waybar";
-        };
-        key = lib.mkOption {
-          type = lib.types.str;
-          default = "";
-          description = "key to show in waybar";
-        };
-      };
-    }));
+    type = (
+      lib.types.listOf (
+        lib.types.submodule {
+          options = {
+            serviceName = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+              description = "service name to show in waybar";
+            };
+            key = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+              description = "key to show in waybar";
+            };
+          };
+        }
+      )
+    );
     default = [
-      { serviceName = "hisame-sync.service"; key = "氷雨"; }
-      { serviceName = "backup-restic.service"; key = "b"; }
+      {
+        serviceName = "hisame-sync.service";
+        key = "氷雨";
+      }
+      {
+        serviceName = "backup-restic.service";
+        key = "b";
+      }
     ];
     description = "show service status in waybar";
   };
@@ -88,89 +98,96 @@ in
             };
         in
         {
-          mainBar = {
-            layer = "top";
-            position = "bottom";
-            height = 20;
-            modules-right = [
-              "tray"
-              "network"
-              "pulseaudio"
-              "mpris"
-            ] ++ (map (cfg: "custom/${cfg.key}") cfg.service-status) ++ [
-              "battery"
-              "clock"
-            ];
+          mainBar =
+            {
+              layer = "top";
+              position = "bottom";
+              height = 20;
+              modules-right =
+                [
+                  "tray"
+                  "network"
+                  "pulseaudio"
+                  "mpris"
+                ]
+                ++ (map (cfg: "custom/${cfg.key}") cfg.service-status)
+                ++ [
+                  "battery"
+                  "clock"
+                ];
 
-            "battery" = {
-              states.warning = 20;
-              states.critical = 10;
-              format = "{capacity} {time}";
-              tooltip-format = "{power}W";
-              format-time = "{H}:{m}";
-            };
-            "clock" = {
-              format = "{:%H:%M %Y-%m-%d}";
-              tooltip-format = "{calendar}";
-              calendar = {
-                mode = "month";
-                weeks-pos = "left";
-                format = {
-                  months = "<span color='#ffead3'><b>{}</b></span>";
-                  days = "<span color='#ecc6d9'><b>{}</b></span>";
-                  weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-                  weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-                  today = "<span color='#ff6699'><b><u>{}</u></b></span>";
-                };
-                actions = {
-                  on-click-right = "mode";
-                  on-click-forward = "tz_up";
-                  on-click-backward = "tz_down";
-                  on-scroll-up = "shift_up";
-                  on-scroll-down = "shift_down";
+              "battery" = {
+                states.warning = 20;
+                states.critical = 10;
+                format = "{capacity} {time}";
+                tooltip-format = "{power}W";
+                format-time = "{H}:{m}";
+              };
+              "clock" = {
+                format = "{:%H:%M %Y-%m-%d}";
+                tooltip-format = "{calendar}";
+                calendar = {
+                  mode = "month";
+                  weeks-pos = "left";
+                  format = {
+                    months = "<span color='#ffead3'><b>{}</b></span>";
+                    days = "<span color='#ecc6d9'><b>{}</b></span>";
+                    weeks = "<span color='#99ffdd'><b>W{}</b></span>";
+                    weekdays = "<span color='#ffcc66'><b>{}</b></span>";
+                    today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+                  };
+                  actions = {
+                    on-click-right = "mode";
+                    on-click-forward = "tz_up";
+                    on-click-backward = "tz_down";
+                    on-scroll-up = "shift_up";
+                    on-scroll-down = "shift_down";
+                  };
                 };
               };
-            };
-            "network" = {
-              format = "{ifname}";
-              format-wifi = "{essid}{signaldBm}";
-              format-disconnected = "";
-              tooltip-format = "{ifname} {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
-              tooltip-format-wifi = "{ifname} {essid} {signaldBm} dBm ; {frequency} GHz ; {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
-              tooltip-format-disconnected = "切";
-            };
-            "pulseaudio" = {
-              format-icons = {
-                headphone = "ﾍ";
-                hdmi = "H";
-                bluetooth = "ᛒ";
+              "network" = {
+                format = "{ifname}";
+                format-wifi = "{essid}{signaldBm}";
+                format-disconnected = "";
+                tooltip-format = "{ifname} {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
+                tooltip-format-wifi = "{ifname} {essid} {signaldBm} dBm ; {frequency} GHz ; {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
+                tooltip-format-disconnected = "切";
               };
-              format = "{volume}{icon}";
-              format-bluetooth = "{volume}{icon}";
-              on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
-              ignored-sinks = [ "Easy Effects Sink" ];
-            };
-            "mpris" = {
-              format = "{status_icon}{player_icon}{dynamic}";
-              interval = 1;
-              tooltip-format = "{title} ; 作{artist} ; ア{album} ; {position} / {length}";
-              dynamic-len = 40;
-              player-icons.firefox = "ff";
-              player-icons.mpv = "mpv";
-              status-icons.playing = "生";
-              status-icons.paused = "停";
-              status-icons.stopped = "止";
-            };
-            "custom/light" = lib.mkIf cfg.hasBacklight {
-              exec = "${pkgs.light}/bin/light";
-              interval = 10;
-            };
-          } // (builtins.foldl' (a: b: a // b) {} (map (cfg: {
-            "custom/${cfg.key}" = genServiceStatus {
-              serviceName = cfg.serviceName;
-              key = cfg.key;
-            };
-          }) cfg.service-status));
+              "pulseaudio" = {
+                format-icons = {
+                  headphone = "ﾍ";
+                  hdmi = "H";
+                  bluetooth = "ᛒ";
+                };
+                format = "{volume}{icon}";
+                format-bluetooth = "{volume}{icon}";
+                on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+                ignored-sinks = [ "Easy Effects Sink" ];
+              };
+              "mpris" = {
+                format = "{status_icon}{player_icon}{dynamic}";
+                interval = 1;
+                tooltip-format = "{title} ; 作{artist} ; ア{album} ; {position} / {length}";
+                dynamic-len = 40;
+                player-icons.firefox = "ff";
+                player-icons.mpv = "mpv";
+                status-icons.playing = "生";
+                status-icons.paused = "停";
+                status-icons.stopped = "止";
+              };
+              "custom/light" = lib.mkIf cfg.hasBacklight {
+                exec = "${pkgs.light}/bin/light";
+                interval = 10;
+              };
+            }
+            // (builtins.foldl' (a: b: a // b) { } (
+              map (cfg: {
+                "custom/${cfg.key}" = genServiceStatus {
+                  serviceName = cfg.serviceName;
+                  key = cfg.key;
+                };
+              }) cfg.service-status
+            ));
         };
     };
 
