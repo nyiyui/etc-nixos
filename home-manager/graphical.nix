@@ -25,14 +25,27 @@ in
       default = false;
       description = "enable qrystal-device-client.service feature";
     };
-  options.nyiyui.nixosUpgrade =
-    with lib;
-    with types;
-    mkOption {
-      type = bool;
-      default = false;
-      description = "enable nixos-upgrade.service feature";
-    };
+  options.nyiyui.service-status = lib.mkOption {
+    type = (lib.types.listOf (lib.types.submodule {
+      options = {
+        serviceName = lib.mkOption {
+          type = lib.types.str;
+          default = "";
+          description = "service name to show in waybar";
+        };
+        key = lib.mkOption {
+          type = lib.types.str;
+          default = "";
+          description = "key to show in waybar";
+        };
+      };
+    }));
+    default = [
+      { serviceName = "hisame-sync.service"; key = "氷雨"; }
+      { serviceName = "backup-restic.service"; key = "b"; }
+    ];
+    description = "show service status in waybar";
+  };
 
   config = {
     i18n.inputMethod = {
@@ -84,31 +97,11 @@ in
               "network"
               "pulseaudio"
               "mpris"
-              (lib.mkIf cfg.hasBacklight "custom/light")
-              "custom/systemd-backup"
-              "custom/systemd-hisame"
-              (lib.mkIf cfg.nixosUpgrade "custom/systemd-nixos-upgrade")
-              (lib.mkIf cfg.qrystal "custom/systemd-qrystal-device-client")
+            ] ++ (map (cfg: "custom/${cfg.key}") cfg.service-status) ++ [
               "battery"
               "clock"
             ];
 
-            "custom/systemd-hisame" = genServiceStatus {
-              serviceName = "hisame-sync.service";
-              key = "氷雨";
-            };
-            "custom/systemd-backup" = genServiceStatus {
-              serviceName = "backup-restic.service";
-              key = "b";
-            };
-            "custom/systemd-nixos-upgrade" = lib.mkIf cfg.nixosUpgrade (genServiceStatus {
-              serviceName = "nixos-upgrade.service";
-              key = "u";
-            });
-            "custom/systemd-qrystal-device-client" = lib.mkIf cfg.qrystal (genServiceStatus {
-              serviceName = "qrystal-device-client.service";
-              key = "q";
-            });
             "battery" = {
               states.warning = 20;
               states.critical = 10;
@@ -172,7 +165,12 @@ in
               exec = "${pkgs.light}/bin/light";
               interval = 10;
             };
-          };
+          } // (builtins.foldl' (a: b: a // b) {} (map (cfg: {
+            "custom/${cfg.key}" = genServiceStatus {
+              serviceName = cfg.serviceName;
+              key = cfg.key;
+            };
+          }) cfg.service-status));
         };
     };
 
