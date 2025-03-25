@@ -119,6 +119,7 @@
       calc
 
       remmina # for RDP from hinanawi to minato
+      freerdp3 # RDP (remmina alternative)
       thunderbird
 
       cachix
