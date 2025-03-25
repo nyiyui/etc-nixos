@@ -137,4 +137,9 @@
     specialArgs.jts.packages.x86_64-linux.gtkui
     pkgs.unityhub
   ];
+
+  kiyurica.eduroam = {
+    enable = true;
+    interface = "wlp0s20f3";
+  };
 }
