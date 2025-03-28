@@ -78,6 +78,7 @@
             bindsym ${modifier}+Home mode default
           }
           bindsym ${modifier}+Home mode passthrough
+          for_window [class="sdl-freerdp"] floating disable
         ''
         + (lib.optionalString config.nyiyui.sway.noBorder ''
           default_border none
