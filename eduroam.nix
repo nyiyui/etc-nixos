@@ -12,7 +12,7 @@ in {
   };
   config = lib.mkIf config.kiyurica.eduroam.enable {
     networking.networkmanager.ensureProfiles.secrets.entries = [{
-      file = config.age.secrets.eduroam-client-cert.file;
+      file = config.age.secrets.eduroam-client-cert.path;
       key = "eduroam-client-cert";
       matchUuid = uuid;
       matchIface = config.kiyurica.eduroam.interface;

@@ -138,6 +138,8 @@
     pkgs.unityhub
   ];
 
+  kiyurica.tailscale.enable = true;
+
   kiyurica.eduroam = {
     enable = true;
     interface = "wlp0s20f3";
