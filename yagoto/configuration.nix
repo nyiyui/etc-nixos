@@ -21,6 +21,7 @@
     ./jts-server.nix
     ./gtxr-vrsa.nix
     ./headscale.nix
+    ../cosense-vector-search
   ];
 
   networking.firewall.allowedUDPPorts = [ 60410 ];
@@ -57,4 +58,9 @@
 
   systemd.timers.autoupgrade-pull.timerConfig.OnCalendar = lib.mkForce "hourly";
   system.autoUpgrade.dates = lib.mkForce "hourly";
+
+  kiyurica.services.cosense-vector-search = {
+    enable = true;
+    virtualHost = "https://cosense-vector-search.etc.kiyuri.ca";
+  };
 }
