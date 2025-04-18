@@ -2,15 +2,15 @@
 {
   imports = [
     home-manager.nixosModule
-    ({ config, lib, ... }: {
-      config = lib.mkIf config.system.autoUpgrade.enable {
-        home-manager.users.nyiyui = { ... }: {
-          nyiyui.service-status = [
-            { serviceName = "nixos-upgrade.service"; key = "↑"; }
-          ];
-        };
-      };
-    })
+    # ({ config, lib, ... }: {
+    #   config = lib.mkIf config.system.autoUpgrade.enable {
+    #     home-manager.users.nyiyui = { ... }: {
+    #       nyiyui.service-status = [
+    #         { serviceName = "nixos-upgrade.service"; key = "↑"; }
+    #       ];
+    #     };
+    #   };
+    # })
   ];
 
   home-manager.users.nyiyui = {
