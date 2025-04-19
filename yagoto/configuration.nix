@@ -63,4 +63,6 @@
     enable = true;
     virtualHost = "https://cosense-vector-search.etc.kiyuri.ca";
   };
+
+  virtualization.oci-containers.backend = "docker";
 }
