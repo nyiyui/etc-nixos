@@ -37,6 +37,7 @@ in
       {
         serviceConfig = {
           StateDirectory = "cosense-vector-search";
+          ExecStartPre = ''chown -R 8983:8983 /var/lib/cosense-vector-search''; # Ensure the Solr data directory is owned by the Solr user
         };
       };
 
