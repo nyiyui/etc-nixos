@@ -29,7 +29,6 @@ in
         "/portable0/cosense-vector-search/solr:/var/solr"
       ];
       cmd = [
-        "solr"
         "-c"
       ];
     };
