@@ -54,12 +54,13 @@ in
         serviceConfig =
           let
             script = pkgs.writeShellScriptBin "cosense-vector-search-query-server" ''
-              source ${config.age.secrets.cosense-vector-search-query-server.path}
+              source $CREDENTIALS_DIRECTORY/env
               ${python}/bin/python3 ${./server.py}
             '';
           in
           {
             DynamicUser = true;
+            LoadCredential = "env:${config.age.secrets.cosense-vector-search-query-server.path}";
             PrivateTmp = true;
             ExecStart = "${script}/bin/cosense-vector-search-query-server";
           };
