@@ -73,7 +73,7 @@ in
       enable = true;
       virtualHosts.${cfg.virtualHost} = {
         extraConfig = ''
-          handle_path /query {
+          handle_path /query* {
             basic_auth {
               kiyurica $2a$14$Q3pOoqbOiMvxQzPBFJU9UugGCtGjfYWoB70y/LJQw/GdpDriCy.Ce
             }
