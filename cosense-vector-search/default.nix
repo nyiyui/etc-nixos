@@ -20,6 +20,11 @@ in
       type = lib.types.port;
       default = 8983;
     };
+    queryServerPort = lib.mkOption {
+      description = "Localhost port for the query server (calls OpenAI to get a vector, and then does vector search).";
+      type = lib.types.port;
+      default = 45326;
+    };
   };
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers.cosense-vector-search = {
@@ -33,10 +38,38 @@ in
       ];
     };
 
+    systemd.services.cosense-vector-search-query-server = let
+      python = pkgs.python3.withPackages (ps: with ps; [ aiohttp openai requests ]);
+    in {
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ]; # network required to access OpenAI
+      description = "server to query OpenAI and do vector search";
+      environment = {
+        PORT = "${builtins.toString cfg.queryServerPort}";
+      };
+      serviceConfig = {
+        DynamicUser = true;
+        PrivateTmp = true;
+        ExecStart = pkgs.writeShellScriptBin "cosense-vector-search-query-server" ''
+          source ${config.age.secrets.cosense-vector-search-query-server.path}
+          ${python}/bin/python3 ${./server.py}
+        '';
+      };
+    };
+    age.secrets.cosense-vector-search-query-server = {
+      file = ../secrets/cosense-vector-search-query-server.env.age;
+    };
+
     services.caddy = {
       enable = true;
       virtualHosts.${cfg.virtualHost} = {
         extraConfig = ''
+          /search {
+            basic_auth {
+              kiyurica $2a$14$Ax/0zKwH9uAFfmByS2oQ/eQmrjoYM8iNOTdmHr9J/MGL0gZNHLpEq
+            }
+            reverse_proxy 127.0.0.1:${builtins.toString cfg.queryServerPort}
+          }
           basic_auth {
             kiyurica $2a$14$x2ZaCNUjl1Mf8.DORvBeVuDlw3W/8pZV.mR4j1MsMjWg3coaaatdW
           }
