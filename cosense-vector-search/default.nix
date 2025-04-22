@@ -51,16 +51,18 @@ in
         environment = {
           PORT = "${builtins.toString cfg.queryServerPort}";
         };
-        serviceConfig = let
-          script = pkgs.writeShellScriptBin "cosense-vector-search-query-server" ''
-            source ${config.age.secrets.cosense-vector-search-query-server.path}
-            ${python}/bin/python3 ${./server.py}
-          '';
-        in {
-          DynamicUser = true;
-          PrivateTmp = true;
-          ExecStart = "${script}/bin/cosense-vector-search-query-server";
-        };
+        serviceConfig =
+          let
+            script = pkgs.writeShellScriptBin "cosense-vector-search-query-server" ''
+              source ${config.age.secrets.cosense-vector-search-query-server.path}
+              ${python}/bin/python3 ${./server.py}
+            '';
+          in
+          {
+            DynamicUser = true;
+            PrivateTmp = true;
+            ExecStart = "${script}/bin/cosense-vector-search-query-server";
+          };
       };
     age.secrets.cosense-vector-search-query-server = {
       file = ../secrets/cosense-vector-search-query-server.env.age;
