@@ -55,7 +55,7 @@ in
           script = pkgs.writeShellScriptBin "cosense-vector-search-query-server" ''
             source ${config.age.secrets.cosense-vector-search-query-server.path}
             ${python}/bin/python3 ${./server.py}
-          ''
+          '';
         in {
           DynamicUser = true;
           PrivateTmp = true;
