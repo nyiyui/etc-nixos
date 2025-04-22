@@ -1,4 +1,11 @@
-{ config, lib, pkgs, home-manager, specialArgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  home-manager,
+  specialArgs,
+  ...
+}:
 
 {
   imports = [

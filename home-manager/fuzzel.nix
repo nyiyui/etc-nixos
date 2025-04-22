@@ -1,8 +1,11 @@
-{ ... }: {
+{ ... }:
+{
   programs.fuzzel = {
     enable = true;
     settings = {
-      main = { font = "Noto Sans:size=12"; };
+      main = {
+        font = "Noto Sans:size=12";
+      };
       colors = rec {
         background = "bec8d1cc";
         text = "137a7fff";

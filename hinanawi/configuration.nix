@@ -1,4 +1,12 @@
-{ specialArgs, config, lib, pkgs, home-manager, nixos-hardware, ... }:
+{
+  specialArgs,
+  config,
+  lib,
+  pkgs,
+  home-manager,
+  nixos-hardware,
+  ...
+}:
 
 {
   imports = [
@@ -34,7 +42,9 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Setup keyfile
-  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
+  boot.initrd.secrets = {
+    "/crypto_keyfile.bin" = null;
+  };
 
   # Enable swap on luks
   boot.initrd.luks.devices."luks-cfc0ad37-5315-44c7-ade3-24ebde45b146".device =
@@ -91,19 +101,21 @@
 
   nyiyui.desktop.sway.enable = true;
   nyiyui.greeter.gtkgreet.enable = true;
-  home-manager.users.nyiyui = { ... }: {
-    imports = [
-      ../home-manager/chromium.nix
-      ../home-manager/kde.nix
-      ../home-manager/rclone.nix
-      ../home-manager/activitywatch.nix
-    ];
-    nyiyui.qrystal = true;
-    nyiyui.hasBacklight = true;
-    nyiyui.services.seekback.enable = true;
-    # PAM requires fingerprint, so we can use touch to trigger PAM (instead of e.g. Enter key)
-    programs.swaylock.settings.submit-on-touch = true;
-  };
+  home-manager.users.nyiyui =
+    { ... }:
+    {
+      imports = [
+        ../home-manager/chromium.nix
+        ../home-manager/kde.nix
+        ../home-manager/rclone.nix
+        ../home-manager/activitywatch.nix
+      ];
+      nyiyui.qrystal = true;
+      nyiyui.hasBacklight = true;
+      nyiyui.services.seekback.enable = true;
+      # PAM requires fingerprint, so we can use touch to trigger PAM (instead of e.g. Enter key)
+      programs.swaylock.settings.submit-on-touch = true;
+    };
 
   nyiyui.networks.er605 = {
     enable = true;
@@ -113,12 +125,18 @@
   virtualisation.multipass.enable = true;
 
   virtualisation.docker.enable = true;
-  users.users.nyiyui.extraGroups = [ "docker" config.programs.ydotool.group ];
+  users.users.nyiyui.extraGroups = [
+    "docker"
+    config.programs.ydotool.group
+  ];
 
   programs.ydotool.enable = true;
 
-  environment.systemPackages =
-    [ pkgs.dnsmasq specialArgs.jts.packages.x86_64-linux.gtkui pkgs.unityhub ];
+  environment.systemPackages = [
+    pkgs.dnsmasq
+    specialArgs.jts.packages.x86_64-linux.gtkui
+    pkgs.unityhub
+  ];
 
   kiyurica.tailscale.enable = true;
 

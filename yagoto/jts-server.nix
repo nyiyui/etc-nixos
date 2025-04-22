@@ -1,20 +1,26 @@
-{ config, pkgs, specialArgs, ... }:
+{
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
 let
   jts = specialArgs.jts;
   port = "8713";
-  tokens = pkgs.writeText "tokens.json" (builtins.toJSON {
-    "jts_server_token_hash_e50cc3489331d46734b0b20e18148510159d7e8cc62823e38cfe73b6b7ce498f" =
-      {
+  tokens = pkgs.writeText "tokens.json" (
+    builtins.toJSON {
+      "jts_server_token_hash_e50cc3489331d46734b0b20e18148510159d7e8cc62823e38cfe73b6b7ce498f" = {
         Name = "hinanawi";
         Permissions = [ "database:sync" ];
       };
-    "jts_server_token_hash_e84fb02d9a44799e039c3d2b9d74781dba278ec77d16043832f1e36945107ea7" =
-      {
+      "jts_server_token_hash_e84fb02d9a44799e039c3d2b9d74781dba278ec77d16043832f1e36945107ea7" = {
         Name = "mitsu8";
         Permissions = [ "database:sync" ];
       };
-  });
-in {
+    }
+  );
+in
+{
   users.groups.jts-server = { };
   users.users.jts-server = {
     isSystemUser = true;
@@ -59,5 +65,8 @@ in {
       '';
     };
   };
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }
