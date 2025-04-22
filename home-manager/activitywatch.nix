@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   services.activitywatch = {
     enable = true;
     package = pkgs.aw-server-rust;

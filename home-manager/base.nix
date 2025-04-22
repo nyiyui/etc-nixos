@@ -1,8 +1,6 @@
 {
   # import modules with mkEnableOption
-  imports = [
-    ./seekback.nix
-  ];
+  imports = [ ./seekback.nix ];
 
   nixpkgs.config.allowUnfree = true;
 

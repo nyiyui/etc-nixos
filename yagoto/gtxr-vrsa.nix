@@ -1,13 +1,6 @@
-{
-  config,
-  pkgs,
-  specialArgs,
-  ...
-}:
-let
-  port = "8714";
-in
-{
+{ config, pkgs, specialArgs, ... }:
+let port = "8714";
+in {
   systemd.services.polar-data-collector-server = {
     script = ''
       ${
@@ -35,8 +28,5 @@ in
       '';
     };
   };
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

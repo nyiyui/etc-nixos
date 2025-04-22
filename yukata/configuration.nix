@@ -1,12 +1,4 @@
-{
-  specialArgs,
-  config,
-  lib,
-  pkgs,
-  home-manager,
-  nixos-hardware,
-  ...
-}:
+{ specialArgs, config, lib, pkgs, home-manager, nixos-hardware, ... }:
 
 {
   imports = [
@@ -52,8 +44,5 @@
     virtualHost = "https://cosense-vector-search.etc.kiyuri.ca";
   };
 
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

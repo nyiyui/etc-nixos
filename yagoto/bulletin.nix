@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   age.secrets.bulletin-origincert = {
     file = ../secrets/bulletin.nyiyui.ca.origincert.pem.age;
     owner = "caddy";
@@ -20,8 +19,5 @@
       '';
     };
   };
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

@@ -1,11 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  home-manager,
-  qrystal,
-  ...
-}:
+{ config, lib, pkgs, home-manager, qrystal, ... }:
 
 {
   imports = [

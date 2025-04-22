@@ -1,9 +1,6 @@
-{ ... }:
-{
+{ ... }: {
   services.ollama = {
     enable = true;
-    loadModels = [
-      "nomic-embed-text"
-    ];
+    loadModels = [ "nomic-embed-text" ];
   };
 }
