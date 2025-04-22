@@ -57,7 +57,7 @@ in {
         extraConfig = ''
           handle_path /query {
             basic_auth {
-              kiyurica $2a$14$Ax/0zKwH9uAFfmByS2oQ/eQmrjoYM8iNOTdmHr9J/MGL0gZNHLpEq
+              kiyurica $2a$14$Q3pOoqbOiMvxQzPBFJU9UugGCtGjfYWoB70y/LJQw/GdpDriCy.Ce
             }
             reverse_proxy 127.0.0.1:${builtins.toString cfg.queryServerPort}
           }
