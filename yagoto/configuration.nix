@@ -65,4 +65,8 @@
   };
 
   virtualisation.oci-containers.backend = "docker";
+
+  users.users.nyiyui.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK6DYfAp1qabyJ4Wt684DJQdyGgKx+ObKNaRtrBClS7P gaming@localhost.localdomain"
+  ];
 }
