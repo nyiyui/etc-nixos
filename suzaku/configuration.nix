@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./disko-config.nix
+      ../secureboot.nix
       specialArgs.disko.nixosModules.disko
       specialArgs.impermanence.nixosModules.impermanence
     ];
