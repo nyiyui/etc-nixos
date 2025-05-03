@@ -75,7 +75,7 @@
       nixosConfigurations.suzaku = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // { inherit system; };
-        modules = [ ./suzaku/configuration.nix suzaku.nixosModules.default ];
+        modules = [ ./suzaku/configuration.nix agenix.nixosModules.default ];
       };
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
