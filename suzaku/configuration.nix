@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./disko-config.nix
       specialArgs.disko.nixosModules.disko
+      specialArgs.impermanence.nixosModules.impermanence
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -122,4 +123,27 @@
 
   networking.hostName = "suzaku";
 
+  environment.persistence."/persist" = {
+    hideMounts = true;
+    directories = [
+      "/var/log"
+      "/var/lib/bluetooth"
+      "/var/lib/nixos"
+      "/var/lib/systemd/coredump"
+      "/etc/NetworkManager/system-connections"
+    ];
+    files = [
+      "/etc/machine-id"
+      { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
+    ];
+    users.talyz = {
+      directories = [
+        "inaba"
+        { directory = ".ssh"; mode = "0700"; }
+        { directory = ".nixops"; mode = "0700"; }
+        { directory = ".local/share/keyrings"; mode = "0700"; }
+        ".local/share/direnv"
+      ];
+    };
+  };
 }
