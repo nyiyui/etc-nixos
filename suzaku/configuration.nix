@@ -136,7 +136,7 @@
       "/etc/machine-id"
       { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
     ];
-    users.talyz = {
+    users.kiyurica = {
       directories = [
         "inaba"
         { directory = ".ssh"; mode = "0700"; }
