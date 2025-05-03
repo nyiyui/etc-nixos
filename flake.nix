@@ -32,6 +32,8 @@
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
     polar-data-collector.url = "github:VR-state-analysis/polar-data-collector";
     polar-data-collector.inputs.nixpkgs.follows = "nixpkgs";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, agenix, nixpkgs, qrystal, flake-utils, niri, lanzaboote
@@ -69,6 +71,11 @@
         system = "x86_64-linux";
         specialArgs = attrs // { inherit system; };
         modules = [ ./yukata/configuration.nix agenix.nixosModules.default ];
+      };
+      nixosConfigurations.suzaku = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = attrs // { inherit system; };
+        modules = [ ./suzaku/configuration.nix suzaku.nixosModules.default ];
       };
     } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
       let pkgs = nixpkgs.legacyPackages.${system};
