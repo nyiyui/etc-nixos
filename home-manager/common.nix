@@ -3,7 +3,6 @@
 {
   imports = [
     ./base.nix
-    ./per.nix
     ./tmux.nix
     ./grc.nix
     ./pexec.nix

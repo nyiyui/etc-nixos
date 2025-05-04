@@ -65,6 +65,14 @@
     kiyurica.services.seekback.enable = true;
     # PAM requires fingerprint, so we can use touch to trigger PAM (instead of e.g. Enter key)
     programs.swaylock.settings.submit-on-touch = true;
+
+    wayland.windowManager.sway.config = {
+      output."eDP-1" = {
+        mode = "2880x1800@60.001Hz";
+        scale = "1.5";
+        adaptive_sync = "on";
+      };
+    };
   };
 
   kiyurica.networks.er605 = {
