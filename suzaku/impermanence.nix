@@ -4,11 +4,10 @@
     hideMounts = true;
     directories = [
       "/var/log"
-      "/var/lib/bluetooth"
-      "/var/lib/nixos"
+      "/var/lib"
       "/etc/secureboot"
-      "/var/lib/systemd/coredump"
       "/etc/NetworkManager/system-connections"
+      "/etc/ssh"
     ];
     files = [
       "/etc/machine-id"
@@ -19,6 +18,8 @@
         "inaba"
         { directory = ".ssh"; mode = "0700"; }
         ".local/share/direnv"
+        ".mozilla/firefox"
+        ".thunderbird"
       ];
     };
   };
