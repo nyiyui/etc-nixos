@@ -46,7 +46,6 @@
     blueman
     file
     picocom
-    networkmanager
   ];
 
   fonts.packages = with pkgs; [
@@ -86,10 +85,9 @@
   # Polkit
   security.polkit.enable = true;
 
-  # KDE workaround
-  programs.dconf.enable = true;
-
   services.udisks2.enable = true;
 
   services.locate.enable = true;
+
+  networking.networkmanager.enable = true;
 }

@@ -19,7 +19,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.networkmanager.enable = true;
   networking.firewall.allowedTCPPorts = [ 8001 ];
 
   i18n.defaultLocale = "ja_JP.UTF-8";
