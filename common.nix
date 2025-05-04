@@ -39,7 +39,7 @@
     blueman
     file
     picocom
-    nmtui
+    networkmanager
   ];
 
   fonts.packages = with pkgs; [
