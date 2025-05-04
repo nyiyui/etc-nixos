@@ -1,7 +1,5 @@
 { pkgs, ... }: {
-  imports = [
-    ./all-modules.nix
-  ];
+  imports = [ ./all-modules.nix ];
 
   users.groups.kiyurica = { };
   users.users.kiyurica = {

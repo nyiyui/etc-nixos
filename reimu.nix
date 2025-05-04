@@ -70,7 +70,8 @@ in {
             endpoint =
               if cfg.udp2raw.enable then cfg.udp2raw.addr else cfg.endpoint;
             persistentKeepalive = 30;
-            dynamicEndpointRefreshRestartSeconds = 10; # dns resolver (dnscrypt?) is flaky on mitsu8
+            dynamicEndpointRefreshRestartSeconds =
+              10; # dns resolver (dnscrypt?) is flaky on mitsu8
           }];
         };
       };

@@ -5,31 +5,31 @@
 { config, lib, pkgs, specialArgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./disko-config.nix
-      ./impermanence.nix
-      ../secureboot.nix
-      ../fprint.nix
-      ../syncthing.nix
-      ../thunderbolt.nix
-      ../common.nix
-      ../power.nix
-      ../vlc.nix
-      ../tpm.nix
-      ../adb.nix
-      ../sway.nix
-      ../vnc.nix
-      ../virt.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./disko-config.nix
+    ./impermanence.nix
+    ../secureboot.nix
+    ../fprint.nix
+    ../syncthing.nix
+    ../thunderbolt.nix
+    ../common.nix
+    ../power.nix
+    ../vlc.nix
+    ../tpm.nix
+    ../adb.nix
+    ../sway.nix
+    ../vnc.nix
+    ../virt.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   users.users.kiyurica = {
-    initialHashedPassword = "$y$j9T$g5xm0pLBFbK4W4c5BIENt/$D18bkwRRxH/MjSlInTZfvd2vE4Mxa.RQXARitTirV64";
+    initialHashedPassword =
+      "$y$j9T$g5xm0pLBFbK4W4c5BIENt/$D18bkwRRxH/MjSlInTZfvd2vE4Mxa.RQXARitTirV64";
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
@@ -59,17 +59,13 @@
 
   kiyurica.desktop.sway.enable = true;
   kiyurica.greeter.gtkgreet.enable = true;
-  home-manager.users.kiyurica =
-    { ... }:
-    {
-      imports = [
-        ../home-manager/activitywatch.nix
-      ];
-      kiyurica.hasBacklight = true;
-      kiyurica.services.seekback.enable = true;
-      # PAM requires fingerprint, so we can use touch to trigger PAM (instead of e.g. Enter key)
-      programs.swaylock.settings.submit-on-touch = true;
-    };
+  home-manager.users.kiyurica = { ... }: {
+    imports = [ ../home-manager/activitywatch.nix ];
+    kiyurica.hasBacklight = true;
+    kiyurica.services.seekback.enable = true;
+    # PAM requires fingerprint, so we can use touch to trigger PAM (instead of e.g. Enter key)
+    programs.swaylock.settings.submit-on-touch = true;
+  };
 
   kiyurica.networks.er605 = {
     enable = true;

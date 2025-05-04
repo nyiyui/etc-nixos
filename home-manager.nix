@@ -1,8 +1,5 @@
-{ config, home-manager, ... }:
-{
-  imports = [
-    home-manager.nixosModule
-  ];
+{ config, home-manager, ... }: {
+  imports = [ home-manager.nixosModule ];
 
   home-manager.users.kiyurica = {
     imports = [ ./home-manager/base.nix ];

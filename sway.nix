@@ -7,7 +7,7 @@
     home-manager.users.kiyurica = {
       imports = [ ./home-manager/graphical.nix ./home-manager/sway.nix ];
     };
-  
+
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
@@ -21,12 +21,10 @@
         comment = "Sway-based session managed by UWSM";
       };
     };
-  
+
     xdg.portal = {
       enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-      ];
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
       wlr = {
         enable = true;
         settings.screencast.max_fps = 30;

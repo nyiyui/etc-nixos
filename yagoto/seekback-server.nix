@@ -1,22 +1,15 @@
-{
-  config,
-  pkgs,
-  specialArgs,
-  ...
-}:
+{ config, pkgs, specialArgs, ... }:
 let
   seekback-server = specialArgs.seekback-server;
   port = "8712";
-  tokens = pkgs.writeText "tokens.json" (
-    builtins.toJSON {
-      # for jks.nix
-      "seekback_server_token_hash_52dae1ac64d172da29ddb2d0366f72ff4eeba75202b1afc3cf431ad2eed0eff5" = {
+  tokens = pkgs.writeText "tokens.json" (builtins.toJSON {
+    # for jks.nix
+    "seekback_server_token_hash_52dae1ac64d172da29ddb2d0366f72ff4eeba75202b1afc3cf431ad2eed0eff5" =
+      {
         Permissions = [ "read:events" ];
       };
-    }
-  );
-in
-{
+  });
+in {
   users.groups.seekback-server = { };
   users.users.seekback-server = {
     isSystemUser = true;
@@ -63,8 +56,5 @@ in
       '';
     };
   };
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

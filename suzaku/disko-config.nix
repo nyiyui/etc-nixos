@@ -16,9 +16,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [
-                  "defaults"
-                ];
+                mountOptions = [ "defaults" ];
               };
             };
             luks = {
@@ -41,9 +39,9 @@
                       mountpoint = "/";
                       mountOptions = [ "compress=zstd" "noatime" ];
                     };
-		    "/old_roots" = {
+                    "/old_roots" = {
                       mountOptions = [ "compress=zstd" "noatime" ];
-		    };
+                    };
                     "/persist" = {
                       mountpoint = "/persist";
                       mountOptions = [ "compress=zstd" "noatime" ];

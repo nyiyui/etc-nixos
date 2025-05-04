@@ -21,7 +21,7 @@
         "Q3DTKLX-XRLSA2W-UIFZHEV-X4EEVXH-6GNXGV6-EI3D2TZ-XVTXJ4X-4FZJDQT";
       "sawako".id =
         "6UX4AQF-M2V2BIC-GUKGHBI-67CMCYC-KCLGCZN-D5HPIIB-T3IKTCX-5DIFFQ7";
-      "yagoto".id = 
+      "yagoto".id =
         "DAORBQH-BYFZ4WX-6BQA6FB-QBQ5MU3-LQL3OGL-HBX6QW2-654SDTK-E6ZW4AK";
       "sekisho".id =
         "GZI3EIZ-THXPOCR-3JW4BSP-GVQDDF7-ENZ3N3Z-PTLLRG2-4VPUKI7-XZOIHQ6";
@@ -34,7 +34,15 @@
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/kiyurica/inaba";
-        devices = [ "hinanawi" "makura" "minato" "yagoto" "sekisho" "sekisho2" "suzaku" ];
+        devices = [
+          "hinanawi"
+          "makura"
+          "minato"
+          "yagoto"
+          "sekisho"
+          "sekisho2"
+          "suzaku"
+        ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
@@ -45,7 +53,8 @@
         id = "e2kwg-rebhd";
         label = "GF-01";
         path = "/home/kiyurica/inaba/geofront";
-        devices = [ "hinanawi" "makura" "sekisho" "yagoto" "sekisho2" "suzaku" ];
+        devices =
+          [ "hinanawi" "makura" "sekisho" "yagoto" "sekisho2" "suzaku" ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
         ignoreDelete = true;
@@ -66,11 +75,12 @@
   };
 
   home-manager.users.kiyurica = { lib, ... }: {
-    home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text = lib.mkDefault ''
-      .direnv
-      /hisame
-      __pycache__
-      .direnv
-    '';
+    home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text =
+      lib.mkDefault ''
+        .direnv
+        /hisame
+        __pycache__
+        .direnv
+      '';
   };
 }

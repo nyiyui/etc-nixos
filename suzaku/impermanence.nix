@@ -11,12 +11,18 @@
     ];
     files = [
       "/etc/machine-id"
-      { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
+      {
+        file = "/var/keys/secret_file";
+        parentDirectory = { mode = "u=rwx,g=,o="; };
+      }
     ];
     users.kiyurica = {
       directories = [
         "inaba"
-        { directory = ".ssh"; mode = "0700"; }
+        {
+          directory = ".ssh";
+          mode = "0700";
+        }
         ".local/share/direnv"
         ".local/share/fish"
         ".local/share/nvim"
@@ -40,7 +46,7 @@
           timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
           mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
       fi
-  
+
       delete_subvolume_recursively() {
           IFS=$'\n'
           for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
@@ -48,11 +54,11 @@
           done
           btrfs subvolume delete "$1"
       }
-  
+
       for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
           delete_subvolume_recursively "$i"
       done
-  
+
       btrfs subvolume create /btrfs_tmp/root
       umount /btrfs_tmp
     '';

@@ -34,10 +34,8 @@
     impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = { self, agenix, nixpkgs, flake-utils, niri, lanzaboote
-    , ... }@attrs:
-    let
-      pkgs = import nixpkgs { config.allowUnfree = true; };
+  outputs = { self, agenix, nixpkgs, flake-utils, niri, lanzaboote, ... }@attrs:
+    let pkgs = import nixpkgs { config.allowUnfree = true; };
     in rec {
       nixosConfigurations.mitsu8 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";

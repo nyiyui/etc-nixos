@@ -1,9 +1,1 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
-  home.packages = with pkgs; [ kicad ];
-}
+{ config, lib, pkgs, ... }: { home.packages = with pkgs; [ kicad ]; }
