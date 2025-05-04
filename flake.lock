@@ -525,30 +525,6 @@
         "type": "github"
       }
     },
-    "qrystal": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1746150360,
-        "narHash": "sha256-aDJCWcBwNeEZ91OPQ9xfuxd9Sbff50ufDZuNS3yIeSE=",
-        "owner": "nyiyui",
-        "repo": "qrystal",
-        "rev": "6622f342ed4b92cdc294091906fb0088d7f079c9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nyiyui",
-        "ref": "next2goal",
-        "repo": "qrystal",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -564,7 +540,6 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
         "polar-data-collector": "polar-data-collector",
-        "qrystal": "qrystal",
         "seekback": "seekback",
         "seekback-server": "seekback-server",
         "touhoukou": "touhoukou"
