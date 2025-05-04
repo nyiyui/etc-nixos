@@ -39,6 +39,7 @@
     blueman
     file
     picocom
+    nmtui
   ];
 
   fonts.packages = with pkgs; [
