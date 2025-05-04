@@ -1,6 +1,5 @@
 { specialArgs, pkgs, lib, ... }: {
   imports = [ specialArgs.lanzaboote.nixosModules.lanzaboote ];
-
   # cf. https://discourse.nixos.org/t/tpm2-luks-unlock-not-working/52342
 
   environment.systemPackages = with pkgs; [
