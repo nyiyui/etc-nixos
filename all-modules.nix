@@ -5,5 +5,6 @@
     ./sway.nix
     ./gtkgreet.nix
     ./tailscale.nix
+    ./autoUpgrade-git.nix
   ];
 }

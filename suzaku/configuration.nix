@@ -75,4 +75,6 @@
     enable = true;
     address = "10.9.0.97/32";
   };
+
+  autoUpgrade.directFlake = true;
 }
