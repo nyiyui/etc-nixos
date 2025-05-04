@@ -40,6 +40,9 @@
                       mountpoint = "/";
                       mountOptions = [ "compress=zstd" "noatime" ];
                     };
+		    "/old_roots" = {
+                      mountOptions = [ "compress=zstd" "noatime" ];
+		    };
                     "/persist" = {
                       mountpoint = "/persist";
                       mountOptions = [ "compress=zstd" "noatime" ];
