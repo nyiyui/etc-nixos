@@ -14,6 +14,7 @@
     ./pexec.nix
     ./neovim.nix
     ./fonts.nix
+    ./firefox.nix
   ];
 
   programs.git = {
