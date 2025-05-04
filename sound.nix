@@ -6,7 +6,7 @@
     pulse.enable = true;
   };
 
-  home-manager.users.nyiyui = {
+  home-manager.users.kiyurica = {
     imports = [ ({ pkgs, ... }: { home.packages = [ pkgs.helvum ]; }) ];
   };
 }

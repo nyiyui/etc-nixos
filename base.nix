@@ -3,11 +3,11 @@
     ./all-modules.nix
   ];
 
-  users.groups.nyiyui = { };
-  users.users.nyiyui = {
+  users.groups.kiyurica = { };
+  users.users.kiyurica = {
     isNormalUser = true;
     description = "Ken Shibata";
-    group = "nyiyui";
+    group = "kiyurica";
     extraGroups = [ "wheel" ];
     packages = with pkgs; [ git ];
     openssh.authorizedKeys.keys = [
@@ -17,7 +17,7 @@
     homeMode = "770";
   };
 
-  nix.settings.trusted-users = [ "nyiyui" ];
+  nix.settings.trusted-users = [ "kiyurica" ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;
   nixpkgs.config.allowUnfree = true;

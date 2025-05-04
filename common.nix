@@ -54,19 +54,18 @@
   # TODO: use username@hostname syntax to separate per-host home manager flake thingl
   # https://discourse.nixos.org/t/get-hostname-in-home-manager-flake-for-host-dependent-user-configs/18859/2
 
-  home-manager.users.nyiyui = {
+  home-manager.users.kiyurica = {
     imports = [ ./home-manager/common.nix ];
   };
   home-manager.extraSpecialArgs = specialArgs;
 
-  users.groups.nyiyui = { };
-  users.users.nyiyui = {
+  users.groups.kiyurica = { };
+  users.users.kiyurica = {
     isNormalUser = true;
     description = "Ken Shibata";
-    group = "nyiyui";
+    group = "kiyurica";
     extraGroups =
       [ "uucp" "networkmanager" "wheel" "video" "libvirtd" "dialout" ];
-    packages = with pkgs; [ firefox chromium syncthing git ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBbPVUjEWdEEWgE7z78euFUVJtNzQ4267esBzytfqeWmGhfjkEoe9TdJRvOily0jn0TVrvAxdXYqMksB4WUkhfY="
@@ -74,7 +73,7 @@
     homeMode = "770";
   };
 
-  nix.settings.trusted-users = [ "nyiyui" ];
+  nix.settings.trusted-users = [ "kiyurica" ];
 
   environment.shells = [ pkgs.fish ];
 

@@ -20,19 +20,19 @@ in {
     users.users.hisame = {
       isSystemUser = true;
       group = "hisame";
-      extraGroups = [ "nyiyui" ];
+      extraGroups = [ "kiyurica" ];
       description = "sync with digital paper";
     };
     age.secrets."hisame/privatekey.dat" = {
       file = ./secrets/hisame/privatekey.dat.age;
-      owner = "nyiyui";
-      group = "nyiyui";
+      owner = "kiyurica";
+      group = "kiyurica";
       mode = "400";
     };
     age.secrets."hisame/deviceid.dat" = {
       file = ./secrets/hisame/deviceid.dat.age;
-      owner = "nyiyui";
-      group = "nyiyui";
+      owner = "kiyurica";
+      group = "kiyurica";
       mode = "400";
     };
     services.avahi.enable = true;

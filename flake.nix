@@ -4,9 +4,6 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    qrystal.url = "github:nyiyui/qrystal/next2goal";
-    qrystal.inputs.nixpkgs.follows = "nixpkgs";
-    qrystal.inputs.flake-utils.follows = "flake-utils";
     jks.url = "github:nyiyui/jks";
     jks.inputs.nixpkgs.follows = "nixpkgs";
     jks.inputs.flake-utils.follows = "flake-utils";
@@ -37,7 +34,7 @@
     impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = { self, agenix, nixpkgs, qrystal, flake-utils, niri, lanzaboote
+  outputs = { self, agenix, nixpkgs, flake-utils, niri, lanzaboote
     , ... }@attrs:
     let
       pkgs = import nixpkgs { config.allowUnfree = true; };

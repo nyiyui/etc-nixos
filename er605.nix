@@ -1,14 +1,14 @@
 { config, lib, ... }: {
   # NOTE: make sure you configure the peer on the ER605.
-  options.nyiyui.networks.er605.enable = lib.mkEnableOption "ER605 wireguard network";
-  options.nyiyui.networks.er605.address = lib.mkOption {
+  options.kiyurica.networks.er605.enable = lib.mkEnableOption "ER605 wireguard network";
+  options.kiyurica.networks.er605.address = lib.mkOption {
     type = lib.types.str;
     description = "this device's network IPv4 address in CIDR format";
   };
 
-  config = lib.mkIf config.nyiyui.networks.er605.enable {
+  config = lib.mkIf config.kiyurica.networks.er605.enable {
     networking.wireguard.interfaces.er605 = {
-      ips = [ config.nyiyui.networks.er605.address ];
+      ips = [ config.kiyurica.networks.er605.address ];
       privateKeyFile = config.age.secrets.er605-privkey.path;
       peers = [
         {

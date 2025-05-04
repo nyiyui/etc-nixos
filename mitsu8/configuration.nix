@@ -21,7 +21,6 @@
     ../sound.nix
     ../sway.nix # window manager
     ../autoUpgrade-https.nix # autoupgrade scripts
-    ../qrystal.nix # another VPN
     ../vlc.nix # VLC with Blu-ray decode keys
   ];
 
@@ -37,12 +36,12 @@
 
   services.xserver.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
-  nyiyui.desktop.sway.enable = true;
+  kiyurica.desktop.sway.enable = true;
   services.greetd = {
     enable = true;
     settings.default_session = {
       command = "uwsm start /run/current-system/sw/bin/sway";
-      user = "nyiyui";
+      user = "kiyurica";
     };
   };
 
@@ -92,7 +91,7 @@
     hack-font # waybar :)
   ];
 
-  home-manager.users.nyiyui = {
+  home-manager.users.kiyurica = {
     # gamma
     services.wlsunset.temperature.night = 4000;
 
@@ -118,15 +117,15 @@
     };
 
     # mainly for watching tv, so we don't want idle-lock
-    nyiyui.graphical.idle = false;
+    kiyurica.graphical.idle = false;
     # borders needed for normies
-    nyiyui.sway.noBorder = false;
+    kiyurica.sway.noBorder = false;
     wayland.windowManager.sway.config.window.titlebar = true;
     # we want each window to be ~fullscreen
     wayland.windowManager.sway.extraConfig = ''
       workspace_layout tabbed
     '';
-    nyiyui.graphical.background = false;
+    kiyurica.graphical.background = false;
   };
 
   environment.systemPackages = [

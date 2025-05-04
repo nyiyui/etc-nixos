@@ -6,12 +6,12 @@
   ...
 }:
 let
-  sockPath = "/home/nyiyui/.cache/seekback.sock";
+  sockPath = "/home/kiyurica/.cache/seekback.sock";
 in
 {
-  options.nyiyui.services.seekback.enable = lib.mkEnableOption "ring buffer of audio";
+  options.kiyurica.services.seekback.enable = lib.mkEnableOption "ring buffer of audio";
 
-  config = lib.mkIf config.nyiyui.services.seekback.enable {
+  config = lib.mkIf config.kiyurica.services.seekback.enable {
     systemd.user.services.seekback = {
       Unit = {
         Description = "Seekback: replay audio from the past";
@@ -24,8 +24,8 @@ in
             specialArgs.seekback.packages.${pkgs.system}.default
           }/bin/seekback"
           + " -buffer-size 500000"
-          + " -name '/home/nyiyui/inaba/seekback/%%s.aiff'"
-          + " -latest-name /home/nyiyui/.cache/seekback-latest.aiff";
+          + " -name '/home/kiyurica/inaba/seekback/%%s.aiff'"
+          + " -latest-name /home/kiyurica/.cache/seekback-latest.aiff";
         Restart = "on-failure";
         RestartSec = 3;
       };

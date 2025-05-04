@@ -18,8 +18,8 @@
 
   programs.git = {
     enable = true;
-    userName = "nyiyui";
-    userEmail = "+@nyiyui.ca";
+    userName = "Ken Shibata";
+    userEmail = "ken.shibata+git@kiyuri.ca";
     extraConfig = {
       init.defaultBranch = "main";
       url."ssh://git@github.com".insteadOf = "https://github.com";

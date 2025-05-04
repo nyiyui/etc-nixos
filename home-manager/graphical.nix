@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.nyiyui;
+  cfg = config.kiyurica;
 in
 {
-  options.nyiyui.hasBacklight =
+  options.kiyurica.hasBacklight =
     with lib;
     with types;
     mkOption {
@@ -17,15 +17,7 @@ in
       default = false;
       description = "enable backlight features";
     };
-  options.nyiyui.qrystal =
-    with lib;
-    with types;
-    mkOption {
-      type = bool;
-      default = false;
-      description = "enable qrystal-device-client.service feature";
-    };
-  options.nyiyui.service-status = lib.mkOption {
+  options.kiyurica.service-status = lib.mkOption {
     type = (
       lib.types.listOf (
         lib.types.submodule {

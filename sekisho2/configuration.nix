@@ -14,22 +14,18 @@
     ../common.nix
     home-manager.nixosModule
     ../autoUpgrade-https.nix
-    ../qrystal.nix
     ../syncthing.nix
     ../virt.nix
     # syncthing is on Windows host (sekisho)
     # have a syncthing for WSL instead, so we don't have filename restrictions ):
   ];
 
-  services.qrystal-device-client.config.CanForward = false; # WSL
-
   networking.hostName = "sekisho2";
   wsl.wslConf.network.hostname = "sekisho2";
-  wsl.wslConf.network.generateResolvConf = false; # use qrystal nameservers
-  wsl.wslConf.user.default = "nyiyui";
+  wsl.wslConf.user.default = "kiyurica";
 
   wsl.enable = true;
-  wsl.defaultUser = "nyiyui";
+  wsl.defaultUser = "kiyurica";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

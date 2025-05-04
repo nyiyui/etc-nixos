@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-  options.nyiyui.greeter.gtkgreet = {
+  options.kiyurica.greeter.gtkgreet = {
     enable = lib.mkEnableOption "greeter based on greetd with gtkgreet running on sway";
     extraSwayConfig = lib.mkOption {
       type = lib.types.str;
@@ -8,7 +8,7 @@
     };
   };
 
-  config = lib.mkIf config.nyiyui.greeter.gtkgreet.enable {
+  config = lib.mkIf config.kiyurica.greeter.gtkgreet.enable {
     services.greetd = {
       enable = true;
       settings.default_session =
@@ -18,7 +18,7 @@
             exec "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; swaymsg exit"
             exec "${pkgs.wlsunset}/bin/wlsunset -L -79.38 -T 6500 -g 1.000000 -l 43.65 -t 2000"
             bindsym Mod4+shift+e exec swaynag -t warning -m 'Action?' -b 'Poweroff' 'systemctl poweroff' -b 'Reboot' 'systemctl reboot'
-          '' + config.nyiyui.greeter.gtkgreet.extraSwayConfig);
+          '' + config.kiyurica.greeter.gtkgreet.extraSwayConfig);
           script = pkgs.writeShellScriptBin "greet.sh" ''
             ${pkgs.sway}/bin/sway --config ${swayConfig}
           '';

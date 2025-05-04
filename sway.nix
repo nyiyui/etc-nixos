@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }: {
   imports = [ ./home-manager.nix ];
 
-  options.nyiyui.desktop.sway.enable = lib.mkEnableOption "Sway-based";
+  options.kiyurica.desktop.sway.enable = lib.mkEnableOption "Sway-based";
 
-  config = lib.mkIf config.nyiyui.desktop.sway.enable {
-    home-manager.users.nyiyui = {
+  config = lib.mkIf config.kiyurica.desktop.sway.enable {
+    home-manager.users.kiyurica = {
       imports = [ ./home-manager/graphical.nix ./home-manager/sway.nix ];
     };
   

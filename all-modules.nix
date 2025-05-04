@@ -4,8 +4,6 @@
     ./er605.nix
     ./sway.nix
     ./gtkgreet.nix
-    ./lisgd.nix
     ./tailscale.nix
-    ./eduroam.nix
   ];
 }

@@ -24,7 +24,7 @@
               systemctl --user is-active wvkbd && systemctl --user stop wvkbd || systemctl --user start wvkbd
             '';
           in
-          lib.mkIf config.nyiyui.graphical.onScreenKeyboard.enable {
+          lib.mkIf config.kiyurica.graphical.onScreenKeyboard.enable {
             modules-left = [
               "custom/keyboard-toggle"
               "custom/fuzzel-launch"
@@ -45,21 +45,21 @@
     )
   ];
 
-  options.nyiyui.sway.noBorder = lib.mkOption {
+  options.kiyurica.sway.noBorder = lib.mkOption {
     type = lib.types.bool;
     default = true;
     description = "Disable window borders";
   };
 
-  options.nyiyui.graphical.onScreenKeyboard.enable = lib.mkEnableOption "on-screen keyboard";
+  options.kiyurica.graphical.onScreenKeyboard.enable = lib.mkEnableOption "on-screen keyboard";
 
-  options.nyiyui.graphical.idle = lib.mkOption {
+  options.kiyurica.graphical.idle = lib.mkOption {
     type = lib.types.bool;
     default = true;
     description = "Sleep, lock, etc on idle";
   };
 
-  options.nyiyui.graphical.background = lib.mkOption {
+  options.kiyurica.graphical.background = lib.mkOption {
     type = lib.types.bool;
     default = true;
     description = "background/wallpaper image";
@@ -80,7 +80,7 @@
           bindsym ${modifier}+Home mode passthrough
           for_window [class="sdl-freerdp"] floating disable
         ''
-        + (lib.optionalString config.nyiyui.sway.noBorder ''
+        + (lib.optionalString config.kiyurica.sway.noBorder ''
           default_border none
           default_floating_border none
         '');
@@ -183,7 +183,7 @@
     };
   };
 
-  config.systemd.user.services.swayidle = lib.mkIf config.nyiyui.graphical.idle {
+  config.systemd.user.services.swayidle = lib.mkIf config.kiyurica.graphical.idle {
     Unit = {
       Description = "swaywm: sleep, lock, etc on idle";
       PartOf = [ "graphical-session.target" ];
@@ -203,7 +203,7 @@
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
-  config.systemd.user.services.systemd-lock-handler = lib.mkIf config.nyiyui.graphical.idle {
+  config.systemd.user.services.systemd-lock-handler = lib.mkIf config.kiyurica.graphical.idle {
     Service = {
       ExecStart = "/run/current-system/sw/bin/swaylock";
       Type = "forking";
@@ -213,7 +213,7 @@
     Install.WantedBy = [ "lock.target" ];
   };
 
-  config.systemd.user.services.swaybg = lib.mkIf config.nyiyui.graphical.background {
+  config.systemd.user.services.swaybg = lib.mkIf config.kiyurica.graphical.background {
     Unit = {
       Description = "swaywm background";
       PartOf = [ "graphical-session.target" ];
@@ -228,7 +228,7 @@
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
-  config.systemd.user.services.wvkbd = lib.mkIf config.nyiyui.graphical.onScreenKeyboard.enable {
+  config.systemd.user.services.wvkbd = lib.mkIf config.kiyurica.graphical.onScreenKeyboard.enable {
     Unit = {
       Description = "on-screen keyboard";
       PartOf = [ "graphical-session.target" ];

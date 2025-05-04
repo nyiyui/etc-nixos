@@ -1,4 +1,4 @@
 { pkgs, ... }: {
   programs.adb.enable = true;
-  users.users.nyiyui.extraGroups = [ "adbusers" ];
+  users.users.kiyurica.extraGroups = [ "adbusers" ];
 }

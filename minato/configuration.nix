@@ -3,7 +3,6 @@
   lib,
   pkgs,
   home-manager,
-  qrystal,
   ...
 }:
 
@@ -48,7 +47,7 @@
   services.xserver.displayManager.lightdm.enable = true;
   services.displayManager.autoLogin = {
     enable = true;
-    user = "nyiyui";
+    user = "kiyurica";
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
