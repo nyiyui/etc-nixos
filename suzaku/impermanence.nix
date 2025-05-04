@@ -22,6 +22,7 @@
         ".local/share/nvim"
         ".mozilla/firefox"
         ".thunderbird"
+        ".config/syncthing"
       ];
     };
   };
