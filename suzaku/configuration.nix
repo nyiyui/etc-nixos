@@ -9,11 +9,11 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./disko-config.nix
-      ../secureboot.nix
-      specialArgs.disko.nixosModules.disko
-      specialArgs.impermanence.nixosModules.impermanence
-      ../fprint.nix
       ./impermanence.nix
+      ../secureboot.nix
+      ../fprint.nix
+      ../syncthing.nix
+      ../thunderbolt.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

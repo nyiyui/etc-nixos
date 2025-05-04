@@ -1,4 +1,5 @@
-{
+{ specialArgs, ... }: {
+  imports = [ specialArgs.disko.nixosModules.disko ];
   fileSystems."/persist".neededForBoot = true;
   disko.devices = {
     disk = {

@@ -1,12 +1,12 @@
-{ config, ... }: {
+{ config, lib, ... }: {
   imports = [ ./home-manager.nix ];
 
   services.syncthing = {
     enable = true;
-    dataDir = "/home/nyiyui";
+    dataDir = "/home/kiyurica";
     openDefaultPorts = true; # not include web
-    configDir = "/home/nyiyui/.config/syncthing";
-    user = "nyiyui";
+    configDir = "/home/kiyurica/.config/syncthing";
+    user = "kiyurica";
     group = "users";
     guiAddress = "127.0.0.1:8384";
 
@@ -31,7 +31,7 @@
     settings.folders = {
       "inaba" = {
         id = "pugdv-kmejz";
-        path = "/home/nyiyui/inaba";
+        path = "/home/kiyurica/inaba";
         devices = [ "hinanawi" "makura" "minato" "yagoto" "sekisho" "sekisho2" ];
         versioning.type = "staggered";
         versioning.params = {
@@ -42,7 +42,7 @@
       "geofront" = {
         id = "e2kwg-rebhd";
         label = "GF-01";
-        path = "/home/nyiyui/inaba/geofront";
+        path = "/home/kiyurica/inaba/geofront";
         devices = [ "hinanawi" "makura" "sekisho" "yagoto" "sekisho2" ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
@@ -51,7 +51,7 @@
       "hisame" = {
         id = "fzewo-z2hef";
         label = "hisame";
-        path = "/home/nyiyui/inaba/hisame";
+        path = "/home/kiyurica/inaba/hisame";
         devices = [ "hinanawi" "yagoto" "sekisho" "sekisho2" ];
       };
     };
@@ -63,7 +63,7 @@
     allowedTCPPorts = [ 22 22000 ];
   };
 
-  home-manager.users.nyiyui = { lib, ... }: {
+  home-manager.users.kiyurica = { lib, ... }: {
     home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text = lib.mkDefault ''
       .direnv
       /hisame
