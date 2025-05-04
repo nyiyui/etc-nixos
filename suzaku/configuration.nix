@@ -71,5 +71,8 @@
       programs.swaylock.settings.submit-on-touch = true;
     };
 
-  #TODO er605
+  kiyurica.networks.er605 = {
+    enable = true;
+    address = "10.9.0.97/32";
+  };
 }

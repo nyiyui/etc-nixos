@@ -18,6 +18,8 @@
         "inaba"
         { directory = ".ssh"; mode = "0700"; }
         ".local/share/direnv"
+        ".local/share/fish"
+        ".local/share/nvim"
         ".mozilla/firefox"
         ".thunderbird"
       ];
@@ -27,7 +29,7 @@
   boot.initrd.systemd.services.swap-old-root = {
     description = "move old root to /old_roots and make new root at /root";
     wantedBy = [ "initrd.target" ];
-    before = [ "-.mount" ];
+    before = [ "sysroot.mount" ];
     serviceConfig.Type = "oneshot";
     script = ''
       mkdir /btrfs_tmp
