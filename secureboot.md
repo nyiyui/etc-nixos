@@ -6,7 +6,7 @@ Note: these is a highly abridged version of [Lanzaboote's Quickstart](https://gi
 - Use full disk encryption
   - Secret! files stored in `/etc/secureboot` etc
 - Set a BIOS password
-  - ThinkPad: Supervisor Password has higher prio than System Management Password
+  - ThinkPad: Supervisor Password has higher prio than System Management Password!
 
 ## Create Keys
 `sudo sbctl create-keys`
