@@ -32,14 +32,7 @@
       "inaba" = {
         id = "pugdv-kmejz";
         path = "/home/kiyurica/inaba";
-        devices = [
-          "makura"
-          "minato"
-          "yagoto"
-          "sekisho"
-          "sekisho2"
-          "suzaku"
-        ];
+        devices = [ "makura" "minato" "yagoto" "sekisho" "sekisho2" "suzaku" ];
         versioning.type = "staggered";
         versioning.params = {
           cleanInterval = "86400";
@@ -50,8 +43,7 @@
         id = "e2kwg-rebhd";
         label = "GF-01";
         path = "/home/kiyurica/inaba/geofront";
-        devices =
-          [ "makura" "sekisho" "yagoto" "sekisho2" "suzaku" ];
+        devices = [ "makura" "sekisho" "yagoto" "sekisho2" "suzaku" ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
         ignoreDelete = true;
