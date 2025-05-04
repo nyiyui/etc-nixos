@@ -88,4 +88,23 @@
   ];
 
   services.automatic-timezoned.enable = true;
+  services.geoclue2.geoProviderUrl = ''https://api.positon.xyz/v1/geolocate?key=56aba903-ae67-4f26-919b-15288b44bda9'';
+  # To use the Positon geolocation service, uncomment this URL.
+  #
+  # NOTE: Distributors of geoclue may only uncomment this URL if the
+  #       service is used in a non-commercial manner, to quote Positon:
+  #
+  #         We generally consider a service or software commercial, when it is only
+  #         intended to be available (beyond free trials or other restrictions) via
+  #         a one-time payment, subscription, account registration or similar.
+  #         Funding the development through donations or optional support contracts
+  #         does not make the software itself commercial.
+  #
+  #         Fedora Linux, CentOS Stream, Rocky Linux or AlmaLinux all would not be
+  #         considered commercial by us, neither would e.g. Debian, Ubuntu or
+  #         elementary OS. However, RedHat Enterprise Linux and various SUSE Linux
+  #         Enterprise versions would be considered commercial.
+  #
+  #       For more information, contact Positon or consult their website:
+  #       https://positon.xyz/docs/
 }
