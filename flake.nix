@@ -42,11 +42,6 @@
         specialArgs = attrs // { inherit system; };
         modules = [ ./mitsu8/configuration.nix agenix.nixosModules.default ];
       };
-      nixosConfigurations.hinanawi = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = attrs // { inherit system; };
-        modules = [ ./hinanawi/configuration.nix agenix.nixosModules.default ];
-      };
       nixosConfigurations.minato = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // { inherit system; };

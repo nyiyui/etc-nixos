@@ -17,8 +17,6 @@
         "Y3IYLHZ-SUS5JCX-QQENQUL-PI4XK7E-CPWJT3P-MVJGZVS-4XIM4HB-N4UNFAU";
       "minato".id =
         "6ROWFH5-WMAJ5JO-TDJA22O-AOQYET7-SCRIF6T-Q6A3HMA-VP7263N-JMIIRQO";
-      "hinanawi".id =
-        "Q3DTKLX-XRLSA2W-UIFZHEV-X4EEVXH-6GNXGV6-EI3D2TZ-XVTXJ4X-4FZJDQT";
       "sawako".id =
         "6UX4AQF-M2V2BIC-GUKGHBI-67CMCYC-KCLGCZN-D5HPIIB-T3IKTCX-5DIFFQ7";
       "yagoto".id =
@@ -35,7 +33,6 @@
         id = "pugdv-kmejz";
         path = "/home/kiyurica/inaba";
         devices = [
-          "hinanawi"
           "makura"
           "minato"
           "yagoto"
@@ -54,7 +51,7 @@
         label = "GF-01";
         path = "/home/kiyurica/inaba/geofront";
         devices =
-          [ "hinanawi" "makura" "sekisho" "yagoto" "sekisho2" "suzaku" ];
+          [ "makura" "sekisho" "yagoto" "sekisho2" "suzaku" ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
         ignoreDelete = true;
@@ -63,7 +60,7 @@
         id = "fzewo-z2hef";
         label = "hisame";
         path = "/home/kiyurica/inaba/hisame";
-        devices = [ "hinanawi" "yagoto" "sekisho" "sekisho2" "suzaku" ];
+        devices = [ "yagoto" "sekisho" "sekisho2" "suzaku" ];
       };
     };
   };
