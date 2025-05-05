@@ -107,4 +107,6 @@
   #
   #       For more information, contact Positon or consult their website:
   #       https://positon.xyz/docs/
+
+  programs.light.enable = true;
 }
