@@ -29,6 +29,7 @@
         ".mozilla/firefox"
         ".thunderbird"
         ".config/syncthing"
+        ".config/sayonara"
       ];
     };
   };
