@@ -6,7 +6,6 @@
       "/var/log"
       "/var/lib"
       "/etc/secureboot"
-      "/etc/NetworkManager/system-connections"
       "/etc/ssh"
     ];
     files = [
@@ -14,18 +13,11 @@
     ];
     users.kiyurica = {
       directories = [
-        "inaba"
         {
           directory = ".ssh";
           mode = "0700";
         }
-        ".local/share/direnv"
         ".local/share/fish"
-        ".local/share/nvim"
-        ".mozilla/firefox"
-        ".thunderbird"
-        ".config/syncthing"
-        ".config/sayonara"
       ];
     };
   };
@@ -61,3 +53,4 @@
     '';
   };
 }
+
