@@ -21,9 +21,9 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  fileSystems."/hinanawi-nvme" = {
-    label = "hinanawi-nvme";
-    fsType = "ext4";
-    device = "/dev/disk/by-uuid/dcf0340c-ad1e-41cd-9d05-c4cd8ffa6756";
-  };
+  # fileSystems."/hinanawi-nvme" = {
+  #   label = "hinanawi-nvme";
+  #   fsType = "ext4";
+  #   device = "/dev/disk/by-uuid/dcf0340c-ad1e-41cd-9d05-c4cd8ffa6756";
+  # };
 }
