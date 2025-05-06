@@ -7,6 +7,7 @@
     ./impermanence.nix
     ../secureboot.nix
     ../syncthing.nix
+    ../autoUpgrade-git.nix
     specialArgs.disko.nixosModules.disko
   ];
 
