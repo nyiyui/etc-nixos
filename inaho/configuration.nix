@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
     ./disko-config.nix
     ./impermanence.nix
+    ../base.nix
+    ../headless.nix
     ../secureboot.nix
     ../syncthing.nix
     ../autoUpgrade-git.nix
