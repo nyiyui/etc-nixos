@@ -7,6 +7,7 @@
     ./impermanence.nix
     ../secureboot.nix
     ../syncthing.nix
+    specialArgs.disko.nixosModules.disko
   ];
 
   # Use the systemd-boot EFI boot loader.
