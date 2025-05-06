@@ -79,5 +79,10 @@
   #       https://positon.xyz/docs/
 
   programs.light.enable = true;
+
+  services.syncthing.settings.folders."inaba".path =
+    lib.mkForce "/hinanawi-nvme/home/nyiyui/inaba";
+  services.syncthing.settings.folders."geofront".path =
+    lib.mkForce "/hinanawi-nvme/home/nyiyui/inaba/geofront";
 }
 
