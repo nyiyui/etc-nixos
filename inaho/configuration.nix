@@ -20,7 +20,7 @@
 
   users.users.kiyurica = {
     initialHashedPassword =
-      "$y$j9T$g5xm0pLBFbK4W4c5BIENt/$D18bkwRRxH/MjSlInTZfvd2vE4Mxa.RQXARitTirV64";
+      "$y$j9T$2YLxBn0e/Bw6b3k9/qpCi1$Rq6BUgPFLxOVypwgEYeLjbORXCVnbZ2wCRR2yGPSoL7";
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
