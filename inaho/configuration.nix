@@ -13,7 +13,7 @@
     ./disko-config.nix
     ./impermanence.nix
     ../base.nix
-    # ../secureboot.nix
+    ../secureboot.nix
     ../syncthing.nix
     ../autoUpgrade-git.nix
     specialArgs.disko.nixosModules.disko
@@ -58,7 +58,7 @@
     {
     };
 
-  # autoUpgrade.directFlake = true;
+  autoUpgrade.directFlake = true;
 
   age.identityPaths = [
     "/persist/etc/ssh/ssh_host_ed25519_key"
