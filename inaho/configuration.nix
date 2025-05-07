@@ -13,7 +13,7 @@
     ./disko-config.nix
     ./impermanence.nix
     ../base.nix
-    ../secureboot.nix
+    # ../secureboot.nix
     ../syncthing.nix
     ../autoUpgrade-git.nix
     specialArgs.disko.nixosModules.disko
