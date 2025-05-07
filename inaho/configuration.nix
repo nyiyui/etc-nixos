@@ -58,7 +58,7 @@
     {
     };
 
-  autoUpgrade.directFlake = true;
+  # autoUpgrade.directFlake = true;
 
   age.identityPaths = [
     "/persist/etc/ssh/ssh_host_ed25519_key"
