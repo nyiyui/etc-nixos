@@ -21,6 +21,7 @@
       "sekisho".id = "GZI3EIZ-THXPOCR-3JW4BSP-GVQDDF7-ENZ3N3Z-PTLLRG2-4VPUKI7-XZOIHQ6";
       "sekisho2".id = "U4JDJNS-R4HRVK4-VZC7TZ5-IP74TKJ-TUVNTYJ-L3MUM3Y-AMGBYKO-NFSQGQW";
       "suzaku".id = "5DES2YX-7XTFTK7-SGP4VRD-KVS5DAO-VPMXEC7-RDAGYKE-QDRZDDD-NS5ANAZ";
+      "inaho".id = "7X6C6TE-3YYFUIR-JWCHOKA-7UTGZXO-IUOP4RI-PJNGIUR-EZP22S2-ILD7AAM";
     };
     settings.folders = {
       "inaba" = {
@@ -33,6 +34,7 @@
           "sekisho"
           "sekisho2"
           "suzaku"
+          "inaho"
         ];
         versioning.type = "staggered";
         versioning.params = {
@@ -50,6 +52,7 @@
           "yagoto"
           "sekisho2"
           "suzaku"
+          "inaho"
         ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
