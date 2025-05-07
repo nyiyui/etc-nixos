@@ -36,12 +36,7 @@
                       "noatime"
                     ];
                   };
-                  "/old_roots" = {
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
+                  # /old_roots created by impermanence
                   "/persist" = {
                     mountpoint = "/persist";
                     mountOptions = [
@@ -79,12 +74,14 @@
         content = {
           type = "luks";
           name = "crypted2";
+          passwordFile = "/tmp/secret.key";
           settings.allowDiscards = true;
           content = {
             type = "btrfs";
             extraArgs = [ "-f" ];
             subvolumes = {
               "/inaba".mountpoint = "/inaba";
+              "/inaba".mountOptions = [ "compress=zstd" "noatime" ];
             };
           };
         };
