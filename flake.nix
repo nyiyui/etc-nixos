@@ -107,7 +107,7 @@
         ];
       };
       nixosConfigurations.hanamizuki = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
+        system = "aarch64-linux";
         specialArgs = attrs // {
           inherit system;
         };
