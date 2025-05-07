@@ -34,48 +34,91 @@
     impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = { self, agenix, nixpkgs, flake-utils, niri, lanzaboote, ... }@attrs:
-    let pkgs = import nixpkgs { config.allowUnfree = true; };
-    in rec {
+  outputs =
+    {
+      self,
+      agenix,
+      nixpkgs,
+      flake-utils,
+      niri,
+      lanzaboote,
+      ...
+    }@attrs:
+    let
+      pkgs = import nixpkgs { config.allowUnfree = true; };
+    in
+    rec {
       nixosConfigurations.mitsu8 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // { inherit system; };
-        modules = [ ./mitsu8/configuration.nix agenix.nixosModules.default ];
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [
+          ./mitsu8/configuration.nix
+          agenix.nixosModules.default
+        ];
       };
       nixosConfigurations.minato = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // { inherit system; };
-        modules = [ ./minato/configuration.nix agenix.nixosModules.default ];
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [
+          ./minato/configuration.nix
+          agenix.nixosModules.default
+        ];
       };
       nixosConfigurations.yagoto = nixpkgs.lib.nixosSystem rec {
         system = "aarch64-linux";
-        specialArgs = attrs // { inherit system; };
-        modules = [ ./yagoto/configuration.nix agenix.nixosModules.default ];
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [
+          ./yagoto/configuration.nix
+          agenix.nixosModules.default
+        ];
       };
       images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
       nixosConfigurations.sekisho2 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // { inherit system; };
+        specialArgs = attrs // {
+          inherit system;
+        };
         modules = [ ./sekisho2/configuration.nix ];
       };
       nixosConfigurations.suzaku = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // { inherit system; };
-        modules = [ ./suzaku/configuration.nix agenix.nixosModules.default ];
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [
+          ./suzaku/configuration.nix
+          agenix.nixosModules.default
+        ];
       };
       nixosConfigurations.inaho = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // { inherit system; };
-        modules = [ ./inaho/configuration.nix agenix.nixosModules.default ];
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [
+          ./inaho/configuration.nix
+          agenix.nixosModules.default
+        ];
       };
-    } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
-      in {
+    }
+    // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nixfmt-rfc-style
             (python3.withPackages (p: [ p.pyserial ]))
           ];
         };
-      });
+      }
+    );
 }

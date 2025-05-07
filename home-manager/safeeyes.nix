@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   systemd.user.services.safeeyes = {
     Unit = {
-      Description =
-        "Safe eyes: simple and beautiful, yet extensible break reminder";
+      Description = "Safe eyes: simple and beautiful, yet extensible break reminder";
       PartOf = [ "graphical-session.target" ];
       StartLimitIntervalSec = 350;
       StartLimitBurst = 30;

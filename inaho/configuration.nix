@@ -1,7 +1,14 @@
-{ config, lib, pkgs, specialArgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  specialArgs,
+  ...
+}:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./disko-config.nix
     ./impermanence.nix
@@ -18,8 +25,7 @@
   boot.loader.timeout = 0;
 
   users.users.kiyurica = {
-    initialHashedPassword =
-      "$y$j9T$2YLxBn0e/Bw6b3k9/qpCi1$Rq6BUgPFLxOVypwgEYeLjbORXCVnbZ2wCRR2yGPSoL7";
+    initialHashedPassword = "$y$j9T$2YLxBn0e/Bw6b3k9/qpCi1$Rq6BUgPFLxOVypwgEYeLjbORXCVnbZ2wCRR2yGPSoL7";
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
@@ -47,8 +53,10 @@
 
   services.udisks2.enable = true;
 
-  home-manager.users.kiyurica = { ... }: {
-  };
+  home-manager.users.kiyurica =
+    { ... }:
+    {
+    };
 
   autoUpgrade.directFlake = true;
 
@@ -79,9 +87,7 @@
 
   programs.light.enable = true;
 
-  services.syncthing.settings.folders."inaba".path =
-    lib.mkForce "/hinanawi-nvme/home/nyiyui/inaba";
+  services.syncthing.settings.folders."inaba".path = lib.mkForce "/hinanawi-nvme/home/nyiyui/inaba";
   services.syncthing.settings.folders."geofront".path =
     lib.mkForce "/hinanawi-nvme/home/nyiyui/inaba/geofront";
 }
-

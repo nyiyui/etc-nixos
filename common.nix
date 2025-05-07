@@ -1,4 +1,11 @@
-{ config, lib, pkgs, specialArgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
   imports = [
     ./all-modules.nix
     ./reimu.nix
@@ -20,7 +27,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   powerManagement.cpuFreqGovernor = "performance";
 
@@ -61,7 +71,9 @@
   # TODO: use username@hostname syntax to separate per-host home manager flake thingl
   # https://discourse.nixos.org/t/get-hostname-in-home-manager-flake-for-host-dependent-user-configs/18859/2
 
-  home-manager.users.kiyurica = { imports = [ ./home-manager/common.nix ]; };
+  home-manager.users.kiyurica = {
+    imports = [ ./home-manager/common.nix ];
+  };
   home-manager.extraSpecialArgs = specialArgs;
 
   users.groups.kiyurica = { };
@@ -69,8 +81,14 @@
     isNormalUser = true;
     description = "Ken Shibata";
     group = "kiyurica";
-    extraGroups =
-      [ "uucp" "networkmanager" "wheel" "video" "libvirtd" "dialout" ];
+    extraGroups = [
+      "uucp"
+      "networkmanager"
+      "wheel"
+      "video"
+      "libvirtd"
+      "dialout"
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBbPVUjEWdEEWgE7z78euFUVJtNzQ4267esBzytfqeWmGhfjkEoe9TdJRvOily0jn0TVrvAxdXYqMksB4WUkhfY="

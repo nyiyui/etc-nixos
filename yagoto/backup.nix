@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   age.secrets.restic-password = {
     file = ../secrets/yagoto-restic-password.txt.age;
     owner = "root";

@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   programs.chromium = {
     enable = true;
     extensions = [
@@ -6,5 +7,7 @@
       { id = "mclkkofklkfljcocdinagocijmpgbhab"; } # japanese input
     ];
   };
-  programs.firefox = { enable = true; };
+  programs.firefox = {
+    enable = true;
+  };
 }

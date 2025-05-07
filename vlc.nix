@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   environment.systemPackages = [ pkgs.vlc ];
   nixpkgs.overlays = [
     (self: super: {

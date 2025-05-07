@@ -1,6 +1,8 @@
 { ... }:
-let port = 39254;
-in {
+let
+  port = 39254;
+in
+{
   services.headscale = {
     enable = true;
     inherit port;
@@ -22,5 +24,8 @@ in {
       '';
     };
   };
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }

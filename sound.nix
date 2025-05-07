@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -7,6 +8,13 @@
   };
 
   home-manager.users.kiyurica = {
-    imports = [ ({ pkgs, ... }: { home.packages = [ pkgs.helvum ]; }) ];
+    imports = [
+      (
+        { pkgs, ... }:
+        {
+          home.packages = [ pkgs.helvum ];
+        }
+      )
+    ];
   };
 }
