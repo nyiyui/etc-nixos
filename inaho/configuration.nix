@@ -89,7 +89,6 @@
 
   system.autoUpgrade.dates = lib.mkForce "02:30";
 
-  services.syncthing.settings.folders."inaba".path = lib.mkForce "/hinanawi-nvme/home/nyiyui/inaba";
-  services.syncthing.settings.folders."geofront".path =
-    lib.mkForce "/hinanawi-nvme/home/nyiyui/inaba/geofront";
+  services.syncthing.settings.folders."inaba".path = lib.mkForce "/inaba";
+  services.syncthing.settings.folders."geofront".path = lib.mkForce "/GF-01";
 }
