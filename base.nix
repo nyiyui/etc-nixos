@@ -15,6 +15,7 @@
     ];
     homeMode = "770";
   };
+  users.users.root.initialHashedPassword = "$y$j9T$hIH10tdwuxQdhSkN6D9vb0$dKJd1SITL.iGfrn8soMLLNyQxvoM0o0MIrmuS.6HuA7";
 
   nix.settings.trusted-users = [ "kiyurica" ];
   nix.settings.experimental-features = [
