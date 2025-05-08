@@ -4,18 +4,14 @@
   pkgs,
   modulesPath,
   nixos-hardware,
-  disko,
   ...
 }:
 {
   imports = [
     nixos-hardware.nixosModules.raspberry-pi-3
-    disko.nixosModules.disko
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     ../headless.nix
     ../base.nix
-    ./disko-config.nix
-    ./impermanence.nix
     #../autoUpgrade-git.nix # enable after initial ssh key is set
   ];
 
