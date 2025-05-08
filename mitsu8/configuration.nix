@@ -20,9 +20,10 @@
     ../doas.nix # sudo replacement
     ../sound.nix
     ../sway.nix # window manager
-    ../autoUpgrade-git.nix # autoupgrade scripts
     ../vlc.nix # VLC with Blu-ray decode keys
   ];
+
+  autoUpgrade.directFlake = true;
 
   networking.hostName = "mitsu8";
 
