@@ -4,11 +4,15 @@
   pkgs,
   modulesPath,
   nixos-hardware,
+  disko,
+  impermanence,
   ...
 }:
 {
   imports = [
     nixos-hardware.nixosModules.raspberry-pi-3
+    disko.nixosModules.disko
+    impermanence.nixosModules.impermanence
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     ../headless.nix
     ../base.nix
