@@ -12,6 +12,8 @@
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     ../headless.nix
     ../base.nix
+    ./disko-config.nix
+    ./impermanence.nix
     #../autoUpgrade-git.nix # enable after initial ssh key is set
   ];
 
