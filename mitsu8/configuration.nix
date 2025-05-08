@@ -20,7 +20,7 @@
     ../doas.nix # sudo replacement
     ../sound.nix
     ../sway.nix # window manager
-    ../autoUpgrade-https.nix # autoupgrade scripts
+    ../autoUpgrade-git.nix # autoupgrade scripts
     ../vlc.nix # VLC with Blu-ray decode keys
   ];
 
