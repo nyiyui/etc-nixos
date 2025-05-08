@@ -2,10 +2,11 @@
   specialArgs,
   pkgs,
   lib,
+  impermanence,
   ...
 }:
 {
-  imports = [ specialArgs.impermanence.nixosModules.impermanence ];
+  imports = [ impermanence.nixosModules.impermanence ];
   environment.persistence."/persist" = {
     hideMounts = true;
     directories = [
