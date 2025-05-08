@@ -24,6 +24,7 @@
           mode = "0700";
         }
         ".local/share/fish"
+        ".config/syncthing"
       ];
     };
   };
