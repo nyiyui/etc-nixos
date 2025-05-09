@@ -24,4 +24,3 @@
   users.users.kiyurica.initialHashedPassword = "$y$j9T$r/9ISSlgIUiqEn1WxadQN0$gdw5OT4nVHOkyhvn86RwsLl/CPxiTIJFaQEkNvmGw.B";
   system.stateVersion = "24.11";
 }
-

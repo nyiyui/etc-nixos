@@ -37,7 +37,8 @@
   kiyurica.desktop.sway.enable = true;
   services.greetd = {
     enable = true;
-    settings.default_session = { # "autologin" to kiyurica
+    settings.default_session = {
+      # "autologin" to kiyurica
       command = "uwsm start /run/current-system/sw/bin/sway";
       user = "kiyurica";
     };
@@ -124,7 +125,16 @@
       workspace_layout tabbed
     '';
     kiyurica.graphical.background = false;
+    kiyurica.service-status = [
+      {
+        serviceName = "wireguard-reimu.service";
+        key = "VPN";
+      }
+    ];
   };
+
+  networking.wireguard.interfaces.reimu.dynamicEndpointRefreshSeconds = 60;
+  # in case reimu DNS fails or something, restarts after 1 min
 
   environment.systemPackages = [
     specialArgs.jts.packages.x86_64-linux.gtkui

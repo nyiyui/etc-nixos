@@ -81,9 +81,15 @@
             extraArgs = [ "-f" ];
             subvolumes = {
               "/inaba".mountpoint = "/inaba";
-              "/inaba".mountOptions = [ "compress=zstd" "noatime" ];
+              "/inaba".mountOptions = [
+                "compress=zstd"
+                "noatime"
+              ];
               "/GF-01".mountpoint = "/GF-01";
-              "/GF-01".mountOptions = [ "compress=zstd" "noatime" ];
+              "/GF-01".mountOptions = [
+                "compress=zstd"
+                "noatime"
+              ];
             };
           };
         };
