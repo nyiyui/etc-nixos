@@ -37,7 +37,7 @@
   kiyurica.desktop.sway.enable = true;
   services.greetd = {
     enable = true;
-    settings.default_session = {
+    settings.default_session = { # "autologin" to kiyurica
       command = "uwsm start /run/current-system/sw/bin/sway";
       user = "kiyurica";
     };
@@ -86,7 +86,6 @@
     noto-fonts-cjk-sans
     noto-fonts-emoji
     liberation_ttf
-    hack-font # waybar :)
   ];
 
   home-manager.users.kiyurica = {
@@ -107,6 +106,7 @@
     wayland.windowManager.sway.config = {
       output = {
         "HDMI-A-2" = {
+          # 1080p is enough and don't want to stress the GPU too much
           mode = "1920x1080@60.000Hz";
           pos = "0 0";
           scale = "1";

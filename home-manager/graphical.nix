@@ -38,12 +38,8 @@ in
     );
     default = [
       {
-        serviceName = "hisame-sync.service";
-        key = "氷雨";
-      }
-      {
-        serviceName = "backup-restic.service";
-        key = "b";
+        serviceName = "nixos-upgrade.service";
+        key = "u";
       }
     ];
     description = "show service status in waybar";
