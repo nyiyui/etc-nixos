@@ -133,9 +133,6 @@
     ];
   };
 
-  networking.wireguard.interfaces.reimu.dynamicEndpointRefreshSeconds = 60;
-  # in case reimu DNS fails or something, restarts after 1 min
-
   environment.systemPackages = [
     specialArgs.jts.packages.x86_64-linux.gtkui
     pkgs.hypnotix # IPTV viewer (NHK E, G, etc works)
