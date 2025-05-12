@@ -14,7 +14,7 @@
       privateKeyFile = config.age.secrets.reimu-privkey.path;
       peers = [
         {
-          publicKey = "f2Q0N7rAHME0NQCnOWmhD6yHAtNzGM7GKiqfe+39rEo=";
+          publicKey = "y6cyueQS6Tv5uA1uoM5ce5RR+AuuaUw955/y+cr+QXc=";
           allowedIPs = [ "10.42.0.1/32" ];
           endpoint = "reimu.dev.kiyuri.ca:42420";
           persistentKeepalive = 30;
