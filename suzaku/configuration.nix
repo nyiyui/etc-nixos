@@ -118,4 +118,9 @@
   #       https://positon.xyz/docs/
 
   programs.light.enable = true;
+
+  kiyurica.networks.reimu = {
+    enable = true;
+    address = "10.42.0.9/32";
+  };
 }

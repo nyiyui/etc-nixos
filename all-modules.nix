@@ -6,5 +6,6 @@
     ./gtkgreet.nix
     ./tailscale.nix
     ./autoUpgrade-git.nix
+    ./reimu2.nix
   ];
 }
