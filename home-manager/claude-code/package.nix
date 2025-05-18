@@ -1,5 +1,5 @@
 {
-  pkgs,
+  pkgs ? (import <nixpkgs> { inherit system; }),
   system ? builtins.currentSystem,
   nodejs ? pkgs.nodejs_23,
 }:

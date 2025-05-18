@@ -8,6 +8,6 @@ let
 in
 {
   home.packages = [
-    claude-code
+    "${claude-code}"
   ];
 }

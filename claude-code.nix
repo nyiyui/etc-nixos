@@ -9,7 +9,7 @@
 
   options.kiyurica.programs.claude-code.enable = lib.mkEnableOption "Claude Code";
 
-  config = lib.mkIf config.kiyurica.desktop.sway.enable {
+  config = lib.mkIf config.kiyurica.programs.claude-code.enable {
     home-manager.users.kiyurica = {
       imports = [
         ./home-manager/claude-code
