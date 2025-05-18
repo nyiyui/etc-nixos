@@ -22,6 +22,9 @@
       "suzaku".id = "5DES2YX-7XTFTK7-SGP4VRD-KVS5DAO-VPMXEC7-RDAGYKE-QDRZDDD-NS5ANAZ";
       "inaho".id = "THGLO7L-TJ4Q4UF-BE2ZERW-AXHKKSY-CAZTUJY-W5T24JT-VC7WCTR-GJPPMAH";
       "instance-20250512-024518".id = "AMAWOZR-B47CBJ7-WX5YBCE-JZUSW7S-UVLLM3E-WAGU53W-6CA2DE6-HATXGQY";
+      "instance-20250512-024518".addresses = [
+        "instance-20250512-024518.dev.kiyuri.ca"
+      ];
     };
     settings.folders = {
       "inaba" = {
