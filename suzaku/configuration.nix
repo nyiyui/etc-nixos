@@ -123,4 +123,6 @@
     enable = true;
     address = "10.42.0.9/32";
   };
+
+  kiyurica.programs.claude-code.enable = true;
 }
