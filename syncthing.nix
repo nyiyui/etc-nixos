@@ -23,7 +23,7 @@
       "inaho".id = "THGLO7L-TJ4Q4UF-BE2ZERW-AXHKKSY-CAZTUJY-W5T24JT-VC7WCTR-GJPPMAH";
       "instance-20250512-024518".id = "AMAWOZR-B47CBJ7-WX5YBCE-JZUSW7S-UVLLM3E-WAGU53W-6CA2DE6-HATXGQY";
       "instance-20250512-024518".addresses = [
-        "instance-20250512-024518.dev.kiyuri.ca"
+        "tcp://instance-20250512-024518.dev.kiyuri.ca:22000"
       ];
     };
     settings.folders = {
