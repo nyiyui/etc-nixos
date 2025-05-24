@@ -125,4 +125,6 @@
   };
 
   kiyurica.programs.claude-code.enable = true;
+
+  kiyurica.tailscale.enable = true;
 }
