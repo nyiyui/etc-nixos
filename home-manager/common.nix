@@ -200,8 +200,7 @@
     packages = [
       "flathub:app/com.discordapp.Discord//stable"
     ];
-    "com.discordapp.Discord" = {
-      devices = [];
+    overrides."com.discordapp.Discord" = {
       filesystems = [
         "!xdg-download"
         "!xdg-pictures"
