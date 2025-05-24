@@ -91,4 +91,6 @@
 
   services.syncthing.settings.folders."inaba".path = lib.mkForce "/inaba";
   services.syncthing.settings.folders."geofront".path = lib.mkForce "/GF-01";
+
+  kiyurica.tailscale.enable = true;
 }
