@@ -198,19 +198,6 @@
   services.flatpak = {
     remotes.flathub = "https://dl.flathub.org/repo/flathub.flatpakrepo";
     packages = [
-      "flathub:app/com.discordapp.Discord//stable"
     ];
-    overrides."com.discordapp.Discord" = {
-      filesystems = [
-        "!xdg-download"
-        "!xdg-pictures"
-        "!xdg-videos"
-      ];
-      sockets = [
-        "wayland"
-        "!x11"
-        "!fallback-x11"
-      ];
-    };
   };
 }
