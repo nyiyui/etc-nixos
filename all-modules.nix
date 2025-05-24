@@ -8,5 +8,6 @@
     ./autoUpgrade-git.nix
     ./reimu2.nix
     ./claude-code.nix
+    ./flatpak.nix
   ];
 }
