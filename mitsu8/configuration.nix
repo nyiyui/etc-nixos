@@ -137,4 +137,6 @@
     specialArgs.jts.packages.x86_64-linux.gtkui
     pkgs.hypnotix # IPTV viewer (NHK E, G, etc works)
   ];
+
+  kiyurica.tailscale.enable = true;
 }
