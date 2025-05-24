@@ -195,8 +195,24 @@
     embed-subs = true;
   };
 
-  services.flatpak.packages = [
-    "flathub:app/com.discordapp.Discord//stable"
-  ];
-  services.flatpak.remotes.flathub = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+  services.flatpak = {
+    remotes.flathub = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+    packages = [
+      "flathub:app/com.discordapp.Discord//stable"
+    ];
+    "com.discordapp.Discord" = {
+      devices = [];
+      filesystems = [
+        "!xdg-download"
+        "!xdg-pictures"
+        "!xdg-videos"
+        "!xdg-run/speech-dispatcher"
+      ];
+      sockets = [
+        "wayland"
+        "!x11"
+        "!fallback-x11"
+      ];
+    };
+  };
 }
