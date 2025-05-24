@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  flatpak,
   ...
 }:
 
@@ -14,6 +15,7 @@
     ./neovim.nix
     ./fonts.nix
     ./firefox.nix
+    flatpak.homeManagerModules.declarative-flatpak
   ];
 
   programs.git = {
@@ -192,4 +194,9 @@
     embed-thumbnail = true;
     embed-subs = true;
   };
+
+  services.flatpak.packages = [
+    "flathub:app/com.discordapp.Discord//stable"
+  ];
+  services.flatpak.remotes.flathub = "https://dl.flathub.org/repo/flathub.flatpakrepo";
 }
