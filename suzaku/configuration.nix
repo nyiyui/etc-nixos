@@ -125,11 +125,4 @@
   };
 
   kiyurica.programs.claude-code.enable = true;
-
-  kiyurica.services.flatpak-managed = {
-    enable = true;
-    packages = [
-      { appId = "com.discordapp.Discord"; }
-    ];
-  };
 }
