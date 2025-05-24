@@ -205,7 +205,6 @@
         "!xdg-download"
         "!xdg-pictures"
         "!xdg-videos"
-        "!xdg-run/speech-dispatcher"
       ];
       sockets = [
         "wayland"
