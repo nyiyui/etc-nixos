@@ -32,7 +32,7 @@
       NoNewPrivileges = true;
       PrivateDevices = true;
       ProtectClock = true;
-      CapabilityBoundingSet = [];
+      CapabilityBoundingSet = [ ];
       ProtectKernelLogs = true;
       ProtectControlGroups = true;
       PrivateNetwork = true;

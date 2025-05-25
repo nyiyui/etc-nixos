@@ -133,7 +133,7 @@
         packages.kiyurica-flatpak-repo = pkgs.stdenv.mkDerivation {
           name = "kiyurica-flatpak-repo";
           version = "0.1";
-          
+
           # Needed for people using Nix behind a proxy.
           impureEnvVars = pkgs.lib.fetchers.proxyImpureEnvVars;
 

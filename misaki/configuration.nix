@@ -94,4 +94,3 @@
 
   #kiyurica.tailscale.enable = true;
 }
-
