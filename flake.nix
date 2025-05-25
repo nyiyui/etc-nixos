@@ -120,6 +120,42 @@
             (python3.withPackages (p: [ p.pyserial ]))
           ];
         };
+        packages.kiyurica-flatpak-repo = pkgs.stdenv.mkDerivation {
+          name = "kiyurica-flatpak-repo";
+          version = "0.1";
+          
+          # Needed for people using Nix behind a proxy.
+          impureEnvVars = pkgs.lib.fetchers.proxyImpureEnvVars;
+
+          dontUnpack = true;
+          dontConfigure = true;
+          # dontBuild = true;
+          buildPhase = ''
+            set -x
+            export HOME=/tmp/home-at-home
+            export SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+            export SSL_CERT_DIR="${pkgs.cacert}/etc/ssl/certs"
+            curl -I https://zx2c4.com/ip
+            curl -I https://flathub.org/repo/flathub.flatpakrepo
+            flatpak --user config --set languages "ja;en"
+            flatpak --user remote-add flathub https://flathub.org/repo/flathub.flatpakrepo
+            flatpak --user install flathub org.mozilla.Thunderbird
+            flatpak --user remote-modify --collection-id=org.flathub.Stable flathub
+            flatpak --user create-usb --allow-partial /tmp/flatpak-repo
+          '';
+          installPhase = ''
+            cp -r /tmp/flatpak-repo $out
+          '';
+          nativeBuildInputs = with pkgs; [
+            flatpak
+            util-linux
+            curl
+            wget
+          ];
+          outputHashAlgo = "sha256";
+          outputHashMode = "recursive";
+          outputHash = pkgs.lib.fakeSha256;
+        };
       }
     );
 }
