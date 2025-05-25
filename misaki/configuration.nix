@@ -13,7 +13,7 @@
     ./hardware-configuration.nix
     ./disko-config.nix
     ./impermanence.nix
-    #../secureboot.nix
+    ../secureboot.nix
     ../common.nix
     ../tpm.nix
     ../sway.nix
