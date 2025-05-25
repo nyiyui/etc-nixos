@@ -101,4 +101,6 @@
     /inaba  192.168.2.201(rw,no_subtree_check)
   '';
   networking.firewall.allowedTCPPorts = [ 2049 ];
+
+  kiyurica.remote-builder.enable = true;
 }

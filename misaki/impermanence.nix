@@ -14,6 +14,7 @@
       "/etc/secureboot"
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
+      "/root/.ssh"
     ];
     files = [
       "/etc/machine-id"

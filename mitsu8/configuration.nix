@@ -142,4 +142,6 @@
   ];
 
   kiyurica.tailscale.enable = true;
+
+  kiyurica.remote-builder.enable = true;
 }
