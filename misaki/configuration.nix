@@ -63,7 +63,7 @@
       kiyurica.services.seekback.enable = true;
     };
 
-  #autoUpgrade.directFlake = true;
+  autoUpgrade.directFlake = true;
 
   age.identityPaths = [
     "/persist/etc/ssh/ssh_host_ed25519_key"
@@ -92,5 +92,5 @@
 
   kiyurica.programs.claude-code.enable = true;
 
-  #kiyurica.tailscale.enable = true;
+  kiyurica.tailscale.enable = true;
 }
