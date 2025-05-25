@@ -25,6 +25,7 @@
       "instance-20250512-024518".addresses = [
         "tcp://instance-20250512-024518.dev.kiyuri.ca:22000"
       ];
+      "Pixel 6a".id = "MNVRJUO-4EE2E47-S6JAGFW-ADWSDA2-PAE4Z55-SC7PXLU-HA3S4V6-HY5BUQZ";
     };
     settings.folders = {
       "inaba" = {
@@ -57,6 +58,7 @@
           "sekisho2"
           "suzaku"
           "inaho"
+          "Pixel 6a"
         ];
         versioning.type = "trashcan";
         versioning.params.cleanoutDays = "0"; # never
