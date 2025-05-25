@@ -101,6 +101,9 @@
       {
         command = "${pkgs.microsoft-edge}/bin/microsoft-edge '--proxy-server=socks5://10.42.0.1:1080' https://plus.nhk.jp";
       }
+      {
+        command = "${pkgs.wayvnc}/bin/wayvnc 0.0.0.0";
+      }
     ];
 
     # output display config
