@@ -29,6 +29,7 @@
       LoadCredential = "restic-password:${config.age.secrets.restic-password.path}";
       DynamicUser = true;
       PrivateTmp = true;
+      ReadWritePaths = [ "/backups" "/inaba" "/GF-01" "/persist" ];
     };
     wantedBy = [ "default.target" ];
   };
