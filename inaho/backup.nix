@@ -27,7 +27,6 @@
       Restart = "on-failure";
       RestartSec = 120;
       LoadCredential = "restic-password:${config.age.secrets.restic-password.path}";
-      User = "kiyurica";
       PrivateTmp = true;
       RemoveIPC = true;
       NoNewPrivileges = true;
