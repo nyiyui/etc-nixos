@@ -80,6 +80,11 @@
             type = "btrfs";
             extraArgs = [ "-f" ];
             subvolumes = {
+              "/backups".mountpoint = "/backups";
+              "/backups".mountOptions = [
+                "compress=zstd"
+                "noatime"
+              ];
               "/inaba".mountpoint = "/inaba";
               "/inaba".mountOptions = [
                 "compress=zstd"
