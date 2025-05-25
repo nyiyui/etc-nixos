@@ -9,6 +9,7 @@
 
 {
   imports = [
+    specialArgs.disko.nixosModules.disko
     ./hardware-configuration.nix
     ./disko-config.nix
     ./impermanence.nix
