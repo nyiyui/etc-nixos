@@ -55,12 +55,28 @@
   services.udisks2.enable = true;
 
   kiyurica.desktop.sway.enable = true;
-  kiyurica.greeter.gtkgreet.enable = true;
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      # "autologin" to kiyurica
+      command = "uwsm start /run/current-system/sw/bin/sway";
+      user = "kiyurica";
+    };
+  };
   home-manager.users.kiyurica =
     { ... }:
     {
       imports = [ ../home-manager/activitywatch.nix ];
       kiyurica.services.seekback.enable = true;
+      wayland.windowManager.sway.config = {
+        output = {
+          "HDMI-A-1" = {
+            mode = "3840x2160@30.000Hz";
+            pos = "0 0";
+            scale = "1.5";
+          };
+        };
+      };
     };
 
   autoUpgrade.directFlake = true;
