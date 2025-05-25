@@ -20,7 +20,6 @@
     ];
     users.kiyurica = {
       directories = [
-        "inaba"
         {
           directory = ".ssh";
           mode = "0700";
