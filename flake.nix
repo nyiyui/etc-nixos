@@ -107,6 +107,16 @@
           agenix.nixosModules.default
         ];
       };
+      nixosConfigurations.misaki = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [
+          ./misaki/configuration.nix
+          agenix.nixosModules.default
+        ];
+      };
     }
     // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
       system:
