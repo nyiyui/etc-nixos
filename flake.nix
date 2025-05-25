@@ -107,16 +107,6 @@
           agenix.nixosModules.default
         ];
       };
-      nixosConfigurations.hanamizuki = nixpkgs.lib.nixosSystem rec {
-        system = "aarch64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
-        modules = [
-          ./hanamizuki/configuration.nix
-          agenix.nixosModules.default
-        ];
-      };
     }
     // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
       system:
