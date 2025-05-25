@@ -29,6 +29,14 @@
       LoadCredential = "restic-password:${config.age.secrets.restic-password.path}";
       User = "kiyurica";
       PrivateTmp = true;
+      RemoveIPC = true;
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      CapabilityBoundingSet = [];
+      ProtectKernelLogs = true;
+      ProtectControlGroups = true;
+      PrivateNetwork = true;
     };
     wantedBy = [ "default.target" ];
   };
