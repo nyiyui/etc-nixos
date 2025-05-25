@@ -66,4 +66,6 @@
   };
 
   virtualisation.oci-containers.backend = "docker";
+
+  kiyurica.tailscale.enable = true;
 }
