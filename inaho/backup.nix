@@ -27,9 +27,8 @@
       Restart = "on-failure";
       RestartSec = 120;
       LoadCredential = "restic-password:${config.age.secrets.restic-password.path}";
-      DynamicUser = true;
+      User = "kiyurica";
       PrivateTmp = true;
-      ReadWritePaths = [ "/backups" "/inaba" "/GF-01" "/persist" ];
     };
     wantedBy = [ "default.target" ];
   };
