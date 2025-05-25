@@ -93,4 +93,15 @@
   kiyurica.programs.claude-code.enable = true;
 
   kiyurica.tailscale.enable = true;
+
+  
+  fileSystems."/home/kiyurica/inaba" = {
+    device = "192.168.2.234:/inaba";
+    fsType = "nfs";
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "noatime"
+    ];
+  };
 }
