@@ -1,22 +1,9 @@
-{
-  specialArgs,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ specialArgs, pkgs, lib, ... }: {
   imports = [ specialArgs.impermanence.nixosModules.impermanence ];
   environment.persistence."/persist" = {
     hideMounts = true;
-    directories = [
-      "/var/log"
-      "/var/lib"
-      "/etc/secureboot"
-      "/etc/ssh"
-    ];
-    files = [
-      "/etc/machine-id"
-    ];
+    directories = [ "/var/log" "/var/lib" "/etc/secureboot" "/etc/ssh" ];
+    files = [ "/etc/machine-id" ];
     users.kiyurica = {
       directories = [
         {

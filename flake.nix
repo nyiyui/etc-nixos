@@ -35,95 +35,48 @@
     flatpak.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
   };
 
-  outputs =
-    {
-      self,
-      agenix,
-      nixpkgs,
-      flake-utils,
-      niri,
-      lanzaboote,
-      ...
-    }@attrs:
-    let
-      pkgs = import nixpkgs { config.allowUnfree = true; };
-    in
-    rec {
+  outputs = { self, agenix, nixpkgs, flake-utils, niri, lanzaboote, ... }@attrs:
+    let pkgs = import nixpkgs { config.allowUnfree = true; };
+    in rec {
       nixosConfigurations.mitsu8 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
-        modules = [
-          ./mitsu8/configuration.nix
-          agenix.nixosModules.default
-        ];
+        specialArgs = attrs // { inherit system; };
+        modules = [ ./mitsu8/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.minato = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
-        modules = [
-          ./minato/configuration.nix
-          agenix.nixosModules.default
-        ];
+        specialArgs = attrs // { inherit system; };
+        modules = [ ./minato/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.yagoto = nixpkgs.lib.nixosSystem rec {
         system = "aarch64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
-        modules = [
-          ./yagoto/configuration.nix
-          agenix.nixosModules.default
-        ];
+        specialArgs = attrs // { inherit system; };
+        modules = [ ./yagoto/configuration.nix agenix.nixosModules.default ];
       };
       images.yagoto = nixosConfigurations.yagoto.config.system.build.sdImage;
       nixosConfigurations.sekisho2 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
+        specialArgs = attrs // { inherit system; };
         modules = [ ./sekisho2/configuration.nix ];
       };
       nixosConfigurations.suzaku = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
-        modules = [
-          ./suzaku/configuration.nix
-          agenix.nixosModules.default
-        ];
+        specialArgs = attrs // { inherit system; };
+        modules = [ ./suzaku/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.inaho = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
-        modules = [
-          ./inaho/configuration.nix
-          agenix.nixosModules.default
-        ];
+        specialArgs = attrs // { inherit system; };
+        modules = [ ./inaho/configuration.nix agenix.nixosModules.default ];
       };
       nixosConfigurations.misaki = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
-        modules = [
-          ./misaki/configuration.nix
-          agenix.nixosModules.default
-        ];
+        specialArgs = attrs // { inherit system; };
+        modules = [ ./misaki/configuration.nix agenix.nixosModules.default ];
       };
-    }
-    // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
-      system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
+    } // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (system:
+      let pkgs = nixpkgs.legacyPackages.${system};
+      in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nixfmt-rfc-style
@@ -156,16 +109,10 @@
           installPhase = ''
             cp -r /tmp/flatpak-repo $out
           '';
-          nativeBuildInputs = with pkgs; [
-            flatpak
-            util-linux
-            curl
-            wget
-          ];
+          nativeBuildInputs = with pkgs; [ flatpak util-linux curl wget ];
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
           outputHash = pkgs.lib.fakeSha256;
         };
-      }
-    );
+      });
 }

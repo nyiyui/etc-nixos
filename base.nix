@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   imports = [ ./all-modules.nix ];
 
   users.groups.kiyurica = { };
@@ -15,13 +14,11 @@
     ];
     homeMode = "770";
   };
-  users.users.root.initialHashedPassword = "$y$j9T$hIH10tdwuxQdhSkN6D9vb0$dKJd1SITL.iGfrn8soMLLNyQxvoM0o0MIrmuS.6HuA7";
+  users.users.root.initialHashedPassword =
+    "$y$j9T$hIH10tdwuxQdhSkN6D9vb0$dKJd1SITL.iGfrn8soMLLNyQxvoM0o0MIrmuS.6HuA7";
 
   nix.settings.trusted-users = [ "kiyurica" ];
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;
   nixpkgs.config.allowUnfree = true;
 

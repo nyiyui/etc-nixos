@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   programs.firefox = {
     enable = true;
     policies.CaptivePortal = false;

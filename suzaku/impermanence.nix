@@ -1,10 +1,4 @@
-{
-  specialArgs,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ specialArgs, pkgs, lib, ... }: {
   imports = [ specialArgs.impermanence.nixosModules.impermanence ];
   environment.persistence."/persist" = {
     hideMounts = true;
@@ -15,9 +9,7 @@
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
     ];
-    files = [
-      "/etc/machine-id"
-    ];
+    files = [ "/etc/machine-id" ];
     users.kiyurica = {
       directories = [
         "inaba"

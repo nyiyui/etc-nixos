@@ -1,5 +1,4 @@
-{ config, home-manager, ... }:
-{
+{ config, home-manager, ... }: {
   imports = [ home-manager.nixosModule ];
 
   home-manager.users.kiyurica = {

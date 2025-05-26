@@ -1,25 +1,17 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 let
   hostName = config.networking.hostName;
   sshKey = "autoupgrade-${hostName}.id_ed25519";
   cfg = config.autoUpgrade.config;
-in
-{
-  options.autoUpgrade.config.daemonUser =
-    with lib;
+in {
+  options.autoUpgrade.config.daemonUser = with lib;
     with types;
     mkOption {
       type = "str";
       description = "User to own/maintain the /etc/nixos folder.";
       default = "youmu";
     };
-  options.autoUpgrade.config.authMethod =
-    with lib;
+  options.autoUpgrade.config.authMethod = with lib;
     with types;
     mkOption {
       type = oneOf [
@@ -35,7 +27,8 @@ in
                   };
                   passwordFile = mkOption {
                     type = str;
-                    description = "Path to file with password to use with HTTPS authentication.";
+                    description =
+                      "Path to file with password to use with HTTPS authentication.";
                   };
                 };
               };
@@ -101,26 +94,22 @@ in
       };
       wants = [ "autoupgrade-reset-perms.service" ];
       after = [ "autoupgrade-reset-perms.service" ];
-      script =
-        if cfg.authMethod == "ssh" then
-          ''
-            export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i ${
-              config.age.secrets.${sshKey}.path
-            } -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
-            ${pkgs.git}/bin/git \
-              -c 'safe.directory=/etc/nixos' \
-              -c 'core.sharedRepository=group' \
-              pull
-          ''
-        else
-          ''
-            export GIT_TERMINAL_PROMPT=0
-            ${pkgs.git}/bin/git \
-              -c credential.helper='!f() { echo "username=${cfg.authMethod.https.username}" && printf "password=" && cat "${cfg.authMethod.https.passwordFile}" | tr -d "[:space:]"; }; f' \
-              -c 'safe.directory=/etc/nixos' \
-              -c 'core.sharedRepository=group' \
-              pull
-          '';
+      script = if cfg.authMethod == "ssh" then ''
+        export GIT_SSH_COMMAND='${pkgs.openssh}/bin/ssh -i ${
+          config.age.secrets.${sshKey}.path
+        } -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null'
+        ${pkgs.git}/bin/git \
+          -c 'safe.directory=/etc/nixos' \
+          -c 'core.sharedRepository=group' \
+          pull
+      '' else ''
+        export GIT_TERMINAL_PROMPT=0
+        ${pkgs.git}/bin/git \
+          -c credential.helper='!f() { echo "username=${cfg.authMethod.https.username}" && printf "password=" && cat "${cfg.authMethod.https.passwordFile}" | tr -d "[:space:]"; }; f' \
+          -c 'safe.directory=/etc/nixos' \
+          -c 'core.sharedRepository=group' \
+          pull
+      '';
     };
 
     age.secrets.${sshKey} = lib.mkIf (cfg.authMethod == "ssh") {

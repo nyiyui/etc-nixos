@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   age.secrets.restic-password = {
     file = ../secrets/inaho-restic-password.txt.age;
     owner = "root";
@@ -26,7 +25,8 @@
       Nice = 19;
       Restart = "on-failure";
       RestartSec = 120;
-      LoadCredential = "restic-password:${config.age.secrets.restic-password.path}";
+      LoadCredential =
+        "restic-password:${config.age.secrets.restic-password.path}";
       PrivateTmp = true;
       RemoveIPC = true;
       NoNewPrivileges = true;

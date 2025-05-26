@@ -1,5 +1,4 @@
-{ specialArgs, ... }:
-{
+{ specialArgs, ... }: {
   imports = [ specialArgs.disko.nixosModules.disko ];
   fileSystems."/persist".neededForBoot = true;
   disko.devices = {
@@ -38,30 +37,18 @@
                   subvolumes = {
                     "/root" = {
                       mountpoint = "/";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
+                      mountOptions = [ "compress=zstd" "noatime" ];
                     };
                     "/old_roots" = {
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
+                      mountOptions = [ "compress=zstd" "noatime" ];
                     };
                     "/persist" = {
                       mountpoint = "/persist";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
+                      mountOptions = [ "compress=zstd" "noatime" ];
                     };
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
+                      mountOptions = [ "compress=zstd" "noatime" ];
                     };
                     "/swap" = {
                       mountpoint = "/.swapvol";

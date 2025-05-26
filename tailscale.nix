@@ -1,5 +1,4 @@
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
   options.kiyurica.tailscale.enable = lib.mkEnableOption "tailscale";
 
   config = lib.mkIf config.kiyurica.tailscale.enable {

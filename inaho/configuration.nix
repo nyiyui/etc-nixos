@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  specialArgs,
-  ...
-}:
+{ config, lib, pkgs, specialArgs, ... }:
 
 {
   imports = [
@@ -26,7 +20,8 @@
   boot.loader.timeout = 0;
 
   users.users.kiyurica = {
-    initialHashedPassword = "$y$j9T$2YLxBn0e/Bw6b3k9/qpCi1$Rq6BUgPFLxOVypwgEYeLjbORXCVnbZ2wCRR2yGPSoL7";
+    initialHashedPassword =
+      "$y$j9T$2YLxBn0e/Bw6b3k9/qpCi1$Rq6BUgPFLxOVypwgEYeLjbORXCVnbZ2wCRR2yGPSoL7";
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
@@ -54,19 +49,15 @@
 
   services.udisks2.enable = true;
 
-  home-manager.users.kiyurica =
-    { ... }:
-    {
-    };
+  home-manager.users.kiyurica = { ... }: { };
 
   autoUpgrade.directFlake = true;
 
-  age.identityPaths = [
-    "/persist/etc/ssh/ssh_host_ed25519_key"
-  ];
+  age.identityPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 
   services.automatic-timezoned.enable = true;
-  services.geoclue2.geoProviderUrl = ''https://api.positon.xyz/v1/geolocate?key=56aba903-ae67-4f26-919b-15288b44bda9'';
+  services.geoclue2.geoProviderUrl =
+    "https://api.positon.xyz/v1/geolocate?key=56aba903-ae67-4f26-919b-15288b44bda9";
   # To use the Positon geolocation service, uncomment this URL.
   #
   # NOTE: Distributors of geoclue may only uncomment this URL if the
