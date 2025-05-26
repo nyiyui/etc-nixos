@@ -7,7 +7,9 @@
     users.users.remote-build = {
       isNormalUser = true;
       description = "User to log in to for remote builds";
-      openssh.authorizedKeys.keys = [];
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPtA1YLDpuFOdXJRowvZEVx1X0M1YUDmo0Eaxjq5WSY2 root@misaki"
+      ];
     };
   
     nix.settings.trusted-users = [ "remote-build" ];
