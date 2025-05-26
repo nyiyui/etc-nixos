@@ -1,4 +1,10 @@
-{ specialArgs, pkgs, lib, ... }: {
+{
+  specialArgs,
+  pkgs,
+  lib,
+  ...
+}:
+{
   imports = [ specialArgs.impermanence.nixosModules.impermanence ];
   environment.persistence."/persist" = {
     hideMounts = true;

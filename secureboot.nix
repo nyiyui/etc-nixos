@@ -1,4 +1,10 @@
-{ specialArgs, pkgs, lib, ... }: {
+{
+  specialArgs,
+  pkgs,
+  lib,
+  ...
+}:
+{
   imports = [ specialArgs.lanzaboote.nixosModules.lanzaboote ];
   # cf. https://discourse.nixos.org/t/tpm2-luks-unlock-not-working/52342
 
@@ -17,8 +23,15 @@
   # This is needed to auto-unlock LUKS with TPM 2 - https://discourse.nixos.org/t/full-disk-encryption-tpm2/29454/2
   boot.initrd.systemd.enable = true;
 
-  boot.initrd.availableKernelModules =
-    [ "tpm_tis" "xhci_pci" "thunderbolt" "vmd" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "tpm_tis"
+    "xhci_pci"
+    "thunderbolt"
+    "vmd"
+    "nvme"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];

@@ -1,6 +1,8 @@
 { config, specialArgs, ... }:
-let jks = specialArgs.jks;
-in {
+let
+  jks = specialArgs.jks;
+in
+{
   users.groups.jks = { };
   users.users.jks = {
     isSystemUser = true;
@@ -53,5 +55,8 @@ in {
       '';
     };
   };
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }

@@ -2,7 +2,14 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, specialArgs, nixos-hardware, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  specialArgs,
+  nixos-hardware,
+  ...
+}:
 
 {
   imports = [
@@ -30,8 +37,7 @@
   boot.loader.timeout = 0;
 
   users.users.kiyurica = {
-    initialHashedPassword =
-      "$y$j9T$g5xm0pLBFbK4W4c5BIENt/$D18bkwRRxH/MjSlInTZfvd2vE4Mxa.RQXARitTirV64";
+    initialHashedPassword = "$y$j9T$g5xm0pLBFbK4W4c5BIENt/$D18bkwRRxH/MjSlInTZfvd2vE4Mxa.RQXARitTirV64";
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
@@ -61,21 +67,23 @@
 
   kiyurica.desktop.sway.enable = true;
   kiyurica.greeter.gtkgreet.enable = true;
-  home-manager.users.kiyurica = { ... }: {
-    imports = [ ../home-manager/activitywatch.nix ];
-    kiyurica.hasBacklight = true;
-    kiyurica.services.seekback.enable = true;
-    # PAM requires fingerprint, so we can use touch to trigger PAM (instead of e.g. Enter key)
-    programs.swaylock.settings.submit-on-touch = true;
+  home-manager.users.kiyurica =
+    { ... }:
+    {
+      imports = [ ../home-manager/activitywatch.nix ];
+      kiyurica.hasBacklight = true;
+      kiyurica.services.seekback.enable = true;
+      # PAM requires fingerprint, so we can use touch to trigger PAM (instead of e.g. Enter key)
+      programs.swaylock.settings.submit-on-touch = true;
 
-    wayland.windowManager.sway.config = {
-      output."eDP-1" = {
-        mode = "2880x1800@60.001Hz";
-        scale = "1.5";
-        adaptive_sync = "on";
+      wayland.windowManager.sway.config = {
+        output."eDP-1" = {
+          mode = "2880x1800@60.001Hz";
+          scale = "1.5";
+          adaptive_sync = "on";
+        };
       };
     };
-  };
 
   kiyurica.networks.er605 = {
     enable = true;
@@ -87,8 +95,7 @@
   age.identityPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 
   services.automatic-timezoned.enable = true;
-  services.geoclue2.geoProviderUrl =
-    "https://api.positon.xyz/v1/geolocate?key=56aba903-ae67-4f26-919b-15288b44bda9";
+  services.geoclue2.geoProviderUrl = "https://api.positon.xyz/v1/geolocate?key=56aba903-ae67-4f26-919b-15288b44bda9";
   # To use the Positon geolocation service, uncomment this URL.
   #
   # NOTE: Distributors of geoclue may only uncomment this URL if the

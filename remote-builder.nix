@@ -1,7 +1,7 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   # see ./use-remote-builder.nix
-  options.kiyurica.remote-builder.enable =
-    lib.mkEnableOption "make this machine a remote builder";
+  options.kiyurica.remote-builder.enable = lib.mkEnableOption "make this machine a remote builder";
 
   config = lib.mkIf config.kiyurica.remote-builder.enable {
     users.users.remote-build = {

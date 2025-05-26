@@ -22,23 +22,34 @@
             content = {
               type = "luks";
               name = "crypted";
-              settings = { allowDiscards = true; };
+              settings = {
+                allowDiscards = true;
+              };
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ];
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   # /old_roots created by impermanence
                   "/persist" = {
                     mountpoint = "/persist";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/nix" = {
                     mountpoint = "/nix";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/swap" = {
                     mountpoint = "/.swapvol";
@@ -70,11 +81,20 @@
             extraArgs = [ "-f" ];
             subvolumes = {
               "/backups".mountpoint = "/backups";
-              "/backups".mountOptions = [ "compress=zstd" "noatime" ];
+              "/backups".mountOptions = [
+                "compress=zstd"
+                "noatime"
+              ];
               "/inaba".mountpoint = "/inaba";
-              "/inaba".mountOptions = [ "compress=zstd" "noatime" ];
+              "/inaba".mountOptions = [
+                "compress=zstd"
+                "noatime"
+              ];
               "/GF-01".mountpoint = "/GF-01";
-              "/GF-01".mountOptions = [ "compress=zstd" "noatime" ];
+              "/GF-01".mountOptions = [
+                "compress=zstd"
+                "noatime"
+              ];
             };
           };
         };

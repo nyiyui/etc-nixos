@@ -2,7 +2,8 @@
 let
   hostName = config.networking.hostName;
   passwordKey = "autoupgrade-${hostName}.password";
-in {
+in
+{
   imports = [ ./autoUpgrade.nix ];
 
   autoUpgrade.config.authMethod.https = {

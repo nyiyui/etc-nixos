@@ -1,4 +1,12 @@
-{ specialArgs, config, lib, pkgs, home-manager, nixos-hardware, ... }:
+{
+  specialArgs,
+  config,
+  lib,
+  pkgs,
+  home-manager,
+  nixos-hardware,
+  ...
+}:
 
 {
   imports = [
@@ -88,12 +96,10 @@
     # startup command line
     wayland.windowManager.sway.config.startup = lib.mkForce [
       {
-        command =
-          "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://tver.jp";
+        command = "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://tver.jp";
       }
       {
-        command =
-          "${pkgs.microsoft-edge}/bin/microsoft-edge '--proxy-server=socks5://10.42.0.1:1080' https://plus.nhk.jp";
+        command = "${pkgs.microsoft-edge}/bin/microsoft-edge '--proxy-server=socks5://10.42.0.1:1080' https://plus.nhk.jp";
       }
       { command = "${pkgs.wayvnc}/bin/wayvnc 0.0.0.0"; }
     ];
@@ -120,10 +126,12 @@
       workspace_layout tabbed
     '';
     kiyurica.graphical.background = false;
-    kiyurica.service-status = [{
-      serviceName = "wireguard-reimu.service";
-      key = "VPN";
-    }];
+    kiyurica.service-status = [
+      {
+        serviceName = "wireguard-reimu.service";
+        key = "VPN";
+      }
+    ];
   };
 
   environment.systemPackages = [

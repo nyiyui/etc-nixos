@@ -1,4 +1,11 @@
-{ config, lib, pkgs, specialArgs, nixos-hardware, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  specialArgs,
+  nixos-hardware,
+  ...
+}:
 
 {
   imports = [
@@ -19,8 +26,7 @@
 
   users.users.kiyurica = {
     # abc123xyz
-    initialHashedPassword =
-      "$y$j9T$fpj7.xwcdQrY2qk9vjryQ1$cnBxWjh4W2kVWRjL1.Y5JlKH/HyJuIkiUQavRkqpFn1";
+    initialHashedPassword = "$y$j9T$fpj7.xwcdQrY2qk9vjryQ1$cnBxWjh4W2kVWRjL1.Y5JlKH/HyJuIkiUQavRkqpFn1";
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
@@ -57,27 +63,28 @@
       user = "kiyurica";
     };
   };
-  home-manager.users.kiyurica = { ... }: {
-    imports = [ ../home-manager/activitywatch.nix ];
-    kiyurica.services.seekback.enable = true;
-    wayland.windowManager.sway.config = {
-      output = {
-        "HDMI-A-1" = {
-          mode = "3840x2160@30.000Hz";
-          pos = "0 0";
-          scale = "1.5";
+  home-manager.users.kiyurica =
+    { ... }:
+    {
+      imports = [ ../home-manager/activitywatch.nix ];
+      kiyurica.services.seekback.enable = true;
+      wayland.windowManager.sway.config = {
+        output = {
+          "HDMI-A-1" = {
+            mode = "3840x2160@30.000Hz";
+            pos = "0 0";
+            scale = "1.5";
+          };
         };
       };
     };
-  };
 
   autoUpgrade.directFlake = true;
 
   age.identityPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 
   services.automatic-timezoned.enable = true;
-  services.geoclue2.geoProviderUrl =
-    "https://api.positon.xyz/v1/geolocate?key=56aba903-ae67-4f26-919b-15288b44bda9";
+  services.geoclue2.geoProviderUrl = "https://api.positon.xyz/v1/geolocate?key=56aba903-ae67-4f26-919b-15288b44bda9";
   # To use the Positon geolocation service, uncomment this URL.
   #
   # NOTE: Distributors of geoclue may only uncomment this URL if the
@@ -104,6 +111,10 @@
   fileSystems."/home/kiyurica/inaba" = {
     device = "192.168.2.234:/inaba";
     fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "noatime" ];
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "noatime"
+    ];
   };
 }

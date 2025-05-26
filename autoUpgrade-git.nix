@@ -1,6 +1,6 @@
-{ config, lib, ... }: {
-  options.autoUpgrade.directFlake =
-    lib.mkEnableOption "use Git flake URI directly";
+{ config, lib, ... }:
+{
+  options.autoUpgrade.directFlake = lib.mkEnableOption "use Git flake URI directly";
   config = lib.mkIf config.autoUpgrade.directFlake {
     system.autoUpgrade = {
       enable = true;
