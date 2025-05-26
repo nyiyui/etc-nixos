@@ -9,5 +9,6 @@
     ./reimu2.nix
     ./claude-code.nix
     ./remote-builder.nix
+    ./use-remote-builder.nix
   ];
 }
