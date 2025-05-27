@@ -10,5 +10,6 @@
     ./claude-code.nix
     ./remote-builder.nix
     ./use-remote-builder.nix
+    ./kdeconnect.nix
   ];
 }
