@@ -109,7 +109,7 @@
         Unit = {
           Description = "VNC server for lenovo-801lv";
           StartLimitIntervalSec = 30; # these values need to be tuned
-          StartLimitBurst = 2;
+          # no limit, as the display may come back at any time (proper soln is to listen for when display comes back, but too lazy for that)
         };
         Service = {
           ExecStart = "${pkgs.wayvnc}/bin/wayvnc 0.0.0.0";
