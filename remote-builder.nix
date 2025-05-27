@@ -9,6 +9,7 @@
       description = "User to log in to for remote builds";
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPtA1YLDpuFOdXJRowvZEVx1X0M1YUDmo0Eaxjq5WSY2 root@misaki"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ9Z/KUpNuN0LYa3eczVJkMwjHULKbvu8Ii7P/BgPK52 root@mitsu8"
       ];
     };
 
