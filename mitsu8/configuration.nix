@@ -89,50 +89,64 @@
     liberation_ttf
   ];
 
-  home-manager.users.kiyurica = {
-    # gamma
-    services.wlsunset.temperature.night = 4000;
+  home-manager.users.kiyurica =
+    { pkgs, ... }:
+    {
+      # gamma
+      services.wlsunset.temperature.night = 4000;
 
-    # startup command line
-    wayland.windowManager.sway.config.startup = lib.mkForce [
-      {
-        command = "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://tver.jp";
-      }
-      {
-        command = "${pkgs.microsoft-edge}/bin/microsoft-edge '--proxy-server=socks5://10.42.0.1:1080' https://plus.nhk.jp";
-      }
-      { command = "${pkgs.wayvnc}/bin/wayvnc 0.0.0.0"; }
-    ];
+      # startup command line
+      wayland.windowManager.sway.config.startup = lib.mkForce [
+        {
+          command = "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://tver.jp";
+        }
+        {
+          command = "${pkgs.microsoft-edge}/bin/microsoft-edge '--proxy-server=socks5://10.42.0.1:1080' https://plus.nhk.jp";
+        }
+      ];
 
-    # output display config
-    wayland.windowManager.sway.config = {
-      output = {
-        "HDMI-A-2" = {
-          # 1080p is enough and don't want to stress the GPU too much
-          mode = "1920x1080@60.000Hz";
-          pos = "0 0";
-          scale = "1";
+      systemd.user.services.wayvnc = {
+        Unit = {
+          Description = "VNC server for lenovo-801lv";
+          StartLimitIntervalSec = 30; # these values need to be tuned
+          StartLimitBurst = 2;
+        };
+        Service = {
+          ExecStart = "${pkgs.wayvnc}/bin/wayvnc 0.0.0.0";
+          Restart = "on-failure";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+
+      # output display config
+      wayland.windowManager.sway.config = {
+        output = {
+          "HDMI-A-2" = {
+            # 1080p is enough and don't want to stress the GPU too much
+            mode = "1920x1080@60.000Hz";
+            pos = "0 0";
+            scale = "1";
+          };
         };
       };
-    };
 
-    # mainly for watching tv, so we don't want idle-lock
-    kiyurica.graphical.idle = false;
-    # borders needed for normies
-    kiyurica.sway.noBorder = false;
-    wayland.windowManager.sway.config.window.titlebar = true;
-    # we want each window to be ~fullscreen
-    wayland.windowManager.sway.extraConfig = ''
-      workspace_layout tabbed
-    '';
-    kiyurica.graphical.background = false;
-    kiyurica.service-status = [
-      {
-        serviceName = "wireguard-reimu.service";
-        key = "VPN";
-      }
-    ];
-  };
+      # mainly for watching tv, so we don't want idle-lock
+      kiyurica.graphical.idle = false;
+      # borders needed for normies
+      kiyurica.sway.noBorder = false;
+      wayland.windowManager.sway.config.window.titlebar = true;
+      # we want each window to be ~fullscreen
+      wayland.windowManager.sway.extraConfig = ''
+        workspace_layout tabbed
+      '';
+      kiyurica.graphical.background = false;
+      kiyurica.service-status = [
+        {
+          serviceName = "wireguard-reimu.service";
+          key = "VPN";
+        }
+      ];
+    };
 
   environment.systemPackages = [
     specialArgs.jts.packages.x86_64-linux.gtkui
