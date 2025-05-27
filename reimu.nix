@@ -79,7 +79,8 @@ in
               allowedIPs = [ "10.42.0.1/32" ];
               endpoint = if cfg.udp2raw.enable then cfg.udp2raw.addr else cfg.endpoint;
               persistentKeepalive = 30;
-              dynamicEndpointRefreshRestartSeconds = 10; # dns resolver (dnscrypt?) is flaky on mitsu8
+              dynamicEndpointRefreshSeconds = 10; # dns resolver (dnscrypt?) is flaky on mitsu8
+              dynamicEndpointRefreshRestartSeconds = 10;
             }
           ];
         };
