@@ -23,7 +23,7 @@ in
   # see ./remote-builder.nix
   options.kiyurica.remote-builder.use-remote-builder = lib.mkOption {
     type = lib.types.bool;
-    default = true;
+    default = false;
     description = "Use remote builders";
   };
 
