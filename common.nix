@@ -3,7 +3,6 @@
   lib,
   pkgs,
   specialArgs,
-  flatpak,
   ...
 }:
 {
@@ -14,7 +13,6 @@
     ./doas.nix
     ./man.nix
     ./home-manager.nix
-    flatpak.nixosModules.declarative-flatpak
   ];
 
   # This value determines the NixOS release from which the default
@@ -111,6 +109,4 @@
   services.locate.enable = true;
 
   networking.networkmanager.enable = true;
-
-  services.flatpak.enable = true;
 }

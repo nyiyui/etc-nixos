@@ -38,7 +38,6 @@
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_CA.UTF-8";
 
-  users.users.root.initialHashedPassword = "$y$j9T$Oy.M1VzXQXFNXhLpsqbi..$lkvdnMD9WTyKc5ek7Dx3XoeyqKGtvEAuVhabHNyyz0D";
   system = {
     stateVersion = "24.05";
   };
