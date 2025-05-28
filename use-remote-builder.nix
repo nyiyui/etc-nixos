@@ -13,7 +13,7 @@ let
       sshUser = "remote-build";
       sshKey = "/root/.ssh/id_ed25519";
       inherit speedFactor;
-      inherit publicHostKey;
+      inherit publicHostKey; # base64 -w0 /etc/ssh/ssh_host_ed25519_key.pub
       protocol = "ssh-ng";
       inherit maxJobs;
       hostName = "${name}.tailcbbed9.ts.net";
@@ -39,6 +39,11 @@ in
         name = "mitsu8";
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBzQzdIUUs2MURETDFCN1I0c0JBTzZ2SWRGRUE3cTZMRE0za3cydjNwa2Qgcm9vdEBuaXhvcwo=";
         maxJobs = 3;
+      })
+      (makeBuildMachine {
+        name = "eva-00";
+        system = "aarch64-linux";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUdsV0xRbGU0V1FCM0xSWVlnb05XdWRtRXIxVk9Fc1pIaVFNbjdSL0s4WGsgcm9vdEAobm9uZSkK";
       })
     ];
   };
