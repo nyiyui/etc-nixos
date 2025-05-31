@@ -24,6 +24,7 @@
       "instance-20250512-024518".id = "AMAWOZR-B47CBJ7-WX5YBCE-JZUSW7S-UVLLM3E-WAGU53W-6CA2DE6-HATXGQY";
       "instance-20250512-024518".addresses = [ "tcp://instance-20250512-024518.dev.kiyuri.ca:22000" ];
       "Pixel 6a".id = "MNVRJUO-4EE2E47-S6JAGFW-ADWSDA2-PAE4Z55-SC7PXLU-HA3S4V6-HY5BUQZ";
+      "DELL-Maker-Faire".id = "CLRJ7EG-DOL5KYF-B4U5NTI-74J647Y-QITQVKQ-OYPZP5N-KBCTLMR-6R7L3AI";
     };
     settings.folders = {
       "inaba" = {
