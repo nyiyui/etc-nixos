@@ -98,4 +98,15 @@
   networking.firewall.allowedTCPPorts = [ 2049 ];
 
   kiyurica.remote-builder.enable = true;
+
+  services.minecraft-server = {
+    enable = true;
+    eula = true;
+    declarative = true;
+    serverProperties = {
+      server-port = 25565;
+      online-mode = false; # needed for clients w/o Mojang account
+    };
+    openFirewall = true;
+  };
 }
