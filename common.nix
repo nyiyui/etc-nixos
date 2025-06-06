@@ -50,6 +50,7 @@
     unzip
     gzip
     zip
+    libsForQt5.ark
     nix-index
     acpi
     blueman

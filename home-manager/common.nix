@@ -90,7 +90,7 @@
       playerctl
       keepassxc
       clipman
-      kdePackages.ark
+      ark
       eza
       networkmanagerapplet # provides nm-connection-editor
       darktable

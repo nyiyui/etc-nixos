@@ -109,12 +109,4 @@
     };
     openFirewall = true;
   };
-
-  services.ollama = {
-    enable = true;
-    loadModels = [
-      "llama4"
-      "llama3.3"
-    ];
-  };
 }
