@@ -181,43 +181,46 @@ in
 
     services.mako = {
       enable = true;
-      anchor = "bottom-right";
-      font = "Roboto 12";
-      backgroundColor = "#000000c0";
-      textColor = "#86cecb";
-      height = 150;
-      width = 600;
-      icons = false; # disable icons
-      #FORMAT SPECIFIERS
-      #Format specification works similarly to printf(3), but with a different set of specifiers.
-      #%% Literal "%"
-      #\\ Literal "\"
-      #\n New Line
-      #For notifications
-      #%a Application name
-      #%s Notification summary
-      #%b Notification body
-      #%g Number of notifications in the current group
-      #%i Notification id
-      #For the hidden notifications placeholder
-      #%h Number of hidden notifications
-      #%t Total number of notifications
-      extraConfig = ''
-        max-history=65536
-        format=<b>%s</b>\n%b\n%a %i
-        [grouped=true]
-        format=%g : %a <b>%s</b>\n%b\n%i
-        [hidden=true]
-        format=%t / %h
-        [urgency=low]
-        border-size=0
-
-        [urgency=normal]
-        border-color=#cb86ce
-
-        [urgency=critical]
-        border-color=#ffffff
-      '';
+      settings = {
+        anchor = "bottom-right";
+        font = "Roboto 12";
+        backgroundColor = "#000000c0";
+        textColor = "#86cecb";
+        height = 150;
+        width = 600;
+        icons = false; # disable icons
+        max-history = 65536;
+        #FORMAT SPECIFIERS
+        #Format specification works similarly to printf(3), but with a different set of specifiers.
+        #%% Literal "%"
+        #\\ Literal "\"
+        #\n New Line
+        #For notifications
+        #%a Application name
+        #%s Notification summary
+        #%b Notification body
+        #%g Number of notifications in the current group
+        #%i Notification id
+        #For the hidden notifications placeholder
+        #%h Number of hidden notifications
+        #%t Total number of notifications
+        format = "<b>%s</b>\n%b\n%a %i";
+        "grouped=true" = {
+          format = "%g : %a <b>%s</b>\n%b\n%i";
+        };
+        "hidden=true" = {
+          format = "%t / %h";
+        };
+        "urgency=low" = {
+          border-size = 0;
+        };
+        "urgency=normal" = {
+          border-color = "#cb86ce";
+        };
+        "urgency=critical" = {
+          border-color = "#ffffff";
+        };
+      };
     };
     home.packages = with pkgs; [
       jq # required by mako for e.g. mako menu

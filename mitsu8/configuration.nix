@@ -5,6 +5,7 @@
   pkgs,
   home-manager,
   nixos-hardware,
+  nixpkgs2411,
   ...
 }:
 
@@ -12,7 +13,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    home-manager.nixosModule
+    home-manager.nixosModules.default
     { }
     ../base.nix
     ../i18n.nix # japanese input / language settings
@@ -89,7 +90,12 @@
     liberation_ttf
   ];
 
-  home-manager.users.kiyurica =
+  home-manager.users.kiyurica =let
+    pkgs2411 = import nixpkgs2411 {
+      system = specialArgs.system;
+      config.allowUnfree = true;
+    };
+  in
     { pkgs, ... }:
     {
       # gamma
@@ -101,7 +107,7 @@
           command = "${pkgs.chromium}/bin/chromium '--proxy-server=socks5://10.42.0.1:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://tver.jp";
         }
         {
-          command = "${pkgs.microsoft-edge}/bin/microsoft-edge '--proxy-server=socks5://10.42.0.1:1080' https://plus.nhk.jp";
+          command = "${pkgs2411.microsoft-edge}/bin/microsoft-edge '--proxy-server=socks5://10.42.0.1:1080' https://plus.nhk.jp";
         }
       ];
 
