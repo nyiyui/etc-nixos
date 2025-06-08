@@ -116,6 +116,13 @@
           agenix.nixosModules.default
         ];
       };
+      nixosConfigurations.oumi = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [ ./oumi/configuration.nix ];
+      };
     }
     // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
       system:
