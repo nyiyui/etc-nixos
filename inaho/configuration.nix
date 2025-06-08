@@ -129,6 +129,7 @@
     settings.hostname = "inaho.tailcbbed9.ts.net";
     settings.http-port = 6019;
     settings.http-host = "127.0.0.1";
+    settings.http-enabled = true; # disables HTTPS
     database.passwordFile = config.age.secrets.keycloak-db-password.path;
     database.type = "mariadb";
   };
