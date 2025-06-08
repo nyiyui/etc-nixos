@@ -123,4 +123,18 @@
   networking.firewall.interfaces."tailscale0".allowedTCPPorts = [
     config.services.ollama.port
   ];
+
+  services.keycloak = {
+    enable = true;
+    settings.hostname = "inaho.tailcbbed9.ts.net";
+    settings.http-port = 6019;
+    settings.http-host = "127.0.0.1";
+    database.passwordFile = config.age.secrets.keycloak-db-password.path;
+    database.type = "mariadb";
+  };
+  age.secrets.keycloak-db-password = {
+    file = ../secrets/inaho-keycloak-db-password.txt.age;
+    owner = config.services.mysql.user;
+    mode = "400";
+  };
 }
