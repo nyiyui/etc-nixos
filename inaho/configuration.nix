@@ -113,8 +113,10 @@
   services.ollama = {
     enable = true;
     loadModels = [
-      "llama4"
-      "llama3.3"
+      "llama3.2"
+      "nomic-embed-text"
+      "qwen3:8b"
+      "qwen2.5-coder:7b"
     ];
     host = "0.0.0.0";
   };
