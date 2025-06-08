@@ -73,4 +73,3 @@
 
   kiyurica.remote-builder.enable = false;
 }
-
