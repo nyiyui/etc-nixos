@@ -133,4 +133,6 @@
   networking.networkmanager.plugins = with pkgs; [
     networkmanager-openconnect
   ];
+
+  kiyurica.laptop.enable = true;
 }
