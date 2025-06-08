@@ -45,6 +45,10 @@ in
         system = "aarch64-linux";
         publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUdsV0xRbGU0V1FCM0xSWVlnb05XdWRtRXIxVk9Fc1pIaVFNbjdSL0s4WGsgcm9vdEAobm9uZSkK";
       })
+      (makeBuildMachine {
+        name = "oumi";
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUVBR01tYXk2eVoyZmxwYnRGRjZXdkdWVVBvSHVHcXhaVDVybjhSU1B1dU4gcm9vdEBvdW1pCg==";
+      })
     ];
   };
 }

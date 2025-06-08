@@ -56,7 +56,7 @@
 
   home-manager.users.kiyurica = { ... }: { };
 
-  autoUpgrade.directFlake = false;
+  autoUpgrade.directFlake = true;
 
   age.identityPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 
@@ -66,10 +66,10 @@
 
   system.autoUpgrade.dates = lib.mkForce "02:30";
 
-  kiyurica.tailscale.enable = false;
-  # networking.firewall.interfaces."tailscale0".allowedTCPPorts = [
-  #   config.services.ollama.port
-  # ];
+  kiyurica.tailscale.enable = true;
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [
+    config.services.ollama.port
+  ];
 
-  kiyurica.remote-builder.enable = false;
+  kiyurica.remote-builder.enable = true;
 }

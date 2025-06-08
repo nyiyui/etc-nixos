@@ -12,6 +12,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPtA1YLDpuFOdXJRowvZEVx1X0M1YUDmo0Eaxjq5WSY2 root@misaki"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ9Z/KUpNuN0LYa3eczVJkMwjHULKbvu8Ii7P/BgPK52 root@mitsu8"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDy5lcb0I4CjFMc9SCr2ZJYTqfnInabxDPS+AHcUSTiH root@suzaku"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHhQS4w27vl2q4L/c2JHzGaum3EfuZaaUo6HYnAUizLW root@oumi"
       ];
     };
 
