@@ -26,6 +26,7 @@
         ".local/share/direnv"
         ".local/share/fish"
         ".local/share/nvim"
+        ".local/share/prusa-slicer"
         ".mozilla/firefox"
         ".thunderbird"
         ".config/syncthing"

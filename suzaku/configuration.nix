@@ -68,13 +68,15 @@
   kiyurica.desktop.sway.enable = true;
   kiyurica.greeter.gtkgreet.enable = true;
   home-manager.users.kiyurica =
-    { ... }:
+    { pkgs, ... }:
     {
       imports = [ ../home-manager/activitywatch.nix ];
       kiyurica.hasBacklight = true;
       kiyurica.services.seekback.enable = true;
       # PAM requires fingerprint, so we can use touch to trigger PAM (instead of e.g. Enter key)
       programs.swaylock.settings.submit-on-touch = true;
+
+      home.packages = [ pkgs.prusa-slicer ];
 
       wayland.windowManager.sway.config = {
         output."eDP-1" = {
