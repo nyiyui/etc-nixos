@@ -17,6 +17,7 @@
     files = [ "/etc/machine-id" ];
     users.kiyurica = {
       directories = [
+        "3d-spool"
         {
           directory = ".ssh";
           mode = "0700";
