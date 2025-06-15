@@ -28,6 +28,7 @@
       ];
       "Pixel 6a".id = "MNVRJUO-4EE2E47-S6JAGFW-ADWSDA2-PAE4Z55-SC7PXLU-HA3S4V6-HY5BUQZ";
       "DELL-Maker-Faire".id = "CLRJ7EG-DOL5KYF-B4U5NTI-74J647Y-QITQVKQ-OYPZP5N-KBCTLMR-6R7L3AI";
+      "suika".id = "ZDKUJFH-ZNK4PL3-MDFNZ37-YBUGYDL-36TNVKN-LT5LSQB-VI73SH6-AYTZUQW";
     };
     settings.folders = {
       "inaba" = {
@@ -75,6 +76,16 @@
           "sekisho"
           "sekisho2"
           "suzaku"
+        ];
+      };
+      "3d-spool" = {
+        id = "qcj7e-rviwt";
+        label = "suika's 3D spool";
+        path = "/home/kiyurica/3d-spool";
+        devices = [
+          "suzaku"
+          "inaho"
+          "suika"
         ];
       };
     };
