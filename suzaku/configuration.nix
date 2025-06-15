@@ -137,4 +137,6 @@
   ];
 
   kiyurica.laptop.enable = true;
+
+  programs.steam.enable = true; # for running Meshroom binary
 }
