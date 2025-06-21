@@ -78,13 +78,18 @@
 
       home.packages = [ pkgs.prusa-slicer ];
 
-      wayland.windowManager.sway.config = {
-        output."eDP-1" = {
-          mode = "2880x1800@60.001Hz";
-          scale = "1.5";
-          adaptive_sync = "on";
-        };
+      kiyurica.services.kanshi = {
+        enable = true;
+        builtinDisplay = "Samsung Display Corp. 0x4152 Unknown";
       };
+      services.kanshi.settings = [
+        {
+          output.criteria = "Samsung Display Corp. 0x4152 Unknown";
+          output.mode = "2880x1800@60.001Hz";
+          output.scale = 1.5;
+          output.adaptiveSync = true;
+        }
+      ];
     };
 
   kiyurica.networks.er605 = {
