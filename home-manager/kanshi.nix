@@ -15,7 +15,7 @@
       settings = [
         {
           output.criteria = "Sceptre Tech Inc U27 Unknown";
-          output.transform = "90";
+          output.transform = "270";
           output.mode = "3840x2160@30.000Hz";
           output.scale = 2.4;
           output.alias = "Sceptre";
