@@ -1,47 +1,70 @@
-{ config, pkgs, lib, ... }:
 {
-  options.kiyurica.services.kanshi.enable = lib.mkEnableOption "dynamic display configuration for Wayland compositors supporting wlr-output-management protocol";
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  options.kiyurica.services.kanshi.enable =
+    lib.mkEnableOption "dynamic display configuration for Wayland compositors supporting wlr-output-management protocol";
   options.kiyurica.services.kanshi.builtinDisplay = lib.mkOption {
     type = lib.types.str;
     description = "name of the builtin display";
     example = "Samsung Display Corp. 0x4152 Unknown";
   };
 
-  config = let
-    builtinDisplay = config.kiyurica.services.kanshi.builtinDisplay;
-  in lib.mkIf config.kiyurica.services.kanshi.enable {
-    services.kanshi = {
-      enable = true;
-      settings = [
-        {
-          output.criteria = "Sceptre Tech Inc U27 Unknown";
-          output.transform = "270";
-          output.mode = "3840x2160@30.000Hz";
-          output.scale = 2.4;
-          output.alias = "Sceptre";
-        }
-        {
-          output.criteria = "Sony SONY TV  *00 0x01010101";
-          output.mode = "3840x2160@60.000Hz";
-          output.scale = 1.5;
-          output.alias = "Sony";
-        }
-        {
-          profile.name = "eastyork-dock";
-          profile.outputs = [
-            { criteria = "$Sceptre"; position = "0,0"; }
-            { criteria = "$Sony"; position = "900,160"; }
-            { criteria = "${builtinDisplay}"; position = "900,1600"; }
-          ];
-        }
-        {
-          profile.name = "eastyork-dock-closed";
-          profile.outputs = [
-            { criteria = "$Sceptre"; position = "0,0"; }
-            { criteria = "$Sony"; position = "900,160"; }
-          ];
-        }
-      ];
+  config =
+    let
+      builtinDisplay = config.kiyurica.services.kanshi.builtinDisplay;
+    in
+    lib.mkIf config.kiyurica.services.kanshi.enable {
+      services.kanshi = {
+        enable = true;
+        settings = [
+          {
+            output.criteria = "Sceptre Tech Inc U27 Unknown";
+            output.transform = "270";
+            output.mode = "3840x2160@30.000Hz";
+            output.scale = 2.4;
+            output.alias = "Sceptre";
+          }
+          {
+            output.criteria = "Sony SONY TV  *00 0x01010101";
+            output.mode = "3840x2160@60.000Hz";
+            output.scale = 1.5;
+            output.alias = "Sony";
+          }
+          {
+            profile.name = "eastyork-dock";
+            profile.outputs = [
+              {
+                criteria = "$Sceptre";
+                position = "0,0";
+              }
+              {
+                criteria = "$Sony";
+                position = "900,160";
+              }
+              {
+                criteria = "${builtinDisplay}";
+                position = "900,1600";
+              }
+            ];
+          }
+          {
+            profile.name = "eastyork-dock-closed";
+            profile.outputs = [
+              {
+                criteria = "$Sceptre";
+                position = "0,0";
+              }
+              {
+                criteria = "$Sony";
+                position = "900,160";
+              }
+            ];
+          }
+        ];
+      };
     };
-  };
 }
