@@ -15,6 +15,7 @@
 {
   imports = [
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
+    ./overlays.nix
     ./hardware-configuration.nix
     ./disko-config.nix
     ./impermanence.nix
@@ -145,12 +146,4 @@
   kiyurica.laptop.enable = true;
 
   kiyurica.displaylink.enable = true;
-
-  nixpkgs.overlays = [
-    (final: prev: let
-      unstable = import nixpkgs-unstable { system = prev.system; };
-    in {
-      sway = unstable.sway;
-    })
-  ];
 }
