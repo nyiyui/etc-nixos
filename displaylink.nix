@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   options.kiyurica.displaylink.enable = lib.mkEnableOption "DisplayLink support";
 
