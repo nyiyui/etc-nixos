@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -44,9 +45,6 @@
       lanzaboote,
       ...
     }@attrs:
-    let
-      pkgs = import nixpkgs { config.allowUnfree = true; };
-    in
     rec {
       nixosConfigurations.mitsu8 = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -127,7 +125,7 @@
     // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs { inherit system; };
       in
       {
         devShells.default = pkgs.mkShell {

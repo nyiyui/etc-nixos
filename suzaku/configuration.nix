@@ -8,6 +8,7 @@
   pkgs,
   specialArgs,
   nixos-hardware,
+  nixpkgs-unstable,
   ...
 }:
 
@@ -144,4 +145,12 @@
   kiyurica.laptop.enable = true;
 
   kiyurica.displaylink.enable = true;
+
+  nixpkgs.overlays = [
+    (final: prev: let
+      unstable = import nixpkgs-unstable { system = prev.system; };
+    in {
+      sway = unstable.sway;
+    })
+  ];
 }
