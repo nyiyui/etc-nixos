@@ -30,7 +30,7 @@
           }
           {
             output.criteria = "Sony SONY TV  *00 0x01010101";
-            output.mode = "3840x2160@60.000Hz";
+            output.mode = "3840x2160@30.000Hz";
             output.scale = 1.5;
             output.alias = "Sony";
           }
