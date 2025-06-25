@@ -12,5 +12,6 @@
     ./use-remote-builder.nix
     ./kdeconnect.nix
     ./laptop.nix
+    ./displaylink.nix
   ];
 }
