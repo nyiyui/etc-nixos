@@ -19,7 +19,6 @@
     users.kiyurica = {
       directories = [
         "inaba"
-        "3d-spool"
         {
           directory = ".ssh";
           mode = "0700";
