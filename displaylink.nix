@@ -12,7 +12,7 @@
   config = lib.mkIf config.kiyurica.displaylink.enable {
     boot = {
       extraModulePackages = [ config.boot.kernelPackages.evdi ];
-      kernelModules = [ "evdi" ];
+      initrd.kernelModules = [ "evdi" ];
     };
     environment.systemPackages = with pkgs; [
       displaylink
@@ -21,6 +21,7 @@
     systemd.services.displaylink-manager = {
       after = [ "display-manager.service" ];
       serviceConfig = {
+        ExecStartPre = "/run/current-system/sw/bin/modprobe evdi";
         ExecStart = "${pkgs.displaylink}/bin/DisplayLinkManager";
         WorkingDirectory = "${pkgs.displaylink}/lib/displaylink";
         Restart = "always";
