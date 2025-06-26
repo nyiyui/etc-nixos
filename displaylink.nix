@@ -12,7 +12,7 @@
   config = lib.mkIf config.kiyurica.displaylink.enable {
     boot = {
       extraModulePackages = [ config.boot.kernelPackages.evdi ];
-      initrd.kernelModules = [ "evdi" ];
+      kernelModules = [ "evdi" ];
     };
     environment.systemPackages = with pkgs; [
       displaylink
