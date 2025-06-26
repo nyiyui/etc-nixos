@@ -29,7 +29,7 @@
             + config.kiyurica.greeter.gtkgreet.extraSwayConfig
           );
           script = pkgs.writeShellScriptBin "greet.sh" ''
-            ${pkgs.sway}/bin/sway --unsupported-gpu --config ${swayConfig}
+            ${pkgs.sway}/bin/sway --config ${swayConfig}
           '';
         in
         {
