@@ -137,7 +137,8 @@
 
   kiyurica.kdeconnect.enable = true;
 
-  kiyurica.remote-builder.use-remote-builder = true;
+  # NOTE: disable for now, as x86_64 builders end up slowing down builds that should have otherwise run locally
+  # kiyurica.remote-builder.use-remote-builder = true;
 
   networking.networkmanager.plugins = with pkgs; [
     networkmanager-openconnect
