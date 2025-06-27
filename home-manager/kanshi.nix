@@ -64,6 +64,15 @@
               }
             ];
           }
+          {
+            profile.name = "builtin-only";
+            profile.outputs = [
+              {
+                criteria = "${builtinDisplay}";
+                position = "0,0";
+              }
+            ];
+          }
         ];
       };
     };
