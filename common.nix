@@ -53,7 +53,6 @@
     libsForQt5.ark
     nix-index
     acpi
-    blueman
     file
     picocom
   ];
