@@ -5,6 +5,7 @@
   pkgs,
   home-manager,
   nixos-hardware,
+  nixpkgs-unstable,
   ...
 }:
 
@@ -12,8 +13,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    home-manager.nixosModule
     { }
+    ../home-manager.nix
     ../base.nix
     ../i18n.nix # japanese input / language settings
     ../reimu.nix # VPN to Tokyo
