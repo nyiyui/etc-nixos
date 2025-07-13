@@ -30,6 +30,10 @@ events = [
     uinput.REL_Y,
     *BUTTON_MAP.values(),
     uinput.KEY_ENTER,
+    uinput.KEY_UP,
+    uinput.KEY_DOWN,
+    uinput.KEY_FORWARD,
+    uinput.KEY_BACK,
 ]
 CMD_KEY = 307
 CMD = [ "wl-kbptr", "-o", "modes=bisect" ];
@@ -43,6 +47,10 @@ STICK_MAP = {
 }
 ABS_X = 0
 ABS_Y = 1
+ABS_RX = 3
+ABS_RY = 4
+ABS_HAT0X = 16
+ABS_HAT0Y = 17
 
 def signum(x):
     if x == 0:
@@ -93,6 +101,26 @@ with uinput.Device(events) as dev:
                     stick_y = 0
                     stick_lock = False
                     sitck_ignore_until = time.time() + 0.1
+            elif event.code == ABS_RY:
+                dev.emit(uinput.BTN_WHEEL, event.value)
+            elif event.code == ABS_HAT0Y:
+                if event.value > 0:
+                    print('down')
+                    dev.emit(uinput.KEY_DOWN, 1)
+                elif event.value < 0:
+                    print('up')
+                    dev.emit(uinput.KEY_UP, 1)
+                else:
+                    print('reset')
+                    dev.emit(uinput.KEY_DOWN, 0)
+                    dev.emit(uinput.KEY_UP, 0)
+            elif event.code == ABS_HAT0X:
+                if event.value > 0:
+                    print('forward')
+                    dev.emit_click(uinput.KEY_FORWARD)
+                elif event.value < 0:
+                    print('back')
+                    dev.emit_click(uinput.KEY_BACK)
         elif event.type == ecodes.EV_KEY:
             if event.code in BUTTON_MAP.keys():
                 dev.emit(BUTTON_MAP[event.code], event.value)
