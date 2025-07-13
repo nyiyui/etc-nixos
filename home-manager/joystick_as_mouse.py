@@ -101,7 +101,7 @@ with uinput.Device(events) as dev:
                 dev.emit(uinput.BTN_LEFT, 1)
                 dev.emit(uinput.BTN_LEFT, 0)
             elif event.code == CMD_KEY:
-                subprocess.run(CMD)
+                subprocess.Popen(CMD)
         # now = time.time()
         # duration = now - prev_loop
         # dev.emit(uinput.REL_X, vel_x//COEFF_X)
