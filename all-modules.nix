@@ -13,6 +13,5 @@
     ./kdeconnect.nix
     ./laptop.nix
     ./displaylink.nix
-    ./joycon.nix
   ];
 }
