@@ -1,5 +1,6 @@
 import sys
 import time
+import subprocess
 
 from evdev import InputDevice, ecodes
 import uinput
@@ -13,10 +14,6 @@ COEFF_Y = 1000
 BUTTON_MAP = {
     305: uinput.BTN_LEFT,
     304: uinput.BTN_RIGHT,
-    # 17: uinput.KEY_A, # d-pad up
-    # 17: uinput.KEY_A, # d-pad right
-    # 17: uinput.KEY_A, # d-pad down
-    # 17: uinput.KEY_A, # d-pad left
 }
 
 
@@ -34,6 +31,8 @@ events = [
     *BUTTON_MAP.values(),
     uinput.KEY_ENTER,
 ]
+CMD_KEY = 307
+CMD = [ "wl-kbptr", "-o", "modes=bisect" ];
 ENTER_AND_CLICK = 308
 STICK_THRESHOLD = 6000
 STICK_MAP = {
@@ -101,6 +100,8 @@ with uinput.Device(events) as dev:
                 dev.emit_click(uinput.KEY_ENTER)
                 dev.emit(uinput.BTN_LEFT, 1)
                 dev.emit(uinput.BTN_LEFT, 0)
+            elif event.code == CMD_KEY:
+                subprocess.run(CMD)
         # now = time.time()
         # duration = now - prev_loop
         # dev.emit(uinput.REL_X, vel_x//COEFF_X)
