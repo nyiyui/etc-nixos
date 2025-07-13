@@ -161,6 +161,4 @@
   kiyurica.remote-builder.enable = true;
 
   kiyurica.kdeconnect.enable = true;
-
-  kiyurica.joycon.enable = true;
 }
