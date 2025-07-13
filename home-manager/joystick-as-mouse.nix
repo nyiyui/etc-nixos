@@ -1,7 +1,7 @@
 { pkgs, nixpkgs-unstable, ... }:
 let
   pkgs-unstable = import nixpkgs-unstable { system = pkgs.system; };
-  pythonEnv = pkgs-unstable.python3.withPackages (
+  pythonEnv = pkgs.python3.withPackages (
     ps: with ps; [
       evdev
       python-uinput
@@ -14,6 +14,6 @@ in
     (pkgs.writeShellScriptBin "joystick-as-mouse.sh" ''
       ${pythonEnv}/bin/python3 ${./joystick_as_mouse.py}
     '')
-    pkgs.wl-kbptr
+    pkgs-unstable.wl-kbptr
   ];
 }
