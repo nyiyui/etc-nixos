@@ -100,7 +100,7 @@ with uinput.Device(events) as dev:
                 dev.emit_click(uinput.KEY_ENTER)
                 dev.emit(uinput.BTN_LEFT, 1)
                 dev.emit(uinput.BTN_LEFT, 0)
-            elif event.code == CMD_KEY:
+            elif event.code == CMD_KEY and event.value == 0:
                 subprocess.Popen(CMD)
         # now = time.time()
         # duration = now - prev_loop
