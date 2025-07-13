@@ -72,7 +72,10 @@
   home-manager.users.kiyurica =
     { pkgs, ... }:
     {
-      imports = [ ../home-manager/activitywatch.nix ../home-manager/joystick-as-mouse.nix ];
+      imports = [
+        ../home-manager/activitywatch.nix
+        ../home-manager/joystick-as-mouse.nix
+      ];
       kiyurica.hasBacklight = true;
       kiyurica.services.seekback.enable = true;
       # PAM requires fingerprint, so we can use touch to trigger PAM (instead of e.g. Enter key)
