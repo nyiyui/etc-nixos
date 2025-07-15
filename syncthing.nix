@@ -21,14 +21,8 @@
       "sekisho2".id = "U4JDJNS-R4HRVK4-VZC7TZ5-IP74TKJ-TUVNTYJ-L3MUM3Y-AMGBYKO-NFSQGQW";
       "suzaku".id = "5DES2YX-7XTFTK7-SGP4VRD-KVS5DAO-VPMXEC7-RDAGYKE-QDRZDDD-NS5ANAZ";
       "inaho".id = "THGLO7L-TJ4Q4UF-BE2ZERW-AXHKKSY-CAZTUJY-W5T24JT-VC7WCTR-GJPPMAH";
-      "instance-20250512-024518".id = "AMAWOZR-B47CBJ7-WX5YBCE-JZUSW7S-UVLLM3E-WAGU53W-6CA2DE6-HATXGQY";
-      "instance-20250512-024518".addresses = [
-        "tcp://instance-20250512-024518.tailcbbed9.ts.net:22000"
-        "tcp://instance-20250512-024518.dev.kiyuri.ca:22000"
-      ];
       "Pixel 6a".id = "MNVRJUO-4EE2E47-S6JAGFW-ADWSDA2-PAE4Z55-SC7PXLU-HA3S4V6-HY5BUQZ";
       "DELL-Maker-Faire".id = "CLRJ7EG-DOL5KYF-B4U5NTI-74J647Y-QITQVKQ-OYPZP5N-KBCTLMR-6R7L3AI";
-      "suika".id = "ZDKUJFH-ZNK4PL3-MDFNZ37-YBUGYDL-36TNVKN-LT5LSQB-VI73SH6-AYTZUQW";
     };
     settings.folders = {
       "inaba" = {
@@ -42,7 +36,6 @@
           "sekisho2"
           "suzaku"
           "inaho"
-          "instance-20250512-024518"
         ];
         versioning.type = "staggered";
         versioning.params = {
@@ -80,12 +73,11 @@
       };
       "3d-spool" = {
         id = "qcj7e-rviwt";
-        label = "suika's 3D spool";
+        label = "3D spool";
         path = "/home/kiyurica/3d-spool";
         devices = [
           "suzaku"
           "inaho"
-          "suika"
         ];
       };
     };
