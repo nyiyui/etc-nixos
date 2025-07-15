@@ -23,6 +23,7 @@
       "inaho".id = "THGLO7L-TJ4Q4UF-BE2ZERW-AXHKKSY-CAZTUJY-W5T24JT-VC7WCTR-GJPPMAH";
       "Pixel 6a".id = "MNVRJUO-4EE2E47-S6JAGFW-ADWSDA2-PAE4Z55-SC7PXLU-HA3S4V6-HY5BUQZ";
       "DELL-Maker-Faire".id = "CLRJ7EG-DOL5KYF-B4U5NTI-74J647Y-QITQVKQ-OYPZP5N-KBCTLMR-6R7L3AI";
+      "strawberry".id = "VQGSEHC-5NZQ5ZM-2ODFSGQ-DWF4Z55-MI2I24H-KP37Z5X-P53PWJB-HFOHMQW";
     };
     settings.folders = {
       "inaba" = {
@@ -78,6 +79,7 @@
         devices = [
           "suzaku"
           "inaho"
+          "strawberry"
         ];
       };
     };
