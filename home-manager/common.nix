@@ -109,6 +109,8 @@
       xournalpp
       rnote
 
+      libsixel # for img2sixel for images in terminal
+
       hunspell
 
       seahorse
