@@ -16,7 +16,7 @@
     ../autoUpgrade-https.nix
     ../hisame.nix
     ./jks.nix
-    ./seekback-server.nix
+    ../seekback-server.nix
     ./backup.nix
     ./bulletin.nix
     ./jts-server.nix
