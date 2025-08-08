@@ -6,7 +6,7 @@
 { config, pkgs, ... }:
 let
   pcoreScript = pkgs.writeShellScript "pcore-toggle" ''
-    #!/bin/bash
+    #!/usr/bin/env bash
 
     # Check for enable/disable argument
     action="disable"
