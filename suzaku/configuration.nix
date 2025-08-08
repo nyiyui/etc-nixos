@@ -38,8 +38,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   users.users.kiyurica = {
     initialHashedPassword = "$y$j9T$g5xm0pLBFbK4W4c5BIENt/$D18bkwRRxH/MjSlInTZfvd2vE4Mxa.RQXARitTirV64";
   };
