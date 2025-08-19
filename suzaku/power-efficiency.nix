@@ -4,62 +4,83 @@
 # cf. https://wiki.archlinux.org/index.php?title=Power_management&oldid=842125#Power_saving
 # latest = https://wiki.archlinux.org/wiki/Power_management
 { config, pkgs, ... }:
-let
-  pcoreScript = pkgs.writeShellScript "pcore-toggle" ''
-    #!/usr/bin/env bash
-
-    # Check for enable/disable argument
-    action="disable"
-    value=0
-    if [[ $1 == "enable" ]]; then
-        action="enable"
-        value=1
-    elif [[ $1 == "disable" ]]; then
-        action="disable"
-        value=0
-    elif [[ -n $1 ]]; then
-        echo "Usage: $0 [enable|disable]"
-        echo "Default: disable"
-        exit 1
-    fi
-
-    # Read P-cores from /sys/devices/cpu_core/cpus
-    pcores=$(cat /sys/devices/cpu_core/cpus)
-
-    # Parse the range and modify each P-core
-    if [[ $pcores =~ ^([0-9]+)-([0-9]+)$ ]]; then
-        start=''${BASH_REMATCH[1]}
-        end=''${BASH_REMATCH[2]}
-        
-        for ((cpu=$start; cpu<=$end; cpu++)); do
-            echo "''${action^}ing CPU $cpu"
-            echo $value > /sys/devices/system/cpu/cpu$cpu/online
-        done
-    elif [[ $pcores =~ ^[0-9,]+$ ]]; then
-        # Handle comma-separated list
-        IFS=',' read -ra CPUS <<< "$pcores"
-        for cpu in "''${CPUS[@]}"; do
-            echo "''${action^}ing CPU $cpu"
-            echo $value > /sys/devices/system/cpu/cpu$cpu/online
-        done
-    else
-        echo "Unsupported format: $pcores"
-        exit 1
-    fi
-
-    echo "P-cores ''${action}d"
-  '';
-in
 {
   environment.systemPackages = [
     config.boot.kernelPackages.x86_energy_perf_policy
   ];
 
-  # Udev rules to toggle P-cores based on power source
+  # Systemd services for CPU power management
+  systemd.services.cpu-power-mode = {
+    description = "Set CPU to power saving mode";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "cpu-power-mode" ''
+        ${config.boot.kernelPackages.x86_energy_perf_policy}/bin/x86_energy_perf_policy power
+
+        pcores=$(cat /sys/devices/cpu_core/cpus)
+
+        if [[ $pcores =~ ^([0-9]+)-([0-9]+)$ ]]; then
+            start=''${BASH_REMATCH[1]}
+            end=''${BASH_REMATCH[2]}
+            
+            for ((cpu=$start; cpu<=$end; cpu++)); do
+                echo "Disabling CPU $cpu"
+                echo 0 > /sys/devices/system/cpu/cpu$cpu/online
+            done
+        elif [[ $pcores =~ ^[0-9,]+$ ]]; then
+            IFS=',' read -ra CPUS <<< "$pcores"
+            for cpu in "''${CPUS[@]}"; do
+                echo "Disabling CPU $cpu"
+                echo 0 > /sys/devices/system/cpu/cpu$cpu/online
+            done
+        else
+            echo "Unsupported format: $pcores"
+            exit 1
+        fi
+
+        echo "CPU power mode enabled"
+      '';
+    };
+  };
+
+  systemd.services.cpu-performance-mode = {
+    description = "Set CPU to performance mode";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "cpu-performance-mode" ''
+        ${config.boot.kernelPackages.x86_energy_perf_policy}/bin/x86_energy_perf_policy performance
+
+        pcores=$(cat /sys/devices/cpu_core/cpus)
+
+        if [[ $pcores =~ ^([0-9]+)-([0-9]+)$ ]]; then
+            start=''${BASH_REMATCH[1]}
+            end=''${BASH_REMATCH[2]}
+            
+            for ((cpu=$start; cpu<=$end; cpu++)); do
+                echo "Enabling CPU $cpu"
+                echo 1 > /sys/devices/system/cpu/cpu$cpu/online
+            done
+        elif [[ $pcores =~ ^[0-9,]+$ ]]; then
+            IFS=',' read -ra CPUS <<< "$pcores"
+            for cpu in "''${CPUS[@]}"; do
+                echo "Enabling CPU $cpu"
+                echo 1 > /sys/devices/system/cpu/cpu$cpu/online
+            done
+        else
+            echo "Unsupported format: $pcores"
+            exit 1
+        fi
+
+        echo "CPU performance mode enabled"
+      '';
+    };
+  };
+
+  # Udev rules to trigger systemd services based on power source
   services.udev.extraRules = ''
-    # On AC power: enable P-cores
-    SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="${pcoreScript} enable"
-    # On battery power: disable P-cores  
-    SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="${pcoreScript} disable"
+    # On AC power: enable performance mode
+    SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="${pkgs.systemd}/bin/systemctl start cpu-performance-mode.service"
+    # On battery power: enable power saving mode  
+    SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="${pkgs.systemd}/bin/systemctl start cpu-power-mode.service"
   '';
 }
