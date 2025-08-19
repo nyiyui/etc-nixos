@@ -32,17 +32,17 @@ in
     wantedBy = [ "multi-user.target" ];
   };
   age.secrets.seekback-server-config = {
-    file = ../secrets/seekback-server-config.sh.age;
+    file = ./secrets/seekback-server-config.sh.age;
     owner = "seekback-server";
     mode = "400";
   };
   age.secrets.seekback-server-origincert = {
-    file = ../secrets/seekback-server.nyiyui.ca.origincert.pem.age;
+    file = ./secrets/seekback-server.nyiyui.ca.origincert.pem.age;
     owner = "caddy";
     mode = "400";
   };
   age.secrets.seekback-server-privkey = {
-    file = ../secrets/seekback-server.nyiyui.ca.privkey.pem.age;
+    file = ./secrets/seekback-server.nyiyui.ca.privkey.pem.age;
     owner = "caddy";
     mode = "400";
   };
