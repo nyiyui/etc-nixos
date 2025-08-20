@@ -90,6 +90,7 @@
   services.syncthing.settings.folders."geofront".path = lib.mkForce "/GF-01";
 
   kiyurica.tailscale.enable = true;
+  kiyurica.tailscale.cert.enable = true;
 
   # provide access to inaba for misaki
   services.nfs.server.enable = true;
