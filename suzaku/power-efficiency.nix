@@ -58,34 +58,14 @@
       ExecStart = pkgs.writeShellScript "cpu-performance-mode" ''
         ${config.boot.kernelPackages.x86_energy_perf_policy}/bin/x86_energy_perf_policy performance
 
-        pcores=$(cat /sys/devices/cpu_core/cpus)
-
-        if [[ $pcores =~ ^([0-9]+)-([0-9]+)$ ]]; then
-            start=''${BASH_REMATCH[1]}
-            end=''${BASH_REMATCH[2]}
-            
-            for ((cpu=$start; cpu<=$end; cpu++)); do
-                if [ $cpu -ne 0 ]; then
-                    echo "Enabling CPU $cpu"
-                    echo 1 > /sys/devices/system/cpu/cpu$cpu/online
-                else
-                    echo "Skipping CPU0"
-                fi
-            done
-        elif [[ $pcores =~ ^[0-9,]+$ ]]; then
-            IFS=',' read -ra CPUS <<< "$pcores"
-            for cpu in "''${CPUS[@]}"; do
-                if [ $cpu -ne 0 ]; then
-                    echo "Enabling CPU $cpu"
-                    echo 1 > /sys/devices/system/cpu/cpu$cpu/online
-                else
-                    echo "Skipping CPU0"
-                fi
-            done
-        else
-            echo "Unsupported format: $pcores"
-            exit 1
-        fi
+        for ((cpu=0; cpu<$(nproc --all); cpu++)); do
+            if [ $cpu -ne 0 ]; then
+                echo "Enabling CPU $cpu"
+                echo 1 > /sys/devices/system/cpu/cpu$cpu/online
+            else
+                echo "Skipping CPU0"
+            fi
+        done
 
         echo "CPU performance mode enabled"
       '';
