@@ -18,6 +18,7 @@
     ../autoUpgrade-git.nix
     specialArgs.disko.nixosModules.disko
     ./backup.nix
+    ./minio.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
