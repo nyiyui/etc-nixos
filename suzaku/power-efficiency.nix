@@ -65,14 +65,22 @@
             end=''${BASH_REMATCH[2]}
             
             for ((cpu=$start; cpu<=$end; cpu++)); do
-                echo "Enabling CPU $cpu"
-                echo 1 > /sys/devices/system/cpu/cpu$cpu/online
+                if [ $cpu -ne 0 ]; then
+                    echo "Enabling CPU $cpu"
+                    echo 1 > /sys/devices/system/cpu/cpu$cpu/online
+                else
+                    echo "Skipping CPU0"
+                fi
             done
         elif [[ $pcores =~ ^[0-9,]+$ ]]; then
             IFS=',' read -ra CPUS <<< "$pcores"
             for cpu in "''${CPUS[@]}"; do
-                echo "Enabling CPU $cpu"
-                echo 1 > /sys/devices/system/cpu/cpu$cpu/online
+                if [ $cpu -ne 0 ]; then
+                    echo "Enabling CPU $cpu"
+                    echo 1 > /sys/devices/system/cpu/cpu$cpu/online
+                else
+                    echo "Skipping CPU0"
+                fi
             done
         else
             echo "Unsupported format: $pcores"
