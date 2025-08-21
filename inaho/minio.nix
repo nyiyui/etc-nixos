@@ -21,8 +21,8 @@
     };
     script = ''
       mkdir -p /var/lib/minio/certs
-      cp ${config.kiyurica.tailscale.cert.certPath} /var/lib/minio/certs/public.crt
-      cp ${config.kiyurica.tailscale.cert.keyPath} /var/lib/minio/certs/private.key
+      cp ${config.kiyurica.tailscale.cert.certPath}/${config.kiyurica.tailscale.cert.domain}.crt /var/lib/minio/certs/public.crt
+      cp ${config.kiyurica.tailscale.cert.certPath}/${config.kiyurica.tailscale.cert.domain}.key /var/lib/minio/certs/private.key
       chown -R minio:minio /var/lib/minio/certs
       chmod 600 /var/lib/minio/certs/private.key
       chmod 644 /var/lib/minio/certs/public.crt
