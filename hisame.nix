@@ -98,7 +98,7 @@ in
 
 
           print('checking static IP…')
-          STATIC_IP_ADDR = '143.215.191.43'
+          STATIC_IP_ADDR = '10.89.62.197'
           # ping the device
           completed = subprocess.run(['/run/current-system/sw/bin/ping', '-c', '1', STATIC_IP_ADDR], capture_output=True)
           if completed.returncode == 0:
