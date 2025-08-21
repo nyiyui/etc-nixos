@@ -32,6 +32,7 @@
     ../vnc.nix
     ../virt.nix
     ./power-efficiency.nix
+    ../hisame.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -157,4 +158,9 @@
   services.blueman.enable = true;
 
   kiyurica.networks.eduroam.enable = true;
+
+  hisame.services.sync = {
+    enable = true;
+    path = "/home/kiyurica/inaba/hisame";
+  };
 }
