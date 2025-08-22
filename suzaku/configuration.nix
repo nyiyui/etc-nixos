@@ -137,6 +137,7 @@
   };
 
   kiyurica.programs.claude-code.enable = true;
+  kiyurica.programs.gemini-cli.enable = true;
 
   kiyurica.tailscale.enable = true;
 
