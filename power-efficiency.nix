@@ -19,40 +19,13 @@ let
     # Log the power state change
     ${pkgs.systemd}/bin/systemd-cat -t power-efficiency echo "Switching to battery power - enabling aggressive power saving"
 
-    # Dynamically find and disable P-cores (performance cores)
-    # Note: Core 0 cannot be disabled as it's the bootstrap processor
-    if [ -f "/sys/devices/cpu_core/cpus" ]; then
-      # Read P-core list and disable each core except core 0
-      pcores=$(cat /sys/devices/cpu_core/cpus 2>/dev/null || echo "")
-      if [ -n "$pcores" ]; then
-        # Parse the CPU list (format like "0-7" or "0,2,4,6")
-        echo "$pcores" | tr ',' '\n' | while read -r range; do
-          if [[ "$range" == *-* ]]; then
-            # Handle range format like "0-7"
-            start=$(echo "$range" | cut -d'-' -f1)
-            end=$(echo "$range" | cut -d'-' -f2)
-            for ((core=start; core<=end; core++)); do
-              if [ "$core" != "0" ] && [ -f "/sys/devices/system/cpu/cpu$core/online" ]; then
-                echo 0 > "/sys/devices/system/cpu/cpu$core/online" 2>/dev/null || true
-              fi
-            done
-          else
-            # Handle individual core numbers
-            core="$range"
-            if [ "$core" != "0" ] && [ -f "/sys/devices/system/cpu/cpu$core/online" ]; then
-              echo 0 > "/sys/devices/system/cpu/cpu$core/online" 2>/dev/null || true
-            fi
-          fi
-        done
+    # Disable P-cores (performance cores) - typically cores 0-7 on modern Intel CPUs
+    # This is aggressive but very effective for battery life
+    for core in {0..7}; do
+      if [ -f "/sys/devices/system/cpu/cpu$core/online" ]; then
+        echo 0 > "/sys/devices/system/cpu/cpu$core/online" 2>/dev/null || true
       fi
-    else
-      # Fallback: assume cores 1-7 are P-cores on modern Intel CPUs
-      for core in {1..7}; do
-        if [ -f "/sys/devices/system/cpu/cpu$core/online" ]; then
-          echo 0 > "/sys/devices/system/cpu/cpu$core/online" 2>/dev/null || true
-        fi
-      done
-    fi
+    done
 
     # Set CPU energy performance preference to power (most aggressive)
     if command -v x86_energy_perf_policy >/dev/null 2>&1; then
@@ -104,39 +77,12 @@ let
     # Log the power state change
     ${pkgs.systemd}/bin/systemd-cat -t power-efficiency echo "AC power detected - restoring performance mode"
 
-    # Dynamically find and re-enable P-cores (performance cores)
-    if [ -f "/sys/devices/cpu_core/cpus" ]; then
-      # Read P-core list and enable each core
-      pcores=$(cat /sys/devices/cpu_core/cpus 2>/dev/null || echo "")
-      if [ -n "$pcores" ]; then
-        # Parse the CPU list (format like "0-7" or "0,2,4,6")
-        echo "$pcores" | tr ',' '\n' | while read -r range; do
-          if [[ "$range" == *-* ]]; then
-            # Handle range format like "0-7"
-            start=$(echo "$range" | cut -d'-' -f1)
-            end=$(echo "$range" | cut -d'-' -f2)
-            for ((core=start; core<=end; core++)); do
-              if [ -f "/sys/devices/system/cpu/cpu$core/online" ]; then
-                echo 1 > "/sys/devices/system/cpu/cpu$core/online" 2>/dev/null || true
-              fi
-            done
-          else
-            # Handle individual core numbers
-            core="$range"
-            if [ -f "/sys/devices/system/cpu/cpu$core/online" ]; then
-              echo 1 > "/sys/devices/system/cpu/cpu$core/online" 2>/dev/null || true
-            fi
-          fi
-        done
+    # Re-enable P-cores
+    for core in {0..7}; do
+      if [ -f "/sys/devices/system/cpu/cpu$core/online" ]; then
+        echo 1 > "/sys/devices/system/cpu/cpu$core/online" 2>/dev/null || true
       fi
-    else
-      # Fallback: assume cores 1-7 are P-cores on modern Intel CPUs
-      for core in {1..7}; do
-        if [ -f "/sys/devices/system/cpu/cpu$core/online" ]; then
-          echo 1 > "/sys/devices/system/cpu/cpu$core/online" 2>/dev/null || true
-        fi
-      done
-    fi
+    done
 
     # Set CPU energy performance preference to performance
     if command -v x86_energy_perf_policy >/dev/null 2>&1; then
