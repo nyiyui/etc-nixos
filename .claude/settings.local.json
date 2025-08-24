@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:aur.archlinux.org)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:wiki.nixos.org)",
+      "WebFetch(domain:nixos.wiki)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)",
+      "Bash(nix flake check:*)",
+      "Bash(nix fmt:*)",
+      "Bash(nixfmt:*)"
+    ],
+    "deny": []
+  }
+}

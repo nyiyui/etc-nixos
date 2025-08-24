@@ -14,6 +14,7 @@
     ./use-remote-builder.nix
     ./kdeconnect.nix
     ./laptop.nix
+    ./power-efficiency.nix
     ./displaylink.nix
     ./eduroam
   ];

@@ -150,6 +150,7 @@
   ];
 
   kiyurica.laptop.enable = true;
+  kiyurica.power-efficiency.enable = true;
 
   kiyurica.displaylink.enable = true;
 
@@ -158,6 +159,4 @@
   services.blueman.enable = true;
 
   kiyurica.networks.eduroam.enable = true;
-
-  services.power-efficiency.enable = true;
 }
