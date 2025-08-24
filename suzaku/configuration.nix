@@ -25,6 +25,7 @@
     ../thunderbolt.nix
     ../common.nix
     ../power.nix
+    ../power-efficiency.nix
     ../vlc.nix
     ../tpm.nix
     ../adb.nix
@@ -157,4 +158,6 @@
   services.blueman.enable = true;
 
   kiyurica.networks.eduroam.enable = true;
+
+  services.power-efficiency.enable = true;
 }
