@@ -1,15 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.power-efficiency;
-
+  
   # Script to determine if the laptop is charging
   isChargingScript = pkgs.writeShellScript "is-charging" ''
     # Check if any power supply is connected and charging
@@ -20,11 +15,11 @@ let
     done
     exit 1  # Not charging
   '';
-
+  
   # Script to disable P-cores (except core 0 which cannot be disabled)
   disablePCoresScript = pkgs.writeShellScript "disable-p-cores" ''
-    if [[ -f /sys/devices/cpu_core/cpus ]]; then
-      p_cores=$(cat /sys/devices/cpu_core/cpus)
+    if [[ -f /sys/devices/system/cpu/cpu_core/cpus ]]; then
+      p_cores=$(cat /sys/devices/system/cpu/cpu_core/cpus)
       echo "P-cores detected: $p_cores" | ${pkgs.systemd}/bin/systemd-cat -t power-efficiency
       
       # Parse the range and disable each P-core except core 0
@@ -35,15 +30,15 @@ let
           start=$(echo "$range" | cut -d'-' -f1)
           end=$(echo "$range" | cut -d'-' -f2)
           for ((i=start; i<=end; i++)); do
-            if [[ $i -ne 0 ]] && [[ -f "/sys/devices/cpu$i/online" ]]; then
-              echo 0 > "/sys/devices/cpu$i/online" 2>/dev/null || true
+            if [[ $i -ne 0 ]] && [[ -f "/sys/devices/system/cpu/cpu$i/online" ]]; then
+              echo 0 > "/sys/devices/system/cpu/cpu$i/online" 2>/dev/null || true
               echo "Disabled CPU core $i" | ${pkgs.systemd}/bin/systemd-cat -t power-efficiency
             fi
           done
         else
           # Handle single core
-          if [[ "$range" -ne 0 ]] && [[ -f "/sys/devices/cpu$range/online" ]]; then
-            echo 0 > "/sys/devices/cpu$range/online" 2>/dev/null || true
+          if [[ "$range" -ne 0 ]] && [[ -f "/sys/devices/system/cpu/cpu$range/online" ]]; then
+            echo 0 > "/sys/devices/system/cpu/cpu$range/online" 2>/dev/null || true
             echo "Disabled CPU core $range" | ${pkgs.systemd}/bin/systemd-cat -t power-efficiency
           fi
         fi
@@ -52,11 +47,11 @@ let
       echo "P-core information not available" | ${pkgs.systemd}/bin/systemd-cat -t power-efficiency
     fi
   '';
-
+  
   # Script to enable all P-cores
   enablePCoresScript = pkgs.writeShellScript "enable-p-cores" ''
-    if [[ -f /sys/devices/cpu_core/cpus ]]; then
-      p_cores=$(cat /sys/devices/cpu_core/cpus)
+    if [[ -f /sys/devices/system/cpu/cpu_core/cpus ]]; then
+      p_cores=$(cat /sys/devices/system/cpu/cpu_core/cpus)
       echo "Re-enabling P-cores: $p_cores" | ${pkgs.systemd}/bin/systemd-cat -t power-efficiency
       
       # Parse the range and enable each P-core
@@ -67,15 +62,15 @@ let
           start=$(echo "$range" | cut -d'-' -f1)
           end=$(echo "$range" | cut -d'-' -f2)
           for ((i=start; i<=end; i++)); do
-            if [[ -f "/sys/devices/cpu$i/online" ]]; then
-              echo 1 > "/sys/devices/cpu$i/online" 2>/dev/null || true
+            if [[ -f "/sys/devices/system/cpu/cpu$i/online" ]]; then
+              echo 1 > "/sys/devices/system/cpu/cpu$i/online" 2>/dev/null || true
               echo "Enabled CPU core $i" | ${pkgs.systemd}/bin/systemd-cat -t power-efficiency
             fi
           done
         else
           # Handle single core
-          if [[ -f "/sys/devices/cpu$range/online" ]]; then
-            echo 1 > "/sys/devices/cpu$range/online" 2>/dev/null || true
+          if [[ -f "/sys/devices/system/cpu/cpu$range/online" ]]; then
+            echo 1 > "/sys/devices/system/cpu/cpu$range/online" 2>/dev/null || true
             echo "Enabled CPU core $range" | ${pkgs.systemd}/bin/systemd-cat -t power-efficiency
           fi
         fi
@@ -84,7 +79,7 @@ let
       echo "P-core information not available" | ${pkgs.systemd}/bin/systemd-cat -t power-efficiency
     fi
   '';
-
+  
   # Main power efficiency management script
   powerEfficiencyScript = pkgs.writeShellScript "power-efficiency-manager" ''
     if ${isChargingScript}; then
@@ -100,7 +95,7 @@ let
       fi
       
       # Set CPU governor to performance via cpufreq
-      for cpu in /sys/devices/cpu*/cpufreq/scaling_governor; do
+      for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
         if [[ -f "$cpu" ]]; then
           echo performance > "$cpu" 2>/dev/null || true
         fi
@@ -120,7 +115,7 @@ let
       fi
       
       # Set CPU governor to powersave
-      for cpu in /sys/devices/cpu*/cpufreq/scaling_governor; do
+      for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
         if [[ -f "$cpu" ]]; then
           echo powersave > "$cpu" 2>/dev/null || true
         fi
@@ -129,8 +124,7 @@ let
     fi
   '';
 
-in
-{
+in {
   options.services.power-efficiency = {
     enable = mkEnableOption "automatic power efficiency management based on charging status";
   };
