@@ -31,7 +31,6 @@
     ../sway.nix
     ../vnc.nix
     ../virt.nix
-    ./power-efficiency.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
