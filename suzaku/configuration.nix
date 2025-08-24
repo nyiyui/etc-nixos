@@ -25,7 +25,6 @@
     ../thunderbolt.nix
     ../common.nix
     ../power.nix
-    ../power-efficiency.nix
     ../vlc.nix
     ../tpm.nix
     ../adb.nix
@@ -150,7 +149,6 @@
   ];
 
   kiyurica.laptop.enable = true;
-  kiyurica.power-efficiency.enable = true;
 
   kiyurica.displaylink.enable = true;
 
