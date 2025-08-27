@@ -4,8 +4,10 @@
     enable = true;
     # latitude = lib.mkDefault "35.67"; # Tokyo
     # longitude = lib.mkDefault "139.65";
-    latitude = lib.mkDefault "43.65"; # Toronto
-    longitude = lib.mkDefault "-79.38";
+    # latitude = lib.mkDefault "43.65"; # Toronto
+    # longitude = lib.mkDefault "-79.38";
+    latitude = lib.mkDefault "33.7501"; # Atlanta
+    longitude = lib.mkDefault "-84.3885";
     temperature = {
       day = lib.mkDefault 6500;
       night = lib.mkDefault 2000;
