@@ -16,7 +16,7 @@
         StartLimitBurst = 30;
       };
       Service = {
-        ExecStart = pkgs.writeShellScriptBin "start-window-title-tracker.sh" ''
+        ExecStart = pkgs.writeShellScript "start-window-title-tracker.sh" ''
           export DB_PATH="$XDG_DATA_HOME/window-title-tracker"
           sh ${./main.sh}
         '';
