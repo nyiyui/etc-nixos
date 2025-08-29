@@ -27,6 +27,7 @@
         ".local/share/direnv"
         ".local/share/fish"
         ".local/share/nvim"
+        ".local/share/log-window-titles"
         ".local/PrusaSlicer"
         ".local/share/prusa-slicer"
         ".mozilla/firefox"
