@@ -5,7 +5,7 @@
     inherit system;
   },
   system ? builtins.currentSystem,
-  nodejs ? pkgs."nodejs_23",
+  nodejs ? pkgs."nodejs_24",
 }:
 
 let

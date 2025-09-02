@@ -9,7 +9,6 @@
     ./autoUpgrade-git.nix
     ./reimu2.nix
     ./claude-code.nix
-    ./gemini-cli.nix
     ./remote-builder.nix
     ./use-remote-builder.nix
     ./kdeconnect.nix

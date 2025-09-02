@@ -9,7 +9,8 @@
       "Bash(git add:*)",
       "Bash(nix flake check:*)",
       "Bash(nix fmt:*)",
-      "Bash(nixfmt:*)"
+      "Bash(nixfmt:*)",
+      "Bash(nix flake lock:*)"
     ],
     "deny": []
   }

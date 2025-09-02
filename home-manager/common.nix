@@ -90,7 +90,7 @@
       playerctl
       keepassxc
       clipman
-      ark
+      libsForQt5.ark
       eza
       networkmanagerapplet # provides nm-connection-editor
       darktable
@@ -102,7 +102,7 @@
       pdftk
       pdfchain # GUI for pdftk
       qrencode
-      python310Packages.ipython
+# python310Packages.ipython # temporarily disabled due to sphinx/python3.10 bug in nixos-25.05
       poppler_utils
       meld
       age

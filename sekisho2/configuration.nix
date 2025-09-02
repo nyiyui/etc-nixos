@@ -12,7 +12,7 @@
     specialArgs.nixos-wsl.nixosModules.default
     specialArgs.agenix.nixosModules.default
     ../common.nix
-    home-manager.nixosModule
+    home-manager.nixosModules.default
     ../autoUpgrade-https.nix
     ../syncthing.nix
     ../virt.nix
