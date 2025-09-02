@@ -17,7 +17,7 @@
       };
       Service = {
         ExecStart = pkgs.writeShellScript "start-window-title-tracker.sh" ''
-          export DB_PATH="$XDG_DATA_HOME/window-title-tracker"
+          export DB_PATH="$XDG_DATA_HOME/window-title-tracker.sqlite3"
           export PATH="$PATH:${pkgs.sqlite}/bin:${pkgs.jq}/bin"
           sh ${./main.sh}
         '';
