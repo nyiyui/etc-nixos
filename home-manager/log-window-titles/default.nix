@@ -6,7 +6,8 @@
   ...
 }:
 {
-  options.kiyurica.services.log-window-titles.enable = lib.mkEnableOption "log window titles using sway-ipc(7)";
+  options.kiyurica.services.log-window-titles.enable =
+    lib.mkEnableOption "log window titles using sway-ipc(7)";
 
   config = lib.mkIf config.kiyurica.services.log-window-titles.enable {
     systemd.user.services.log-window-titles = {
