@@ -82,8 +82,6 @@
   #       For more information, contact Positon or consult their website:
   #       https://positon.xyz/docs/
 
-  programs.light.enable = true;
-
   system.autoUpgrade.dates = lib.mkForce "02:30";
 
   services.syncthing.settings.folders."inaba".path = lib.mkForce "/inaba";
