@@ -102,7 +102,13 @@
               }
             ];
           }
-        ];
+        ] ++ lib.lists.flatten (lib.lists.imap0 (i: name: {
+          profile.name = "edu.gatech.ece.hive.floor3.${builtins.toString i}";
+          profile.outputs = [
+            { criteria = name; position = "0,0"; }
+            { criteria = builtinDisplay; position = "0,1080"; }
+          ];
+        }) ["Dell Inc. DELL P2419H HX6JPM2"]);
       };
     };
 }
