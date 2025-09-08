@@ -35,6 +35,18 @@
             output.alias = "Sony";
           }
           {
+            output.criteria = "Dell Inc. DELL U2417H XVNNT87AAH3L";
+            output.mode = "1920x1080@60.000Hz";
+            output.scale = 1;
+            output.alias = "CloughPinkR";
+          }
+          {
+            output.criteria = "Dell Inc. DELL U2417H XVNNT87A025W";
+            output.mode = "1920x1080@60.000Hz";
+            output.scale = 1;
+            output.alias = "CloughPinkL";
+          }
+          {
             profile.name = "eastyork-dock";
             profile.outputs = [
               {
@@ -61,6 +73,23 @@
               {
                 criteria = "$Sony";
                 position = "900,160";
+              }
+            ];
+          }
+          {
+            profile.name = "clough-pink";
+            profile.outputs = [
+              {
+                criteria = "$CloughPinkL";
+                position = "0,0";
+              }
+              {
+                criteria = "$CloughPinkR";
+                position = "1920,0";
+              }
+              {
+                criteria = "${builtinDisplay}";
+                position = "0,1080";
               }
             ];
           }
