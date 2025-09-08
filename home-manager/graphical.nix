@@ -44,6 +44,14 @@ in
     ];
     description = "show service status in waybar";
   };
+  options.kiyurica.icsUrl =
+    with lib;
+    with types;
+    mkOption {
+      type = str;
+      default = "https://calendar.google.com/calendar/embed?src=en-gb.canadian%23holiday%40group.v.calendar.google.com&ctz=America%2FNew_York";
+      description = "waybar: ICS URL for the next event module";
+    };
 
   config = {
     i18n.inputMethod = {
@@ -96,6 +104,7 @@ in
               "network"
               "pulseaudio"
               "mpris"
+              "custom/next-event"
             ]
             ++ (map (cfg: "custom/${cfg.key}") cfg.service-status)
             ++ [
@@ -165,6 +174,11 @@ in
             "custom/light" = lib.mkIf cfg.hasBacklight {
               exec = "${pkgs.light}/bin/light";
               interval = 10;
+            };
+            "custom/next-event" = {
+              exec = "${pkgs.python3.withPackages(ps: with ps; [ requests icalendar ])}/bin/python ${./ics_next_event.py} '${cfg.icsUrl}'";
+              return-type = "json";
+              interval = 60;
             };
           }
           // (builtins.foldl' (a: b: a // b) { } (
