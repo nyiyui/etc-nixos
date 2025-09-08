@@ -108,7 +108,10 @@
             { criteria = name; position = "0,0"; }
             { criteria = builtinDisplay; position = "0,1080"; }
           ];
-        }) ["Dell Inc. DELL P2419H HX6JPM2"]);
+        }) [
+          "Dell Inc. DELL P2419H HX6JPM2"
+          "Dell Inc. DELL P2419H HNNGPM2"
+        ]);
       };
     };
 }
