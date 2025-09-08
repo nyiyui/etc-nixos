@@ -26,5 +26,6 @@
           };
         };
       services.logind.lidSwitchDocked = "ignore";
+      networking.networkmanager.wifi.powersave = true;
     };
 }
