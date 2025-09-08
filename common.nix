@@ -109,4 +109,10 @@
   services.locate.enable = true;
 
   networking.networkmanager.enable = true;
+  networking.networkmanager.plugins =
+    with pkgs;
+    lib.mkForce [
+      networkmanager-openconnect # GT VPN
+    ];
+
 }
