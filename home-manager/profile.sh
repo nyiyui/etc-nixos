@@ -74,7 +74,7 @@ export XMODIFIERS=@im=fcitx
 if status is-interactive
   fish_ssh_agent
   if test -e ~/.ssh/id_inaba
-    ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/inaba/geofront/id_inaba
+    ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/.ssh/id_inaba
   else
     ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/inaba/geofront/id_inaba
   end
