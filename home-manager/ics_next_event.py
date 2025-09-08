@@ -5,7 +5,7 @@ import json
 import os
 import sys
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
 from pathlib import Path
 from icalendar import Calendar
 
@@ -67,7 +67,7 @@ def get_next_event(ics_url):
         return {"text": "📅", "tooltip": "Invalid calendar format", "class": "error"}
     
     events = []
-    now = datetime.now()
+    now = datetime.now(tz=timezone.utc)
     
     for component in cal.walk():
         if component.name == "VEVENT":
