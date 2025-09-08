@@ -6,6 +6,7 @@ import os
 import sys
 import time
 from datetime import datetime, timezone
+import datetime as dt
 from pathlib import Path
 from icalendar import Calendar
 
@@ -74,21 +75,22 @@ def get_next_event(ics_url):
             dtstart = component.get('dtstart')
             summary = component.get('summary')
             
-            if dtstart and summary:
-                # Convert to datetime if it's a date
-                start_dt = dtstart.dt
-                if hasattr(start_dt, 'date'):
-                    # It's already a datetime
-                    start_datetime = start_dt
-                else:
-                    # It's a date, convert to datetime at start of day
-                    start_datetime = datetime.combine(start_dt, datetime.min.time())
-                
-                if start_datetime > now:
-                    events.append({
-                        'start': start_datetime,
-                        'summary': str(summary)
-                    })
+            if not (dtstart and summary):
+                continue
+            start_dt = dtstart.dt
+            if hasattr(start_dt, 'date'):
+                # It's already a datetime
+                assert isinstance(start_dt, datetime)
+                start_datetime = start_dt
+            else:
+                # It's a date, convert to datetime at start of day
+                start_datetime = datetime.combine(start_dt, dt.time(0, 0)).astimezone()
+            
+            if start_datetime > now:
+                events.append({
+                    'start': start_datetime,
+                    'summary': str(summary)
+                })
     
     if not events:
         return {"text": "📅", "tooltip": "No upcoming events", "class": "empty"}
@@ -114,8 +116,7 @@ def get_next_event(ics_url):
     start_time = next_event['start'].strftime('%H:%M')
     
     return {
-        "text": f"📅{time_str}",
-        "tooltip": f"{next_event['summary']} at {start_time}",
+        "text": f"{start_time} {next_event['summary']}",
         "class": "upcoming"
     }
 
