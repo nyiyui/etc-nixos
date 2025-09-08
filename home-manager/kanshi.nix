@@ -37,13 +37,13 @@
           {
             output.criteria = "Dell Inc. DELL U2417H XVNNT87AAH3L";
             output.mode = "1920x1080@60.000Hz";
-            output.scale = 1;
+            output.scale = 1.0;
             output.alias = "CloughPinkR";
           }
           {
             output.criteria = "Dell Inc. DELL U2417H XVNNT87A025W";
             output.mode = "1920x1080@60.000Hz";
-            output.scale = 1;
+            output.scale = 1.0;
             output.alias = "CloughPinkL";
           }
           {
