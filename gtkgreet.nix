@@ -41,8 +41,7 @@
     environment.etc."greetd/environments" = {
       enable = true;
       text = ''
-        uwsm start /run/current-system/sw/bin/sway
-        sway
+        uwsm start -- /run/current-system/sw/bin/sway --unsupported-gpu
       '';
     };
   };
