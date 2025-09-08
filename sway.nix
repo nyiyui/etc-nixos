@@ -25,7 +25,7 @@
     programs.uwsm = {
       enable = true;
       waylandCompositors.sway = {
-        binPath = "/run/current-system/sw/bin/sway";
+        binPath = pkgs.writeShellScript "run-sway-with-unsupported-gpu" "/run/current-system/sw/bin/sway --unsupported-gpu";
         prettyName = "Sway";
         comment = "Sway-based session managed by UWSM";
       };
