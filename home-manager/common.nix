@@ -8,7 +8,6 @@
 {
   imports = [
     ./base.nix
-    ./shpool.nix
     ./grc.nix
     ./pexec.nix
     ./neovim.nix
@@ -73,7 +72,12 @@
       export XMODIFIERS=@im=fcitx
     '';
   };
-  programs.foot = {
+  programs.foot = let
+    shpoolShell = pkgs.writeShellScript "shpool-shell.sh" ''
+    shpool -d attach $(shuf -n 1 ${./shpool-names.txt}) -c fish
+    # TODO: select a non-preexsiting name
+    '';
+  in {
     enable = true;
     settings.colors.alpha = 0.5;
     settings.colors.background = "000000";
@@ -83,6 +87,8 @@
   home.packages =
     with pkgs;
     [
+      shpool
+
       nmap
       git-filter-repo
 
