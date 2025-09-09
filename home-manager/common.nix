@@ -8,7 +8,7 @@
 {
   imports = [
     ./base.nix
-    ./tmux.nix
+    ./shpool.nix
     ./grc.nix
     ./pexec.nix
     ./neovim.nix
@@ -77,7 +77,7 @@
     enable = true;
     settings.colors.alpha = 0.5;
     settings.colors.background = "000000";
-    settings.main.shell = "fish -c tmux";
+    settings.main.shell = "fish";
     settings.main.font = "JetBrainsMono:size=12,NotoColorEmoji:size=12,hack:size=12";
   };
   home.packages =
