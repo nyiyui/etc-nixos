@@ -3,7 +3,7 @@ import json
 import os
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import datetime as dt
 from pathlib import Path
 from icalendar import Calendar
@@ -67,6 +67,7 @@ def get_next_event(ics_url):
     
     events = []
     now = datetime.now(tz=timezone.utc)
+    now_tomorrow = now + timedelta(days=1)
     
     for component in cal.walk():
         if component.name == "VEVENT":
@@ -94,7 +95,8 @@ def get_next_event(ics_url):
         return {"text": "📅", "tooltip": "No upcoming events", "class": "empty"}
     
     # Sort by start time and get the next one
-    next_event = min(events, key=lambda x: x['start'])
+    events = sorted(events, key=lambda x: x['start'])
+    next_event = events[0]
     
     # Format the time until event
     time_diff = next_event['start'] - now
@@ -112,10 +114,11 @@ def get_next_event(ics_url):
     
     # Format start time
     start_time = next_event['start'].strftime('%H:%M')
+    tooltip = '\n'.join(f"{e['start'].strftime('%H:%M')} {e['summary']}" for e in events if e['start'] < now_tomorrow)
     
     return {
         "text": f"in {time_str} / {start_time} {next_event['summary']}",
-        "tooltip": f"{next_event['start']}",
+        "tooltip": tooltip,
         "class": "upcoming"
     }
 
