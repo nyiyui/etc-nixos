@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import requests
 import json
 import os
@@ -122,10 +120,12 @@ def get_next_event(ics_url):
 
 def main():
     if len(sys.argv) != 2:
-        print(json.dumps({"text": "📅", "tooltip": "Usage: ics-next-event.py <ICS_URL>", "class": "error"}))
+        print(json.dumps({"text": "📅", "tooltip": f"Usage: {sys.argv[0]} <ICS_URL>", "class": "error"}))
         return
     
-    ics_url = sys.argv[1]
+    ics_url_path = sys.argv[1]
+    with open(ics_url_path) as f:
+        ics_url = f.read().strip()
     result = get_next_event(ics_url)
     print(json.dumps(result))
 

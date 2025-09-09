@@ -44,13 +44,13 @@ in
     ];
     description = "show service status in waybar";
   };
-  options.kiyurica.icsUrl =
+  options.kiyurica.icsUrlPath =
     with lib;
     with types;
     mkOption {
-      type = str;
-      default = "https://calendar.google.com/calendar/embed?src=en-gb.canadian%23holiday%40group.v.calendar.google.com&ctz=America%2FNew_York";
-      description = "waybar: ICS URL for the next event module";
+      type = nullOr str;
+      default = null;
+      description = "waybar: path to ICS URL for the next event module";
     };
 
   config = {
@@ -104,8 +104,7 @@ in
               "network"
               "pulseaudio"
               "mpris"
-              "custom/next-event"
-            ]
+            ] ++ (if cfg.icsUrlPath != null then [ "custom/next-event" ] else [])
             ++ (map (cfg: "custom/${cfg.key}") cfg.service-status)
             ++ [
               "battery"
@@ -175,12 +174,14 @@ in
               exec = "${pkgs.light}/bin/light";
               interval = 10;
             };
+          }
+          // (if cfg.icsUrlPath != null then {
             "custom/next-event" = {
-              exec = "${pkgs.python3.withPackages(ps: with ps; [ requests icalendar ])}/bin/python ${./ics_next_event.py} '${cfg.icsUrl}'";
+              exec = "${pkgs.python3.withPackages(ps: with ps; [ requests icalendar ])}/bin/python ${./ics_next_event.py} '${cfg.icsUrlPath}'";
               return-type = "json";
               interval = 60;
             };
-          }
+          } else {})
           // (builtins.foldl' (a: b: a // b) { } (
             map (cfg: {
               "custom/${cfg.key}" = genServiceStatus {
