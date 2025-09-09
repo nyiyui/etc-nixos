@@ -99,17 +99,19 @@ in
             layer = "top";
             position = "bottom";
             height = 20;
-            modules-right = (if cfg.icsUrlPath != null then [ "custom/next-event" ] else []) ++ [
-              "tray"
-              "network"
-              "pulseaudio"
-              "mpris"
-            ]
-            ++ (map (cfg: "custom/${cfg.key}") cfg.service-status)
-            ++ [
-              "battery"
-              "clock"
-            ];
+            modules-right =
+              (if cfg.icsUrlPath != null then [ "custom/next-event" ] else [ ])
+              ++ [
+                "tray"
+                "network"
+                "pulseaudio"
+                "mpris"
+              ]
+              ++ (map (cfg: "custom/${cfg.key}") cfg.service-status)
+              ++ [
+                "battery"
+                "clock"
+              ];
 
             "battery" = {
               states.warning = 20;
@@ -175,13 +177,26 @@ in
               interval = 10;
             };
           }
-          // (if cfg.icsUrlPath != null then {
-            "custom/next-event" = {
-              exec = "${pkgs.python3.withPackages(ps: with ps; [ requests icalendar python-dateutil ])}/bin/python ${./ics_next_event.py} '${cfg.icsUrlPath}'";
-              return-type = "json";
-              interval = 60;
-            };
-          } else {})
+          // (
+            if cfg.icsUrlPath != null then
+              {
+                "custom/next-event" = {
+                  exec = "${
+                    pkgs.python3.withPackages (
+                      ps: with ps; [
+                        requests
+                        icalendar
+                        python-dateutil
+                      ]
+                    )
+                  }/bin/python ${./ics_next_event.py} '${cfg.icsUrlPath}'";
+                  return-type = "json";
+                  interval = 60;
+                };
+              }
+            else
+              { }
+          )
           // (builtins.foldl' (a: b: a // b) { } (
             map (cfg: {
               "custom/${cfg.key}" = genServiceStatus {

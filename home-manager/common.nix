@@ -72,18 +72,20 @@
       export XMODIFIERS=@im=fcitx
     '';
   };
-  programs.foot = let
-    shpoolShell = pkgs.writeShellScript "shpool-shell.sh" ''
-    shpool -d attach $(shuf -n 1 ${./shpool-names.txt}) -c fish
-    # TODO: select a non-preexsiting name
-    '';
-  in {
-    enable = true;
-    settings.colors.alpha = 0.5;
-    settings.colors.background = "000000";
-    settings.main.shell = "fish";
-    settings.main.font = "JetBrainsMono:size=12,NotoColorEmoji:size=12,hack:size=12";
-  };
+  programs.foot =
+    let
+      shpoolShell = pkgs.writeShellScript "shpool-shell.sh" ''
+        shpool -d attach $(shuf -n 1 ${./shpool-names.txt}) -c fish
+        # TODO: select a non-preexsiting name
+      '';
+    in
+    {
+      enable = true;
+      settings.colors.alpha = 0.5;
+      settings.colors.background = "000000";
+      settings.main.shell = "fish";
+      settings.main.font = "JetBrainsMono:size=12,NotoColorEmoji:size=12,hack:size=12";
+    };
   home.packages =
     with pkgs;
     [
