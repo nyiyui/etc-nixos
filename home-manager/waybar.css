@@ -82,7 +82,8 @@ button:hover {
 #scratchpad,
 #mpd,
 #custom-systemd-backup,
-#custom-systemd-hisame {
+#custom-systemd-hisame,
+#custom-next-event {
     padding: 0 8px;
     color: #86cecb;
 }
