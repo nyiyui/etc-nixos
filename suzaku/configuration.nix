@@ -102,8 +102,8 @@
 
   age.secrets.icsUrlPath = {
     file = ../secrets/ics-url-path.txt.age;
-    owner = "nyiyui";
-    group = "nyiyui";
+    owner = "kiyurica";
+    group = "kiyurica";
     mode = "400";
   };
 
