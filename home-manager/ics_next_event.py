@@ -239,26 +239,12 @@ def get_next_event(ics_url):
     events = sorted(events, key=lambda x: x['start'])
     next_event = events[0]
     
-    # Format the time until event
-    time_diff = next_event['start'] - now
-    
-    if time_diff.days > 0:
-        time_str = f"{time_diff.days}d"
-    elif time_diff.seconds > 3600:
-        hours = time_diff.seconds // 3600
-        time_str = f"{hours}h"
-    elif time_diff.seconds > 60:
-        minutes = time_diff.seconds // 60
-        time_str = f"{minutes}m"
-    else:
-        time_str = "now"
-    
     # Format start time
     start_time = next_event['start'].strftime('%H:%M')
     tooltip = '\n'.join(f"{e['start'].strftime('%H:%M')} {e['summary']}" for e in events if e['start'] < now_tomorrow)
     
     return {
-        "text": f"in {time_str} / {start_time} {next_event['summary']}",
+        "text": f"{start_time} {next_event['summary']}",
         "tooltip": tooltip,
         "class": "upcoming"
     }
