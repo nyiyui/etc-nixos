@@ -7,6 +7,8 @@ from datetime import datetime, timezone, timedelta
 import datetime as dt
 from pathlib import Path
 from icalendar import Calendar
+from dateutil import rrule
+from dateutil.tz import gettz
 
 # Configuration
 CACHE_DIR = Path(os.environ.get('XDG_CACHE_HOME', Path.home() / '.cache')) / 'waybar-ics'
@@ -54,6 +56,135 @@ def fetch_ics(ics_url):
     
     return None
 
+def expand_recurring_event(component, start_date, end_date):
+    """Expand a recurring event into individual instances within the date range"""
+    dtstart = component.get('dtstart')
+    summary = component.get('summary')
+    rrule_prop = component.get('rrule')
+    exdate_prop = component.get('exdate')
+    
+    if not (dtstart and summary and rrule_prop):
+        return []
+    
+    events = []
+    start_dt = dtstart.dt
+    
+    # Convert date to datetime if needed
+    if hasattr(start_dt, 'date'):
+        start_datetime = start_dt
+    else:
+        start_datetime = datetime.combine(start_dt, dt.time(0, 0)).astimezone()
+    
+    try:
+        # Convert icalendar RRULE to dateutil rrule
+        rule_dict = dict(rrule_prop)
+        
+        # Map icalendar frequency to dateutil frequency
+        freq_map = {
+            'YEARLY': rrule.YEARLY,
+            'MONTHLY': rrule.MONTHLY,
+            'WEEKLY': rrule.WEEKLY,
+            'DAILY': rrule.DAILY,
+            'HOURLY': rrule.HOURLY,
+            'MINUTELY': rrule.MINUTELY,
+            'SECONDLY': rrule.SECONDLY
+        }
+        
+        freq = freq_map.get(str(rule_dict.get('FREQ', ['WEEKLY'])[0]), rrule.WEEKLY)
+        
+        # Create rrule with basic parameters
+        rule_kwargs = {'freq': freq, 'dtstart': start_datetime}
+        
+        # Add interval if specified
+        if 'INTERVAL' in rule_dict:
+            rule_kwargs['interval'] = int(rule_dict['INTERVAL'][0])
+            
+        # Add count if specified
+        if 'COUNT' in rule_dict:
+            rule_kwargs['count'] = int(rule_dict['COUNT'][0])
+            
+        # Add until if specified
+        if 'UNTIL' in rule_dict:
+            until_val = rule_dict['UNTIL'][0]
+            if isinstance(until_val, datetime):
+                rule_kwargs['until'] = until_val
+            elif hasattr(until_val, 'dt'):
+                rule_kwargs['until'] = until_val.dt
+        
+        # Add by-rules
+        if 'BYDAY' in rule_dict:
+            # Handle weekday specifications
+            byday = rule_dict['BYDAY']
+            if isinstance(byday, list):
+                byday = byday[0]
+            weekdays = []
+            for day in str(byday).split(','):
+                day = day.strip().upper()
+                if day == 'MO': weekdays.append(rrule.MO)
+                elif day == 'TU': weekdays.append(rrule.TU)
+                elif day == 'WE': weekdays.append(rrule.WE)
+                elif day == 'TH': weekdays.append(rrule.TH)
+                elif day == 'FR': weekdays.append(rrule.FR)
+                elif day == 'SA': weekdays.append(rrule.SA)
+                elif day == 'SU': weekdays.append(rrule.SU)
+            if weekdays:
+                rule_kwargs['byweekday'] = weekdays
+        
+        # Create the rrule
+        rule = rrule.rrule(**rule_kwargs)
+        
+        # Collect exception dates (EXDATE)
+        exception_dates = set()
+        if exdate_prop:
+            if hasattr(exdate_prop, '__iter__') and not isinstance(exdate_prop, str):
+                # Multiple EXDATE entries
+                for exdate in exdate_prop:
+                    if hasattr(exdate, 'dts'):
+                        for dt_val in exdate.dts:
+                            exception_dates.add(dt_val.dt)
+                    elif hasattr(exdate, 'dt'):
+                        exception_dates.add(exdate.dt)
+            else:
+                # Single EXDATE entry
+                if hasattr(exdate_prop, 'dts'):
+                    for dt_val in exdate_prop.dts:
+                        exception_dates.add(dt_val.dt)
+                elif hasattr(exdate_prop, 'dt'):
+                    exception_dates.add(exdate_prop.dt)
+        
+        # Generate occurrences within our date range, excluding exception dates
+        for occurrence in rule:
+            if occurrence >= start_date and occurrence <= end_date:
+                # Check if this occurrence is excluded by EXDATE
+                is_excluded = False
+                for exc_date in exception_dates:
+                    if hasattr(exc_date, 'date'):
+                        exc_datetime = exc_date
+                    else:
+                        exc_datetime = datetime.combine(exc_date, dt.time(0, 0)).astimezone()
+                    
+                    if abs((occurrence - exc_datetime).total_seconds()) < 86400:  # Within 1 day
+                        is_excluded = True
+                        break
+                
+                if not is_excluded:
+                    events.append({
+                        'start': occurrence,
+                        'summary': str(summary)
+                    })
+            elif occurrence > end_date:
+                break
+                
+    except Exception as e:
+        # If rrule parsing fails, fall back to single event
+        if start_datetime >= start_date and start_datetime <= end_date:
+            events.append({
+                'start': start_datetime,
+                'summary': str(summary)
+            })
+    
+    return events
+
 def get_next_event(ics_url):
     """Get the next upcoming event"""
     content = fetch_ics(ics_url)
@@ -68,28 +199,38 @@ def get_next_event(ics_url):
     events = []
     now = datetime.now(tz=timezone.utc)
     now_tomorrow = now + timedelta(days=1)
+    # Look ahead up to 1 year for recurring events
+    future_limit = now + timedelta(days=365)
     
     for component in cal.walk():
         if component.name == "VEVENT":
             dtstart = component.get('dtstart')
             summary = component.get('summary')
+            rrule_prop = component.get('rrule')
             
             if not (dtstart and summary):
                 continue
-            start_dt = dtstart.dt
-            if hasattr(start_dt, 'date'):
-                # It's already a datetime
-                assert isinstance(start_dt, datetime)
-                start_datetime = start_dt
-            else:
-                # It's a date, convert to datetime at start of day
-                start_datetime = datetime.combine(start_dt, dt.time(0, 0)).astimezone()
             
-            if start_datetime > now:
-                events.append({
-                    'start': start_datetime,
-                    'summary': str(summary)
-                })
+            # Handle recurring events
+            if rrule_prop:
+                recurring_events = expand_recurring_event(component, now, future_limit)
+                events.extend(recurring_events)
+            else:
+                # Handle single events
+                start_dt = dtstart.dt
+                if hasattr(start_dt, 'date'):
+                    # It's already a datetime
+                    assert isinstance(start_dt, datetime)
+                    start_datetime = start_dt
+                else:
+                    # It's a date, convert to datetime at start of day
+                    start_datetime = datetime.combine(start_dt, dt.time(0, 0)).astimezone()
+                
+                if start_datetime > now:
+                    events.append({
+                        'start': start_datetime,
+                        'summary': str(summary)
+                    })
     
     if not events:
         return {"text": "📅", "tooltip": "No upcoming events", "class": "empty"}

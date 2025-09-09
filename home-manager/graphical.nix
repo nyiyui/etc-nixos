@@ -177,7 +177,7 @@ in
           }
           // (if cfg.icsUrlPath != null then {
             "custom/next-event" = {
-              exec = "${pkgs.python3.withPackages(ps: with ps; [ requests icalendar ])}/bin/python ${./ics_next_event.py} '${cfg.icsUrlPath}'";
+              exec = "${pkgs.python3.withPackages(ps: with ps; [ requests icalendar python-dateutil ])}/bin/python ${./ics_next_event.py} '${cfg.icsUrlPath}'";
               return-type = "json";
               interval = 60;
             };
