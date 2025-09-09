@@ -6,6 +6,10 @@
     font-size: 14px;
 }
 
+#window, #custom-next-event {
+    font-family: 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
+}
+
 window#waybar {
     background-color: rgba(0, 0, 0, 0);
     color: @fg;
