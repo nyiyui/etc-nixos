@@ -97,7 +97,15 @@
           output.adaptiveSync = true;
         }
       ];
+      kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
     };
+
+  age.secrets.icsUrlPath = {
+    file = ../secrets/ics-url-path.txt.age;
+    owner = "nyiyui";
+    group = "nyiyui";
+    mode = "400";
+  };
 
   kiyurica.networks.er605 = {
     enable = true;
