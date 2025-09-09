@@ -114,7 +114,8 @@ def get_next_event(ics_url):
     start_time = next_event['start'].strftime('%H:%M')
     
     return {
-        "text": f"{start_time} {next_event['summary']}",
+        "text": f"in {time_str} / {start_time} {next_event['summary']}",
+        "tooltip": f"{next_event['start']}",
         "class": "upcoming"
     }
 

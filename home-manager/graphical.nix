@@ -99,12 +99,12 @@ in
             layer = "top";
             position = "bottom";
             height = 20;
-            modules-right = [
+            modules-right = (if cfg.icsUrlPath != null then [ "custom/next-event" ] else []) ++ [
               "tray"
               "network"
               "pulseaudio"
               "mpris"
-            ] ++ (if cfg.icsUrlPath != null then [ "custom/next-event" ] else [])
+            ]
             ++ (map (cfg: "custom/${cfg.key}") cfg.service-status)
             ++ [
               "battery"
