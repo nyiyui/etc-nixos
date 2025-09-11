@@ -2,12 +2,12 @@
 @define-color fg2 #86cecb;
 
 * {
-    font-family: 'Jetbrains Mono', 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
+    font-family: 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
     font-size: 14px;
 }
 
-#window, #custom-next-event {
-    font-family: 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
+#workspaces, #clock {
+    font-family: 'Jetbrains Mono', 'Roboto', 'Noto Sans', 'Noto Sans CJK JP';
 }
 
 window#waybar {
