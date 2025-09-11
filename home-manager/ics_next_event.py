@@ -7,7 +7,8 @@ import time
 from datetime import datetime, timezone, timedelta
 import datetime as dt
 from pathlib import Path
-import ics
+from icalendar import Calendar
+from recurring_ical_events import of
 
 # Configuration
 CACHE_DIR = Path(os.environ.get('XDG_CACHE_HOME', Path.home() / '.cache')) / 'waybar-ics'
@@ -62,22 +63,38 @@ def get_next_event(ics_url):
         return {"text": "📅", "tooltip": "No calendar data", "class": "error"}
     
     try:
-        calendar = ics.Calendar(content.decode('utf-8'))
+        calendar = Calendar.from_ical(content)
     except Exception:
         traceback.print_exc()
         return {"text": "📅", "tooltip": "Invalid calendar format", "class": "error"}
     
     now = datetime.now(tz=timezone.utc)
-    now_tomorrow = now + timedelta(days=1)
+    now_local = now.astimezone()
+    tomorrow = now_local + timedelta(days=1)
     
-    # Get all events (ics automatically handles recurring events)
+    # Get events for today and tomorrow, including recurring events
+    events_today = of(calendar).at(now_local.date())
+    events_tomorrow = of(calendar).at(tomorrow.date())
+    all_events = events_today + events_tomorrow
+    
     upcoming_events = []
-    for event in calendar.events:
-        if event.begin and event.name and event.begin.datetime > now:
-            upcoming_events.append({
-                'start': event.begin.datetime,
-                'summary': event.name
-            })
+    for event in all_events:
+        event_start = event.get('dtstart')
+        if event_start:
+            # Convert to datetime if it's a date
+            if hasattr(event_start.dt, 'date'):
+                start_dt = event_start.dt
+            else:
+                # It's a date, convert to datetime at start of day
+                start_dt = datetime.combine(event_start.dt, datetime.min.time())
+                start_dt = start_dt.replace(tzinfo=now_local.tzinfo)
+            
+            if start_dt > now_local:
+                summary = str(event.get('summary', 'No title'))
+                upcoming_events.append({
+                    'start': start_dt,
+                    'summary': summary
+                })
     
     if not upcoming_events:
         return {"text": "📅", "tooltip": "No upcoming events", "class": "empty"}
@@ -88,7 +105,7 @@ def get_next_event(ics_url):
     
     # Format start time
     start_time = next_event['start'].strftime('%H:%M')
-    tooltip = '\n'.join(f"{e['start'].strftime('%H:%M')} {e['summary']}" for e in upcoming_events if e['start'] < now_tomorrow)
+    tooltip = '\n'.join(f"{e['start'].strftime('%H:%M')} {e['summary']}" for e in upcoming_events if e['start'] < tomorrow)
     
     return {
         "text": f"{start_time} {next_event['summary']}",
