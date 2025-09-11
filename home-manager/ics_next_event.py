@@ -103,9 +103,26 @@ def get_next_event(ics_url):
     upcoming_events = sorted(upcoming_events, key=lambda x: x['start'])
     next_event = upcoming_events[0]
     
-    # Format start time
-    start_time = next_event['start'].strftime('%H:%M')
-    tooltip = '\n'.join(f"{e['start'].strftime('%H:%M')} {e['summary']}" for e in upcoming_events if e['start'] < tomorrow)
+    # Format start time - add 24 hours if tomorrow
+    event_start = next_event['start']
+    if event_start.date() > now_local.date():
+        # Tomorrow's event - add 24 to the hour
+        hour_24 = event_start.hour + 24
+        start_time = f"{hour_24:02d}:{event_start.minute:02d}"
+    else:
+        start_time = event_start.strftime('%H:%M')
+    
+    # Format tooltip times - add 24 hours for tomorrow's events
+    tooltip_entries = []
+    for e in upcoming_events:
+        if e['start'] < tomorrow:
+            if e['start'].date() > now_local.date():
+                hour_24 = e['start'].hour + 24
+                time_str = f"{hour_24:02d}:{e['start'].minute:02d}"
+            else:
+                time_str = e['start'].strftime('%H:%M')
+            tooltip_entries.append(f"{time_str} {e['summary']}")
+    tooltip = '\n'.join(tooltip_entries)
     
     return {
         "text": f"{start_time} {next_event['summary']}",
