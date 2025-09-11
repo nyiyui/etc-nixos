@@ -185,8 +185,7 @@ in
                     pkgs.python3.withPackages (
                       ps: with ps; [
                         requests
-                        icalendar
-                        python-dateutil
+                        ics
                       ]
                     )
                   }/bin/python ${./ics_next_event.py} '${cfg.icsUrlPath}'";
