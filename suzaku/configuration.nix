@@ -163,9 +163,4 @@
   services.blueman.enable = true;
 
   kiyurica.networks.eduroam.enable = true;
-
-  hardware.ipu6 = {
-    enable = true;
-    platform = "ipu6ep"; # the CPU is 12th gen / Alder Lake
-  };
 }
