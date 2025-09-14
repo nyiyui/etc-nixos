@@ -21,10 +21,11 @@
       enable = true;
       wrapperFeatures.gtk = true;
     };
-    services.displayManager.defaultSession = "sway-uwsm";
+    services.displayManager.defaultSession = "thesway-uwsm";
     programs.uwsm = {
       enable = true;
-      waylandCompositors.sway-uwsm = {
+      waylandCompositors.thesway = {
+        # becomes thesway-uwsm.desktop
         binPath = pkgs.writeShellScript "run-sway-with-unsupported-gpu" "/run/current-system/sw/bin/sway --unsupported-gpu";
         prettyName = "Sway";
         comment = "Sway-based session managed by UWSM";

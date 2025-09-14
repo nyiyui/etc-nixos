@@ -40,7 +40,7 @@
     environment.etc."greetd/environments" = {
       enable = true;
       text = ''
-        uwsm start
+        uwsm start -- default
       '';
     };
   };
