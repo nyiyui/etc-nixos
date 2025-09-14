@@ -234,9 +234,10 @@ in
         icons = false;
         max-history = 65536;
         format = "<b>%s</b>\\n%b\\n%a %i";
-        grouped = true;
-        format = "%g : %a <b>%s</b>\\n%b\\n%i";
-        "hidden=true" = {
+        "grouped" = {
+          format = "%g : %a <b>%s</b>\\n%b\\n%i";
+        };
+        "hidden" = {
           format = "%t / %h";
         };
         "urgency=low" = {
