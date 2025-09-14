@@ -33,7 +33,6 @@
           '';
         in
         {
-          # TODO: uwsm
           command = "${script}/bin/greet.sh";
           user = "greeter";
         };
@@ -41,7 +40,7 @@
     environment.etc."greetd/environments" = {
       enable = true;
       text = ''
-        uwsm start -- /run/current-system/sw/bin/sway --unsupported-gpu
+        uwsm start
       '';
     };
   };

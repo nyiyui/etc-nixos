@@ -235,9 +235,7 @@ in
         max-history = 65536;
         format = "<b>%s</b>\\n%b\\n%a %i";
         grouped = true;
-        "grouped=true" = {
-          format = "%g : %a <b>%s</b>\\n%b\\n%i";
-        };
+        format = "%g : %a <b>%s</b>\\n%b\\n%i";
         "hidden=true" = {
           format = "%t / %h";
         };
