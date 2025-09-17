@@ -9,6 +9,8 @@ import datetime as dt
 from pathlib import Path
 from icalendar import Calendar
 from recurring_ical_events import of
+from xml.sax.saxutils import escape
+
 
 # Configuration
 CACHE_DIR = Path(os.environ.get('XDG_CACHE_HOME', Path.home() / '.cache')) / 'waybar-ics'
@@ -125,8 +127,8 @@ def get_next_event(ics_url):
     tooltip = '\n'.join(tooltip_entries)
     
     return {
-        "text": f"{start_time} {next_event['summary']}",
-        "tooltip": tooltip,
+        "text": escape(f"{start_time} {next_event['summary']}"),
+        "tooltip": escape(tooltip),
         "class": "upcoming"
     }
 
