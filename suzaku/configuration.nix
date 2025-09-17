@@ -163,4 +163,8 @@
   services.blueman.enable = true;
 
   kiyurica.networks.eduroam.enable = true;
+
+  virtualisation.docker.enable = true;
+  users.users.kiyurica.extraGroupd = [ "docker" ];
+  virtualisation.docker.storageDriver = "btrfs";
 }
