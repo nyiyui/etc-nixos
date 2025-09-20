@@ -276,7 +276,7 @@ in
         ring-wrong-color = "86cecb";
         ring-caps-lock-color = "e12885";
         indicator = true;
-        image = "${../wallpapers/keikyu-signal.jpg}";
+        image = "${../wallpapers/shibuya-gmo.jpg}";
       };
     };
   };
