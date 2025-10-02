@@ -78,4 +78,22 @@
   };
   kiyurica.greeter.gtkgreet.enable = true;
   kiyurica.tailscale.enable = true;
+  
+  kiyurica.synergy = {
+    enable = true;
+    role = "client";
+    serverAddress = "suzaku.local";
+    screenName = "minamo";
+  };
+  
+  # Enable mDNS for LAN hostname resolution
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
+  };
 }
