@@ -13,6 +13,7 @@
     ./neovim.nix
     ./fonts.nix
     ./firefox.nix
+    ./sayonara.nix
   ];
 
   programs.git = {
