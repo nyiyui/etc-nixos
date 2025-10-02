@@ -22,35 +22,41 @@ in
       default = config.networking.hostName;
       description = "Screen name for this machine in Synergy";
     };
-    
-    autoStart = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether to automatically start Synergy";
-    };
   };
 
   config = lib.mkIf cfg.enable {
-    # Install synergy package
-    environment.systemPackages = [ pkgs.synergy ];
+    # Install barrier package (open-source fork of Synergy)
+    environment.systemPackages = [ pkgs.barrier ];
     
-    # Open firewall ports for Synergy (default port 24800)
+    # Open firewall ports for Barrier/Synergy (default port 24800)
     networking.firewall.allowedTCPPorts = lib.mkIf (cfg.role == "server") [ 24800 ];
     
-    # Configure Synergy server
-    services.synergy.server = lib.mkIf (cfg.role == "server") {
-      enable = true;
-      address = "0.0.0.0:24800";
-      screenName = cfg.screenName;
-      autoStart = cfg.autoStart;
+    # Configure systemd user service for Barrier server
+    systemd.user.services.barrier-server = lib.mkIf (cfg.role == "server") {
+      description = "Barrier Server (Synergy fork)";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.barrier}/bin/barriers --no-tray --debug INFO --name ${cfg.screenName} --enable-crypto --address :24800";
+        Restart = "on-failure";
+        RestartSec = 3;
+      };
     };
     
-    # Configure Synergy client
-    services.synergy.client = lib.mkIf (cfg.role == "client") {
-      enable = true;
-      serverAddress = cfg.serverAddress;
-      screenName = cfg.screenName;
-      autoStart = cfg.autoStart;
+    # Configure systemd user service for Barrier client
+    systemd.user.services.barrier-client = lib.mkIf (cfg.role == "client") {
+      description = "Barrier Client (Synergy fork)";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.barrier}/bin/barrierc --no-tray --debug INFO --name ${cfg.screenName} --enable-crypto ${cfg.serverAddress}:24800";
+        Restart = "always";
+        RestartSec = 3;
+      };
     };
   };
 }
