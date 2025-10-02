@@ -304,5 +304,12 @@ in
       [Settings]
       gtk-im-module=fcitx
     '';
+
+    # Disable waybar's XDG autostart since we're managing it with systemd
+    # This prevents waybar from spawning twice (once via XDG autostart and once via systemd)
+    xdg.configFile."autostart/waybar.desktop".text = ''
+      [Desktop Entry]
+      Hidden=true
+    '';
   };
 }
