@@ -1,22 +1,30 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.kiyurica.synergy;
 in
 {
   options.kiyurica.synergy = {
     enable = lib.mkEnableOption "Synergy keyboard/mouse sharing";
-    
+
     role = lib.mkOption {
-      type = lib.types.enum [ "server" "client" ];
+      type = lib.types.enum [
+        "server"
+        "client"
+      ];
       description = "Whether this machine acts as a server or client";
     };
-    
+
     serverAddress = lib.mkOption {
       type = lib.types.str;
       default = "";
       description = "Address of the Synergy server (required for client)";
     };
-    
+
     screenName = lib.mkOption {
       type = lib.types.str;
       default = config.networking.hostName;
@@ -27,10 +35,10 @@ in
   config = lib.mkIf cfg.enable {
     # Install barrier package (open-source fork of Synergy)
     environment.systemPackages = [ pkgs.barrier ];
-    
+
     # Open firewall ports for Barrier/Synergy (default port 24800)
     networking.firewall.allowedTCPPorts = lib.mkIf (cfg.role == "server") [ 24800 ];
-    
+
     # Configure systemd user service for Barrier server
     systemd.user.services.barrier-server = lib.mkIf (cfg.role == "server") {
       description = "Barrier Server (Synergy fork)";
@@ -44,7 +52,7 @@ in
         RestartSec = 3;
       };
     };
-    
+
     # Configure systemd user service for Barrier client
     systemd.user.services.barrier-client = lib.mkIf (cfg.role == "client") {
       description = "Barrier Client (Synergy fork)";
