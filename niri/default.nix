@@ -10,6 +10,7 @@
   imports = [
     ../home-manager.nix
     ./uwsm.nix
+    ./non-uwsm-binds.nix
     ./set-default.nix
   ];
 
@@ -185,13 +186,6 @@
                     "Mod+Tab".action.spawn = [
                       "playerctl"
                       "play-pause"
-                    ];
-                    "Mod+Alt+L".action.spawn = [ "swaylock" ];
-                    "Mod+Shift+Return".action.spawn = [ "firefox" ];
-                    "Mod+Alt+Shift+Return".action.spawn = [ "chromium" ];
-                    "Mod+Return".action.spawn = [ "footclient" ];
-                    "Mod+Alt+Return".action.spawn = [
-                      "${pkgs.rnote}/bin/rnote"
                     ];
                     "Mod+Alt+N".action.spawn = [
                       "${pkgs.mako}/bin/makoctl"
