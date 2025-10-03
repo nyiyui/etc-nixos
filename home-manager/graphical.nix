@@ -52,13 +52,13 @@ in
       default = null;
       description = "waybar: path to ICS URL for the next event module";
     };
-  options.kiyurica.horizontal =
+  options.kiyurica.waybarPosition =
     with lib;
     with types;
     mkOption {
-      type = bool;
-      default = true;
-      description = "waybar: horizontal (true) or vertical (false)"; # TODO: generalize to left right top bottom
+      type = enum [ "top" "bottom" "left" "right" ];
+      default = "bottom";
+      description = "waybar: position on screen (top, bottom, left, or right)";
     };
 
   config = {
@@ -101,16 +101,15 @@ in
               return-type = "json";
               interval = 60;
             };
+          isVertical = cfg.waybarPosition == "left" || cfg.waybarPosition == "right";
+          rotationAngle = if isVertical then 270 else 0;
         in
         {
           mainBar = {
             layer = "top";
-            position = lib.mkMerge [
-              (lib.mkIf cfg.horizontal "bottom")
-              (lib.mkIf (!cfg.horizontal) "right")
-            ];
-            height = lib.mkIf cfg.horizontal 20;
-            width = lib.mkIf (!cfg.horizontal) 20;
+            position = cfg.waybarPosition;
+            height = lib.mkIf (!isVertical) 20;
+            width = lib.mkIf isVertical 20;
             modules-right =
               (if cfg.icsUrlPath != null then [ "custom/next-event" ] else [ ])
               ++ [
@@ -135,6 +134,7 @@ in
             "clock" = {
               format = "{:%H:%M %Y-%m-%d}";
               tooltip-format = "{calendar}";
+              rotate = rotationAngle;
               calendar = {
                 mode = "month";
                 weeks-pos = "left";
@@ -161,6 +161,7 @@ in
               tooltip-format = "{ifname} {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
               tooltip-format-wifi = "{ifname} {essid} {signaldBm} dBm ; {frequency} GHz ; {ipaddr} ; ↑{bandwidthUpOctets} ; ↓{bandwidthDownOctets}";
               tooltip-format-disconnected = "切";
+              rotate = rotationAngle;
             };
             "pulseaudio" = {
               format-icons = {
@@ -183,6 +184,7 @@ in
               status-icons.playing = "生";
               status-icons.paused = "停";
               status-icons.stopped = "止";
+              rotate = rotationAngle;
             };
             "custom/light" = lib.mkIf cfg.hasBacklight {
               exec = "${pkgs.light}/bin/light";
@@ -204,6 +206,7 @@ in
                   }/bin/python ${./ics_next_event.py} '${cfg.icsUrlPath}'";
                   return-type = "json";
                   interval = 60;
+                  rotate = rotationAngle;
                 };
               }
             else
