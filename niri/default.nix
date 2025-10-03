@@ -52,7 +52,7 @@
                   StartLimitBurst = 30;
                 };
                 Service = {
-                  ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${../wallpapers/takamatsu.jpg}";
+                  ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${config.kiyurica.graphical.backgroundImage}";
                   Restart = "on-failure";
                   RestartSec = 3;
                 };

@@ -66,6 +66,15 @@ in
       description = "waybar: position on screen (top, bottom, left, or right)";
     };
 
+  options.kiyurica.graphical.backgroundImage =
+    with lib;
+    with types;
+    mkOption {
+      type = path;
+      default = ../wallpapers/yamamoto-brdg.jpg;
+      description = "Path to the background/wallpaper image file";
+    };
+
   config = {
     i18n.inputMethod = {
       enable = true;
