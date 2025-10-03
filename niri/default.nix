@@ -160,13 +160,13 @@
                       "pactl"
                       "set-sink-volume"
                       "@DEFAULT_SINK@"
-                      "+1%"
+                      "+5%"
                     ];
                     "XF86AudioLowerVolume".action.spawn = [
                       "pactl"
                       "set-sink-volume"
                       "@DEFAULT_SINK@"
-                      "-1%"
+                      "-5%"
                     ];
                     "XF86AudioMute".action.spawn = [
                       "pactl"
@@ -178,9 +178,39 @@
                       "playerctl"
                       "play-pause"
                     ];
+                    "Control+grave".action.spawn = [
+                      "playerctl"
+                      "play-pause"
+                    ];
                     "Mod+Tab".action.spawn = [
                       "playerctl"
                       "play-pause"
+                    ];
+                    "Mod+Alt+L".action.spawn = [ "swaylock" ];
+                    "Mod+Shift+Return".action.spawn = [ "firefox" ];
+                    "Mod+Alt+Shift+Return".action.spawn = [ "chromium" ];
+                    "Mod+Return".action.spawn = [ "footclient" ];
+                    "Mod+Alt+Return".action.spawn = [
+                      "${pkgs.rnote}/bin/rnote"
+                    ];
+                    "Mod+Alt+N".action.spawn = [
+                      "${pkgs.mako}/bin/makoctl"
+                      "menu"
+                      "fuzzel -d"
+                      "-p"
+                      "通知"
+                    ];
+                    "Mod+N".action.spawn = [
+                      "${pkgs.mako}/bin/makoctl"
+                      "dismiss"
+                    ];
+                    "Mod+Shift+N".action.spawn = [
+                      "${pkgs.mako}/bin/makoctl"
+                      "restore"
+                    ];
+                    "Mod+Shift+S".action.spawn = [
+                      "bash"
+                      "${../home-manager/seekback-signal.sh}"
                     ];
                     "Mod+Shift+Q".action = close-window;
                     "Mod+H".action = focus-column-left;
