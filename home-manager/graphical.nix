@@ -175,7 +175,6 @@ in
               format-bluetooth = "{volume}{icon}";
               on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
               ignored-sinks = [ "Easy Effects Sink" ];
-              rotate = rotationAngle;
             };
             "mpris" = {
               format = "{status_icon}{player_icon}{dynamic}";
