@@ -65,6 +65,11 @@
   services.udisks2.enable = true;
 
   kiyurica.desktop.sway.enable = true;
+  kiyurica.desktop.niri = {
+    enable = true;
+    enableUWSM = true;
+    default = false; # Keep Sway as default for laptop
+  };
   kiyurica.greeter.gtkgreet.enable = true;
   home-manager.users.kiyurica =
     { pkgs, ... }:
