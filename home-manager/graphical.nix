@@ -100,6 +100,7 @@ in
               exec = "${script}/bin/get-last-active-time.sh";
               return-type = "json";
               interval = 60;
+              rotate = rotationAngle;
             };
           isVertical = cfg.waybarPosition == "left" || cfg.waybarPosition == "right";
           rotationAngle = if isVertical then 270 else 0;
@@ -130,6 +131,7 @@ in
               format = "{capacity} {time}";
               tooltip-format = "{power}W";
               format-time = "{H}:{m}";
+              rotate = rotationAngle;
             };
             "clock" = {
               format = "{:%H:%M %Y-%m-%d}";
@@ -173,6 +175,7 @@ in
               format-bluetooth = "{volume}{icon}";
               on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
               ignored-sinks = [ "Easy Effects Sink" ];
+              rotate = rotationAngle;
             };
             "mpris" = {
               format = "{status_icon}{player_icon}{dynamic}";
@@ -189,6 +192,7 @@ in
             "custom/light" = lib.mkIf cfg.hasBacklight {
               exec = "${pkgs.light}/bin/light";
               interval = 10;
+              rotate = rotationAngle;
             };
           }
           // (
