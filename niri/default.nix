@@ -78,9 +78,13 @@
                 "niri/workspaces" = {
                   format = "{index}";
                 };
-                
+
                 "niri/window" = {
-                  rotate = if config.kiyurica.waybarPosition == "left" || config.kiyurica.waybarPosition == "right" then 270 else 0;
+                  rotate =
+                    if config.kiyurica.waybarPosition == "left" || config.kiyurica.waybarPosition == "right" then
+                      270
+                    else
+                      0;
                 };
               };
               programs.niri = {

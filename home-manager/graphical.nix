@@ -56,7 +56,12 @@ in
     with lib;
     with types;
     mkOption {
-      type = enum [ "top" "bottom" "left" "right" ];
+      type = enum [
+        "top"
+        "bottom"
+        "left"
+        "right"
+      ];
       default = "bottom";
       description = "waybar: position on screen (top, bottom, left, or right)";
     };
