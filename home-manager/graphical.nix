@@ -336,5 +336,12 @@ in
       [Settings]
       gtk-im-module=fcitx
     '';
+
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = "org.pwmt.zathura.desktop";
+      };
+    };
   };
 }
