@@ -16,15 +16,41 @@ The workaround involves:
 
 ## Usage
 
-1. Include `solidworks-vm.nix` in your system configuration (it's already included via `virt.nix`)
-2. The domain will be automatically defined at boot as `solidworks-vm`
-3. Use virt-manager to:
+### Basic Usage (Default Configuration)
+
+The module is enabled by default in `virt.nix`:
+
+```nix
+virtualisation.libvirtd.solidworks.enable = true;
+```
+
+This will automatically define a VM named "solidworks-vm" at boot using the default configuration in `solidworks-vm-default.xml`.
+
+### Custom Configuration
+
+To use your own domain XML configuration, override the `domainConfig` option:
+
+```nix
+virtualisation.libvirtd.solidworks = {
+  enable = true;
+  domainConfig = ./my-custom-solidworks-vm.xml;
+};
+```
+
+Your custom XML file should include the hypervisor hiding features. See `solidworks-vm-default.xml` for a reference.
+
+### After System Rebuild
+
+1. The domain will be automatically defined at boot as `solidworks-vm`
+2. Use virt-manager to:
    - Attach a disk image for Windows installation
    - Configure GPU passthrough if desired
    - Adjust memory/CPU allocation
    - Start the VM
 
 ## Key Configuration Elements
+
+The default configuration includes these essential hypervisor hiding features:
 
 ### Hypervisor Hiding
 ```xml
@@ -46,13 +72,18 @@ The workaround involves:
 
 ## Customization
 
-The default domain configuration provides a basic setup. You'll need to:
-- Add your Windows disk image
-- Configure appropriate memory (default: 8GB)
-- Configure CPU cores (default: 4)
-- Optionally set up GPU passthrough for better performance
+The default domain configuration (`solidworks-vm-default.xml`) provides a basic setup:
+- 8GB RAM (configurable)
+- 4 CPU cores (configurable)
+- Q35 machine type
+- No disk attached (you must add this)
+- SPICE graphics (can be replaced with GPU passthrough)
+
+To customize, either:
+1. Edit the VM after it's defined using `virsh edit solidworks-vm` or virt-manager
+2. Create your own XML file and set `domainConfig` to point to it
 
 ## References
 
 - https://outerrim.dev/posts/solidworks-vm/ - Original workaround guide
-- https://github.com/nyiyui/etc-nixos/issues/[issue-number] - Related issue
+- https://github.com/nyiyui/etc-nixos/issues/28 - Related issue
