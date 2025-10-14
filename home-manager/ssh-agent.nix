@@ -6,8 +6,16 @@
 }:
 
 {
-  # ssh-agent is provided by gnome-keyring with the ssh component enabled
+  # Ensure gnome-keyring ssh component is enabled to provide ssh-agent
+  assertions = [
+    {
+      assertion = config.services.gnome-keyring.enable && (builtins.elem "ssh" config.services.gnome-keyring.components);
+      message = "ssh-add-keys service requires gnome-keyring with ssh component enabled. Please enable services.gnome-keyring with 'ssh' in components.";
+    }
+  ];
+
   # This service automatically adds SSH keys at startup
+  # ssh-agent is provided by gnome-keyring with the ssh component enabled
   systemd.user.services.ssh-add-keys = {
     Unit = {
       Description = "Add SSH keys to agent";
