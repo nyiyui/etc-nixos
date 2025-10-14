@@ -70,6 +70,15 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
+if status is-interactive
+  fish_ssh_agent
+  if test -e ~/.ssh/id_inaba
+    ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/.ssh/id_inaba
+  else
+    ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add ~/inaba/geofront/id_inaba
+  end
+end
+
 export PAGER=nvimpager
 
 function jpeg-to-pdf
