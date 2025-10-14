@@ -9,7 +9,9 @@
   # Ensure gnome-keyring ssh component is enabled to provide ssh-agent
   assertions = [
     {
-      assertion = config.services.gnome-keyring.enable && (builtins.elem "ssh" config.services.gnome-keyring.components);
+      assertion =
+        config.services.gnome-keyring.enable
+        && (builtins.elem "ssh" config.services.gnome-keyring.components);
       message = "ssh-add-keys service requires gnome-keyring with ssh component enabled. Please enable services.gnome-keyring with 'ssh' in components.";
     }
   ];
