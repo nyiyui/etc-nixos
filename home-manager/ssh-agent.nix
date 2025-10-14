@@ -23,7 +23,7 @@
           fi
           sleep 1
         done
-        
+
         # Add key if it exists and is not already added
         if [ -e ~/.ssh/id_inaba ]; then
           ${pkgs.openssh}/bin/ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ${pkgs.openssh}/bin/ssh-add ~/.ssh/id_inaba
