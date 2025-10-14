@@ -19,7 +19,10 @@
   systemd.user.services.ssh-add-keys = {
     Unit = {
       Description = "Add SSH keys to agent";
-      After = [ "graphical-session.target" ];
+      After = [
+        "graphical-session.target"
+        "gnome-keyring-daemon.service"
+      ];
     };
     Service = {
       Type = "oneshot";
