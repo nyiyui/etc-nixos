@@ -14,6 +14,7 @@
     ./fonts.nix
     ./firefox.nix
     ./sayonara.nix
+    ./ssh-agent.nix
   ];
 
   programs.git = {
@@ -51,17 +52,6 @@
       export QT_IM_MODULE=fcitx
       export XMODIFIERS=@im=fcitx
     '';
-    plugins = [
-      {
-        name = "ssh_agent";
-        src = pkgs.fetchFromGitHub {
-          owner = "ivakyb";
-          repo = "fish_ssh_agent";
-          rev = "c7aa080d5210f5f525d078df6fdeedfba8db7f9b";
-          sha256 = "bfd5596390c2a3e89665ac11295805bec8b7dd42b0b6b892a54ceb3212f44b5e";
-        };
-      }
-    ];
   };
   programs.bash = {
     historySize = 20000;
