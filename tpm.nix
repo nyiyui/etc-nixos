@@ -8,5 +8,18 @@
   users.users.kiyurica.extraGroups = [ config.security.tpm2.tssGroup ]; # tss group has access to TPM devices
 
   # tpm-fido: https://github.com/psanford/tpm-fido
-  environment.systemPackages = [ pkgs.tpm-fido ];
+  # FIDO token implementation that uses TPM for key protection
+  environment.systemPackages = [
+    pkgs.tpm-fido
+    pkgs.pinentry # required by tpm-fido for user authentication
+  ];
+
+  # Load uhid kernel module at boot so tpm-fido can emulate a USB HID device
+  boot.kernelModules = [ "uhid" ];
+
+  # Grant tss group access to /dev/uhid so tpm-fido can create virtual USB device
+  # Users in tss group already have access to /dev/tpmrm0
+  services.udev.extraRules = ''
+    KERNEL=="uhid", SUBSYSTEM=="misc", GROUP="${config.security.tpm2.tssGroup}", MODE="0660"
+  '';
 }
