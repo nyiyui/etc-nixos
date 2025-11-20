@@ -132,8 +132,8 @@ in
                 get_status
 
                 # Monitor for changes
-                ${pkgs.systemd}/bin/busctl monitor \
-                  --match "type='signal',sender='org.freedesktop.systemd1',path='/org/freedesktop/systemd1/unit/${escapedServiceName}',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged'" \
+                ${pkgs.dbus}/bin/dbus-monitor --system \
+                  "type='signal',sender='org.freedesktop.systemd1',path='/org/freedesktop/systemd1/unit/${escapedServiceName}',interface='org.freedesktop.DBus.Properties',member='PropertiesChanged'" \
                   | while read -r line; do
                     get_status
                   done
