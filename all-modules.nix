@@ -23,5 +23,6 @@
     ./ollama.nix
     ./proxy-server.nix
     ./firefox.nix
+    ./keepassxc.nix
   ];
 }
