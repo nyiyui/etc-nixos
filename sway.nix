@@ -10,6 +10,7 @@
   options.kiyurica.desktop.sway.enable = lib.mkEnableOption "Sway-based";
 
   config = lib.mkIf config.kiyurica.desktop.sway.enable {
+    kiyurica.home-manager.enable = true;
     home-manager.users.kiyurica = {
       imports = [
         ./home-manager/graphical.nix

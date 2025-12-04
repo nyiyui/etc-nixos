@@ -2,6 +2,8 @@
 {
   imports = [ ./home-manager.nix ];
 
+  kiyurica.home-manager.enable = true;
+
   services.syncthing = {
     enable = true;
     dataDir = "/home/kiyurica";

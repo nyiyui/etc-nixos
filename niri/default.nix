@@ -23,6 +23,7 @@
   };
 
   config = lib.mkIf config.kiyurica.desktop.niri.enable {
+    kiyurica.home-manager.enable = true;
     programs.niri = {
       # required for display managers (so they can run niri-session)
       enable = true;

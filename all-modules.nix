@@ -1,5 +1,5 @@
 {
-  # all modules which have an explicit "enable" option
+  # all modules which have an explicit "enable" option to prevent unintended enables for ease of debugging etc
   imports = [
     ./sway.nix
     ./niri
