@@ -13,7 +13,7 @@
       wrappedBinaries = {
         keepassxc = {
           executable = "${pkgs.keepassxc}/bin/keepassxc";
-          profile = "${pkgs.firejail}/etc/firejail/keepassxc.inc";
+          profile = "${pkgs.firejail}/etc/firejail/keepassxc.profile";
         };
       };
     };
