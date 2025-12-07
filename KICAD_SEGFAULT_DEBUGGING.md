@@ -56,7 +56,10 @@ Since the current version segfaults, try using an older or unstable version:
 
 **Option A: Use unstable nixpkgs**
 
-In `minamo/configuration.nix`, add this overlay (nixpkgs-unstable is available from flake inputs via specialArgs):
+In `minamo/configuration.nix`, add this overlay:
+
+> **Note**: `nixpkgs-unstable` is already defined in `flake.nix` inputs and available via `specialArgs`.
+
 ```nix
 # Add to the nixpkgs.overlays list:
 nixpkgs.overlays = [
