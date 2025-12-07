@@ -6,6 +6,29 @@
   ...
 }:
 
+let
+  # Overlay to wrap KiCAD with NVIDIA-specific environment variables
+  # This prevents segfaults when running KiCAD on NVIDIA GPUs with Wayland
+  kicadNvidiaOverlay = final: prev: {
+    kicad = prev.symlinkJoin {
+      name = "kicad-nvidia";
+      paths = [ prev.kicad ];
+      buildInputs = [ prev.makeWrapper ];
+      postBuild = ''
+        for bin in $out/bin/*; do
+          if [ -f "$bin" ] && [ -x "$bin" ]; then
+            wrapProgram "$bin" \
+              --set __GLX_VENDOR_LIBRARY_NAME nvidia \
+              --set GBM_BACKEND nvidia-drm \
+              --set __GL_GSYNC_ALLOWED 1 \
+              --set __GL_VRR_ALLOWED 0
+          fi
+        done
+      '';
+    };
+  };
+in
+
 {
   imports = [
     ./disko-config.nix
@@ -43,27 +66,8 @@
     nvidiaSettings = true;
   };
 
-  # Wrap KiCAD with NVIDIA-specific environment variables to prevent segfaults
-  nixpkgs.overlays = [
-    (final: prev: {
-      kicad = prev.symlinkJoin {
-        name = "kicad-nvidia";
-        paths = [ prev.kicad ];
-        buildInputs = [ prev.makeWrapper ];
-        postBuild = ''
-          for bin in $out/bin/*; do
-            if [ -f "$bin" ] && [ -x "$bin" ]; then
-              wrapProgram "$bin" \
-                --set __GLX_VENDOR_LIBRARY_NAME nvidia \
-                --set GBM_BACKEND nvidia-drm \
-                --set __GL_GSYNC_ALLOWED 1 \
-                --set __GL_VRR_ALLOWED 0
-            fi
-          done
-        '';
-      };
-    })
-  ];
+  # Apply KiCAD NVIDIA overlay to system packages
+  nixpkgs.overlays = [ kicadNvidiaOverlay ];
 
   users.users.kiyurica = {
     hashedPassword = "$y$j9T$lNSNPobnQX.GuwkdK4m.g0$/ivj88dtnxodfbZ1gmjn6AkabMh32qzsYjHr5i7jjD/";
@@ -122,27 +126,8 @@
   home-manager.users.kiyurica =
     { lib, pkgs, ... }:
     {
-      # Apply the same NVIDIA overlay for KiCAD in home-manager context
-      nixpkgs.overlays = [
-        (final: prev: {
-          kicad = prev.symlinkJoin {
-            name = "kicad-nvidia";
-            paths = [ prev.kicad ];
-            buildInputs = [ prev.makeWrapper ];
-            postBuild = ''
-              for bin in $out/bin/*; do
-                if [ -f "$bin" ] && [ -x "$bin" ]; then
-                  wrapProgram "$bin" \
-                    --set __GLX_VENDOR_LIBRARY_NAME nvidia \
-                    --set GBM_BACKEND nvidia-drm \
-                    --set __GL_GSYNC_ALLOWED 1 \
-                    --set __GL_VRR_ALLOWED 0
-                fi
-              done
-            '';
-          };
-        })
-      ];
+      # Apply the same KiCAD NVIDIA overlay in home-manager context
+      nixpkgs.overlays = [ kicadNvidiaOverlay ];
 
       kiyurica.services.seekback.enable = true;
       kiyurica.services.log-window-titles.enable = true;
