@@ -55,8 +55,10 @@ LD_DEBUG=symbols kicad 2>&1 | less
 Since the current version segfaults, try using an older or unstable version:
 
 **Option A: Use unstable nixpkgs**
+
+In `minamo/configuration.nix`, add this overlay (nixpkgs-unstable is available from flake inputs via specialArgs):
 ```nix
-# In minamo/configuration.nix, add to nixpkgs.overlays:
+# Add to the nixpkgs.overlays list:
 nixpkgs.overlays = [
   (final: prev: {
     kicad = specialArgs.nixpkgs-unstable.legacyPackages.${prev.system}.kicad;
