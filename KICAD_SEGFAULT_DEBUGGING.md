@@ -56,17 +56,42 @@ Since the current version segfaults, try using an older or unstable version:
 
 **Option A: Use unstable nixpkgs**
 
-In `minamo/configuration.nix`, add this overlay:
-
-> **Note**: `nixpkgs-unstable` is already defined in `flake.nix` inputs and available via `specialArgs`.
+In `minamo/configuration.nix`, add this to the module attributes section (before the `{` that starts the module):
 
 ```nix
-# Add to the nixpkgs.overlays list:
-nixpkgs.overlays = [
-  (final: prev: {
-    kicad = specialArgs.nixpkgs-unstable.legacyPackages.${prev.system}.kicad;
-  })
-];
+{
+  config,
+  lib,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
+  # ... existing imports ...
+
+  # Add this overlay (nixpkgs-unstable from flake inputs):
+  nixpkgs.overlays = [
+    (final: prev: {
+      kicad = (import specialArgs.nixpkgs-unstable {
+        inherit (prev) system;
+        config.allowUnfree = true;
+      }).kicad;
+    })
+  ];
+```
+
+Or in the home-manager section:
+```nix
+home-manager.users.kiyurica =
+  { lib, pkgs, ... }:
+  {
+    nixpkgs.overlays = [
+      (final: prev: {
+        kicad = specialArgs.nixpkgs-unstable.legacyPackages.${prev.system}.kicad;
+      })
+    ];
+    # ... rest of config ...
+  };
 ```
 
 **Option B: Try an older version**
