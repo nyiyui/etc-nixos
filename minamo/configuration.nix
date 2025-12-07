@@ -17,14 +17,18 @@ let
     postBuild = ''
       # Wrap all executables to run with ASLR disabled
       for bin in $out/bin/*; do
-        if [ -f "$bin" ] && [ -x "$bin" ] && ! [[ "$bin" == *.so* ]]; then
+        # Skip if not a regular executable file or if it's a shared library
+        if [ -f "$bin" ] && [ -x "$bin" ] && [[ ! "$bin" =~ \.so($|\.) ]]; then
           mv "$bin" "$bin.wrapped"
           makeWrapper "$bin.wrapped" "$bin" \
             --argv0 '$0' \
             --add-flags "" \
             --prefix PATH : "${pkgs.util-linux}/bin" \
             --set-default KICAD_RUN_AS_ROOT "" \
-            --run 'if [ -z "$KICAD_NOASLR_APPLIED" ]; then export KICAD_NOASLR_APPLIED=1; exec ${pkgs.util-linux}/bin/setarch $(uname -m) -R "$0" "$@"; fi'
+            --run 'if [ -z "$KICAD_NOASLR_APPLIED" ]; then 
+                     export KICAD_NOASLR_APPLIED=1
+                     exec ${pkgs.util-linux}/bin/setarch $(uname -m) -R "$0" "$@"
+                   fi'
         fi
       done
     '';
@@ -130,10 +134,8 @@ in
   home-manager.users.kiyurica =
     { lib, pkgs, ... }:
     {
-      # Apply the same KiCAD ASLR workaround in home-manager
-      nixpkgs.overlays = [
-        (final: prev: { kicad = kicadNoASLR; })
-      ];
+      # The system-level overlay is inherited by home-manager
+      # so kicad is already wrapped with ASLR disabled
 
       kiyurica.services.seekback.enable = true;
       kiyurica.services.log-window-titles.enable = true;
