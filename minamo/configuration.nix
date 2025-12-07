@@ -6,26 +6,6 @@
   ...
 }:
 
-let
-  # Overlay to force KiCAD to use software rendering
-  # Hardware acceleration with NVIDIA causes segfaults on this system
-  kicadSoftRenderOverlay = final: prev: {
-    kicad = prev.symlinkJoin {
-      name = "kicad-softrender";
-      paths = [ prev.kicad ];
-      buildInputs = [ prev.makeWrapper ];
-      postBuild = ''
-        for bin in $out/bin/*; do
-          if [ -f "$bin" ] && [ -x "$bin" ]; then
-            wrapProgram "$bin" \
-              --set LIBGL_ALWAYS_SOFTWARE 1
-          fi
-        done
-      '';
-    };
-  };
-in
-
 {
   imports = [
     ./disko-config.nix
@@ -62,9 +42,6 @@ in
     open = false;
     nvidiaSettings = true;
   };
-
-  # Apply KiCAD software rendering overlay
-  nixpkgs.overlays = [ kicadSoftRenderOverlay ];
 
   users.users.kiyurica = {
     hashedPassword = "$y$j9T$lNSNPobnQX.GuwkdK4m.g0$/ivj88dtnxodfbZ1gmjn6AkabMh32qzsYjHr5i7jjD/";
@@ -121,11 +98,8 @@ in
   };
 
   home-manager.users.kiyurica =
-    { lib, pkgs, ... }:
+    { lib, ... }:
     {
-      # Apply the same software rendering overlay for KiCAD
-      nixpkgs.overlays = [ kicadSoftRenderOverlay ];
-
       kiyurica.services.seekback.enable = true;
       kiyurica.services.log-window-titles.enable = true;
       kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
