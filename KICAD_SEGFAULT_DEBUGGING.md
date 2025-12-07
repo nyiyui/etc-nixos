@@ -19,10 +19,10 @@ gdb --args kicad
 # Then type 'run' and when it crashes, type 'bt' for backtrace
 ```
 
-Or use:
+Or use coredumpctl (automatically finds latest crash):
 ```bash
-coredumpctl list
-coredumpctl gdb <last-kicad-pid>
+coredumpctl list  # Shows recent crashes
+coredumpctl gdb kicad  # Automatically loads latest kicad core dump
 # Type 'bt' for backtrace
 ```
 
@@ -56,9 +56,10 @@ Since the current version segfaults, try using an older or unstable version:
 
 **Option A: Use unstable nixpkgs**
 ```nix
+# In minamo/configuration.nix, add to nixpkgs.overlays:
 nixpkgs.overlays = [
   (final: prev: {
-    kicad = nixpkgs-unstable.legacyPackages.${prev.system}.kicad;
+    kicad = specialArgs.nixpkgs-unstable.legacyPackages.${prev.system}.kicad;
   })
 ];
 ```
@@ -108,9 +109,10 @@ ls -la /run/opengl-driver/lib/
 ### 7. Investigate NixOS-Specific Issues
 
 Search for similar issues:
-- Check NixOS discourse/GitHub issues for "kicad nvidia segfault"
-- Check KiCAD forums for NixOS + NVIDIA issues
-- Look at the KiCAD NixOS package definition for NVIDIA-specific build flags
+- NixOS Discourse: https://discourse.nixos.org/ (search "kicad nvidia segfault")
+- NixOS GitHub Issues: https://github.com/NixOS/nixpkgs/issues?q=kicad+nvidia
+- KiCAD package definition: `nix edit nixpkgs#kicad` or view at https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/applications/science/electronics/kicad/
+- KiCAD forums: https://forum.kicad.info/ (search "nixos nvidia")
 
 ### 8. Try Running Without Niri
 
