@@ -7,21 +7,18 @@
 }:
 
 let
-  # Overlay to wrap KiCAD with NVIDIA-specific environment variables
-  # This prevents segfaults when running KiCAD on NVIDIA GPUs with Wayland
-  kicadNvidiaOverlay = final: prev: {
+  # Overlay to force KiCAD to use software rendering
+  # Hardware acceleration with NVIDIA causes segfaults on this system
+  kicadSoftRenderOverlay = final: prev: {
     kicad = prev.symlinkJoin {
-      name = "kicad-nvidia";
+      name = "kicad-softrender";
       paths = [ prev.kicad ];
       buildInputs = [ prev.makeWrapper ];
       postBuild = ''
         for bin in $out/bin/*; do
           if [ -f "$bin" ] && [ -x "$bin" ]; then
             wrapProgram "$bin" \
-              --set __GLX_VENDOR_LIBRARY_NAME nvidia \
-              --set GBM_BACKEND nvidia-drm \
-              --set __GL_GSYNC_ALLOWED 1 \
-              --set __GL_VRR_ALLOWED 0
+              --set LIBGL_ALWAYS_SOFTWARE 1
           fi
         done
       '';
@@ -66,8 +63,8 @@ in
     nvidiaSettings = true;
   };
 
-  # Apply KiCAD NVIDIA overlay to system packages
-  nixpkgs.overlays = [ kicadNvidiaOverlay ];
+  # Apply KiCAD software rendering overlay
+  nixpkgs.overlays = [ kicadSoftRenderOverlay ];
 
   users.users.kiyurica = {
     hashedPassword = "$y$j9T$lNSNPobnQX.GuwkdK4m.g0$/ivj88dtnxodfbZ1gmjn6AkabMh32qzsYjHr5i7jjD/";
@@ -126,8 +123,8 @@ in
   home-manager.users.kiyurica =
     { lib, pkgs, ... }:
     {
-      # Apply the same KiCAD NVIDIA overlay in home-manager context
-      nixpkgs.overlays = [ kicadNvidiaOverlay ];
+      # Apply the same software rendering overlay for KiCAD
+      nixpkgs.overlays = [ kicadSoftRenderOverlay ];
 
       kiyurica.services.seekback.enable = true;
       kiyurica.services.log-window-titles.enable = true;
