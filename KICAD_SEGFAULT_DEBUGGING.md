@@ -8,7 +8,43 @@ KiCAD segfaults on minamo (NVIDIA GPU system) with various attempted fixes:
 
 Both `kicad` and `kicad-cli` segfault, suggesting this is not graphics-related but a deeper library or dependency issue.
 
-## Next Steps to Isolate the Issue
+## Key Findings from Diagnostics
+
+**Core dump analysis reveals:**
+- Crash at `0x0000000000000000` - NULL pointer dereference
+- Happens during early initialization (no useful stack frames)
+- KiCAD does NOT crash when run under GDB (likely ASLR-related)
+- All modules loaded without build-ids (NixOS packaging issue)
+
+**This suggests:**
+- NULL pointer dereference in initialization code
+- ASLR (Address Space Layout Randomization) exposes the bug
+- GDB's deterministic loading masks the issue
+
+## Implemented Fix
+
+### Disable ASLR for KiCAD (Workaround)
+
+Since KiCAD works under GDB (which effectively disables ASLR), the fix wraps KiCAD to run without ASLR using `setarch -R`.
+
+**Implementation in `minamo/configuration.nix`:**
+- Created `kicadNoASLR` overlay that wraps KiCAD executables
+- Uses `setarch $(uname -m) -R` to disable ASLR for KiCAD processes
+- Applied to both system-level and home-manager nixpkgs
+
+**To test:**
+```bash
+sudo nixos-rebuild switch --flake /etc/nixos#minamo
+kicad
+```
+
+**Note**: This is a workaround that disables ASLR for KiCAD. It doesn't fix the underlying NULL pointer bug in KiCAD's initialization code, but it makes the application usable.
+
+### Approach 2: Try Different KiCAD Version
+
+The NULL pointer bug might be fixed in a different version.
+
+### Further Diagnostic Steps
 
 ### 1. Get Stack Trace
 

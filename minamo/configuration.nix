@@ -6,6 +6,31 @@
   ...
 }:
 
+let
+  # Disable ASLR for KiCAD to work around NULL pointer dereference bug
+  # KiCAD crashes with SIGSEGV at 0x0000000000000000 (NULL pointer)
+  # but works fine under GDB (which disables ASLR)
+  kicadNoASLR = pkgs.symlinkJoin {
+    name = "kicad-noaslr";
+    paths = [ pkgs.kicad ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      # Wrap all executables to run with ASLR disabled
+      for bin in $out/bin/*; do
+        if [ -f "$bin" ] && [ -x "$bin" ] && ! [[ "$bin" == *.so* ]]; then
+          mv "$bin" "$bin.wrapped"
+          makeWrapper "$bin.wrapped" "$bin" \
+            --argv0 '$0' \
+            --add-flags "" \
+            --prefix PATH : "${pkgs.util-linux}/bin" \
+            --set-default KICAD_RUN_AS_ROOT "" \
+            --run 'if [ -z "$KICAD_NOASLR_APPLIED" ]; then export KICAD_NOASLR_APPLIED=1; exec ${pkgs.util-linux}/bin/setarch $(uname -m) -R "$0" "$@"; fi'
+        fi
+      done
+    '';
+  };
+in
+
 {
   imports = [
     ./disko-config.nix
@@ -42,6 +67,11 @@
     open = false;
     nvidiaSettings = true;
   };
+
+  # Apply KiCAD ASLR workaround
+  nixpkgs.overlays = [
+    (final: prev: { kicad = kicadNoASLR; })
+  ];
 
   users.users.kiyurica = {
     hashedPassword = "$y$j9T$lNSNPobnQX.GuwkdK4m.g0$/ivj88dtnxodfbZ1gmjn6AkabMh32qzsYjHr5i7jjD/";
@@ -98,8 +128,13 @@
   };
 
   home-manager.users.kiyurica =
-    { lib, ... }:
+    { lib, pkgs, ... }:
     {
+      # Apply the same KiCAD ASLR workaround in home-manager
+      nixpkgs.overlays = [
+        (final: prev: { kicad = kicadNoASLR; })
+      ];
+
       kiyurica.services.seekback.enable = true;
       kiyurica.services.log-window-titles.enable = true;
       kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
