@@ -18,7 +18,7 @@ let
       # Wrap all executables to run with ASLR disabled
       for bin in $out/bin/*; do
         # Skip if not a regular executable file or if it's a shared library
-        if [ -f "$bin" ] && [ -x "$bin" ] && [[ ! "$bin" =~ \.so($|\.) ]]; then
+        if [ -f "$bin" ] && [ -x "$bin" ] && [[ ! "$bin" =~ \.(so|so\.[0-9]+)$ ]]; then
           mv "$bin" "$bin.wrapped"
           makeWrapper "$bin.wrapped" "$bin" \
             --argv0 '$0' \
@@ -130,7 +130,7 @@ in
   };
 
   home-manager.users.kiyurica =
-    { lib, pkgs, ... }:
+    { lib, ... }:
     {
       # The system-level overlay is inherited by home-manager
       # so kicad is already wrapped with ASLR disabled
