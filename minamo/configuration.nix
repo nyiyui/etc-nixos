@@ -22,9 +22,7 @@ let
           mv "$bin" "$bin.wrapped"
           makeWrapper "$bin.wrapped" "$bin" \
             --argv0 '$0' \
-            --add-flags "" \
             --prefix PATH : "${pkgs.util-linux}/bin" \
-            --set-default KICAD_RUN_AS_ROOT "" \
             --run 'if [ -z "$KICAD_NOASLR_APPLIED" ]; then 
                      export KICAD_NOASLR_APPLIED=1
                      exec ${pkgs.util-linux}/bin/setarch $(uname -m) -R "$0" "$@"
