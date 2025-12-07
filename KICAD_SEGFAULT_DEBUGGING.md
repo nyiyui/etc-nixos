@@ -68,8 +68,18 @@ nixpkgs.overlays = [
 Check if there's a known working version and pin to that.
 
 **Option C: Try the minimal variant**
+
+In `home-manager/kicad.nix`, replace `kicad` with `kicad-small`:
 ```nix
-home.packages = [ pkgs.kicad-small ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  home.packages = with pkgs; [ kicad-small ];  # Minimal variant without extras
+}
 ```
 
 ### 5. Compare with Suzaku
