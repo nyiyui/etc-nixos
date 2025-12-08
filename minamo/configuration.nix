@@ -133,4 +133,7 @@
   kiyurica.gatech-vpn.enable = true;
 
   kiyurica.ollama.enableServer = true;
+
+  kiyurica.firefox.enable = true;
+  kiyurica.keepassxc.enable = true;
 }

@@ -7,6 +7,8 @@
 {
   imports = [ ./home-manager.nix ];
 
+  kiyurica.home-manager.enable = true;
+
   nixpkgs.overlays = [
     (final: prev: {
       github-copilot-cli =

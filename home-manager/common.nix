@@ -82,7 +82,6 @@
 
       pulseaudio
       playerctl
-      keepassxc
       clipman
       libsForQt5.ark
       eza

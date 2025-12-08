@@ -35,6 +35,8 @@
         ".config/sayonara"
         ".config/github-copilot"
         ".config/.copilot"
+        ".config/joplin"
+        ".config/joplin-desktop"
         ".codex"
       ];
     };

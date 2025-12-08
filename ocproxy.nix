@@ -69,6 +69,7 @@
     };
 
   config = lib.mkIf config.kiyurica.ocproxy.enable {
+    kiyurica.home-manager.enable = true;
     users.groups.${config.kiyurica.ocproxy.group} = { };
     users.users.${config.kiyurica.ocproxy.user} = {
       isSystemUser = true;

@@ -24,6 +24,8 @@
     ../vlc.nix # VLC with Blu-ray decode keys
   ];
 
+  kiyurica.home-manager.enable = true;
+
   autoUpgrade.directFlake = true;
 
   networking.hostName = "mitsu8";

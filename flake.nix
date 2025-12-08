@@ -107,13 +107,6 @@
           agenix.nixosModules.default
         ];
       };
-      nixosConfigurations.oumi = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
-        modules = [ ./oumi/configuration.nix ];
-      };
       nixosConfigurations.minamo = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // {
@@ -137,6 +130,8 @@
             (python3.withPackages (p: [ p.pyserial ]))
           ];
         };
+
+        checks.headless = import ./tests/headless.nix { inherit pkgs; };
       }
     );
 }
