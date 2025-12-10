@@ -38,6 +38,20 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
+  # Hardware graphics acceleration
+  nixpkgs.config.packageOverrides = pkgs: {
+    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+  };
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      libva-vdpau-driver
+      libvdpau-va-gl
+    ];
+  };
+
   users.users.kiyurica = {
     initialHashedPassword = "$y$j9T$g5xm0pLBFbK4W4c5BIENt/$D18bkwRRxH/MjSlInTZfvd2vE4Mxa.RQXARitTirV64";
   };
@@ -186,6 +200,11 @@
       "flathub:app/io.github.alainm23.planify//stable"
       "flathub:app/com.github.flxzt.rnote//stable"
     ];
+    overrides = {
+      "org.mozilla.firefox" = {
+        Context.devices = [ "dri" ];
+      };
+    };
   };
 
   systemd.services.flatpak-permissions = {
