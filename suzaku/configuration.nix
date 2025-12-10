@@ -202,7 +202,9 @@
     ];
     overrides = {
       "org.mozilla.firefox" = {
-        Context.devices = [ "dri" ];
+        Context = {
+          devices = [ "dri" ];
+        };
       };
     };
   };
