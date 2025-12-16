@@ -73,11 +73,13 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
 if status is-interactive
-  fish_ssh_agent
-  set key ~/.ssh/id_inaba
-  test -e "$key"
-  or set key ~/inaba/geofront/id_inaba
-  ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add "$key"
+  if test -z "$KIYURICA_IN_SANDBOX_DEV"
+    fish_ssh_agent
+    set key ~/.ssh/id_inaba
+    test -e "$key"
+    or set key ~/inaba/geofront/id_inaba
+    ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add "$key"
+  end
 end
 
 export PAGER=nvimpager
