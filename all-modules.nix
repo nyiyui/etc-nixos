@@ -18,5 +18,6 @@
     ./ollama.nix
     ./proxy-server.nix
     ./keepassxc.nix
+    ./sandbox-dev.nix
   ];
 }
