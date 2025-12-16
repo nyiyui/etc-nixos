@@ -35,6 +35,9 @@
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixwrap.url = "github:rti/nixwrap";
+    nixwrap.inputs.nixpkgs.follows = "nixpkgs";
+    nixwrap.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs =
