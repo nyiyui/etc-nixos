@@ -26,7 +26,6 @@
           directory = ".ssh";
           mode = "0700";
         }
-        ".local/share/direnv"
         ".local/share/fish"
         ".local/share/nvim"
         ".mozilla/firefox"

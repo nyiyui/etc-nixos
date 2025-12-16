@@ -144,11 +144,6 @@
     Service.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
     Install.WantedBy = [ "default.target" ];
   };
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = false;
-    nix-direnv.enable = true;
-  };
 
   services.gnome-keyring = {
     enable = true;
