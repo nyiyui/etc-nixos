@@ -233,4 +233,6 @@
     platform = "ipu6ep";
     # cf. https://github.com/NixOS/nixpkgs/issues/225743#issuecomment-1523508154
   };
+
+  kiyurica.secure-dns.enable = true;
 }

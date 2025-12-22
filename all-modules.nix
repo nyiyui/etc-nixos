@@ -19,5 +19,6 @@
     ./ollama.nix
     ./proxy-server.nix
     ./keepassxc.nix
+    ./secure-dns.nix
   ];
 }
