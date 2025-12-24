@@ -10,7 +10,6 @@
     ./base.nix
     ./grc.nix
     ./pexec.nix
-    ./neovim.nix
     ./fonts.nix
     ./kicad.nix
   ];

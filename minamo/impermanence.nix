@@ -27,7 +27,6 @@
           mode = "0700";
         }
         ".local/share/fish"
-        ".local/share/nvim"
         ".mozilla/firefox"
         ".thunderbird"
         ".config/syncthing"

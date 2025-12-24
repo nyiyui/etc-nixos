@@ -2,9 +2,6 @@ export VERSION_CONTROL=numbered
 
 export LESS='-R -s -M +Gg'
 
-export VISUAL='nvim'
-export EDITOR="$VISUAL"
-
 alias sudo=doas
 alias zudo=doas
 
@@ -18,7 +15,6 @@ alias f='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv'
 alias f.='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv .'
 alias f1='grep -nrH --exclude-dir node_modules --exclude-dir venv'
 alias f0='grep -nrHo --exclude-dir node_modules --exclude-dir venv'
-alias v=nvim
 
 alias z=zathura-sandbox
 
@@ -81,8 +77,6 @@ if status is-interactive
     ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add "$key"
   end
 end
-
-export PAGER=nvimpager
 
 function jpeg-to-pdf
   convert -density 300 -gravity Center $argv out.pdf

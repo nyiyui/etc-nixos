@@ -25,7 +25,6 @@
           mode = "0700";
         }
         ".local/share/fish"
-        ".local/share/nvim"
         ".local/share/log-window-titles"
         ".local/PrusaSlicer"
         ".local/share/prusa-slicer"
