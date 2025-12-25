@@ -134,11 +134,29 @@
   };
 
   kiyurica.lsps = with pkgs; [
-    ocamlPackages.ocaml-lsp # OCaml
-    clang-tools # C; C++
-    gopls # Go
-    typescript-language-server # JavaScript; TypeScript
-    rust-analyzer # Rust
-    nil # Nix
+    {
+      package = ocamlPackages.ocaml-lsp;
+      exec-name = "ocamllsp";
+    } # OCaml
+    {
+      package = clang-tools;
+      exec-name = "clangd";
+    } # C; C++
+    {
+      package = gopls;
+      exec-name = "gopls";
+    } # Go
+    {
+      package = typescript-language-server;
+      exec-name = "typescript-language-server";
+    } # JavaScript; TypeScript
+    {
+      package = rust-analyzer;
+      exec-name = "rust-analyzer";
+    } # Rust
+    {
+      package = nil;
+      exec-name = "nil";
+    } # Nix
   ];
 }
