@@ -85,6 +85,12 @@ in
       description = "Path to the background/wallpaper image file";
     };
 
+  options.kiyurica.graphical.idle = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Sleep, lock, etc on idle";
+  };
+
   config = {
     i18n.inputMethod = {
       enable = true;
@@ -374,6 +380,36 @@ in
       defaultApplications = {
         "application/pdf" = "org.pwmt.zathura.desktop";
       };
+    };
+
+    systemd.user.services.swayidle = lib.mkIf config.kiyurica.graphical.idle {
+      Unit = {
+        Description = "swaywm: sleep, lock, etc on idle";
+        PartOf = [ "graphical-session.target" ];
+        StartLimitIntervalSec = 350;
+        StartLimitBurst = 30;
+      };
+      Service = {
+        ExecStart = ''
+          ${pkgs.swayidle}/bin/swayidle -w \
+              timeout 600 'swaymsg "output * dpms off"' \
+              resume 'swaymsg "output * dpms on"' \
+              timeout 3600 'systemctl suspend'
+        '';
+        Restart = "on-failure";
+        RestartSec = 3;
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
+
+    systemd.user.services.systemd-lock-handler = lib.mkIf config.kiyurica.graphical.idle {
+      Service = {
+        ExecStart = "/run/current-system/sw/bin/swaylock";
+        Type = "forking";
+        Restart = "on-failure";
+        RestartSec = 0;
+      };
+      Install.WantedBy = [ "lock.target" ];
     };
   };
 }
