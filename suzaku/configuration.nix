@@ -30,6 +30,7 @@
     ../vnc.nix
     ../virt.nix
     ../codex.nix
+    ../keepassxc.nix
     declarative-flatpak.nixosModules.default
     ../flatpak/org.libreoffice.LibreOffice.nix
     ../flatpak/com.github.flxzt.rnote.nix

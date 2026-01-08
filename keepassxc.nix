@@ -2,24 +2,37 @@
   config,
   lib,
   pkgs,
+  nixpak,
   ...
 }:
-{
-  options.kiyurica.keepassxc.enable = lib.mkEnableOption "firejailed KeePassXC";
 
-  config = lib.mkIf config.kiyurica.keepassxc.enable {
-    programs.firejail = {
-      enable = true;
-      wrappedBinaries = {
-        keepassxc = {
-          executable = "${pkgs.keepassxc}/bin/keepassxc";
-          profile = "${pkgs.firejail}/etc/firejail/keepassxc.profile";
-        };
-      };
-    };
-
-    environment.etc."firejail/keepassxc.local".text = ''
-      whitelist /home/kiyurica/inaba/geofront/*.kdbx
-    '';
+let
+  mkNixPak = nixpak.lib.nixpak {
+    inherit (pkgs) lib;
+    inherit pkgs;
   };
+
+  keepassxc-sandboxed = mkNixPak {
+    config =
+      { sloth, ... }:
+      {
+        app.package = pkgs.keepassxc;
+
+        flatpak.appId = "org.keepassxc.keepassxc";
+
+        bubblewrap = {
+          sockets = {
+            wayland = true;
+          };
+          dieWithParent = true;
+          bind.ro = [ "/etc/fonts" ];
+          bind.dev = [ "/dev/dri" ];
+        };
+
+        app.binPath = "bin/keepassxc";
+      };
+  };
+in
+{
+  environment.systemPackages = [ keepassxc-sandboxed.config.env ];
 }
