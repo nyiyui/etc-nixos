@@ -126,7 +126,5 @@
 
   kiyurica.ollama.enableServer = true;
 
-  kiyurica.keepassxc.enable = true;
-
   kiyurica.sandbox-dev.enable = true;
 }
