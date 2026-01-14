@@ -21,5 +21,6 @@
     ./sandbox-dev.nix
     ./powertop-tune.nix
     ./mosh.nix
+    ./caldav-canvas
   ];
 }

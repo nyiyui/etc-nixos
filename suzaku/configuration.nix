@@ -109,6 +109,23 @@
     mode = "400";
   };
 
+  kiyurica.caldav-canvas.enable = true;
+  kiyurica.caldav-canvas.caldav-url = "https://cdav.migadu.com/calendars/ken.shibata@kiyuri.ca/tasks";
+  kiyurica.caldav-canvas.caldav-username = "ken.shibata@kiyuri.ca";
+  kiyurica.caldav-canvas.tasklist-name = "Tasks";
+  kiyurica.caldav-canvas.url-file = config.age.secrets.caldavCanvasUrl.path;
+  kiyurica.caldav-canvas.password-file = config.age.secrets.caldavCanvasPassword.path;
+  age.secrets.caldavCanvasUrl = {
+    file = ./secrets/caldav-canvas/canvas-url.txt.cred.age;
+    owner = "root";
+    mode = "0400";
+  };
+  age.secrets.caldavCanvasPassword = {
+    file = ./secrets/caldav-canvas/caldav-password.txt.cred.age;
+    owner = "root";
+    mode = "0400";
+  };
+
   autoUpgrade.directFlake = true;
 
   age.identityPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
