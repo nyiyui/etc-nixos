@@ -29,7 +29,10 @@ let
         bubblewrap = {
           network = false;
           dieWithParent = true;
-          bind.rw = [ (sloth.concat' sloth.runtimeDir "/doc") "${config.services.syncthing.settings.folders.geofront.path}" ];
+          bind.rw = [
+            (sloth.concat' sloth.runtimeDir "/doc")
+            "${config.services.syncthing.settings.folders.geofront.path}"
+          ];
         };
       };
   };
