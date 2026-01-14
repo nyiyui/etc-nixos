@@ -16,12 +16,9 @@ let
     config =
       { sloth, ... }:
       {
-        dependencies =
-          { nixpakModules }:
-          with nixpakModules;
-          [
-            gui-base
-          ];
+        imports = with nixpak.nixpakModules; [
+          gui-base
+        ];
         app.package = pkgs.keepassxc;
 
         flatpak.appId = "org.keepassxc.keepassxc";
@@ -29,6 +26,7 @@ let
         bubblewrap = {
           network = false;
           dieWithParent = true;
+          bind.rw = [ (sloth.concat' sloth.runtimeDir "/doc") ];
         };
 
         app.binPath = "bin/keepassxc";
