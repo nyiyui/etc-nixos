@@ -17,7 +17,6 @@
     ./ocproxy.nix
     ./ollama.nix
     ./proxy-server.nix
-    ./keepassxc.nix
     ./sandbox-dev.nix
     ./powertop-tune.nix
     ./mosh.nix
