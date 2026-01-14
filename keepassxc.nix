@@ -16,17 +16,19 @@ let
     config =
       { sloth, ... }:
       {
+        dependencies =
+          { nixpakModules }:
+          with nixpakModules;
+          [
+            gui-base
+          ];
         app.package = pkgs.keepassxc;
 
         flatpak.appId = "org.keepassxc.keepassxc";
 
         bubblewrap = {
-          sockets = {
-            wayland = true;
-          };
+          network = false;
           dieWithParent = true;
-          bind.ro = [ "/etc/fonts" ];
-          bind.dev = [ "/dev/dri" ];
         };
 
         app.binPath = "bin/keepassxc";
