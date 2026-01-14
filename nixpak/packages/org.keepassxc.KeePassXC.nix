@@ -14,7 +14,7 @@ let
     inherit pkgs;
   };
 
-  keepassxc-sandboxed = mkNixPak {
+  sandboxed = mkNixPak {
     config =
       { sloth, ... }:
       {
@@ -29,13 +29,11 @@ let
         bubblewrap = {
           network = false;
           dieWithParent = true;
-          bind.rw = [ (sloth.concat' sloth.runtimeDir "/doc") ];
+          bind.rw = [ (sloth.concat' sloth.runtimeDir "/doc") "${config.syncthing.settings.folders.geofront.path}" ];
         };
-
-        app.binPath = "bin/keepassxc";
       };
   };
 in
 {
-  environment.systemPackages = [ keepassxc-sandboxed.config.env ];
+  environment.systemPackages = [ sandboxed.config.env ];
 }
