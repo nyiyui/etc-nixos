@@ -27,6 +27,17 @@ let
       usb_path="$(readlink -f "$USB_SYS_PATH")"
     fi
 
+    NOTIF_ID=""
+    notify_update() {
+      summary="$1"
+      body="$2"
+      if [ -z "$NOTIF_ID" ]; then
+        NOTIF_ID="$(notify-desktop -a quaderno-sync "$summary" "$body" 2>/dev/null || true)"
+      else
+        NOTIF_ID="$(notify-desktop -r "$NOTIF_ID" -a quaderno-sync "$summary" "$body" 2>/dev/null || true)"
+      fi
+    }
+
     if [ -z "$usb_path" ]; then
       for dev in /sys/bus/usb/devices/*; do
         [ -f "$dev/idVendor" ] || continue
@@ -44,10 +55,12 @@ let
 
     if [ -z "$usb_path" ] || [ ! -e "$usb_path/idVendor" ]; then
       echo "quaderno-sync: failed to locate Quaderno USB device (vid=$QUADERNO_VID pids=$QUADERNO_INITIAL_PID/$QUADERNO_RNDIS_PID)" >&2
+      notify_update "Failed to locate Quaderno USB device" "" || true
       exit 1
     fi
 
-    echo "quaderno-sync: using usb device: $usb_path ($(cat "$usb_path/idVendor"):$(cat "$usb_path/idProduct"))" >&2
+    echo "quaderno-sync: using usb device: $usb_path ($(cat \"$usb_path/idVendor\"):$(cat \"$usb_path/idProduct\"))" >&2
+    notify_update "Using USB device" "$usb_path" || true
 
     shopt -s nullglob
 
@@ -63,8 +76,10 @@ let
 
     if [ -n "$iface" ]; then
       echo "quaderno-sync: found existing net interface: $iface (ifindex=$ifindex)" >&2
+      notify_update "Found existing net interface" "$iface" || true
     else
       echo "quaderno-sync: no net interface yet; will try enabling RNDIS" >&2
+      notify_update "No net interface yet" "Enabling RNDIS" || true
     fi
 
     if [ -z "$iface" ]; then
@@ -81,10 +96,12 @@ let
 
       if [ -z "$SERIAL_DEV" ] || [ ! -e "$SERIAL_DEV" ]; then
         echo "quaderno-sync: no net interface and no ttyACM serial interface to enable RNDIS" >&2
+        notify_update "No net interface and no serial interface" "" || true
         exit 1
       fi
 
       echo "quaderno-sync: enabling RNDIS via serial: $SERIAL_DEV" >&2
+      notify_update "Enabling RNDIS via serial" "$SERIAL_DEV" || true
 
       export SERIAL_DEV
       python3 -c 'import os, serial; port = serial.Serial(os.environ["SERIAL_DEV"]); port.write(b"\x01\x00\x00\x01\x00\x00\x00\x01\x00\x04"); port.close()'
@@ -106,16 +123,19 @@ let
 
     if [ -z "$iface" ] || [ -z "$ifindex" ]; then
       echo "quaderno-sync: timed out waiting for Quaderno RNDIS interface" >&2
+      notify_update "Timed out waiting for RNDIS interface" "" || true
       exit 1
     fi
 
     # Use the numeric ifindex as the IPv6 zone ID to avoid races with interface renaming (usb0 -> enp...).
     echo "quaderno-sync: using net interface: $iface (ifindex=$ifindex)" >&2
+    notify_update "Using net interface" "$iface" || true
 
     echo "quaderno-sync: resolving mDNS: $MDNS_NAME" >&2
     ip6="$(avahi-resolve -n "$MDNS_NAME" | awk '{print $2}' | head -n1 || true)"
     if [ -z "$ip6" ]; then
       echo "quaderno-sync: failed to resolve $MDNS_NAME via avahi" >&2
+      notify_update "Failed to resolve mDNS" "$MDNS_NAME" || true
       exit 1
     fi
 
@@ -144,6 +164,7 @@ let
     fi
 
     echo "quaderno-sync: running: dptrp1 $*" >&2
+    notify_update "Running dptrp1" "$*" || true
     exec dptrp1 "$@"
   '';
 
@@ -158,6 +179,7 @@ let
       gawk
       coreutils
       avahi
+      notify-desktop
       dpt-rp1-py
     ]);
 
