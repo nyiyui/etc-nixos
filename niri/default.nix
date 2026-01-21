@@ -69,10 +69,15 @@
                 };
                 Service = {
                   Type = "oneshot";
-                  ExecStart = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP";
+                  ExecStart = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE";
                   RemainAfterExit = true;
                 };
                 Install.WantedBy = [ "graphical-session.target" ];
+              };
+
+              systemd.user.targets.xdg-desktop-autostart.Unit = {
+                Wants = [ "import-environment.service" ];
+                After = [ "import-environment.service" ];
               };
               programs.waybar.settings.mainBar = {
                 modules-left = [
