@@ -126,7 +126,9 @@ in
               escapedServiceName = builtins.replaceStrings [ "." "-" ] [ "_2e" "_2d" ] serviceName;
               script = pkgs.writeShellScriptBin "monitor-service-status.sh" ''
                 SYSTEMCTL="systemctl${lib.optionalString user " --user"}"
-                DBUS_MONITOR="${pkgs.dbus}/bin/dbus-monitor${lib.optionalString user " --session"}${lib.optionalString (!user) " --system"}"
+                DBUS_MONITOR="${pkgs.dbus}/bin/dbus-monitor${lib.optionalString user " --session"}${
+                  lib.optionalString (!user) " --system"
+                }"
 
                 get_status() {
                   export LOAD_ERROR="$($SYSTEMCTL show ${serviceName} --property=LoadError | ${pkgs.coreutils}/bin/cut -d= -f2)"
