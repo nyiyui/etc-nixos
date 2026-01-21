@@ -165,7 +165,15 @@ let
 
     echo "quaderno-sync: running: dptrp1 $*" >&2
     notify_update "Running dptrp1" "$*" || true
-    exec dptrp1 "$@"
+    dptrp1 "$@"
+    rc=$?
+    if [ "$rc" -eq 0 ]; then
+      # Replace previous notification with a short-lived one so it closes
+      notify-desktop -r "$NOTIF_ID" -a quaderno-sync -t 1000 "quaderno-sync" "Finished successfully" >/dev/null 2>&1 || true
+    else
+      notify_update "dptrp1 failed" "Exit code $rc" || true
+    fi
+    exit $rc
   '';
 
   quaderno-sync-env = pkgs.symlinkJoin {
