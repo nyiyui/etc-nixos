@@ -35,16 +35,10 @@
             output.alias = "Sony";
           }
           {
-            output.criteria = "Dell Inc. DELL U2417H XVNNT87AAH3L";
+            output.criteria = "Dell Inc. DELL U2417H *";
             output.mode = "1920x1080@60.000Hz";
             output.scale = 1.0;
             output.alias = "CloughPinkR";
-          }
-          {
-            output.criteria = "Dell Inc. DELL U2417H XVNNT87A025W";
-            output.mode = "1920x1080@60.000Hz";
-            output.scale = 1.0;
-            output.alias = "CloughPinkL";
           }
           {
             output.criteria = "Hisense Electric Co., Ltd. HISENSE-TV 0x81010101";
@@ -137,7 +131,7 @@
                 status = "disable";
               }
               {
-                criteria = "Samsung Electric Company LC34G55T H1AK500000";
+                criteria = "Samsung Electric Company LC34G55T *";
                 position = "0,0";
               }
             ];
