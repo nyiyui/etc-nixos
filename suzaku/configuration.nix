@@ -77,7 +77,10 @@
     enable = true;
     enableUWSM = true;
   };
-  kiyurica.greeter.gtkgreet.enable = true;
+  kiyurica.greeter.gtkgreet = {
+    enable = true;
+    compositor = "niri-uwsm.desktop";
+  };
   home-manager.users.kiyurica =
     { pkgs, ... }:
     {

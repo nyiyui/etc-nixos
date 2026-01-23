@@ -12,6 +12,14 @@
       default = "";
       description = "extra sway config to add to the greeter's sway";
     };
+    compositor = lib.mkOption {
+      type = lib.types.str;
+      default = "default";
+      description = ''
+        Compositor command line; either an executable name, Desktop Entry ID, "select", or "default".
+        Run uwsm start --help for details.
+      '';
+    };
   };
 
   config = lib.mkIf config.kiyurica.greeter.gtkgreet.enable {
@@ -40,7 +48,7 @@
     environment.etc."greetd/environments" = {
       enable = true;
       text = ''
-        uwsm start -- default
+        uwsm start -- ${lib.escapeShellArg config.kiyurica.greeter.gtkgreet}
       '';
     };
   };
