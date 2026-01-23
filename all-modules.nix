@@ -8,7 +8,6 @@
     ./tailscale-cert.nix
     ./autoUpgrade-git.nix
     ./laptop.nix
-    ./power-efficiency.nix
     ./displaylink.nix
     ./eduroam
     ./aiden.nix
@@ -17,7 +16,6 @@
     ./ollama.nix
     ./proxy-server.nix
     ./sandbox-dev.nix
-    ./powertop-tune.nix
     ./mosh.nix
     ./quaderno-sync.nix
   ];

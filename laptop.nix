@@ -27,5 +27,14 @@
         };
       services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
       networking.networkmanager.wifi.powersave = true;
+      powerManagement.powertop.enable = true;
+      environment.systemPackages = [
+        config.boot.kernelPackages.x86_energy_perf_policy
+      ];
+      services.udev.extraRules = ''
+        # Power adapter connected/disconnected detection
+        SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="x86_energy_perf_policy power"
+        SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="x86_energy_perf_policy performance"
+      '';
     };
 }

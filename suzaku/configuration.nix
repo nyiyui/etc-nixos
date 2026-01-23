@@ -22,7 +22,6 @@
     ../thunderbolt.nix
     ../common.nix
     ../power.nix
-    ../power-efficiency.nix
     ../sound.nix
     ../vlc.nix
     ../tpm.nix
@@ -154,7 +153,6 @@
   };
 
   kiyurica.laptop.enable = true;
-  kiyurica.power-efficiency.enable = true;
 
   kiyurica.displaylink.enable = true;
 
@@ -181,9 +179,6 @@
   };
 
   kiyurica.sandbox-dev.enable = true;
-
-  powertop-tune.enable = true;
-  powertop-tune.path = ./powertop-tune.sh;
 
   kiyurica.quaderno-sync = {
     enable = true;
