@@ -30,8 +30,8 @@
       powerManagement.powertop.enable = true;
       services.udev.extraRules = ''
         # Power adapter connected/disconnected detection
-        SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="${config.boot.kernelPackages.86_energy_perf_policy} power"
-        SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="${config.boot.kernelPackages.86_energy_perf_policy} performance"
+        SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="${config.boot.kernelPackages.x86_energy_perf_policy} power"
+        SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="${config.boot.kernelPackages.x86_energy_perf_policy} performance"
       '';
     };
 }
