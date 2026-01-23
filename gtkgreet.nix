@@ -48,7 +48,7 @@
     environment.etc."greetd/environments" = {
       enable = true;
       text = ''
-        uwsm start -- ${lib.escapeShellArg config.kiyurica.greeter.gtkgreet}
+        uwsm start -- ${lib.escapeShellArg config.kiyurica.greeter.gtkgreet.compositor}
       '';
     };
   };
