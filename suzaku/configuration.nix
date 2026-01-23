@@ -138,6 +138,10 @@
 
   programs.light.enable = true;
 
+  environment.etc."udev/rules.d/99-disable-fingerprint-wakeup.rules".text = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="06cb", ATTR{idProduct}=="00fc", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
+  '';
+
   kiyurica.tailscale.enable = true;
   systemd.services.tailscaled-autoconnect.wantedBy = lib.mkForce [ ]; # we may not always be connected to the Internet and therefore the tailnet
 
