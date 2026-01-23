@@ -141,7 +141,7 @@
 
   programs.light.enable = true;
 
-  environment.etc."udev/rules.d/99-disable-fingerprint-wakeup.rules".text = ''
+  services.udev.extraRules = lib.mkAfter ''
     ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="06cb", ATTR{idProduct}=="00fc", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
   '';
 
