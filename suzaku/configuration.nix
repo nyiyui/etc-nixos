@@ -187,4 +187,9 @@
     enable = true;
     autoSync.enable = true;
   };
+
+  kiyurica.caldav-canvas-gradescope = {
+    enable = true;
+    credFile = ./caldav-canvas-gradescope-env.sh.cred;
+  };
 }

@@ -18,5 +18,6 @@
     ./sandbox-dev.nix
     ./mosh.nix
     ./quaderno-sync.nix
+    ./caldav-canvas-gradescope.nix
   ];
 }

@@ -38,6 +38,8 @@
     nixwrap.url = "github:rti/nixwrap";
     nixwrap.inputs.nixpkgs.follows = "nixpkgs";
     nixwrap.inputs.flake-utils.follows = "flake-utils";
+    caldav-canvas-gradescope.url = "github:nyiyui/caldav-canvas-gradescope";
+    caldav-canvas-gradescope.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
