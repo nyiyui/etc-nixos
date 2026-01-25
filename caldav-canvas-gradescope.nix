@@ -21,7 +21,9 @@ in
       script = ''
         set -eu
         source "$CREDENTIALS_DIRECTORY/caldav-canvas-gradescope-env"
-        ${caldav-canvas-gradescope.packages.default}/bin/caldav-canvas-gradescope
+        ${
+          caldav-canvas-gradescope.packages.${pkgs.stdenv.hostPlatform.system}.default
+        }/bin/caldav-canvas-gradescope
       '';
       serviceConfig = {
         LoadCredentialEncrypted = [ "caldav-canvas-gradescope-env:${cfg.credFile}" ];
