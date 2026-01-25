@@ -24,7 +24,7 @@ in
         ${caldav-canvas-gradescope}/bin/caldav-canvas-gradescope
       '';
       serviceConfig = {
-        LoadCredentialEncrypted = [ cfg.credFile ];
+        LoadCredentialEncrypted = [ "caldav-canvas-gradescope-env:${cfg.credFile}" ];
         CapabilityBoundingSet = "";
         LockPersonality = "true";
         MemoryDenyWriteExecute = "yes";
