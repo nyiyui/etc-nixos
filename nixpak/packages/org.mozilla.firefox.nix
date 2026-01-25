@@ -39,7 +39,7 @@ let
 
         bubblewrap = {
           network = true;
-          sockets.pipewire = true;
+          sockets.pulse = true;
           dieWithParent = true;
           env.GTK_USE_PORTAL = "1";
           # Make xdg-desktop-portal treat this as a sandboxed app and export picked files via document-portal.
