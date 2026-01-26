@@ -37,6 +37,7 @@
     ../nixpak/packages/io.github.alainm23.planify.nix
     declarative-flatpak.nixosModules.default
     ../flatpak/com.github.flxzt.rnote.nix
+    ../nixpak/packages/org.signal.Signal.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

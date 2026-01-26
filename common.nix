@@ -164,4 +164,6 @@
   ];
 
   kiyurica.mosh.enable = true;
+
+  virtualisation.podman.enable = true;
 }
