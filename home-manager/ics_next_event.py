@@ -119,12 +119,14 @@ def get_next_event(calendars):
                 if start_dt <= now_local and (end_dt is None or end_dt > now_local):
                     current_events.append({
                         'start': start_dt,
+                        'end': end_dt,
                         'summary': summary,
                         'location': location
                     })
                 elif start_dt > now_local:
                     upcoming_events.append({
                         'start': start_dt,
+                        'end': end_dt,
                         'summary': summary,
                         'location': location
                     })
@@ -155,7 +157,7 @@ def get_next_event(calendars):
         entry = f"{time_str} {e['summary']}"
         if e.get('location'):
             entry += f" @ {e['location']}"
-        entry += " (current)"
+        entry += f" (current; ends {e['end'].strftime('%H:%M')})"
         tooltip_entries.append(entry)
     
     # Add upcoming events to tooltip
