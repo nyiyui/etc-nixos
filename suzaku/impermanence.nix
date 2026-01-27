@@ -33,6 +33,7 @@
         ".mozilla/firefox"
         ".var/nixpak-app/org.mozilla.Thunderbird"
         ".thunderbird"
+        ".var/nixpak-app/org.signal.Signal"
         ".config/syncthing"
         ".config/github-copilot"
         ".config/.copilot"
