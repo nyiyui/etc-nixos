@@ -22,7 +22,7 @@ let
           [
             gui-base
           ]
-          ++ [ ../modules/xdg-home.nix ];
+          ++ [ ../modules/xdg-home.nix ../modules/tz.nix ];
         app.package = pkgs.firefox;
 
         dbus.policies = {

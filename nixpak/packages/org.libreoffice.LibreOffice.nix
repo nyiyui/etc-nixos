@@ -18,7 +18,7 @@ let
       {
         imports = with nixpak.nixpakModules; [
           gui-base
-        ];
+        ] ++ [ ../modules/tz.nix ];
         app = {
           package = pkgs.libreoffice;
           binPath = "bin/libreoffice";

@@ -21,7 +21,7 @@ let
           [
             gui-base
           ]
-          ++ [ ../modules/xdg-home.nix ];
+          ++ [ ../modules/xdg-home.nix ../modules/tz.nix ];
         app.package = pkgs.planify;
 
         flatpak.appId = "io.github.alainm23.planify";
