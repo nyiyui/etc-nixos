@@ -13,7 +13,7 @@ let
     inherit pkgs;
   };
 
-  keepassxc-sandboxed = mkNixPak {
+  sandboxed = mkNixPak {
     config =
       { sloth, ... }:
       {
@@ -25,11 +25,14 @@ let
           ++ [ ../modules/xdg-home.nix ../modules/tz.nix ];
         app.package = pkgs.firefox;
 
-        dbus.policies = {
-          "org.mozilla.firefox.*" = "own";
-          "org.mozilla.firefox_beta.*" = "own";
-          "org.mpris.MediaPlayer2.firefox.*" = "own";
-          "org.freedesktop.NetworkManager" = "talk";
+        dbus = {
+          enable = true;
+          policies = {
+            "org.mozilla.firefox.*" = "own";
+            "org.mozilla.firefox_beta.*" = "own";
+            "org.mpris.MediaPlayer2.firefox.*" = "own";
+            "org.freedesktop.NetworkManager" = "talk";
+          };
         };
 
         flatpak.appId = "org.mozilla.firefox";
@@ -53,8 +56,6 @@ let
               "${pkgs.firefox}/lib/firefox"
               "/app/etc/firefox"
             ]
-            "/etc/machine-id"
-            "/run/dbus/system_bus_socket"
           ];
           bind.dev = [ "/dev/shm" ];
         };
@@ -62,5 +63,5 @@ let
   };
 in
 {
-  environment.systemPackages = [ keepassxc-sandboxed.config.env ];
+  environment.systemPackages = [ sandboxed.config.env ];
 }

@@ -24,8 +24,11 @@ let
           ++ [ ../modules/xdg-home.nix ../modules/tz.nix ];
         app.package = pkgs.thunderbird;
 
-        dbus.policies = {
-          "org.freedesktop.NetworkManager" = "talk";
+        dbus = {
+          enable = true;
+          policies = {
+            "org.freedesktop.NetworkManager" = "talk";
+          };
         };
 
         flatpak.appId = "org.mozilla.Thunderbird";
@@ -40,9 +43,6 @@ let
           bind.rw = [
             (sloth.concat' sloth.runtimeDir "/doc")
             (sloth.concat' sloth.homeDir "/.thunderbird") # TODO: figure out how to put this under .var/nixpak-app
-          ];
-          bind.ro = [
-            "/etc/machine-id"
           ];
           bind.dev = [ "/dev/shm" ];
         };
