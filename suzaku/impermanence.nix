@@ -34,6 +34,7 @@
         ".var/nixpak-app/org.mozilla.Thunderbird"
         ".thunderbird"
         ".var/nixpak-app/org.signal.Signal"
+        ".var/nixpak-app/com.github.taiko2k.tauonmb"
         ".config/syncthing"
         ".config/github-copilot"
         ".config/.copilot"
