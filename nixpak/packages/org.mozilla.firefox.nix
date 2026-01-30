@@ -51,7 +51,7 @@ let
               "${pkgs.firefox}/lib/firefox"
               "/app/etc/firefox"
             ]
-            "/run/opengl-driver"
+            "/run/opengl-driver/lib"
           ];
           bind.dev = [ "/dev/shm" "/dev/dri" ];
         };
