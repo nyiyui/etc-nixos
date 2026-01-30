@@ -53,7 +53,7 @@ let
             ]
             "/run/opengl-driver"
           ];
-          bind.dev = [ "/dev/shm" ];
+          bind.dev = [ "/dev/shm" "/dev/dri" ];
         };
       };
   };
