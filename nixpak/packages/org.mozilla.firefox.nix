@@ -22,7 +22,7 @@ let
           [
             gui-base
           ]
-          ++ [ ../modules/xdg-home.nix ../modules/tz.nix ];
+          ++ [ ../modules/xdg-home.nix ../modules/tz.nix (import ../modules/flatpak.nix { appId = "org.mozilla.firefox"; }) ../modules/xdg-portal.nix ];
         app.package = pkgs.firefox;
 
         dbus = {
@@ -35,7 +35,6 @@ let
           };
         };
 
-        flatpak.appId = "org.mozilla.firefox";
         fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
 
         etc.sslCertificates.enable = true;
@@ -44,11 +43,7 @@ let
           network = true;
           sockets.pulse = true;
           dieWithParent = true;
-          env.GTK_USE_PORTAL = "1";
-          # Make xdg-desktop-portal treat this as a sandboxed app and export picked files via document-portal.
-          env.FLATPAK_ID = "org.mozilla.firefox";
           bind.rw = [
-            (sloth.concat' sloth.runtimeDir "/doc")
             (sloth.concat' sloth.homeDir "/.mozilla") # TODO: figure out how to put this under .var/nixpak-app
           ];
           bind.ro = [
