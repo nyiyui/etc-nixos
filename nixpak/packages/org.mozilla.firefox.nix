@@ -51,6 +51,7 @@ let
               "${pkgs.firefox}/lib/firefox"
               "/app/etc/firefox"
             ]
+            "/run/opengl-driver"
           ];
           bind.dev = [ "/dev/shm" ];
         };
