@@ -12,5 +12,8 @@
       flake = "github:nyiyui/etc-nixos";
       allowReboot = true;
     };
+
+    systemd.services.nixos-upgrade.unitConfig.ConditionACPower = true;
+    # TODO: inhibit sleep while building
   };
 }
