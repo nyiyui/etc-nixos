@@ -12,5 +12,6 @@
       file = ./secrets/tailscale-key-${config.networking.hostName}.age;
       mode = "400";
     };
+    systemd.services.tailscaled.wantedBy = lib.mkForce [ ];
   };
 }
