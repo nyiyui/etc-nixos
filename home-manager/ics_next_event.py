@@ -165,7 +165,7 @@ def get_next_event(calendars):
             entry += f" @ {e['location']}"
         tooltip_entries.append(entry)
 
-    if current_evemts:
+    if current_events:
         tooltip_entries.append('---')
 
     # Add upcoming events to tooltip
