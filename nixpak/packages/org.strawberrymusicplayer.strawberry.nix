@@ -1,0 +1,43 @@
+{
+  config,
+  lib,
+  pkgs,
+  nixpak,
+  ...
+}:
+
+let
+  mkNixPak = nixpak.lib.nixpak {
+    inherit (pkgs) lib;
+    inherit pkgs;
+  };
+
+  sandboxed = mkNixPak {
+    config =
+      { sloth, ... }:
+      {
+        imports =
+          with nixpak.nixpakModules;
+          [
+            gui-base
+          ]
+          ++ [
+            ../modules/xdg-home.nix
+            ../modules/tz.nix
+            (import ../modules/flatpak.nix { appId = "org.strawberrymusicplayer.strawberry"; })
+            ../modules/xdg-portal.nix
+          ];
+        app.package = pkgs.strawberry;
+        fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
+
+        dbus.enable = true;
+
+        bubblewrap = {
+          dieWithParent = true;
+        };
+      };
+  };
+in
+{
+  environment.systemPackages = [ sandboxed.config.env ];
+}

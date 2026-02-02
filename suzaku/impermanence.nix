@@ -35,6 +35,7 @@
         ".thunderbird"
         ".var/nixpak-app/org.signal.Signal"
         ".var/nixpak-app/com.github.taiko2k.tauonmb"
+        ".var/nixpak-app/org.strawberrymusicplayer.strawberry"
         ".config/syncthing"
         ".config/github-copilot"
         ".config/.copilot"
