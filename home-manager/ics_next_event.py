@@ -139,43 +139,47 @@ def get_next_event(calendars):
     upcoming_events = sorted(upcoming_events, key=lambda x: x['start'])
     next_event = upcoming_events[0]
     
-    # Format start time - add 24 hours if tomorrow
-    event_start = next_event['start']
-    if event_start.date() > now_local.date():
-        # Tomorrow's event - add 24 to the hour
-        hour_24 = event_start.hour + 24
-        start_time = f"{hour_24:02d}:{event_start.minute:02d}"
-    else:
-        start_time = event_start.strftime('%H:%M')
-    
+    def format_time(d):
+        if d is None:
+            return None
+        if d.date() > now_local.date():
+            return f"{d.hour + 24:02d}:{d.minute:02d}"
+        return d.strftime('%H:%M')
+
+    def format_range(start, end):
+        s = format_time(start)
+        e = format_time(end)
+        return f"{s}-{e}" if e else s
+
+    # Next event display uses start-end (with +24h for next-day times)
+    time_range = format_range(next_event['start'], next_event.get('end'))
+
     # Format tooltip times - add 24 hours for tomorrow's events
     tooltip_entries = []
-    
+
     # Add current events to tooltip
     for e in current_events:
-        time_str = e['start'].strftime('%H:%M')
+        time_str = format_range(e['start'], e.get('end'))
         entry = f"{time_str} {e['summary']}"
         if e.get('location'):
             entry += f" @ {e['location']}"
-        entry += f" (current; ends {e['end'].strftime('%H:%M')})"
         tooltip_entries.append(entry)
-    
+
+    if current_evemts:
+        tooltip_entries.append('---')
+
     # Add upcoming events to tooltip
     for e in upcoming_events:
         if e['start'] < tomorrow:
-            if e['start'].date() > now_local.date():
-                hour_24 = e['start'].hour + 24
-                time_str = f"{hour_24:02d}:{e['start'].minute:02d}"
-            else:
-                time_str = e['start'].strftime('%H:%M')
+            time_str = format_range(e['start'], e.get('end'))
             entry = f"{time_str} {e['summary']}"
             if e.get('location'):
                 entry += f" @ {e['location']}"
             tooltip_entries.append(entry)
     tooltip = '\n'.join(tooltip_entries)
-    
+
     return {
-        "text": escape(f"{start_time} {next_event['summary']}"),
+        "text": escape(f"{time_range} {next_event['summary']}"),
         "tooltip": escape(tooltip),
         "class": "upcoming"
     }
