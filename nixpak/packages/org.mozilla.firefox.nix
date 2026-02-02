@@ -22,7 +22,12 @@ let
           [
             gui-base
           ]
-          ++ [ ../modules/xdg-home.nix ../modules/tz.nix (import ../modules/flatpak.nix { appId = "org.mozilla.firefox"; }) ../modules/xdg-portal.nix ];
+          ++ [
+            ../modules/xdg-home.nix
+            ../modules/tz.nix
+            (import ../modules/flatpak.nix { appId = "org.mozilla.firefox"; })
+            ../modules/xdg-portal.nix
+          ];
         app.package = pkgs.firefox;
 
         dbus = {
@@ -53,7 +58,10 @@ let
             ]
             "/run/opengl-driver/lib"
           ];
-          bind.dev = [ "/dev/shm" "/dev/dri" ];
+          bind.dev = [
+            "/dev/shm"
+            "/dev/dri"
+          ];
         };
       };
   };
