@@ -12,6 +12,10 @@
       file = ./secrets/tailscale-key-${config.networking.hostName}.age;
       mode = "400";
     };
-    systemd.services.tailscaled.wantedBy = lib.mkForce [ ];
+    # Tie tailscaled to network-online.target (not multi-user.target).
+    systemd.services.tailscaled = {
+      wantedBy = lib.mkForce [ "network-online.target" ];
+      before = lib.mkForce [ "network-online.target" ];
+    };
   };
 }
