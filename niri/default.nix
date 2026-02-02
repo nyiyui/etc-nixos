@@ -76,24 +76,8 @@
               };
 
               systemd.user.targets.xdg-desktop-autostart.Unit = {
-                Wants = [
-                  "import-environment.service"
-                  "xdg-desktop-portal.service"
-                  "xdg-desktop-portal-gtk.service"
-                  "xdg-desktop-portal-gnome.service"
-                  "pipewire.service"
-                  "pipewire-pulse.service"
-                  "wireplumber.service"
-                ];
-                After = [
-                  "import-environment.service"
-                  "xdg-desktop-portal.service"
-                  "xdg-desktop-portal-gtk.service"
-                  "xdg-desktop-portal-gnome.service"
-                  "pipewire.service"
-                  "pipewire-pulse.service"
-                  "wireplumber.service"
-                ];
+                Wants = [ "import-environment.service" ];
+                After = [ "import-environment.service" ];
               };
               programs.waybar.settings.mainBar = {
                 modules-left = [
