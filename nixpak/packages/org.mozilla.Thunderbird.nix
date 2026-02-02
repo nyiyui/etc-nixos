@@ -21,7 +21,10 @@ let
           [
             gui-base
           ]
-          ++ [ ../modules/xdg-home.nix ../modules/tz.nix ];
+          ++ [
+            ../modules/xdg-home.nix
+            ../modules/tz.nix
+          ];
         app.package = pkgs.thunderbird;
 
         dbus = {

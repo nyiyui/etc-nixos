@@ -16,9 +16,12 @@ let
     config =
       { sloth, ... }:
       {
-        imports = with nixpak.nixpakModules; [
-          gui-base
-        ] ++ [ ../modules/tz.nix ];
+        imports =
+          with nixpak.nixpakModules;
+          [
+            gui-base
+          ]
+          ++ [ ../modules/tz.nix ];
         app.package = pkgs.kdePackages.ark;
 
         flatpak.appId = "org.kde.ark";
