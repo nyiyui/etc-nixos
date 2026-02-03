@@ -178,12 +178,6 @@
     ];
   };
 
-  hardware.ipu6 = {
-    enable = true;
-    platform = "ipu6ep";
-    # cf. https://github.com/NixOS/nixpkgs/issues/225743#issuecomment-1523508154
-  };
-
   kiyurica.sandbox-dev.enable = true;
 
   kiyurica.quaderno-sync = {
