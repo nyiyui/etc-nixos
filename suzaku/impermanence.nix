@@ -53,6 +53,7 @@
     before = [ "sysroot.mount" ];
     serviceConfig.Type = "oneshot";
     script = ''
+      start_time=$(date +%s.%N)
       mkdir /btrfs_tmp
       mount /dev/mapper/crypted /btrfs_tmp
       if [[ -e /btrfs_tmp/root ]]; then
@@ -63,6 +64,9 @@
 
       btrfs subvolume create /btrfs_tmp/root
       umount /btrfs_tmp
+      end_time=$(date +%s.%N)
+      elapsed_time=$(bc <<<"$end_time - $start_time")
+      echo "Execution time: $elapsed_time seconds"
     '';
   };
 
