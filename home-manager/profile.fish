@@ -10,7 +10,7 @@ alias cp='cp --backup=existing'
 alias ln='ln --backup=existing'
 alias mv='mv --backup=existing'
 alias install='install --backup=existing'
-set VERSION_CONTROL existing
+export VERSION_CONTROL=existing
 
 alias f='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv'
 alias f.='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv .'
