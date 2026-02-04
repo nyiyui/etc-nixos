@@ -1,5 +1,3 @@
-export VERSION_CONTROL=numbered
-
 export LESS='-R -s -M +Gg'
 
 export VISUAL='hx'
