@@ -24,10 +24,11 @@ let
           ++ [
             ../modules/xdg-home.nix
             ../modules/tz.nix
+            (import ../modules/flatpak.nix { appId = "io.github.alainm23.planify"; })
+            ../modules/xdg-portal.nix
           ];
         app.package = pkgs.planify;
 
-        flatpak.appId = "io.github.alainm23.planify";
         fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
 
         etc.sslCertificates.enable = true;
@@ -35,7 +36,6 @@ let
         bubblewrap = {
           network = true;
           dieWithParent = true;
-          bind.ro = [ "/etc/machine-id" ];
         };
       };
   };
