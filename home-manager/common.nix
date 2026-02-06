@@ -2,9 +2,13 @@
   config,
   lib,
   pkgs,
+  nixpkgs-unstable,
   ...
 }:
 
+let
+  unstable = import nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; };
+in
 {
   imports = [
     ./base.nix
@@ -153,6 +157,7 @@
   };
 
   programs.yt-dlp.enable = true;
+  programs.yt-dlp.package = unstable.yt-dlp;
   programs.yt-dlp.settings = {
     write-subs = true;
     sub-langs = "all";
