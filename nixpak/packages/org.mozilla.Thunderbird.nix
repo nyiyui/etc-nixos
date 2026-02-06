@@ -30,7 +30,7 @@ let
         dbus = {
           enable = true;
           policies = {
-            "org.mozilla.thunderbird" = "own";
+            "org.mozilla.thunderbird.*" = "own";
             "org.freedesktop.NetworkManager" = "talk";
           };
         };
