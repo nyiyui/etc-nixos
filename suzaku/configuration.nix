@@ -38,7 +38,6 @@
     declarative-flatpak.nixosModules.default
     ../flatpak/com.github.flxzt.rnote.nix
     ../nixpak/packages/org.signal.Signal.nix
-    ../nixpak/packages/com.github.taiko2k.tauonmb.nix
     ../nixpak/packages/org.strawberrymusicplayer.strawberry.nix
   ];
 
