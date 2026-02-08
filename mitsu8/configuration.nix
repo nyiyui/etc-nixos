@@ -143,4 +143,10 @@
   ];
 
   kiyurica.tailscale.enable = true;
+
+  # mitsu8 is not particularly powerful and we want to prioritize TV
+  nix = {
+    daemonIOSchedClass = "idle";
+    daemonCPUSchedPolicy = "idle";
+  };
 }

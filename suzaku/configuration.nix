@@ -188,4 +188,6 @@
     enable = true;
     credFile = ./caldav-canvas-gradescope-env.sh.cred;
   };
+
+  nix.settings.cores = 16; # keep at least 4 cores open for UI
 }
