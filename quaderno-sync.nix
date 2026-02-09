@@ -14,6 +14,7 @@ let
 
     SERIAL_DEV="''${SERIAL_DEV:-${lib.escapeShellArg cfg.serialDevice}}"
     MDNS_NAME="''${MDNS_NAME:-${lib.escapeShellArg cfg.mdnsName}}"
+    REMOTE_ADDR="''${REMOTE_ADDR:-${lib.escapeShellArg cfg.remoteAddr}}"
 
     USB_SYS_PATH="''${USB_SYS_PATH:-}"
 
@@ -37,6 +38,62 @@ let
         NOTIF_ID="$(notify-desktop -r "$NOTIF_ID" -a quaderno-sync "$summary" "$body" 2>/dev/null || true)"
       fi
     }
+
+    # Forward script args to dptrp1.
+    if [ "$#" -eq 0 ]; then
+      set -- sync
+    fi
+
+    has_addr=0
+    has_yes=0
+    for a in "$@"; do
+      case "$a" in
+        --addr|--addr=*) has_addr=1 ;;
+        --yes|-y) has_yes=1 ;;
+      esac
+    done
+
+    if [ ! -t 0 ] && [ "$has_yes" -eq 0 ]; then
+      args=("$@")
+      new_args=()
+      inserted=0
+      for a in "''${args[@]}"; do
+        if [ "$a" = "--" ] && [ "$inserted" -eq 0 ]; then
+          new_args+=(--yes)
+          inserted=1
+        fi
+        new_args+=("$a")
+      done
+      if [ "$inserted" -eq 0 ]; then
+        new_args+=(--yes)
+      fi
+      set -- "''${new_args[@]}"
+    fi
+
+    if [ "$has_addr" -eq 0 ]; then
+      echo "quaderno-sync: trying network addr first: $REMOTE_ADDR" >&2
+      notify_update "Trying network sync" "$REMOTE_ADDR" || true
+
+      if dptrp1 --addr "$REMOTE_ADDR" "$@"; then
+        notify-desktop -r "$NOTIF_ID" -a quaderno-sync -t 1000 "quaderno-sync" "Finished successfully (network)" >/dev/null 2>&1 || true
+        exit 0
+      else
+        rc=$?
+        echo "quaderno-sync: network attempt failed (rc=$rc); falling back to USB method" >&2
+        notify_update "Network sync failed" "Falling back to USB" || true
+      fi
+    else
+      echo "quaderno-sync: running with user-provided --addr" >&2
+      notify_update "Running dptrp1" "$*" || true
+      dptrp1 "$@"
+      rc=$?
+      if [ "$rc" -eq 0 ]; then
+        notify-desktop -r "$NOTIF_ID" -a quaderno-sync -t 1000 "quaderno-sync" "Finished successfully" >/dev/null 2>&1 || true
+      else
+        notify_update "dptrp1 failed" "Exit code $rc" || true
+      fi
+      exit $rc
+    fi
 
     if [ -z "$usb_path" ]; then
       for dev in /sys/bus/usb/devices/*; do
@@ -141,31 +198,9 @@ let
 
     addr="[$ip6%$ifindex]"
 
-    # Forward script args to dptrp1, injecting --addr <addr> if missing.
-    if [ "$#" -eq 0 ]; then
-      set -- sync
-    fi
-
-    has_addr=0
-    has_yes=0
-    for a in "$@"; do
-      case "$a" in
-        --addr|--addr=*) has_addr=1 ;;
-        --yes|-y) has_yes=1 ;;
-      esac
-    done
-
-    if [ "$has_addr" -eq 0 ]; then
-      set -- "$@" --addr "$addr"
-    fi
-
-    if [ ! -t 0 ] && [ "$has_yes" -eq 0 ]; then
-      set -- "$@" --yes
-    fi
-
-    echo "quaderno-sync: running: dptrp1 $*" >&2
-    notify_update "Running dptrp1" "$*" || true
-    dptrp1 "$@"
+    echo "quaderno-sync: running: dptrp1 --addr $addr $*" >&2
+    notify_update "Running dptrp1" "--addr $addr $*" || true
+    dptrp1 --addr "$addr" "$@"
     rc=$?
     if [ "$rc" -eq 0 ]; then
       # Replace previous notification with a short-lived one so it closes
@@ -216,6 +251,12 @@ in
       type = lib.types.str;
       default = "Android.local";
       description = "mDNS name to resolve for the Quaderno over RNDIS.";
+    };
+
+    remoteAddr = lib.mkOption {
+      type = lib.types.str;
+      default = "quaderno.2kendon.ca";
+      description = "Address to try first before falling back to USB/RNDIS.";
     };
 
     interfaceWaitSeconds = lib.mkOption {
