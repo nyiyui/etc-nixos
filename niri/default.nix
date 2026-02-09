@@ -338,9 +338,9 @@
         xdg-desktop-portal-gtk
         xdg-desktop-portal-gnome
       ];
-      config.common = {
+      config.niri = {
         default = "gtk";
-        "org.freedesktop.impl.portal.Screencast" = "gnome";
+        "org.freedesktop.impl.portal.ScreenCast" = "gnome";
       };
       xdgOpenUsePortal = true;
     };
