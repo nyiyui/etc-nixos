@@ -32,6 +32,10 @@ let
 
         etc.sslCertificates.enable = true;
 
+        dbus = {
+          enable = true;
+        };
+
         bubblewrap = {
           network = true;
           dieWithParent = true;
