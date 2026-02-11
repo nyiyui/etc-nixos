@@ -142,28 +142,7 @@
                     XMODIFIERS = "@im fcitx";
                     XIM_SERVERS = "fcitx";
                   };
-                  animations = {
-                    slowdown = 1.0;
-                    workspace-switch = {
-                      kind.spring.damping-ratio = 1.0;
-                      kind.spring.epsilon = 0.0001;
-                      kind.spring.stiffness = 1000;
-                    };
-                    horizontal-view-movement = {
-                      kind.spring.damping-ratio = 1.0;
-                      kind.spring.epsilon = 0.0001;
-                      kind.spring.stiffness = 800;
-                    };
-                    window-open = {
-                      kind.easing.duration-ms = 150;
-                      kind.easing.curve = "ease-out-expo";
-                    };
-                    config-notification-open-close = {
-                      kind.spring.damping-ratio = 0.6;
-                      kind.spring.epsilon = 0.001;
-                      kind.spring.stiffness = 1000;
-                    };
-                  };
+                  animations.enable = false;
                   binds =
                     with config.lib.niri.actions;
                     {
