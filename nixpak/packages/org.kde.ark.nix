@@ -16,22 +16,20 @@ let
     config =
       { sloth, ... }:
       {
-        imports =
-          with nixpak.nixpakModules;
-          [
-            gui-base
-          ]
-          ++ [ ../modules/tz.nix ];
+        imports = [
+          ../modules/xdg-home.nix
+          ../modules/tz.nix
+          (import ../modules/flatpak.nix { appId = "org.mozilla.firefox"; })
+          ../modules/xdg-portal.nix
+          ../modules/gui-base.nix
+          ../modules/network.nix
+        ];
         app.package = pkgs.kdePackages.ark;
 
-        flatpak.appId = "org.kde.ark";
         fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
 
         bubblewrap = {
-          network = false;
           dieWithParent = true;
-          bind.rw = [ (sloth.concat' sloth.runtimeDir "/doc") ];
-          bind.ro = [ "/etc/machine-id" ];
         };
       };
   };

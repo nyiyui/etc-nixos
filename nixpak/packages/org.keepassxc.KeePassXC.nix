@@ -33,7 +33,6 @@ let
           network = false;
           dieWithParent = true;
           bind.rw = [
-            (sloth.concat' sloth.runtimeDir "/doc")
             "${config.services.syncthing.settings.folders.geofront.path}"
           ];
         };

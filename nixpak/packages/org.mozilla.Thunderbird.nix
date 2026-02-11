@@ -16,15 +16,14 @@ let
     config =
       { sloth, ... }:
       {
-        imports =
-          with nixpak.nixpakModules;
-          [
-            gui-base
-          ]
-          ++ [
-            ../modules/xdg-home.nix
-            ../modules/tz.nix
-          ];
+        imports = [
+          ../modules/xdg-home.nix
+          ../modules/tz.nix
+          (import ../modules/flatpak.nix { appId = "org.mozilla.Thunderbird"; })
+          ../modules/xdg-portal.nix
+          ../modules/gui-base.nix
+          ../modules/network.nix
+        ];
         app.package = pkgs.thunderbird;
 
         dbus = {
@@ -35,17 +34,11 @@ let
           };
         };
 
-        flatpak.appId = "org.mozilla.Thunderbird";
         fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
 
-        etc.sslCertificates.enable = true;
-
         bubblewrap = {
-          network = true;
-          sockets.pipewire = true;
           dieWithParent = true;
           bind.rw = [
-            (sloth.concat' sloth.runtimeDir "/doc")
             (sloth.concat' sloth.homeDir "/.thunderbird") # TODO: figure out how to put this under .var/nixpak-app
           ];
           bind.dev = [ "/dev/shm" ];
