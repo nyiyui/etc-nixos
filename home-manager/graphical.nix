@@ -357,10 +357,11 @@ in
     xdg.autostart = {
       enable = true;
       readOnly = true;
-      entries = [
-        "/run/current-system/sw/share/applications/firefox.desktop"
-        "/var/lib/flatpak/exports/share/applications/org.mozilla.Thunderbird.desktop"
-        "/var/lib/flatpak/exports/share/applications/io.github.alainm23.planify.desktop"
+      entries = map (f: "/run/current-system/sw/share/applications/${f}") [
+        "firefox.desktop"
+        "signal.desktop"
+        "thunderbird.desktop"
+        "io.github.alainm23.planify.desktop"
       ];
     };
 
