@@ -6,4 +6,5 @@
   config.flatpak.appId = appId;
   config.bubblewrap.env.FLATPAK_ID = appId;
   config.bubblewrap.env.FLATPAK_APP_ID = appId; # TODO: leave it bc why not
+  config.dbus.policies."org.freedesktop.impl.portal.*" = "talk";
 }
