@@ -39,7 +39,7 @@
   powerManagement.cpuFreqGovernor = "performance";
 
   services.openssh.enable = true;
-  services.openssh.extraConfig = ''PerSourcePenalties crash:90s authfail:5s refuseconnection:10s noauth:1s grace-exceeded:10s max:10m min:15s max-sources4:65536 max-sources6:65536 overflow:permissive'';
+  services.openssh.extraConfig = "PerSourcePenalties crash:90s authfail:5s refuseconnection:10s noauth:1s grace-exceeded:10s max:10m min:15s max-sources4:65536 max-sources6:65536 overflow:permissive";
 
   # Storage Optimisation
   nix.settings.auto-optimise-store = true;
