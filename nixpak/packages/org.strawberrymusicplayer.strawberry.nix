@@ -34,6 +34,9 @@ let
 
         bubblewrap = {
           dieWithParent = true;
+          bind.dev = [
+            "/dev/shm"
+          ];
         };
       };
   };
