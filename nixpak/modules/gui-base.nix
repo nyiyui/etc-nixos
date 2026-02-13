@@ -17,6 +17,7 @@
       "org.gtk.vfs" = "talk";
       "ca.desrt.dconf" = "talk";
       "org.freedesktop.portal.*" = "talk";
+      "org.freedesktop.impl.portal.*" = "talk";
       "org.freedesktop.StatusNotifierItem" = "talk";
       "org.a11y.Bus" = "talk";
     };
@@ -51,8 +52,11 @@
         (sloth.concat' sloth.xdgConfigHome "/gtk-4.0")
         (sloth.concat' sloth.xdgConfigHome "/fontconfig")
         (sloth.concat' sloth.xdgConfigHome "/dconf")
+        "/run/opengl-driver/lib"
       ];
       env = {
+        # NOTE: `GTK_USE_PORTAL=1` makes GTK route file picking through xdg-desktop-portal.
+        GTK_USE_PORTAL = "1";
         XDG_DATA_DIRS = lib.makeSearchPath "share" [
           pkgs.adwaita-icon-theme
           pkgs.shared-mime-info

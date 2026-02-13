@@ -21,7 +21,6 @@ let
           ../modules/xdg-home.nix
           ../modules/tz.nix
           (import ../modules/flatpak.nix { appId = "org.mozilla.firefox"; })
-          ../modules/xdg-portal.nix
           ../modules/gui-base.nix
           ../modules/network.nix
         ];

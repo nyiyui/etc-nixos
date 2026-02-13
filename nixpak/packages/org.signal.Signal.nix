@@ -21,7 +21,6 @@ let
           ../modules/tz.nix
           ../modules/gui-base.nix
           (import ../modules/flatpak.nix { appId = "org.signal.Signal"; })
-          ../modules/xdg-portal.nix
           ../modules/network.nix
         ];
         app.package = pkgs.signal-desktop;

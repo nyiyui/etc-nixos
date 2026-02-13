@@ -20,7 +20,6 @@ let
           ../modules/xdg-home.nix
           ../modules/tz.nix
           (import ../modules/flatpak.nix { appId = "io.github.alainm23.planify"; })
-          ../modules/xdg-portal.nix
           ../modules/gui-base.nix
           ../modules/network.nix
         ];
