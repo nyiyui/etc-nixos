@@ -18,12 +18,7 @@ let
     config =
       { sloth, ... }:
       {
-        imports =
-          with nixpak.nixpakModules;
-          [
-            gui-base
-          ]
-          ++ [ ../modules/tz.nix ];
+        imports = [ ../modules/gui-base.nix ];
         app.package = pkgs.keepassxc;
 
         flatpak.appId = "org.keepassxc.keepassxc";

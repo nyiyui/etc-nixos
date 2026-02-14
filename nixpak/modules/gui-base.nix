@@ -66,5 +66,6 @@
         ];
       };
     };
+    timeZone.enable = true;
   };
 }

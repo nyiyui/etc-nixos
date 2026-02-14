@@ -16,12 +16,7 @@ let
     config =
       { sloth, ... }:
       {
-        imports =
-          with nixpak.nixpakModules;
-          [
-            gui-base
-          ]
-          ++ [ ../modules/tz.nix ];
+        imports = [ ../modules/gui-base.nix ];
         app = {
           package = pkgs.libreoffice;
           binPath = "bin/libreoffice";

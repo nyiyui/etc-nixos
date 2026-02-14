@@ -18,7 +18,6 @@ let
       rec {
         imports = [
           ../modules/xdg-home.nix
-          ../modules/tz.nix
           ../modules/gui-base.nix
           (import ../modules/flatpak.nix { appId = "org.signal.Signal"; })
           ../modules/network.nix

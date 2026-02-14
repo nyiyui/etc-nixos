@@ -18,7 +18,6 @@ let
       {
         imports = [
           ../modules/xdg-home.nix
-          ../modules/tz.nix
           (import ../modules/flatpak.nix { appId = "org.mozilla.Thunderbird"; })
           ../modules/gui-base.nix
           ../modules/network.nix
