@@ -30,6 +30,7 @@ let
 
         bubblewrap = {
           dieWithParent = true;
+          bind.rw = [ "/tmp" ];
           bind.dev = [
             "/dev/shm"
           ];
