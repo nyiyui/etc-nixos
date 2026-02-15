@@ -186,7 +186,7 @@
 
   kiyurica.caldav-canvas-gradescope = {
     enable = true;
-    credFile = ./caldav-canvas-gradescope-env.sh.cred;
+    credFile = ./caldav-canvas-gradescope-env.cred;
   };
 
   nix.settings.cores = 16; # keep at least 4 cores open for UI
