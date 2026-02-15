@@ -26,6 +26,11 @@ let
 
         fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
 
+        dbus.policies = {
+          "org.freedesktop.Notifications" = "talk";
+          "org.freedesktop.ScreenSaver" = "talk";
+        };
+
         bubblewrap = {
           dieWithParent = true;
           env = {

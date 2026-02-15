@@ -17,7 +17,6 @@
       "org.gtk.vfs" = "talk";
       "ca.desrt.dconf" = "talk";
       "org.freedesktop.portal.*" = "talk";
-      "org.freedesktop.impl.portal.*" = "talk";
       "org.freedesktop.StatusNotifierItem" = "talk";
       "org.a11y.Bus" = "talk";
     };
