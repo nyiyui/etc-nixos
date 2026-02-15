@@ -18,6 +18,7 @@
       "ca.desrt.dconf" = "talk";
       "org.freedesktop.portal.*" = "talk";
       "org.freedesktop.StatusNotifierItem" = "talk";
+      "org.kde.StatusNotifierWatcher" = "talk";
       "org.a11y.Bus" = "talk";
     };
     gpu.enable = lib.mkDefault true;
