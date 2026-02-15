@@ -65,10 +65,6 @@ export GPG_TTY=$(tty)
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# IMEs
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
-
 if status is-interactive; and test -z "$KIYURICA_IN_SANDBOX_DEV"
     fish_ssh_agent
     set key ~/.ssh/id_inaba
