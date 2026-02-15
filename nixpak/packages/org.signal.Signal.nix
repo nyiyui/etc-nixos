@@ -30,12 +30,11 @@ let
           dieWithParent = true;
           env = {
             NIXOS_OZONE_WL = "1";
-            # The sandbox doesn't include xdg-settings; disable the check to avoid noise.
-            ELECTRON_NO_XDG_SETTINGS = "1";
           };
           bind.dev = [
             "/dev/shm"
           ];
+          extraStorePaths = [ pkgs.xdg-utils ]; # xdg-settings
         };
       };
   };
