@@ -1,4 +1,4 @@
-name: nix flake check
+name: evaluate config
 
 on:
   push:

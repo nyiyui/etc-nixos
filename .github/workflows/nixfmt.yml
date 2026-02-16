@@ -1,6 +1,7 @@
-name: nixfmt
+name: check formatting
 on:
   push:
+  pull_request:
 
 jobs:
   update:
