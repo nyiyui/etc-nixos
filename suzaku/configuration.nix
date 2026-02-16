@@ -39,6 +39,7 @@
     ../flatpak/com.github.flxzt.rnote.nix
     ../nixpak/packages/org.signal.Signal.nix
     ../nixpak/packages/org.strawberrymusicplayer.strawberry.nix
+    ../nixpak/packages/org.chromium.Chromium.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

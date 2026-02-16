@@ -29,7 +29,10 @@ let
         bubblewrap = {
           dieWithParent = true;
           bind.rw = [
-            "/tmp" # lock file /tmp/kdsingleapp-1000-strawberry.lock is necessary
+            [
+              (sloth.concat' sloth.appCacheDir "/nixpak-app-shared-tmp")
+              "/tmp"
+            ] # lock file /tmp/kdsingleapp-1000-strawberry.lock is necessary
             "${config.services.syncthing.settings.folders.inaba.path}/music-library" # don't use portals here since we want it to persist
           ];
           bind.dev = [
