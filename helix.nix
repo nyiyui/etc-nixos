@@ -41,10 +41,11 @@
         { ... }:
         {
           programs.helix = {
+            themes = [ ./kawamo_to_seseragi.toml ];
             enable = true;
             defaultEditor = true;
             settings = {
-              theme = "base16_transparent";
+              theme = "kawamo_to_seseragi";
               editor.line-number = "relative";
             };
           };
