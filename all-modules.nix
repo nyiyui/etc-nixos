@@ -19,5 +19,6 @@
     ./mosh.nix
     ./quaderno-sync.nix
     ./caldav-canvas-gradescope.nix
+    ./cdav-backup
   ];
 }
