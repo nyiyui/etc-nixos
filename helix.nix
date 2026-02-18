@@ -41,7 +41,7 @@
         { ... }:
         {
           programs.helix = {
-            themes = [ ./kawamo_to_seseragi.toml ];
+            themes = [ "${./kawamo_to_seseragi.toml}" ];
             enable = true;
             defaultEditor = true;
             settings = {
