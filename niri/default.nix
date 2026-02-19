@@ -205,6 +205,11 @@
                         action = close-window;
                         allow-inhibiting = false;
                       };
+                      "Mod+Tab".action.spawn = [
+                        "/run/current-system/sw/bin/fish"
+                        "-c"
+                        ''niri msg action focus-window --id $(niri msg -j windows | jq -r 'map((.id | tostring) + " " + .title).[]' | fuzzel -d | awk '{print $1}')''
+                      ];
                       "Mod+H".action = focus-column-left;
                       "Mod+J".action = focus-window-down;
                       "Mod+K".action = focus-window-up;
