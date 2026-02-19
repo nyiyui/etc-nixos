@@ -20,7 +20,6 @@
       "org.freedesktop.StatusNotifierItem" = "talk";
       "org.kde.StatusNotifierWatcher" = "talk";
       "org.a11y.Bus" = "talk";
-      "org.mpris.MediaPlayer2.*" = "talk";
     };
     gpu.enable = lib.mkDefault true;
     fonts.enable = true;

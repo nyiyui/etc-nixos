@@ -24,7 +24,9 @@ let
         app.package = pkgs.strawberry;
         fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
 
-        dbus.enable = true;
+        dbus.policies = {
+          "org.mpris.MediaPlayer2.strawberry.*" = "own";
+        };
 
         bubblewrap = {
           dieWithParent = true;
