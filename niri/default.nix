@@ -178,10 +178,6 @@
                         "playerctl"
                         "play-pause"
                       ];
-                      "Mod+Tab".action.spawn = [
-                        "playerctl"
-                        "play-pause"
-                      ];
                       "Mod+Alt+N".action.spawn = [
                         "${pkgs.mako}/bin/makoctl"
                         "menu"
