@@ -199,4 +199,6 @@
     passwordFile = ./cdav-password.cred;
     destination = "${config.services.syncthing.settings.folders."geofront".path}/cdav-backup";
   };
+
+  assr.programs.unity.enable = true;
 }

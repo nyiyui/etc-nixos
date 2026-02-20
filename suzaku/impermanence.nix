@@ -42,6 +42,8 @@
         ".config/joplin-desktop"
         ".codex"
         ".config/dpt"
+        ".config/unity3d"
+        ".config/unityhub"
       ];
     };
   };
