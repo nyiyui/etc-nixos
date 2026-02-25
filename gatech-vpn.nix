@@ -14,7 +14,7 @@
       description = "Host patterns for SSH that should use the VPN SOCKS proxy";
       type = listOf str;
       default = [
-        "login-phoenix.pace.gatech.edu"
+        "*.pace.gatech.edu !login-ice.pace.gatech.edu"
       ];
     };
 
