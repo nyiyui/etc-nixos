@@ -20,6 +20,7 @@
     ../adb.nix
     ../virt.nix
     ../codex.nix
+    ../nixpak/packages/org.signal.Signal.nix
   ];
 
   boot.initrd.systemd.enable = true;

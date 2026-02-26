@@ -35,6 +35,7 @@
         ".config/joplin"
         ".config/joplin-desktop"
         ".codex"
+        ".var/nixpak-app/org.signal.Signal"
       ];
     };
   };
