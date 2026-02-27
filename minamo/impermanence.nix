@@ -36,6 +36,8 @@
         ".config/joplin-desktop"
         ".codex"
         ".var/nixpak-app/org.signal.Signal"
+        ".var/nixpak-app/org.mozilla.firefox"
+        ".mozilla/firefox"
       ];
     };
   };

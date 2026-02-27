@@ -21,6 +21,7 @@
     ../virt.nix
     ../codex.nix
     ../nixpak/packages/org.signal.Signal.nix
+    ../nixpak/packages/org.mozilla.firefox.nix
   ];
 
   boot.initrd.systemd.enable = true;
