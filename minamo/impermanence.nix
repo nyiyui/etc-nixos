@@ -27,7 +27,6 @@
           mode = "0700";
         }
         ".local/share/fish"
-        ".mozilla/firefox"
         ".thunderbird"
         ".config/syncthing"
         ".config/github-copilot"
