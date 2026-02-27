@@ -16,10 +16,16 @@
           system = prev.stdenv.hostPlatform.system;
           config.allowUnfree = true;
         }).github-copilot-cli;
+      gemini-cli =
+        (import specialArgs.nixpkgs-unstable {
+          system = prev.stdenv.hostPlatform.system;
+          config.allowUnfree = true;
+        }).gemini-cli;
     })
   ];
-  environment.systemPackages = [
-    pkgs.github-copilot-cli
+  environment.systemPackages = with pkgs; [
+    github-copilot-cli
+    gemini-cli
   ];
 
   home-manager.users.kiyurica =
