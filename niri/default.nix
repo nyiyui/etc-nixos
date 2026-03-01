@@ -295,11 +295,8 @@
                     }
                     {
                       matches = [ { is-window-cast-target = true; } ];
-                      focus-ring = {
-                        enable = true;
-                        shadow.enable = true;
-                        shadow.color = "#e12885";
-                      };
+                      shadow.enable = true;
+                      shadow.color = "#e12885";
                     }
                   ];
                   layer-rules = [
