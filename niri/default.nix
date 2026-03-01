@@ -265,7 +265,6 @@
                       "Mod+Shift+Minus".action.set-window-height = "-10%";
                       "Mod+Shift+Equal".action.set-window-height = "+10%";
                       "Mod+Shift+E".action = quit;
-                      "Mod+Shift+P".action = power-off-monitors;
                       "Mod+Escape".action = toggle-keyboard-shortcuts-inhibit;
                       "Mod+Ctrl+Shift+F".action = toggle-windowed-fullscreen;
 
