@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   options.autoUpgrade.directFlake = lib.mkEnableOption "use Git flake URI directly";
   config = lib.mkIf config.autoUpgrade.directFlake {
@@ -14,6 +14,18 @@
     };
 
     systemd.services.nixos-upgrade.unitConfig.ConditionACPower = true;
-    # TODO: inhibit sleep while building
+
+    # Inhibit sleep while rebuilding so that the build is not interrupted.
+    systemd.services.nixos-upgrade-sleep-inhibit = {
+      description = "Sleep inhibitor for NixOS upgrade";
+      before = [ "nixos-upgrade.service" ];
+      wantedBy = [ "nixos-upgrade.service" ];
+      partOf = [ "nixos-upgrade.service" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.systemd}/bin/systemd-inhibit --what=sleep:idle --who=nixos-upgrade --why=Rebuilding --mode=block ${pkgs.coreutils}/bin/sleep infinity";
+        Restart = "no";
+      };
+    };
   };
 }
