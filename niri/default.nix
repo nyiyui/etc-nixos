@@ -268,6 +268,10 @@
                       "Mod+Shift+P".action = power-off-monitors;
                       "Mod+Escape".action = toggle-keyboard-shortcuts-inhibit;
                       "Mod+Ctrl+Shift+F".action = toggle-windowed-fullscreen;
+
+                      "Mod+P".action = set-dynamic-cast-window;
+                      "Mod+Shift+P".action = set-dynamic-cast-monitor;
+                      "Mod+Alt+P".action = clear-dynamic-cast-target;
                     }
                     // (builtins.foldl' (a: b: a // b) { } (
                       builtins.map (i: {
@@ -289,6 +293,14 @@
                     {
                       matches = [ { app-id = ''^org\.keepassxc\.KeePassXC$''; } ];
                       block-out-from = "screencast";
+                    }
+                    {
+                      matches = [ { is-window-cast-target = true; } ];
+                      focus-ring = {
+                        enable = true;
+                        shadow.enable = true;
+                        shadow.color = "#e12885";
+                      }
                     }
                   ];
                   layer-rules = [
