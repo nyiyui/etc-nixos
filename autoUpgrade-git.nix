@@ -23,7 +23,7 @@
       partOf = [ "nixos-upgrade.service" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.systemd}/bin/systemd-inhibit --what=sleep:idle --who=nixos-upgrade --why=Rebuilding --mode=block ${pkgs.coreutils}/bin/sleep infinity";
+        ExecStart = "${pkgs.systemd}/bin/systemd-inhibit --what=sleep:idle --who=nixos-upgrade \"--why=upgrading the OS\" --mode=block ${pkgs.coreutils}/bin/sleep infinity";
         Restart = "no";
       };
     };
