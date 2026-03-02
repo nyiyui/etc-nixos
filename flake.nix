@@ -133,7 +133,9 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        packages.qman = pkgs.callPackage ./pkgs/qman.nix { };
+        packages = nixpkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+          qman = pkgs.callPackage ./pkgs/qman.nix { };
+        };
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nixfmt-rfc-style
