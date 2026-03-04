@@ -29,10 +29,11 @@ in
       wantedBy = [ "initrd.target" ];
       before = [ "sysroot.mount" ];
       serviceConfig.Type = "oneshot";
+      environment.BTRFS_DEVICE = cfg.device;
       enableStrictShellChecks = true;
       script = ''
         mkdir /btrfs_tmp
-        mount ''${cfg.device} /btrfs_tmp
+        mount "$BTRFS_DEVICE" /btrfs_tmp
         if [[ -e /btrfs_tmp/root ]]; then
             mkdir -p /btrfs_tmp/old_roots
             timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
@@ -45,12 +46,16 @@ in
     };
 
     systemd.services.delete-old-roots = mkIf cfg.deleteOldRoots.enable {
-      description = "remove roots older than ''${toString cfg.deleteOldRoots.days} days";
+      description = "remove old roots";
       serviceConfig.Type = "oneshot";
+      environment = {
+        BTRFS_DEVICE = cfg.device;
+        DELETE_DAYS = toString cfg.deleteOldRoots.days;
+      };
       enableStrictShellChecks = true;
       script = ''
         mkdir /btrfs_tmp
-        mount ''${cfg.device} /btrfs_tmp
+        mount "$BTRFS_DEVICE" /btrfs_tmp
 
         delete_subvolume_recursively() {
             IFS=$'\n'
@@ -60,7 +65,7 @@ in
             btrfs subvolume delete "$1"
         }
 
-        for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +''${toString cfg.deleteOldRoots.days}); do
+        for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +"$DELETE_DAYS"); do
             if [ "$i" = "/btrfs_tmp/old_roots/" ]; then
                 continue
             fi
