@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771193423,
-        "narHash": "sha256-pjfaLRvlLs5PJoUba9Pwb6wbKCrqLjJVu7AYmVlB7Rw=",
+        "lastModified": 1772599978,
+        "narHash": "sha256-9SebugR1CQIg+1NFKd1apMImWxL+kgPB2/KMDtDhx6Q=",
         "owner": "nyiyui",
         "repo": "caldav-canvas-gradescope",
-        "rev": "ec71a398565ad0540c3d4aba3da18d6f6d9f601c",
+        "rev": "fb60f0cda0953b7cf272e5727d7ae72c766b25a3",
         "type": "github"
       },
       "original": {
