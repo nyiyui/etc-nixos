@@ -16,6 +16,7 @@
     ./hardware-configuration.nix
     ./disko-config.nix
     ./impermanence.nix
+    ./nix-copy.nix
     ../secureboot.nix
     ../fprint.nix
     ../syncthing.nix
