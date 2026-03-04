@@ -1,29 +1,37 @@
 {
+  config,
   pkgs,
   ...
 }:
 {
-  # Dedicated trusted nix user for receiving store paths pushed from minamo via
-  # `nix copy --to ssh-ng://nix-copy@suzaku`.  minamo's nix-copy-suzaku user
-  # connects here; its SSH public key is read from the secrets directory.
+  # Dedicated trusted nix user for pulling pre-built store paths from minamo.
+  # This user's SSH public key is authorized on minamo's nix-copy-suzaku account.
   users.groups.nix-copy = { };
   users.users.nix-copy = {
     isSystemUser = true;
     group = "nix-copy";
-    description = "Nix trusted user for receiving nix store paths from minamo";
-    openssh.authorizedKeys.keyFiles = [ ../secrets/nix-copy-suzaku.pub ];
+    description = "Nix trusted user for pulling pre-built store paths from minamo";
+    home = "/var/lib/nix-copy";
+    createHome = true;
   };
 
   # nix-copy must be a trusted user so it can add paths to the nix store.
   nix.settings.trusted-users = [ "nix-copy" ];
 
-  # Service that runs before nixos-upgrade to check whether minamo has already
-  # pushed a pre-built suzaku NixOS configuration into the local store.
-  # If the expected store path is already present (because minamo pushed it via
-  # `nix copy --to`), nixos-upgrade will find it and skip the expensive local
-  # build.  If not, nixos-upgrade falls back to building locally as usual.
-  systemd.services.nixos-upgrade-check-minamo-build = {
-    description = "Check whether minamo has pre-built suzaku's NixOS configuration";
+  # SSH private key used by suzaku's nix-copy user to authenticate to minamo's
+  # nix-copy-suzaku user when pulling store paths.
+  age.secrets.nix-copy-suzaku-ssh-key = {
+    file = ../secrets/nix-copy-suzaku.id_ed25519.age;
+    owner = "nix-copy";
+    mode = "400";
+  };
+
+  # Runs before nixos-upgrade: pulls suzaku's pre-built NixOS closure from
+  # minamo via `nix copy --from ssh-ng://nix-copy-suzaku@minamo`.
+  # If minamo is unreachable or hasn't built the closure yet, this service exits
+  # successfully so nixos-upgrade falls back to building locally as usual.
+  systemd.services.nixos-upgrade-copy-from-minamo = {
+    description = "Pull suzaku's pre-built NixOS closure from minamo before nixos-upgrade";
     before = [ "nixos-upgrade.service" ];
     wantedBy = [ "nixos-upgrade.service" ];
     after = [ "network-online.target" ];
@@ -31,6 +39,7 @@
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
+      User = "nix-copy";
     };
     script = ''
       set -euo pipefail
@@ -43,13 +52,31 @@
         echo "Could not evaluate flake; nixos-upgrade will build locally."
         exit 0
       }
-
       echo "Expected store path: $TARGET"
+
       if ${pkgs.nix}/bin/nix-store --check-validity "$TARGET" 2>/dev/null; then
-        echo "Store path is valid (minamo pre-built it); nixos-upgrade will use it directly."
-      else
-        echo "Store path not yet in local store; nixos-upgrade will build locally."
+        echo "Store path already present locally; nothing to copy."
+        exit 0
       fi
+
+      # Ensure SSH directory exists for known_hosts persistence (TOFU).
+      mkdir -p /var/lib/nix-copy/.ssh
+      chmod 700 /var/lib/nix-copy/.ssh
+
+      # Pull the closure from minamo.
+      # StrictHostKeyChecking=accept-new accepts new host keys on first connection
+      # and verifies them on subsequent connections (trust-on-first-use).
+      SSH_KEY="${config.age.secrets.nix-copy-suzaku-ssh-key.path}"
+      KNOWN_HOSTS="/var/lib/nix-copy/.ssh/known_hosts"
+      export NIX_SSHOPTS="-i $SSH_KEY -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=$KNOWN_HOSTS"
+
+      echo "Pulling closure from minamo..."
+      ${pkgs.nix}/bin/nix copy --from "ssh-ng://nix-copy-suzaku@minamo.local" "$TARGET" || {
+        echo "Could not pull from minamo (it may be unavailable or the build is not ready); nixos-upgrade will build locally."
+        exit 0
+      }
+
+      echo "Successfully pulled $TARGET from minamo."
     '';
   };
 }
