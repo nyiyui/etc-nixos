@@ -6,8 +6,7 @@
 let
   # Build a static known_hosts file using minamo's host key from the repo,
   # avoiding TOFU and ensuring the connection is to the correct host.
-  minamoKnownHosts = pkgs.writeText "minamo-known-hosts"
-    "minamo.local ${builtins.readFile ../minamo/ssh_host_ed25519_key.pub}";
+  minamoKnownHosts = pkgs.writeText "minamo-known-hosts" "minamo.local ${builtins.readFile ../minamo/ssh_host_ed25519_key.pub}";
 in
 {
   # Dedicated trusted nix user for pulling pre-built store paths from minamo.
