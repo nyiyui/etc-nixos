@@ -3,6 +3,12 @@
   pkgs,
   ...
 }:
+let
+  # Build a static known_hosts file using minamo's host key from the repo,
+  # avoiding TOFU and ensuring the connection is to the correct host.
+  minamoKnownHosts = pkgs.writeText "minamo-known-hosts"
+    "minamo.local ${builtins.readFile ../minamo/ssh_host_ed25519_key.pub}";
+in
 {
   # Dedicated trusted nix user for pulling pre-built store paths from minamo.
   # This user's SSH public key is authorized on minamo's nix-copy-suzaku account.
@@ -11,8 +17,6 @@
     isSystemUser = true;
     group = "nix-copy";
     description = "Nix trusted user for pulling pre-built store paths from minamo";
-    home = "/var/lib/nix-copy";
-    createHome = true;
   };
 
   # nix-copy must be a trusted user so it can add paths to the nix store.
@@ -59,16 +63,9 @@
         exit 0
       fi
 
-      # Ensure SSH directory exists for known_hosts persistence (TOFU).
-      mkdir -p /var/lib/nix-copy/.ssh
-      chmod 700 /var/lib/nix-copy/.ssh
-
-      # Pull the closure from minamo.
-      # StrictHostKeyChecking=accept-new accepts new host keys on first connection
-      # and verifies them on subsequent connections (trust-on-first-use).
+      # Pull the closure from minamo using the repo's known host key.
       SSH_KEY="${config.age.secrets.nix-copy-suzaku-ssh-key.path}"
-      KNOWN_HOSTS="/var/lib/nix-copy/.ssh/known_hosts"
-      export NIX_SSHOPTS="-i $SSH_KEY -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=$KNOWN_HOSTS"
+      export NIX_SSHOPTS="-i $SSH_KEY -o StrictHostKeyChecking=yes -o UserKnownHostsFile=${minamoKnownHosts}"
 
       echo "Pulling closure from minamo..."
       ${pkgs.nix}/bin/nix copy --from "ssh-ng://nix-copy-suzaku@minamo.local" "$TARGET" || {
