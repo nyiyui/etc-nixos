@@ -12,6 +12,8 @@
   xz,
   cunit,
   bash,
+  man-db,
+  groff,
 }:
 stdenv.mkDerivation rec {
   pname = "qman";
@@ -36,6 +38,8 @@ stdenv.mkDerivation rec {
     bzip2
     xz
     cunit
+    man-db
+    groff
   ];
 
   mesonFlags = [ "-Dconfigdir=share/qman/config" ];
@@ -45,6 +49,16 @@ stdenv.mkDerivation rec {
     sed -i 's|/usr/bin/env bash|${bash}/bin/bash|' src/qman_tests_list.sh
   '';
 
+  postInstall = ''
+    mkdir -p $out/share/qman/config
+        cat > $out/share/qman/config/qman.conf <<EOF
+    [misc]
+    man_path = "${man-db}/bin/man"
+    groff_path = "${groff}/bin/groff"
+    whatis_path = "${man-db}/bin/whatis"
+    apropos_path = "${man-db}/bin/apropos"
+    EOF
+      '';
   meta = with lib; {
     description = "A more modern manual page viewer for our terminals";
     homepage = "https://github.com/plp13/qman";
