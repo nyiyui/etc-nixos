@@ -10,6 +10,7 @@
   imports = [
     ./disko-config.nix
     ./impermanence.nix
+    ./build-suzaku.nix
     ../secureboot.nix
     specialArgs.disko.nixosModules.disko
     ../autoUpgrade-git.nix
