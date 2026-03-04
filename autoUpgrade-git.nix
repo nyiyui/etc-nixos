@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.autoUpgrade.directFlake = lib.mkEnableOption "use Git flake URI directly";
   config = lib.mkIf config.autoUpgrade.directFlake {
