@@ -5,13 +5,13 @@
 {
   # Dedicated trusted nix user that suzaku can SSH into to pull pre-built store
   # paths via `nix copy --from ssh-ng://nix-copy-suzaku@minamo`.
-  # suzaku's nix-copy user connects here using the key in secrets/nix-copy-suzaku.pub.
+  # suzaku's nix-copy user connects here using the key in suzaku/nix-copy-suzaku.pub.
   users.groups.nix-copy-suzaku = { };
   users.users.nix-copy-suzaku = {
     isSystemUser = true;
     group = "nix-copy-suzaku";
     description = "Nix trusted user allowing suzaku to pull pre-built store paths";
-    openssh.authorizedKeys.keyFiles = [ ../secrets/nix-copy-suzaku.pub ];
+    openssh.authorizedKeys.keyFiles = [ ../suzaku/nix-copy-suzaku.pub ];
   };
 
   # nix-copy-suzaku must be a trusted user so suzaku can query and copy store
