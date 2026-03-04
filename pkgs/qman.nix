@@ -10,6 +10,8 @@
   zlib,
   bzip2,
   xz,
+  cunit,
+  bash,
 }:
 stdenv.mkDerivation rec {
   pname = "qman";
@@ -25,6 +27,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     python3Packages.cogapp
+    bash
   ];
 
   buildInputs = [
@@ -32,7 +35,15 @@ stdenv.mkDerivation rec {
     zlib
     bzip2
     xz
+    cunit
   ];
+
+  mesonFlags = [ "-Dconfigdir=share/qman/config" ];
+
+  postPatch = ''
+    chmod +x src/qman_tests_list.sh
+    sed -i 's|/usr/bin/env bash|${bash}/bin/bash|' src/qman_tests_list.sh
+  '';
 
   meta = with lib; {
     description = "A more modern manual page viewer for our terminals";
