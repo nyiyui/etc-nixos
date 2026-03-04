@@ -51,6 +51,7 @@
         ".config/unity3d"
         ".config/unityhub"
         "Unity"
+        ".gemini"
       ];
     };
   };
