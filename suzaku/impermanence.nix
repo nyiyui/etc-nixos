@@ -5,7 +5,13 @@
   ...
 }:
 {
-  imports = [ specialArgs.impermanence.nixosModules.impermanence ];
+  imports = [
+    specialArgs.impermanence.nixosModules.impermanence
+    ../impermanent-root.nix
+  ];
+
+  impermanent-root.enable = true;
+
   environment.persistence."/persist" = {
     hideMounts = true;
     directories = [
@@ -47,57 +53,5 @@
         "Unity"
       ];
     };
-  };
-
-  boot.initrd.systemd.services.swap-old-root = {
-    description = "move old root to /old_roots and make new root at /root";
-    wantedBy = [ "initrd.target" ];
-    before = [ "sysroot.mount" ];
-    serviceConfig.Type = "oneshot";
-    script = ''
-      start_time=$(date +%s.%N)
-      mkdir /btrfs_tmp
-      mount /dev/mapper/crypted /btrfs_tmp
-      if [[ -e /btrfs_tmp/root ]]; then
-          mkdir -p /btrfs_tmp/old_roots
-          timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-          mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-      fi
-
-      btrfs subvolume create /btrfs_tmp/root
-      umount /btrfs_tmp
-      end_time=$(date +%s.%N)
-      elapsed_time=$(bc <<<"$end_time - $start_time")
-      echo "Execution time: $elapsed_time seconds"
-    '';
-  };
-
-  systemd.services.delete-old-roots = {
-    description = "remove roots older than 30 days";
-    serviceConfig.Type = "oneshot";
-    script = ''
-      mkdir /btrfs_tmp
-      mount /dev/mapper/crypted /btrfs_tmp
-
-      delete_subvolume_recursively() {
-          IFS=$'\n'
-          for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-              delete_subvolume_recursively "/btrfs_tmp/$i"
-          done
-          btrfs subvolume delete "$1"
-      }
-
-      for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
-          delete_subvolume_recursively "$i"
-      done
-
-      btrfs subvolume create /btrfs_tmp/root
-      umount /btrfs_tmp
-    '';
-  };
-  systemd.timers.delete-old-roots = {
-    wantedBy = [ "timers.target" ];
-    timerConfig.OnBootSec = "15m";
-    timerConfig.Persistent = true;
   };
 }
