@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     whatis_path = "${man-db}/bin/whatis"
     apropos_path = "${man-db}/bin/apropos"
     EOF
-      '';
+  '';
   meta = with lib; {
     description = "A more modern manual page viewer for our terminals";
     homepage = "https://github.com/plp13/qman";
