@@ -21,5 +21,6 @@
     ./caldav-canvas-gradescope.nix
     ./cdav-backup
     ./unity.nix
+    ./dev-sandbox
   ];
 }
