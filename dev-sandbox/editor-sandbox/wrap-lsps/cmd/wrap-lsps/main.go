@@ -63,18 +63,26 @@ func main() {
 		home := os.Getenv("HOME")
 		globalDir = filepath.Join(home, ".config", "helix")
 	}
-	parseFile(filepath.Join(globalDir, "languages.toml"), lspNames)
+	globalPath := filepath.Join(globalDir, "languages.toml")
+	fmt.Fprintf(os.Stderr, "[DEBUG] Global config path: %s\n", globalPath)
+	parseFile(globalPath, lspNames)
 
 	// 2. Project-specific config (.helix/languages.toml)
-	parseFile(filepath.Join(cwd, ".helix", "languages.toml"), lspNames)
+	projectPath := filepath.Join(cwd, ".helix", "languages.toml")
+	fmt.Fprintf(os.Stderr, "[DEBUG] Project config path: %s\n", projectPath)
+	parseFile(projectPath, lspNames)
 
 	// 3. Built-in config fallback
 	// Helix often embeds this, but we'll try common Nix store locations based on the hx path.
 	if realPath, err := filepath.EvalSymlinks(hxPath); err == nil {
-		// If /nix/store/...-helix/bin/hx, runtime is often in /nix/store/...-helix/lib/runtime
+		fmt.Fprintf(os.Stderr, "[DEBUG] Helix real path (eval symlinks): %s\n", realPath)
 		runtimeDir := filepath.Join(filepath.Dir(filepath.Dir(realPath)), "lib", "runtime")
-		parseFile(filepath.Join(runtimeDir, "languages.toml"), lspNames)
+		builtinPath := filepath.Join(runtimeDir, "languages.toml")
+		fmt.Fprintf(os.Stderr, "[DEBUG] Built-in config path: %s\n", builtinPath)
+		parseFile(builtinPath, lspNames)
 	}
+
+	fmt.Fprintf(os.Stderr, "[DEBUG] Total LSPs discovered: %d\n", len(lspNames))
 
 	// Wrap found LSPs
 	for lsp := range lspNames {
@@ -120,9 +128,11 @@ exec %s "%s" "$@"
 func parseFile(path string, lspNames map[string]struct{}) {
 	f, err := os.Open(path)
 	if err != nil {
+		fmt.Fprintf(os.Stderr, "[DEBUG] Could not open %s: %v\n", path, err)
 		return
 	}
 	defer f.Close()
+	fmt.Fprintf(os.Stderr, "[DEBUG] Successfully opened %s, parsing...\n", path)
 	parseHelixConfig(f, lspNames)
 }
 
