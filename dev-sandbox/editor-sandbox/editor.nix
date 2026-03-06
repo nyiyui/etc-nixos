@@ -17,6 +17,7 @@ let
       { sloth, ... }:
       {
         app.package = pkgs.helix;
+        flatpak.appId = "ca.kiyuri.editor-sandbox";
 
         gpu.enable = true;
         locale.enable = true;
@@ -27,6 +28,10 @@ let
         bubblewrap = {
           network = true;
           dieWithParent = true;
+          sockets = {
+            wayland = true;
+            x11 = true;
+          };
           bind.ro = [
             (sloth.concat' sloth.homeDir "/.config/helix")
             "/etc/machine-id"

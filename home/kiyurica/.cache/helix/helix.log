@@ -1,3 +1,4 @@
 2026-03-06T05:54:50.213 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl
 2026-03-06T05:55:17.446 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl
 2026-03-06T06:06:59.804 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl
+2026-03-06T06:28:05.839 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl
