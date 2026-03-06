@@ -29,8 +29,11 @@ let
           network = true;
           dieWithParent = true;
           sockets = {
-            wayland = true;
+            wayland = false;
             x11 = false;
+          };
+          env = {
+            HELIX_DISABLE_CLIPBOARD = "1";
           };
           bind.ro = [
             (sloth.concat' sloth.homeDir "/.config/helix")
