@@ -30,9 +30,9 @@ let
   };
 in
 {
-  imports = [ ../home-manager.nix ];
+  imports = [ ../../home-manager.nix ];
 
-  config = lib.mkIf config.assr.dev-sandbox.enable {
+  config = lib.mkIf config.assr.editor-sandbox.enable {
     environment.systemPackages = [ sandboxed.config.env ];
     environment.variables.editor = lib.mkOverride 900 "hx";
     kiyurica.home-manager.enable = true;

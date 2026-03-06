@@ -179,7 +179,7 @@
     ];
   };
 
-  kiyurica.sandbox-dev.enable = true;
+  assr.dev-sandbox.enable = true;
 
   kiyurica.quaderno-sync = {
     enable = true;
