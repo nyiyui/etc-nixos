@@ -82,6 +82,12 @@ func main() {
 		parseFile(builtinPath, lspNames)
 	}
 
+	// 4. Fallback: Parse hx --health
+	if len(lspNames) == 0 {
+		fmt.Fprintf(os.Stderr, "[DEBUG] No LSPs found in configs, falling back to 'hx --health'\n")
+		parseHealth(lspNames)
+	}
+
 	fmt.Fprintf(os.Stderr, "[DEBUG] Total LSPs discovered: %d\n", len(lspNames))
 
 	// Wrap found LSPs
@@ -153,6 +159,49 @@ func parseHelixConfig(r io.Reader, lspNames map[string]struct{}) {
 	for _, lang := range cfg.Languages {
 		if lang.LanguageServer != nil && lang.LanguageServer.Command != "" {
 			lspNames[lang.LanguageServer.Command] = struct{}{}
+		}
+	}
+}
+
+func parseHealth(lspNames map[string]struct{}) {
+	cmd := exec.Command("hx", "--health")
+	output, err := cmd.Output()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "[DEBUG] Error running hx --health: %v\n", err)
+		return
+	}
+
+	lines := strings.Split(string(output), "\n")
+	for _, line := range lines {
+		// hx --health output usually looks like:
+		// language      LSP                             ...
+		// rust          rust-analyzer                   ...
+		//
+		// We want the word that looks like a command. 
+		// Heuristic: check lines that don't start with space and have multiple columns.
+		fields := strings.Fields(line)
+		if len(fields) < 2 {
+			continue
+		}
+		
+		// Skip header
+		if fields[0] == "Language" || fields[0] == "Configured" {
+			continue
+		}
+
+		// The LSP command is usually in the second column or near the end.
+		// In newer Helix versions, it's explicitly in the 'LSP' column.
+		// Since we don't want to parse the table perfectly, let's look for 
+		// things that are not 'None', '✓', '✘'
+		for i := 1; i < len(fields); i++ {
+			f := fields[i]
+			if f == "None" || f == "✓" || f == "✘" || f == "None" {
+				continue
+			}
+			// If it contains a slash or looks like a typical command name
+			if !strings.ContainsAny(f, "()[]") {
+				lspNames[f] = struct{}{}
+			}
 		}
 	}
 }
