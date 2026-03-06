@@ -65,8 +65,8 @@ exec %s "%s" "$@"
 		}
 	}
 
-	// Launch Helix with the sandboxed PATH
-	newPath := wrapperDir + string(os.PathListSeparator) + os.Getenv("PATH")
+	// Launch Helix with the sandboxed PATH only
+	newPath := wrapperDir
 	os.Setenv("PATH", newPath)
 
 	args := append([]string{"hx"}, os.Args[1:]...)
