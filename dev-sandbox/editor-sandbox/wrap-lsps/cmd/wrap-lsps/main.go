@@ -28,7 +28,6 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error creating temporary directory: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Fprintf(os.Stderr, "[DEBUG] wrapperDir: %s\n", wrapperDir)
 	// Note: Since we use syscall.Exec, we cannot easily defer os.RemoveAll(wrapperDir) 
 	// as the process is replaced. The temp dir will remain until system cleanup.
 
@@ -39,13 +38,10 @@ func main() {
 	// hidden in the Nix store.
 	parseHealth(lspNames)
 
-	fmt.Fprintf(os.Stderr, "[DEBUG] Total LSPs discovered: %d\n", len(lspNames))
-
 	// Wrap found LSPs
 	for lsp := range lspNames {
 		lspPath, err := exec.LookPath(lsp)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "[DEBUG] LSP %s not found in PATH\n", lsp)
 			continue
 		}
 
@@ -67,12 +63,10 @@ exec %s "%s" "$@"
 			fmt.Fprintf(os.Stderr, "Error writing wrapper for %s: %v\n", lsp, err)
 			continue
 		}
-		fmt.Fprintf(os.Stderr, "[DEBUG] Wrapped %s -> %s (via %s)\n", lsp, absLSPPath, wrapperPath)
 	}
 
 	// Launch Helix with the sandboxed PATH
 	newPath := wrapperDir + string(os.PathListSeparator) + os.Getenv("PATH")
-	fmt.Fprintf(os.Stderr, "[DEBUG] Final PATH will have %s prepended\n", wrapperDir)
 	os.Setenv("PATH", newPath)
 
 	args := append([]string{"hx"}, os.Args[1:]...)
@@ -85,7 +79,6 @@ exec %s "%s" "$@"
 func parseHealth(lspNames map[string]struct{}) {
 	hxReal, err := exec.LookPath("hx")
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "[DEBUG] Error finding hx: %v\n", err)
 		return
 	}
 	realPath, err := filepath.EvalSymlinks(hxReal)
@@ -101,17 +94,14 @@ func parseHealth(lspNames map[string]struct{}) {
 
 	var output []byte
 	if _, err := os.Stat(cachePath); err == nil {
-		fmt.Fprintf(os.Stderr, "[DEBUG] Using cached hx --health languages output: %s\n", cachePath)
 		output, _ = os.ReadFile(cachePath)
 	}
 
 	if len(output) == 0 {
-		fmt.Fprintf(os.Stderr, "[DEBUG] Running hx --health languages and caching to %s\n", cachePath)
 		cmd := exec.Command("hx", "--health", "languages")
 		cmd.Env = append(os.Environ(), "COLUMNS=1000")
 		output, err = cmd.Output()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "[DEBUG] Error running hx --health languages: %v\n", err)
 			return
 		}
 		os.WriteFile(cachePath, output, 0644)
