@@ -2,67 +2,30 @@
   config,
   lib,
   pkgs,
-  nixpak,
+  nixwrap,
   ...
 }:
 
 let
-  mkNixPak = nixpak.lib.nixpak {
-    inherit (pkgs) lib;
-    inherit pkgs;
-  };
-
-  sandboxed = mkNixPak {
-    config =
-      { sloth, ... }:
-      {
-        app.package = pkgs.helix;
-        flatpak.appId = "com.helix_editor.Helix";
-
-        gpu.enable = false;
-        locale.enable = true;
-        dbus.enable = false;
-
-        bubblewrap = {
-          network = true;
-          shareIpc = true;
-          dieWithParent = true;
-
-          bind.rw = [
-            [ sloth.homeDir sloth.homeDir ]
-            "/tmp"
-          ];
-          
-          bind.ro = [
-            "/etc"
-            "/usr"
-            "/bin"
-          ];
-
-          bind.dev = [ "/dev" ];
-
-          env = {
-            HELIX_RUNTIME = "${pkgs.helix}/lib/runtime";
-            COLORTERM = "truecolor";
-            HELIX_DISABLE_CLIPBOARD = "1";
-            TERM = { key = "TERM"; type = "env"; };
-          };
-        };
-      };
-  };
+  wrap = nixwrap.packages.${pkgs.stdenv.hostPlatform.system}.wrap;
+  sandboxed-hx = pkgs.writeShellScriptBin "hx" ''
+    # -r for config
+    # -n for network (LSPs often need it)
+    exec ${wrap}/bin/wrap -n -r "$HOME/.config/helix" -- ${pkgs.helix}/bin/hx "$@"
+  '';
 in
 {
   imports = [ ../../home-manager.nix ];
 
   config = lib.mkIf config.assr.editor-sandbox.enable {
-    environment.systemPackages = [ sandboxed.config.env ];
+    environment.systemPackages = [ sandboxed-hx ];
     environment.variables.editor = lib.mkOverride 900 "hx";
     kiyurica.home-manager.enable = true;
     home-manager.users.kiyurica =
       { ... }:
       {
         programs.helix = {
-          package = sandboxed.config.env;
+          package = sandboxed-hx;
           themes = {
             "kawamo_to_seseragi" = ./kawamo_to_seseragi.toml;
           };
