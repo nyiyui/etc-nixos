@@ -24,6 +24,15 @@ let
           dieWithParent = true;
           bind.ro = [
             (sloth.concat' sloth.homeDir "/.config/helix")
+            "/etc/machine-id"
+            "/etc/resolv.conf"
+          ];
+          bind.rw = [
+            "."
+          ];
+          bind.dev = [
+            "/dev/tty"
+            "/dev/shm"
           ];
         };
       };

@@ -17,6 +17,9 @@ let
       "-X main.wrapCommand=${wrap}/bin/wrap"
     ];
   };
+  editor-sandbox = pkgs.writeShellScriptBin "editor-sandbox" ''
+    exec nix develop --command ${wrap-lsps}/bin/wrap-lsps "$@"
+  '';
 in
 {
   imports = [ ../../home-manager.nix ];
@@ -26,7 +29,10 @@ in
     home-manager.users.kiyurica =
       { ... }:
       {
-        home.packages = [ wrap-lsps ];
+        home.packages = [
+          wrap-lsps
+          editor-sandbox
+        ];
       };
   };
 }

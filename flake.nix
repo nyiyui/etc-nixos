@@ -144,6 +144,7 @@
               p.caldav
             ]))
             go
+            nixd
           ];
         };
       }
