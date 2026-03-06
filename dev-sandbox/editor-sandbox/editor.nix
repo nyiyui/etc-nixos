@@ -20,10 +20,12 @@ let
 
         gpu.enable = true;
         locale.enable = true;
+        dbus.enable = false;
         fonts.enable = true;
-        fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
+        fonts.fonts = config.fonts.packages;
 
         bubblewrap = {
+          network = true;
           dieWithParent = true;
           bind.ro = [
             (sloth.concat' sloth.homeDir "/.config/helix")
@@ -33,11 +35,13 @@ let
           bind.rw = [
             "."
             "/tmp"
+            sloth.runtimeDir
             [ sloth.xdgCacheHome (sloth.mkdir sloth.appCacheDir) ]
           ];
           bind.dev = [
             "/dev/tty"
             "/dev/shm"
+            "/dev/console"
           ];
         };
       };
