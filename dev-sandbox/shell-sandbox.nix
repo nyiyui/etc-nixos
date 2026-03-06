@@ -11,14 +11,14 @@
   config =
     let
       wrap = nixwrap.packages.${pkgs.stdenv.hostPlatform.system}.wrap;
-      shell-sandbox-command = pkgs.writeShellScriptBin "shell-sandbox-command" ''
+      shell-sandbox = pkgs.writeShellScriptBin "shell-sandbox" ''
         KIYURICA_IN_SHELL_SANDBOX=yes nix develop --command wrap -e KIYURICA_IN_SHELL_SANDBOX -r "$HOME/.config/fish" "$@" "$SHELL"
       '';
     in
     lib.mkIf config.assr.shell-sandbox.enable {
       users.users.kiyurica.packages = [
         wrap
-        shell-sandbox-command
+        shell-sandbox
       ];
 
       kiyurica.home-manager.enable = true;
