@@ -16,34 +16,38 @@ let
     config =
       { sloth, ... }:
       {
-        imports = [
-          ../../nixpak/modules/xdg-home2.nix
-          (import ../../nixpak/modules/flatpak.nix { appId = "com.helix_editor.Helix"; })
-          ../../nixpak/modules/gui-base.nix
-          ../../nixpak/modules/network.nix
-        ];
         app.package = pkgs.helix;
+        flatpak.appId = "com.helix_editor.Helix";
 
-        # Disable X11 explicitly to avoid XAUTHORITY panic in launcher
-        bubblewrap.sockets.x11 = false;
-        gpu.enable = false; # Disable GPU to avoid X11 dependencies
+        gpu.enable = false;
+        locale.enable = true;
+        dbus.enable = false;
 
-        # Allow access to the whole home directory (equivalent to --filesystem=home)
-        # Note: --filesystem=host would be even more permissive, but we'll start with home.
-        bubblewrap.bind.rw = [
-          [ sloth.homeDir sloth.homeDir ]
-        ];
+        bubblewrap = {
+          network = true;
+          shareIpc = true;
+          dieWithParent = true;
 
-        # Allow access to all devices (equivalent to --device=all)
-        bubblewrap.bind.dev = [ "/dev" ];
+          bind.rw = [
+            [ sloth.homeDir sloth.homeDir ]
+            "/tmp"
+          ];
+          
+          bind.ro = [
+            "/etc"
+            "/usr"
+            "/bin"
+          ];
 
-        # Ensure Helix finds its runtime files
-        bubblewrap.env.HELIX_RUNTIME = "${pkgs.helix}/lib/runtime";
-        bubblewrap.env.COLORTERM = "truecolor";
-        bubblewrap.env.HELIX_DISABLE_CLIPBOARD = "1";
+          bind.dev = [ "/dev" ];
 
-        # Add some common terminal environment variables
-        bubblewrap.env.TERM = { key = "TERM"; type = "env"; };
+          env = {
+            HELIX_RUNTIME = "${pkgs.helix}/lib/runtime";
+            COLORTERM = "truecolor";
+            HELIX_DISABLE_CLIPBOARD = "1";
+            TERM = { key = "TERM"; type = "env"; };
+          };
+        };
       };
   };
 in
