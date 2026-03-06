@@ -51,6 +51,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error creating temporary directory: %v\n", err)
 		os.Exit(1)
 	}
+	fmt.Fprintf(os.Stderr, "[DEBUG] wrapperDir: %s\n", wrapperDir)
 	// Note: Since we use syscall.Exec, we cannot easily defer os.RemoveAll(wrapperDir) 
 	// as the process is replaced. The temp dir will remain until system cleanup.
 
@@ -79,6 +80,7 @@ func main() {
 	for lsp := range lspNames {
 		lspPath, err := exec.LookPath(lsp)
 		if err != nil {
+			fmt.Fprintf(os.Stderr, "[DEBUG] LSP %s not found in PATH\n", lsp)
 			continue
 		}
 
@@ -100,10 +102,12 @@ exec %s "%s" "$@"
 			fmt.Fprintf(os.Stderr, "Error writing wrapper for %s: %v\n", lsp, err)
 			continue
 		}
+		fmt.Fprintf(os.Stderr, "[DEBUG] Wrapped %s -> %s (via %s)\n", lsp, absLSPPath, wrapperPath)
 	}
 
 	// Launch Helix with the sandboxed PATH
 	newPath := wrapperDir + string(os.PathListSeparator) + os.Getenv("PATH")
+	fmt.Fprintf(os.Stderr, "[DEBUG] Final PATH will have %s prepended\n", wrapperDir)
 	os.Setenv("PATH", newPath)
 
 	args := append([]string{"hx"}, os.Args[1:]...)
