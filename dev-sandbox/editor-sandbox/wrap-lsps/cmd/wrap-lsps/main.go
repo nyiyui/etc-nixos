@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/sha256"
 	"fmt"
 	"io"
 	"os"
@@ -8,8 +9,6 @@ import (
 	"path/filepath"
 	"strings"
 	"syscall"
-
-	"github.com/BurntSushi/toml"
 )
 
 var (
@@ -17,21 +16,6 @@ var (
 	interpreter    = "/usr/bin/env bash"
 	wrapCommand    = "wrap"
 )
-
-// Helix configuration structure for extracting language server commands.
-type HelixConfig struct {
-	LanguageServers map[string]LanguageServer `toml:"language-server"`
-	Languages       []Language                `toml:"language"`
-}
-
-type LanguageServer struct {
-	Command string `toml:"command"`
-}
-
-type Language struct {
-	Name           string          `toml:"name"`
-	LanguageServer *LanguageServer `toml:"language-server"` // Sometimes embedded
-}
 
 func main() {
 	cwd, err := os.Getwd()
@@ -57,36 +41,10 @@ func main() {
 
 	lspNames := make(map[string]struct{})
 
-	// 1. Global config (~/.config/helix/languages.toml)
-	globalDir := os.Getenv("HELIX_CONFIG_HOME")
-	if globalDir == "" {
-		home := os.Getenv("HOME")
-		globalDir = filepath.Join(home, ".config", "helix")
-	}
-	globalPath := filepath.Join(globalDir, "languages.toml")
-	fmt.Fprintf(os.Stderr, "[DEBUG] Global config path: %s\n", globalPath)
-	parseFile(globalPath, lspNames)
-
-	// 2. Project-specific config (.helix/languages.toml)
-	projectPath := filepath.Join(cwd, ".helix", "languages.toml")
-	fmt.Fprintf(os.Stderr, "[DEBUG] Project config path: %s\n", projectPath)
-	parseFile(projectPath, lspNames)
-
-	// 3. Built-in config fallback
-	// Helix often embeds this, but we'll try common Nix store locations based on the hx path.
-	if realPath, err := filepath.EvalSymlinks(hxPath); err == nil {
-		fmt.Fprintf(os.Stderr, "[DEBUG] Helix real path (eval symlinks): %s\n", realPath)
-		runtimeDir := filepath.Join(filepath.Dir(filepath.Dir(realPath)), "lib", "runtime")
-		builtinPath := filepath.Join(runtimeDir, "languages.toml")
-		fmt.Fprintf(os.Stderr, "[DEBUG] Built-in config path: %s\n", builtinPath)
-		parseFile(builtinPath, lspNames)
-	}
-
-	// 4. Fallback: Parse hx --health
-	if len(lspNames) == 0 {
-		fmt.Fprintf(os.Stderr, "[DEBUG] No LSPs found in configs, falling back to 'hx --health'\n")
-		parseHealth(lspNames)
-	}
+	// Rely solely on hx --health as it's the most reliable way to find LSPs 
+	// for the current helix binary, especially when runtime files are 
+	// hidden in the Nix store.
+	parseHealth(lspNames)
 
 	fmt.Fprintf(os.Stderr, "[DEBUG] Total LSPs discovered: %d\n", len(lspNames))
 
@@ -131,45 +89,39 @@ exec %s "%s" "$@"
 	}
 }
 
-func parseFile(path string, lspNames map[string]struct{}) {
-	f, err := os.Open(path)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "[DEBUG] Could not open %s: %v\n", path, err)
-		return
-	}
-	defer f.Close()
-	fmt.Fprintf(os.Stderr, "[DEBUG] Successfully opened %s, parsing...\n", path)
-	parseHelixConfig(f, lspNames)
-}
-
-func parseHelixConfig(r io.Reader, lspNames map[string]struct{}) {
-	var cfg HelixConfig
-	if _, err := toml.NewDecoder(r).Decode(&cfg); err != nil {
-		return
-	}
-
-	// Case 1: [language-server.name]
-	for _, ls := range cfg.LanguageServers {
-		if ls.Command != "" {
-			lspNames[ls.Command] = struct{}{}
-		}
-	}
-
-	// Case 2: [[language]] with embedded language-server
-	for _, lang := range cfg.Languages {
-		if lang.LanguageServer != nil && lang.LanguageServer.Command != "" {
-			lspNames[lang.LanguageServer.Command] = struct{}{}
-		}
-	}
-}
-
 func parseHealth(lspNames map[string]struct{}) {
-	cmd := exec.Command("hx", "--health")
-	cmd.Env = append(os.Environ(), "COLUMNS=1000")
-	output, err := cmd.Output()
+	hxReal, err := exec.LookPath("hx")
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "[DEBUG] Error running hx --health: %v\n", err)
+		fmt.Fprintf(os.Stderr, "[DEBUG] Error finding hx: %v\n", err)
 		return
+	}
+	realPath, err := filepath.EvalSymlinks(hxReal)
+	if err != nil {
+		realPath = hxReal
+	}
+
+	// Use a deterministic cache path based on the store path
+	h := sha256.New()
+	h.Write([]byte(realPath))
+	cacheHash := fmt.Sprintf("%x", h.Sum(nil))
+	cachePath := filepath.Join(os.TempDir(), "wrap-lsps-health-"+cacheHash+".txt")
+
+	var output []byte
+	if _, err := os.Stat(cachePath); err == nil {
+		fmt.Fprintf(os.Stderr, "[DEBUG] Using cached hx --health output: %s\n", cachePath)
+		output, _ = os.ReadFile(cachePath)
+	}
+
+	if len(output) == 0 {
+		fmt.Fprintf(os.Stderr, "[DEBUG] Running hx --health and caching to %s\n", cachePath)
+		cmd := exec.Command("hx", "--health")
+		cmd.Env = append(os.Environ(), "COLUMNS=1000")
+		output, err = cmd.Output()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "[DEBUG] Error running hx --health: %v\n", err)
+			return
+		}
+		os.WriteFile(cachePath, output, 0644)
 	}
 
 	lines := strings.Split(string(output), "\n")
