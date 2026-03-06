@@ -30,7 +30,7 @@ let
           dieWithParent = true;
           sockets = {
             wayland = true;
-            x11 = true;
+            x11 = false;
           };
           bind.ro = [
             (sloth.concat' sloth.homeDir "/.config/helix")
