@@ -18,6 +18,9 @@ let
       {
         app.package = pkgs.helix;
 
+        gpu.enable = true;
+        locale.enable = true;
+        fonts.enable = true;
         fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
 
         bubblewrap = {
@@ -29,6 +32,8 @@ let
           ];
           bind.rw = [
             "."
+            "/tmp"
+            [ sloth.xdgCacheHome (sloth.mkdir sloth.appCacheDir) ]
           ];
           bind.dev = [
             "/dev/tty"
