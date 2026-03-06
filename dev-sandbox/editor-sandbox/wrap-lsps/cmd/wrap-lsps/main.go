@@ -104,21 +104,21 @@ func parseHealth(lspNames map[string]struct{}) {
 	h := sha256.New()
 	h.Write([]byte(realPath))
 	cacheHash := fmt.Sprintf("%x", h.Sum(nil))
-	cachePath := filepath.Join(os.TempDir(), "wrap-lsps-health-"+cacheHash+".txt")
+	cachePath := filepath.Join(os.TempDir(), "wrap-lsps-health-languages-"+cacheHash+".txt")
 
 	var output []byte
 	if _, err := os.Stat(cachePath); err == nil {
-		fmt.Fprintf(os.Stderr, "[DEBUG] Using cached hx --health output: %s\n", cachePath)
+		fmt.Fprintf(os.Stderr, "[DEBUG] Using cached hx --health languages output: %s\n", cachePath)
 		output, _ = os.ReadFile(cachePath)
 	}
 
 	if len(output) == 0 {
-		fmt.Fprintf(os.Stderr, "[DEBUG] Running hx --health and caching to %s\n", cachePath)
-		cmd := exec.Command("hx", "--health")
+		fmt.Fprintf(os.Stderr, "[DEBUG] Running hx --health languages and caching to %s\n", cachePath)
+		cmd := exec.Command("hx", "--health", "languages")
 		cmd.Env = append(os.Environ(), "COLUMNS=1000")
 		output, err = cmd.Output()
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "[DEBUG] Error running hx --health: %v\n", err)
+			fmt.Fprintf(os.Stderr, "[DEBUG] Error running hx --health languages: %v\n", err)
 			return
 		}
 		os.WriteFile(cachePath, output, 0644)
@@ -126,26 +126,33 @@ func parseHealth(lspNames map[string]struct{}) {
 
 	lines := strings.Split(string(output), "\n")
 	for _, line := range lines {
-		// hx --health output usually looks like:
-		// language      LSP                             ...
-		// rust          rust-analyzer                   ...
-		//
-		// We want the word that looks like a command. 
-		// Heuristic: check lines that don't start with space and have multiple columns.
 		fields := strings.Fields(line)
 		if len(fields) < 2 {
 			continue
 		}
 		
-		// Skip header and footer garbage
-		first := strings.ToLower(fields[0])
-		if first == "language" || first == "configured" || first == "total" || strings.HasPrefix(first, "/") || strings.HasPrefix(first, "(") {
+		// Skip header
+		if strings.ToLower(fields[0]) == "language" {
 			continue
 		}
 
-		// The LSP command is in the second column
-		lsp := fields[1]
-		if lsp == "None" || lsp == "✓" || lsp == "✘" || strings.ContainsAny(lsp, "()[]…") || strings.Contains(lsp, "/") || strings.Contains(lsp, ";") {
+		// Heuristic: The LSP is in the second column.
+		// If it starts with a status icon (✓ or ✘), it's the LSP.
+		// Example: "ada ✘ ada-language-server None" -> ["ada", "✘", "ada-language-server", "None"]
+		// OR: "ada ada-language-server None" -> ["ada", "ada-language-server", "None"]
+		
+		var lsp string
+		if len(fields) >= 2 {
+			if fields[1] == "✓" || fields[1] == "✘" {
+				if len(fields) >= 3 {
+					lsp = fields[2]
+				}
+			} else {
+				lsp = fields[1]
+			}
+		}
+
+		if lsp == "" || lsp == "None" || strings.ContainsAny(lsp, "()[]…") {
 			continue
 		}
 
