@@ -107,7 +107,7 @@ func main() {
 			continue
 		}
 
-		wrapperPath := filepath.Join(wrapperDir, lsp)
+		wrapperPath := filepath.Join(wrapperDir, filepath.Base(lsp))
 		content := fmt.Sprintf(`#!%s
 exec %s "%s" "$@"
 `, interpreter, wrapCommand, absLSPPath)
@@ -165,6 +165,7 @@ func parseHelixConfig(r io.Reader, lspNames map[string]struct{}) {
 
 func parseHealth(lspNames map[string]struct{}) {
 	cmd := exec.Command("hx", "--health")
+	cmd.Env = append(os.Environ(), "COLUMNS=1000")
 	output, err := cmd.Output()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "[DEBUG] Error running hx --health: %v\n", err)
@@ -184,24 +185,18 @@ func parseHealth(lspNames map[string]struct{}) {
 			continue
 		}
 		
-		// Skip header
-		if fields[0] == "Language" || fields[0] == "Configured" {
+		// Skip header and footer garbage
+		first := strings.ToLower(fields[0])
+		if first == "language" || first == "configured" || first == "total" || strings.HasPrefix(first, "/") || strings.HasPrefix(first, "(") {
 			continue
 		}
 
-		// The LSP command is usually in the second column or near the end.
-		// In newer Helix versions, it's explicitly in the 'LSP' column.
-		// Since we don't want to parse the table perfectly, let's look for 
-		// things that are not 'None', '✓', '✘'
-		for i := 1; i < len(fields); i++ {
-			f := fields[i]
-			if f == "None" || f == "✓" || f == "✘" || f == "None" {
-				continue
-			}
-			// If it contains a slash or looks like a typical command name
-			if !strings.ContainsAny(f, "()[]") {
-				lspNames[f] = struct{}{}
-			}
+		// The LSP command is in the second column
+		lsp := fields[1]
+		if lsp == "None" || lsp == "✓" || lsp == "✘" || strings.ContainsAny(lsp, "()[]…") || strings.Contains(lsp, "/") || strings.Contains(lsp, ";") {
+			continue
 		}
+
+		lspNames[lsp] = struct{}{}
 	}
 }

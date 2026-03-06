@@ -11,7 +11,8 @@ let
   sandboxed-hx = pkgs.writeShellScriptBin "hx" ''
     # -r for config
     # -n for network (LSPs often need it)
-    exec ${wrap}/bin/wrap -n -r "$HOME/.config/helix" -- ${pkgs.helix}/bin/hx "$@"
+    # -e PATH ensures the shimmied PATH from wrap-lsps is preserved
+    exec ${wrap}/bin/wrap -n -e PATH -r "$HOME/.config/helix" -- ${pkgs.helix}/bin/hx "$@"
   '';
 in
 {
