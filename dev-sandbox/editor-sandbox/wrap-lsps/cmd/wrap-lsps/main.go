@@ -3,7 +3,6 @@ package main
 import (
 	"crypto/sha256"
 	"fmt"
-	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -18,12 +17,6 @@ var (
 )
 
 func main() {
-	cwd, err := os.Getwd()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error getting current directory: %v\n", err)
-		os.Exit(1)
-	}
-
 	hxPath, err := exec.LookPath("hx")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Helix (hx) not found in PATH: %v\n", err)
