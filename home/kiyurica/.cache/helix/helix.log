@@ -3,3 +3,6 @@
 2026-03-06T06:06:59.804 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl
 2026-03-06T06:28:05.839 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl
 2026-03-06T07:33:27.505 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl
+2026-03-06T07:36:09.284 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl
+2026-03-06T07:36:22.882 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl
+2026-03-06T07:36:28.086 helix_view::theme [WARN] Theme 'kawamo_to_seseragi': Failed to parse style for key "ui.statusline". Invalid underline attribute: curl

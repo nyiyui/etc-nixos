@@ -19,19 +19,13 @@ let
         app.package = pkgs.helix;
         flatpak.appId = "ca.kiyuri.editor-sandbox";
 
-        gpu.enable = true;
+        gpu.enable = false;
         locale.enable = true;
         dbus.enable = false;
-        fonts.enable = true;
-        fonts.fonts = config.fonts.packages;
 
         bubblewrap = {
           network = true;
           dieWithParent = true;
-          sockets = {
-            wayland = false;
-            x11 = false;
-          };
           env = {
             HELIX_DISABLE_CLIPBOARD = "1";
           };
