@@ -24,26 +24,12 @@ let
         dbus.enable = false;
 
         bubblewrap = {
-          network = true;
           dieWithParent = true;
-          env = {
-            HELIX_DISABLE_CLIPBOARD = "1";
-          };
-          bind.ro = [
-            (sloth.concat' sloth.homeDir "/.config/helix")
-            "/etc/machine-id"
-            "/etc/resolv.conf"
-          ];
           bind.rw = [
             "."
-            "/tmp"
-            sloth.runtimeDir
-            [ sloth.xdgCacheHome (sloth.mkdir sloth.appCacheDir) ]
           ];
           bind.dev = [
             "/dev/tty"
-            "/dev/shm"
-            "/dev/console"
           ];
         };
       };
