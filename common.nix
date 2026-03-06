@@ -14,10 +14,11 @@
     ./home-manager.nix
     ./dbus-monitor.nix
     ./fwupd.nix
-    ./helix.nix
   ];
 
   kiyurica.home-manager.enable = true;
+
+  assr.dev-sandbox.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -135,33 +136,6 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
   };
-
-  kiyurica.lsps = with pkgs; [
-    {
-      package = ocamlPackages.ocaml-lsp;
-      exec-name = "ocamllsp";
-    } # OCaml
-    {
-      package = clang-tools;
-      exec-name = "clangd";
-    } # C; C++
-    {
-      package = gopls;
-      exec-name = "gopls";
-    } # Go
-    {
-      package = typescript-language-server;
-      exec-name = "typescript-language-server";
-    } # JavaScript; TypeScript
-    {
-      package = rust-analyzer;
-      exec-name = "rust-analyzer";
-    } # Rust
-    {
-      package = nil;
-      exec-name = "nil";
-    } # Nix
-  ];
 
   kiyurica.mosh.enable = true;
 

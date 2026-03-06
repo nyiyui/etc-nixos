@@ -179,8 +179,6 @@
     ];
   };
 
-  assr.dev-sandbox.enable = true;
-
   kiyurica.quaderno-sync = {
     enable = true;
     autoSync.enable = true;

@@ -40,7 +40,7 @@ in
       { ... }:
       {
         programs.helix = {
-          package = sandboxed;
+          package = sandboxed.config.env;
           themes = {
             "kawamo_to_seseragi" = ./kawamo_to_seseragi.toml;
           };
