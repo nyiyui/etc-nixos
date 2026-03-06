@@ -143,6 +143,7 @@
               p.pyserial
               p.caldav
             ]))
+            go
           ];
         };
       }
