@@ -17,6 +17,7 @@
       "org.gtk.vfs" = "talk";
       "ca.desrt.dconf" = "talk";
       "org.freedesktop.portal.*" = "talk";
+      "org.freedesktop.Notifications" = "talk";
       "org.freedesktop.StatusNotifierItem" = "talk";
       "org.kde.StatusNotifierWatcher" = "talk";
       "org.a11y.Bus" = "talk";

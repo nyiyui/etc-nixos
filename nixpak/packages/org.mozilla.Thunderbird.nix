@@ -29,7 +29,6 @@ let
           policies = {
             "org.mozilla.thunderbird.*" = "own";
             "org.freedesktop.NetworkManager" = "talk";
-            "org.freedesktop.Notifications" = "talk";
           };
         };
 
