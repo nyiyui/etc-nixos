@@ -129,6 +129,4 @@
   kiyurica.gatech-vpn.enable = true;
 
   kiyurica.ollama.enableServer = true;
-
-  kiyurica.sandbox-dev.enable = true;
 }
