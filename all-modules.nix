@@ -21,6 +21,5 @@
     ./cdav-backup
     ./unity.nix
     ./dev-sandbox
-    ./sandbox-dev.nix
   ];
 }
