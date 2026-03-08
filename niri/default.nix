@@ -294,6 +294,12 @@
                       block-out-from = "screencast";
                     }
                     {
+                      # Workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1838677
+                      # The calendar view is cut off unless the window is maximized.
+                      matches = [ { app-id = ''^org\.mozilla\.Thunderbird$''; } ];
+                      open-maximized = true;
+                    }
+                    {
                       matches = [ { is-window-cast-target = true; } ];
                       shadow.enable = true;
                       shadow.color = "#e12885";
