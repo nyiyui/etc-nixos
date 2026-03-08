@@ -130,5 +130,5 @@
 
   kiyurica.ollama.enableServer = true;
 
-  kiyurica.sandbox-dev.enable = true;
+  assr.dev-sandbox.enable = true;
 }
