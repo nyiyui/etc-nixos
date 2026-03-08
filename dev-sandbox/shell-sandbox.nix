@@ -8,7 +8,7 @@
 {
   options.assr.shell-sandbox = {
     enable = lib.mkEnableOption "sandboxed development environment based on bubblewrap";
-    ai-tools.enable = lib.mkEnableOption "sandboxed AI agent tools (github-copilot-cli, gemini-cli)";
+    ai-tools.enable = lib.mkEnableOption "sandboxed AI agent tools";
   };
 
   config =
