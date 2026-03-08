@@ -3,6 +3,8 @@
   lib,
   pkgs,
   nixpak,
+  nixpkgs-unstable,
+  system,
   ...
 }:
 
@@ -11,6 +13,8 @@ let
     inherit (pkgs) lib;
     inherit pkgs;
   };
+
+  planify = nixpkgs-unstable.legacyPackages.${system}.planify;
 
   sandboxed = mkNixPak {
     config =
@@ -22,7 +26,7 @@ let
           ../modules/gui-base.nix
           ../modules/network.nix
         ];
-        app.package = pkgs.planify;
+        app.package = planify;
 
         fonts.fonts = config.fonts.packages; # https://github.com/nixpak/nixpak/issues/196
 
