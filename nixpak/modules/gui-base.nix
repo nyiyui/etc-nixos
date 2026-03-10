@@ -54,6 +54,8 @@
         (sloth.concat' sloth.xdgConfigHome "/gtk-4.0")
         (sloth.concat' sloth.xdgConfigHome "/fontconfig")
         (sloth.concat' sloth.xdgConfigHome "/dconf")
+        "/etc/localtime"
+        "/etc/zoneinfo"
       ];
       env = {
         # NOTE: `GTK_USE_PORTAL=1` makes GTK route file picking through xdg-desktop-portal.
@@ -68,6 +70,5 @@
         ];
       };
     };
-    timeZone.enable = true;
   };
 }
