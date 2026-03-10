@@ -7,6 +7,8 @@
       obs-vaapi
       obs-vkcapture
       obs-gstreamer
+      wlrobs
+      obs-pipewire-audio-capture
     ];
   };
 }
