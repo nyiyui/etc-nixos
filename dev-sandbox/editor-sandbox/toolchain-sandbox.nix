@@ -2,11 +2,9 @@
   config,
   lib,
   pkgs,
-  nixwrap,
   ...
 }:
 let
-  wrap = nixwrap.packages.${pkgs.stdenv.hostPlatform.system}.wrap;
   wrap-lsps = pkgs.buildGoModule {
     pname = "wrap-lsps";
     version = "0.1.0";
@@ -14,7 +12,7 @@ let
     vendorHash = "sha256-pbA/AlBz3cQYRTMnQ/qBPcinYOKokrBLNhkbRTq54gE=";
     ldflags = [
       "-X main.interpreter=${pkgs.dash}/bin/dash"
-      "-X main.wrapCommand=${wrap}/bin/wrap"
+      "-X main.wrapCommand=${pkgs.nixwrap-wrap}/bin/wrap"
     ];
   };
   editor-sandbox = pkgs.writeShellScriptBin "editor-sandbox" ''

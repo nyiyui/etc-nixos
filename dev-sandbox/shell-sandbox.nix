@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  nixwrap,
   ...
 }:
 {
@@ -10,14 +9,13 @@
 
   config =
     let
-      wrap = nixwrap.packages.${pkgs.stdenv.hostPlatform.system}.wrap;
       shell-sandbox = pkgs.writeShellScriptBin "shell-sandbox" ''
-        KIYURICA_IN_SHELL_SANDBOX=yes nix develop --command wrap -e KIYURICA_IN_SHELL_SANDBOX -r "$HOME/.config/fish" "$@" "$SHELL"
+        KIYURICA_IN_SHELL_SANDBOX=yes nix develop --command ${pkgs.nixwrap-wrap}/bin/wrap -e KIYURICA_IN_SHELL_SANDBOX -r "$HOME/.config/fish" "$@" "$SHELL"
       '';
     in
     lib.mkIf config.assr.shell-sandbox.enable {
       users.users.kiyurica.packages = [
-        wrap
+        pkgs.nixwrap-wrap
         shell-sandbox
       ];
 

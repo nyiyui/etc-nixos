@@ -2,17 +2,15 @@
   config,
   lib,
   pkgs,
-  nixwrap,
   ...
 }:
 
 let
-  wrap = nixwrap.packages.${pkgs.stdenv.hostPlatform.system}.wrap;
   sandboxed-hx = pkgs.writeShellScriptBin "hx" ''
     # -r for config
     # -n for network (LSPs often need it)
     # -e PATH ensures the shimmied PATH from wrap-lsps is preserved
-    exec ${wrap}/bin/wrap -n -e PATH -r "$HOME/.config/helix" -- ${pkgs.helix}/bin/hx "$@"
+    exec ${pkgs.nixwrap-wrap}/bin/wrap -n -e PATH -r "$HOME/.config/helix" -- ${pkgs.helix}/bin/hx "$@"
   '';
 in
 {
