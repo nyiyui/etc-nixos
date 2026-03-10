@@ -1,4 +1,9 @@
-{ config, lib, nixwrap, ... }:
+{
+  config,
+  lib,
+  nixwrap,
+  ...
+}:
 {
   imports = [
     ./shell-sandbox.nix
