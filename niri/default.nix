@@ -286,6 +286,10 @@
                     ));
                   window-rules = [
                     {
+                      matches = [ { app-id = "^com\\.freerdp\\.client\\.sdl3$"; } ];
+                      open-floating = false;
+                    }
+                    {
                       matches = [ { app-id = "^foot$"; } ];
                       draw-border-with-background = false;
                     }
