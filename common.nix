@@ -10,7 +10,6 @@
     ./all-modules.nix
     ./i18n.nix
     ./doas.nix
-    ./man.nix
     ./home-manager.nix
     ./dbus-monitor.nix
     ./fwupd.nix
