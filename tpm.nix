@@ -9,18 +9,10 @@
 
   # tpm-fido: https://github.com/psanford/tpm-fido
   # FIDO token implementation that uses TPM for key protection
-  # ssh-tpm-agent: https://github.com/Foxboron/ssh-tpm-agent
-  # SSH agent that uses TPM for key protection
   environment.systemPackages = [
     pkgs.tpm-fido
-    pkgs.ssh-tpm-agent
-    pkgs.pinentry-curses # required by tpm-fido and ssh-tpm-agent for user authentication
+    pkgs.pinentry-curses # required by tpm-fido for user authentication
   ];
-
-  # Set SSH_AUTH_SOCK to point to ssh-tpm-agent socket
-  environment.sessionVariables = {
-    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-tpm-agent.sock";
-  };
 
   # Load uhid kernel module at boot so tpm-fido can emulate a USB HID device
   boot.kernelModules = [ "uhid" ];
@@ -42,30 +34,5 @@
     ];
     serviceConfig.ExecStart = "/run/current-system/sw/bin/tpm-fido";
     wantedBy = [ "default.target" ];
-  };
-
-  systemd.user.sockets.ssh-tpm-agent = {
-    description = "SSH TPM agent socket";
-    socketConfig = {
-      ListenStream = "%t/ssh-tpm-agent.sock";
-      Service = "ssh-tpm-agent.service";
-    };
-    wantedBy = [ "sockets.target" ];
-  };
-
-  systemd.user.services.ssh-tpm-agent = {
-    description = "SSH TPM Agent";
-    documentation = [ "https://github.com/Foxboron/ssh-tpm-agent" ];
-    unitConfig.PartOf = [
-      "graphical-session.target"
-    ];
-    path = [
-      pkgs.pinentry-curses
-    ];
-    serviceConfig = {
-      ExecStart = "${pkgs.ssh-tpm-agent}/bin/ssh-tpm-agent";
-      StandardInput = "socket";
-      Restart = "always";
-    };
   };
 }

@@ -65,14 +65,6 @@ export GPG_TTY=$(tty)
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-if status is-interactive; and test -z "$KIYURICA_IN_SANDBOX_DEV"
-    fish_ssh_agent
-    set key ~/.ssh/id_inaba
-    test -e "$key"
-    or set key ~/inaba/geofront/id_inaba
-    ssh-add -l | grep -q 'WBykfqqS1+mkkNe0XEtCzvoV3oms/Mli+bz0FhOPWzg' || ssh-add "$key"
-end
-
 function jpeg-to-pdf
     convert -density 300 -gravity Center $argv out.pdf
 end

@@ -205,5 +205,6 @@
     destination = "${config.services.syncthing.settings.folders."geofront".path}/cdav-backup";
   };
 
+  assr.ssh-agent.implementation = "ssh-tpm-agent";
   assr.programs.unity.enable = true;
 }

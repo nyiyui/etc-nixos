@@ -13,6 +13,7 @@
     ./home-manager.nix
     ./dbus-monitor.nix
     ./fwupd.nix
+    ./ssh-agent.nix
   ];
 
   kiyurica.home-manager.enable = true;
