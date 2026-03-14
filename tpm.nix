@@ -21,6 +21,9 @@
   # Users in tss group already have access to /dev/tpmrm0
   services.udev.extraRules = ''
     KERNEL=="uhid", SUBSYSTEM=="misc", GROUP="${config.security.tpm2.tssGroup}", MODE="0660"
+
+    # tpm-fido
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1ea8", ATTRS{idProduct}=="f1d0", SYMLINK+="tpm-fido", TAG+="uaccess"
   '';
 
   systemd.user.services.tpm-fido = {
