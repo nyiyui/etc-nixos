@@ -17,7 +17,7 @@
       (final: prev: {
         nixwrap-wrap =
           let
-            wrap = nixwrap.packages.${final.system}.wrap;
+            wrap = nixwrap.packages.${final.stdenv.hostPlatform.system}.wrap;
           in
           final.runCommand "wrap-fixed" { nativeBuildInputs = [ final.makeWrapper ]; } ''
             mkdir -p $out/bin
