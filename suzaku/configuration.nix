@@ -208,7 +208,7 @@
   assr.ssh-agent.implementation = "ssh-tpm-agent";
   assr.programs.unity.enable = true;
 
-  services.tlp.settings.{
+  services.tlp.settings = {
     DISK_DEVICES = "nvme0n1";
     PLATFORM_PROFILE_ON_BAT = "low-power";
     DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth wwan";
