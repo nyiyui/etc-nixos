@@ -27,8 +27,6 @@
         };
       services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
       networking.networkmanager.wifi.powersave = true;
-      systemd.services.powertop.after = lib.mkForce [ ]; # I don't think powertop needs to wait for everything in multi-user.target (esp. NetworkManager-wait-online.service).
-      powerManagement.powertop.enable = true;
       services.udev.extraRules = ''
         # Power adapter connected/disconnected detection
         SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="${config.boot.kernelPackages.x86_energy_perf_policy} power"
