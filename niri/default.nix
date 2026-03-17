@@ -76,8 +76,14 @@
               };
 
               systemd.user.targets.xdg-desktop-autostart.Unit = {
-                Wants = [ "import-environment.service" ];
-                After = [ "import-environment.service" ];
+                Wants = [
+                  "import-environment.service"
+                  "xdg-desktop-portal.service"
+                ];
+                After = [
+                  "import-environment.service"
+                  "xdg-desktop-portal.service"
+                ];
               };
               programs.waybar.settings.mainBar = {
                 modules-left = [
