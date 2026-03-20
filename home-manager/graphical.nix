@@ -406,15 +406,5 @@ in
       };
       Install.WantedBy = [ "graphical-session.target" ];
     };
-
-    systemd.user.services.systemd-lock-handler = lib.mkIf config.kiyurica.graphical.idle {
-      Service = {
-        ExecStart = "/run/current-system/sw/bin/swaylock";
-        Type = "forking";
-        Restart = "on-failure";
-        RestartSec = 0;
-      };
-      Install.WantedBy = [ "lock.target" ];
-    };
   };
 }
