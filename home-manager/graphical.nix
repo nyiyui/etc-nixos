@@ -399,14 +399,22 @@ in
           ${pkgs.swayidle}/bin/swayidle -w \
               timeout 600 'swaymsg "output * dpms off"' \
               resume 'swaymsg "output * dpms on"' \
-              timeout 3600 'systemctl suspend' \
-              before-sleep '${pkgs.swaylock}/bin/swaylock -f' \
-              lock '${pkgs.swaylock}/bin/swaylock -f'
+              timeout 3600 'systemctl suspend'
         '';
         Restart = "on-failure";
         RestartSec = 3;
       };
       Install.WantedBy = [ "graphical-session.target" ];
+    };
+
+    systemd.user.services.systemd-lock-handler = lib.mkIf config.kiyurica.graphical.idle {
+      Service = {
+        ExecStart = "/run/current-system/sw/bin/swaylock";
+        Type = "forking";
+        Restart = "on-failure";
+        RestartSec = 0;
+      };
+      Install.WantedBy = [ "lock.target" ];
     };
   };
 }
