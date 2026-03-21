@@ -97,6 +97,20 @@
                       0;
                 };
               };
+              systemd.user.services.swaylock = {
+                Install.WantedBy = [ "lock.target" ];
+                Unit = {
+                  OnSuccess = [ "unlock.target" ];
+                  PartOf = [ "lock.target" ];
+                  After = [ "lock.target" ];
+                };
+                Service = {
+                  Type = "forking";
+                  ExecStart = "swaylock -f";
+                  Restart = "on-failure";
+                  RestartSec = "0";
+                };
+              };
               programs.niri = {
                 enable = true;
                 package = pkgs.niri;
