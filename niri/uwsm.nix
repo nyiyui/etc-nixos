@@ -32,7 +32,7 @@
                 "${pkgs.gtk3}/bin/gtk-launch"
                 "com.github.flxzt.rnote"
               ];
-              "Mod+Alt+L".action.spawn = [ "swaylock" ];
+              "Mod+Alt+L".action.spawn = [ "loginctl" "lock-session" ];
             };
           };
         }
