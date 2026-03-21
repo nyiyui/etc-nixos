@@ -15,7 +15,6 @@
       { ... }:
       {
         programs.helix = {
-          package = sandboxed-hx;
           themes = {
             "kawamo_to_seseragi" = ./kawamo_to_seseragi.toml;
           };
