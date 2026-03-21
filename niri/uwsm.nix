@@ -32,7 +32,10 @@
                 "${pkgs.gtk3}/bin/gtk-launch"
                 "com.github.flxzt.rnote"
               ];
-              "Mod+Alt+L".action.spawn = [ "loginctl" "lock-session" ];
+              "Mod+Alt+L".action.spawn = [
+                "loginctl"
+                "lock-session"
+              ];
             };
           };
         }
