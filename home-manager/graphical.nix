@@ -369,14 +369,16 @@ in
     xdg.autostart = {
       enable = true;
       readOnly = true;
-      entries = (map (f: "/run/current-system/sw/share/applications/${f}") [
-        "firefox.desktop"
-        "signal.desktop"
-        "thunderbird.desktop"
-        "io.github.alainm23.planify.desktop"
-      ]) ++ [
-        "${debugEnvDesktop}/share/applications/debug-autostart-env.desktop"
-      ];
+      entries =
+        (map (f: "/run/current-system/sw/share/applications/${f}") [
+          "firefox.desktop"
+          "signal.desktop"
+          "thunderbird.desktop"
+          "io.github.alainm23.planify.desktop"
+        ])
+        ++ [
+          "${debugEnvDesktop}/share/applications/debug-autostart-env.desktop"
+        ];
     };
 
     # GTK input method configuration for fcitx
