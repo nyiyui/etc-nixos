@@ -4,20 +4,11 @@
   pkgs,
   ...
 }:
-
-let
-  sandboxed-hx = pkgs.writeShellScriptBin "hx" ''
-    # -r for config
-    # -n for network (LSPs often need it)
-    # -e PATH ensures the shimmied PATH from wrap-lsps is preserved
-    exec ${pkgs.nixwrap-wrap}/bin/wrap -n -e PATH -r "$HOME/.config/helix" -- ${pkgs.helix}/bin/hx "$@"
-  '';
-in
 {
   imports = [ ../../home-manager.nix ];
 
   config = lib.mkIf config.assr.editor-sandbox.enable {
-    environment.systemPackages = [ sandboxed-hx ];
+    environment.systemPackages = [ pkgs.helix ];
     environment.variables.editor = lib.mkOverride 900 "hx";
     kiyurica.home-manager.enable = true;
     home-manager.users.kiyurica =
