@@ -76,8 +76,8 @@
               };
 
               systemd.user.targets.xdg-desktop-autostart.Unit = {
-                Wants = [ "import-environment.service" ];
-                After = [ "import-environment.service" ];
+                Requires = [ "graphical-session.target" ];
+                After = [ "graphical-session.target" ];
               };
               programs.waybar.settings.mainBar = {
                 modules-left = [
