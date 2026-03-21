@@ -7,6 +7,19 @@
 }:
 let
   cfg = config.kiyurica;
+
+  debugEnvScript = pkgs.writeShellScriptBin "debug-autostart-env" ''
+    echo "--- $(date) ---" >> /tmp/autostart-env.log
+    env | sort >> /tmp/autostart-env.log
+    echo "--- DBUS_SESSION_BUS_ADDRESS: $DBUS_SESSION_BUS_ADDRESS ---" >> /tmp/autostart-env.log
+  '';
+  debugEnvDesktop = pkgs.writeTextDir "share/applications/debug-autostart-env.desktop" ''
+    [Desktop Entry]
+    Type=Application
+    Name=Debug Autostart Env
+    Exec=${debugEnvScript}/bin/debug-autostart-env
+    NoDisplay=true
+  '';
 in
 {
   options.kiyurica.hasBacklight =
@@ -356,11 +369,13 @@ in
     xdg.autostart = {
       enable = true;
       readOnly = true;
-      entries = map (f: "/run/current-system/sw/share/applications/${f}") [
+      entries = (map (f: "/run/current-system/sw/share/applications/${f}") [
         "firefox.desktop"
         "signal.desktop"
         "thunderbird.desktop"
         "io.github.alainm23.planify.desktop"
+      ]) ++ [
+        "${debugEnvDesktop}/share/applications/debug-autostart-env.desktop"
       ];
     };
 
