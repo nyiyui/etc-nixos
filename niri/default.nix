@@ -106,7 +106,7 @@
                 };
                 Service = {
                   Type = "forking";
-                  ExecStart = "swaylock -f";
+                  ExecStart = "${config.programs.swaylock.package}/bin/swaylock -f";
                   Restart = "on-failure";
                   RestartSec = "0";
                 };
