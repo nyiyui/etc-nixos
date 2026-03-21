@@ -349,7 +349,6 @@ in
         ring-ver-color = "137a7f";
         ring-wrong-color = "86cecb";
         ring-caps-lock-color = "e12885";
-        indicator = true;
         image = "${../wallpapers/shibuya-gmo.jpg}";
       };
     };
