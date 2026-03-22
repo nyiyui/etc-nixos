@@ -34,7 +34,6 @@
         niri.homeModules.niri
         ../home-manager/graphical.nix
         ../home-manager/fuzzel.nix
-        ../home-manager/wlsunset.nix
         ../home-manager/wayland.nix
         (
           {

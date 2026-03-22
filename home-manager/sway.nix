@@ -8,7 +8,6 @@
 {
   imports = [
     ./fuzzel.nix
-    ./wlsunset.nix
     ./wayland.nix
     (
       {
