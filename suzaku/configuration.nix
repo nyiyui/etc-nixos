@@ -84,7 +84,6 @@
   };
   kiyurica.greeter.gtkgreet = {
     enable = true;
-    compositor = lib.mkBefore [ "/run/current-system/sw/bin/niri --session" ];
   };
   home-manager.users.kiyurica =
     { pkgs, ... }:
