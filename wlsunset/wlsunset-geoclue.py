@@ -27,7 +27,9 @@ def close_enough(a, b):
 
 def update_wlsunset(lat, lon):
     global proc, current_lat_lon
-    if proc and not close_enough(current_lat_lon, (lat, lon)):
+    if proc:
+        if current_lat_lon and close_enough(current_lat_lon, (lat, lon)):
+            return
         proc.terminate()
 
     cmd = [
