@@ -23,6 +23,8 @@
     ../vlc.nix # VLC with Blu-ray decode keys
   ];
 
+  users.users.root.initialHashedPassword = "$y$j9T$hIH10tdwuxQdhSkN6D9vb0$dKJd1SITL.iGfrn8soMLLNyQxvoM0o0MIrmuS.6HuA7";
+
   kiyurica.home-manager.enable = true;
 
   autoUpgrade.directFlake = true;

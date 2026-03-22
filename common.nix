@@ -14,6 +14,7 @@
     ./dbus-monitor.nix
     ./fwupd.nix
     ./ssh-agent.nix
+    ./base.nix
   ];
 
   kiyurica.home-manager.enable = true;
@@ -30,36 +31,19 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
-  nixpkgs.config.allowUnfree = true;
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   powerManagement.cpuFreqGovernor = "performance";
 
-  services.openssh.enable = true;
-  services.openssh.extraConfig = "PerSourcePenalties crash:90s authfail:5s refuseconnection:10s noauth:1s grace-exceeded:10s max:10m min:15s max-sources4:65536 max-sources6:65536 overflow:permissive";
-
-  # Storage Optimisation
-  nix.settings.auto-optimise-store = true;
-
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # TODO: remove
 
   environment.systemPackages = with pkgs; [
-    wget
-    curl
     pciutils
-    htop
     unzip
     gzip
     zip
     nix-index
     acpi
-    file
     picocom
-    shpool
     adwaita-icon-theme
     waypipe
   ];
@@ -78,8 +62,6 @@
     hack-font
   ];
 
-  programs.git.enable = true;
-
   # TODO: use username@hostname syntax to separate per-host home manager flake thingl
   # https://discourse.nixos.org/t/get-hostname-in-home-manager-flake-for-host-dependent-user-configs/18859/2
 
@@ -90,32 +72,16 @@
 
   programs.fish.enable = true;
 
-  users.groups.kiyurica = { };
   users.users.kiyurica = {
-    isNormalUser = true;
-    description = "Ken Shibata";
-    group = "kiyurica";
     extraGroups = [
       "uucp"
       "networkmanager"
-      "wheel"
       "video"
       "libvirtd"
       "dialout"
     ];
-    shell = pkgs.fish;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
-      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPLebITu6vwv0WEqXtnIhPq4hOsmG6nUZIcwWVL/LT9OGt0XR4vWwZBqDAt3tZTapY2d71HRqQL7duTyuCLG1h4= kiyurica@suzaku"
-    ];
-    homeMode = "770";
   };
 
-  nix.settings.trusted-users = [ "kiyurica" ];
-
-  environment.shells = [ pkgs.fish ];
-
-  # Polkit
   security.polkit.enable = true;
 
   services.udisks2.enable = true;
@@ -134,8 +100,6 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
   };
-
-  kiyurica.mosh.enable = true;
 
   virtualisation.podman.enable = true;
 }
