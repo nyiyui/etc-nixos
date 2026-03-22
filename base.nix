@@ -31,6 +31,7 @@
   security.sudo.wheelNeedsPassword = false;
 
   environment.shells = [ pkgs.fish ];
+  programs.fish.enable = true;
   programs.git.enable = true;
   programs.htop.enable = true;
   environment.systemPackages = with pkgs; [
