@@ -19,6 +19,8 @@
 
   kiyurica.home-manager.enable = true;
 
+  assr.wlsunset.enable = true;
+
   assr.dev-sandbox.enable = true;
 
   # This value determines the NixOS release from which the default

@@ -3,6 +3,7 @@
   imports = [
     ./sway.nix
     ./niri
+    ./wlsunset
     ./gtkgreet.nix
     ./tailscale.nix
     ./tailscale-cert.nix

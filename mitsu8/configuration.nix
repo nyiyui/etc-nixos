@@ -40,6 +40,9 @@
     enable = true;
     enableUWSM = true;
   };
+
+  assr.wlsunset.temperature.night = 4000;
+
   services.greetd = {
     enable = true;
     settings.default_session = {
@@ -92,9 +95,6 @@
   home-manager.users.kiyurica =
     { pkgs, ... }:
     {
-      # gamma
-      services.wlsunset.temperature.night = 4000;
-
       # startup command line
       programs.niri.settings.spawn-at-startup = [
         {
