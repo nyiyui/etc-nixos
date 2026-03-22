@@ -41,7 +41,7 @@ in
       };
       night = lib.mkOption {
         type = lib.types.int;
-        default = 4000;
+        default = 3000;
         description = "Nighttime temperature";
       };
     };
