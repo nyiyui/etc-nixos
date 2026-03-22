@@ -281,6 +281,7 @@
                       "Mod+Shift+E".action = quit;
                       "Mod+Escape".action = toggle-keyboard-shortcuts-inhibit;
                       "Mod+Ctrl+Shift+F".action = toggle-windowed-fullscreen;
+                      "Mod+W".action = toggle-column-tabbed-display;
 
                       "Mod+P".action = set-dynamic-cast-window;
                       "Mod+Shift+P".action = set-dynamic-cast-monitor;
