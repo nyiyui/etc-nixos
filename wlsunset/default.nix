@@ -20,13 +20,15 @@ let
         libraries = [ python3Packages.dbus-next ];
       } (builtins.readFile ./wlsunset-geoclue.py);
     in
-    runCommand "wlsunset-geoclue" {
-      nativeBuildInputs = [ makeWrapper ];
-    } ''
-      mkdir -p $out/bin
-      makeWrapper ${pythonScript} $out/bin/wlsunset \
-        --set WLSUNSET_BIN "${wlsunset}/bin/wlsunset"
-    '';
+    runCommand "wlsunset-geoclue"
+      {
+        nativeBuildInputs = [ makeWrapper ];
+      }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${pythonScript} $out/bin/wlsunset \
+          --set WLSUNSET_BIN "${wlsunset}/bin/wlsunset"
+      '';
 in
 {
   options.assr.wlsunset = {
