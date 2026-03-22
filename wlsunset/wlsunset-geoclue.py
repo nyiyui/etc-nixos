@@ -13,12 +13,13 @@ if not WLSUNSET_BIN:
     sys.exit(1)
 
 proc = None
+current_lat_lon = None
 extra_args = sys.argv[1:]
 
 
 def update_wlsunset(lat, lon):
-    global proc
-    if proc:
+    global proc, current_lat_lon
+    if proc and current_lat_lon != (lat, lon):
         proc.terminate()
 
     cmd = [
@@ -31,6 +32,7 @@ def update_wlsunset(lat, lon):
 
     print(f"Starting wlsunset: {' '.join(cmd)}", file=sys.stderr)
     proc = subprocess.Popen(cmd)
+    current_lat_lon = lat, lon
 
 
 async def main():
