@@ -104,7 +104,7 @@
         {
           output.criteria = "Samsung Display Corp. 0x4152 Unknown";
           output.mode = "2880x1800@60.001Hz";
-          output.scale = 1.5;
+          output.scale = 1.25;
           output.adaptiveSync = true;
         }
       ];
