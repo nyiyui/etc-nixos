@@ -20,7 +20,9 @@ extra_args = sys.argv[1:]
 def close_enough(a, b):
     # Generally, 3 digits for lat/lon is supposedly an accuracy of ~100 metres,
     # which is more than enough for solar calculations.
-    return round(a[0], 3) == round(b[0], 3) and round(a[1], 3) == round(b[1], 3)
+    return round(a[0], 3) == round(b[0], 3) and round(a[1], 3) == round(
+        b[1], 3
+    )
 
 
 def update_wlsunset(lat, lon):
