@@ -7,7 +7,9 @@ from dbus_next import Variant, BusType
 
 WLSUNSET_BIN = os.environ.get("WLSUNSET_BIN")
 if not WLSUNSET_BIN:
-    print("Error: WLSUNSET_BIN environment variable is not set.", file=sys.stderr)
+    print(
+        "Error: WLSUNSET_BIN environment variable is not set.", file=sys.stderr
+    )
     sys.exit(1)
 
 proc = None
@@ -38,13 +40,17 @@ async def main():
         "org.freedesktop.GeoClue2", "/org/freedesktop/GeoClue2/Manager"
     )
     manager_obj = bus.get_proxy_object(
-        "org.freedesktop.GeoClue2", "/org/freedesktop/GeoClue2/Manager", introspection
+        "org.freedesktop.GeoClue2",
+        "/org/freedesktop/GeoClue2/Manager",
+        introspection,
     )
     manager = manager_obj.get_interface("org.freedesktop.GeoClue2.Manager")
 
     client_path = await manager.call_get_client()
 
-    client_introspection = await bus.introspect("org.freedesktop.GeoClue2", client_path)
+    client_introspection = await bus.introspect(
+        "org.freedesktop.GeoClue2", client_path
+    )
     client_obj = bus.get_proxy_object(
         "org.freedesktop.GeoClue2", client_path, client_introspection
     )
@@ -52,21 +58,31 @@ async def main():
     properties = client_obj.get_interface("org.freedesktop.DBus.Properties")
 
     await properties.call_set(
-        "org.freedesktop.GeoClue2.Client", "DesktopId", Variant("s", "wlsunset-geoclue")
+        "org.freedesktop.GeoClue2.Client",
+        "DesktopId",
+        Variant("s", "wlsunset-geoclue"),
     )
     await properties.call_set(
-        "org.freedesktop.GeoClue2.Client", "RequestedAccuracyLevel", Variant("u", 4)
+        "org.freedesktop.GeoClue2.Client",
+        "RequestedAccuracyLevel",
+        Variant("u", 4),
     )  # City level is enough
 
     async def get_location_info(path):
         if not path or path == "/":
             return None
         loc_intro = await bus.introspect("org.freedesktop.GeoClue2", path)
-        loc_obj = bus.get_proxy_object("org.freedesktop.GeoClue2", path, loc_intro)
+        loc_obj = bus.get_proxy_object(
+            "org.freedesktop.GeoClue2", path, loc_intro
+        )
         loc_props = loc_obj.get_interface("org.freedesktop.DBus.Properties")
 
-        lat = await loc_props.call_get("org.freedesktop.GeoClue2.Location", "Latitude")
-        lon = await loc_props.call_get("org.freedesktop.GeoClue2.Location", "Longitude")
+        lat = await loc_props.call_get(
+            "org.freedesktop.GeoClue2.Location", "Latitude"
+        )
+        lon = await loc_props.call_get(
+            "org.freedesktop.GeoClue2.Location", "Longitude"
+        )
         return lat.value, lon.value
 
     async def update_from_path(path):
