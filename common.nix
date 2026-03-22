@@ -140,6 +140,4 @@
   kiyurica.mosh.enable = true;
 
   virtualisation.podman.enable = true;
-
-  programs.kclock.enable = true;
 }
