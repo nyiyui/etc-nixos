@@ -44,13 +44,10 @@
 
     programs.uwsm = {
       enable = true;
-      waylandCompositors.niri = {
-        # becomes niri-uwsm.desktop
-        binPath = "/run/current-system/sw/bin/niri";
-        extraArgs = [ "--session" ];
-        prettyName = "Niri";
-        comment = "Niri-based session managed by UWSM";
-      };
+      waylandCompositors = { };
     };
+    kiyurica.greeter.gtkgreet.compositor = [
+      "/run/current-system/sw/bin/niri --session"
+    ];
   };
 }

@@ -22,16 +22,13 @@
       enable = true;
       wrapperFeatures.gtk = true;
     };
-    services.displayManager.defaultSession = "thesway-uwsm";
     programs.uwsm = {
       enable = true;
-      waylandCompositors.thesway = {
-        # becomes thesway-uwsm.desktop
-        binPath = pkgs.writeShellScript "run-sway-with-unsupported-gpu" "/run/current-system/sw/bin/sway --unsupported-gpu";
-        prettyName = "Sway";
-        comment = "Sway-based session managed by UWSM";
-      };
+      waylandCompositors = { };
     };
+    kiyurica.greeter.gtkgreet.compositor = [
+      "/run/current-system/sw/bin/sway --unsupported-gpu"
+    ];
 
     xdg.portal = {
       enable = true;

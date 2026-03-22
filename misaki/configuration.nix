@@ -59,7 +59,7 @@
     enable = true;
     settings.default_session = {
       # "autologin" to kiyurica
-      command = "uwsm start /run/current-system/sw/bin/sway";
+      command = "uwsm start /run/current-system/sw/bin/sway --unsupported-gpu";
       user = "kiyurica";
     };
   };
