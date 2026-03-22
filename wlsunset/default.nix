@@ -71,6 +71,7 @@ in
       description = "wlsunset with geoclue2 location updates";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session-pre.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.wlsunset}/bin/wlsunset -t ${toString cfg.temperature.night} -T ${toString cfg.temperature.day}";
         Restart = "always";
