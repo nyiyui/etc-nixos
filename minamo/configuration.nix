@@ -98,7 +98,6 @@
     { lib, ... }:
     {
       kiyurica.services.seekback.enable = true;
-      kiyurica.services.log-window-titles.enable = true;
       kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
       kiyurica.waybarPosition = "right";
       programs.waybar.style = ''

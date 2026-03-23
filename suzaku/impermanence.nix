@@ -31,7 +31,6 @@
           mode = "0700";
         }
         ".local/share/fish"
-        ".local/share/log-window-titles"
         ".local/PrusaSlicer"
         ".local/share/prusa-slicer"
         ".var/nixpak-app/io.github.alainm23.planify"

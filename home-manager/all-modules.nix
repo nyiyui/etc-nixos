@@ -3,6 +3,5 @@
   imports = [
     ./kanshi.nix
     ./seekback.nix
-    ./log-window-titles
   ];
 }
