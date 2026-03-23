@@ -23,14 +23,12 @@
   };
 
   config = lib.mkIf config.kiyurica.greeter.gtkgreet.enable {
-    programs.uwsm.enable = true;
     services.greetd = {
       enable = true;
       settings.default_session =
         let
           swayConfig = pkgs.writeText "greetd-sway-config" (
             ''
-              exec "uwsm finalize"
               exec "${pkgs.gtkgreet}/bin/gtkgreet -l; swaymsg exit"
               bindsym Mod4+shift+e exec swaynag -t warning -m 'Action?' -b 'Poweroff' 'systemctl poweroff' -b 'Reboot' 'systemctl reboot'
             ''
@@ -38,7 +36,7 @@
           );
         in
         {
-          command = "uwsm start -- ${pkgs.sway}/bin/sway --unsupported-gpu --config ${swayConfig}";
+          command = "${pkgs.sway}/bin/sway --unsupported-gpu --config ${swayConfig}";
           user = "greeter";
         };
     };

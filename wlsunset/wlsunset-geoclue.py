@@ -18,9 +18,8 @@ extra_args = sys.argv[1:]
 
 
 def close_enough(a, b):
-    # Generally, 3 digits for lat/lon is supposedly an accuracy of ~100 metres,
-    # which is more than enough for solar calculations.
-    return round(a[0], 0) == round(b[0], 0) and round(a[1], 1) == round(
+    # Roughly 11km accuracy, plenty for solar calculations.
+    return round(a[0], 1) == round(b[0], 1) and round(a[1], 1) == round(
         b[1], 1
     )
 
@@ -30,7 +29,16 @@ def update_wlsunset(lat, lon):
     if proc:
         if current_lat_lon and close_enough(current_lat_lon, (lat, lon)):
             return
+        print(
+            f"Location changed, terminating old wlsunset (PID {proc.pid})",
+            file=sys.stderr,
+        )
         proc.terminate()
+        try:
+            proc.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait()
 
     cmd = [
         WLSUNSET_BIN,
@@ -140,3 +148,8 @@ if __name__ == "__main__":
     finally:
         if proc:
             proc.terminate()
+            try:
+                proc.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait()
