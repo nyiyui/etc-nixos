@@ -101,10 +101,6 @@
             profile.name = "clough-pink";
             profile.outputs = [
               {
-                criteria = "$CloughPinkL";
-                position = "0,0";
-              }
-              {
                 criteria = "$CloughPinkR";
                 position = "1920,0";
               }
