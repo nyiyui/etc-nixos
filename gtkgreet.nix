@@ -32,6 +32,7 @@
               exec "${pkgs.gtkgreet}/bin/gtkgreet -l; swaymsg exit"
               bindsym Mod4+shift+e exec swaynag -t warning -m 'Action?' -b 'Poweroff' 'systemctl poweroff' -b 'Reboot' 'systemctl reboot'
             ''
+            + lib.optionalString config.assr.wlsunset.enable ''exec "${pkgs.wlsunset}/bin/wlsunset -t ${toString config.assr.wlsunset.temperature.night} -T ${toString config.assr.wlsunset.temperature.day}"''
             + config.kiyurica.greeter.gtkgreet.extraSwayConfig
           );
         in
