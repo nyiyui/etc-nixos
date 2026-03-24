@@ -50,6 +50,8 @@
               systemd.user.services.swaybg = {
                 Unit = {
                   Description = "swaywm background";
+                  Requires = [ "graphical-session.target" ];
+                  After = [ "graphical-session.target" ];
                   PartOf = [ "graphical-session.target" ];
                   StartLimitIntervalSec = 350;
                   StartLimitBurst = 30;

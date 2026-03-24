@@ -407,6 +407,8 @@ in
       Unit = {
         Description = "swaywm: sleep, lock, etc on idle";
         PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+        Requires = [ "graphical-session.target" ];
         StartLimitIntervalSec = 350;
         StartLimitBurst = 30;
       };
