@@ -77,8 +77,9 @@
               };
 
               systemd.user.targets.xdg-desktop-autostart.Unit = {
-                Requires = [ "import-environment.service" ];
-                After = [ "import-environment.service" ];
+                # no PartOf=, since this is started by…UWSM?
+                Requisite = [ "graphical-session.target" ];
+                After = [ "graphical-session.target" ];
               };
               programs.waybar.settings.mainBar = {
                 modules-left = [
