@@ -78,7 +78,12 @@
 
               systemd.user.targets.xdg-desktop-autostart.Unit = {
                 Requires = [ "import-environment.service" ];
-                After = [ "import-environment.service" ];
+                After = [
+                  "import-environment.service"
+                  "xdg-document-portal.service"
+                ];
+                # xdg-document-portal provides $XDG_RUNTIME_DIR/doc (FUSE mount) needed by nixpak sandboxes
+                Wants = [ "xdg-document-portal.service" ];
               };
               programs.waybar.settings.mainBar = {
                 modules-left = [
