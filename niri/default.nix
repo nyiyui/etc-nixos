@@ -76,6 +76,17 @@
                 Install.WantedBy = [ "graphical-session.target" ];
               };
 
+              systemd.user.targets.graphical-session.Unit = {
+                Requires = [
+                  "import-environment.service"
+                  "xdg-document-portal.service"
+                ];
+                After = [
+                  "import-environment.service"
+                  "xdg-document-portal.service"
+                ];
+              };
+
               systemd.user.targets.xdg-desktop-autostart.Unit = {
                 Requires = [ "import-environment.service" ];
                 After = [
