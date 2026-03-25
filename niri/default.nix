@@ -80,10 +80,6 @@
                 Requires = [ "import-environment.service" ];
                 After = [ "import-environment.service" ];
               };
-              systemd.user.services."app-firefox@autostart".Unit = {
-                Requires = [ "import-environment.service" ];
-                After = [ "import-environment.service" ];
-              };
               programs.waybar.settings.mainBar = {
                 modules-left = [
                   "niri/workspaces"
