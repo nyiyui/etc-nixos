@@ -63,23 +63,11 @@
                 };
                 Install.WantedBy = [ "graphical-session.target" ];
               };
-              systemd.user.services.import-environment = {
-                Unit = {
-                  Description = "Import environment variables to systemd";
-                  PartOf = [ "graphical-session.target" ];
-                };
-                Service = {
-                  Type = "oneshot";
-                  ExecStart = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE";
-                  RemainAfterExit = true;
-                };
-                Install.WantedBy = [ "graphical-session.target" ];
-              };
 
               systemd.user.targets.xdg-desktop-autostart.Unit = {
                 # no PartOf=, since this is started by…UWSM?
-                Requisite = [ "graphical-session.target" ];
-                After = [ "graphical-session.target" ];
+                Requisite = [ "graphical-session.target" "xdg-document-portal.service" ];
+                After = [ "graphical-session.target" "xdg-document-portal.service" ];
               };
               programs.waybar.settings.mainBar = {
                 modules-left = [
