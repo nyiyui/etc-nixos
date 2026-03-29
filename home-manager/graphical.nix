@@ -121,7 +121,6 @@ in
     };
 
     programs.waybar = {
-      # TODO: run systemctl --user restart waybar on activation
       enable = true;
       systemd.enable = true;
       style = builtins.readFile ./waybar.css;
