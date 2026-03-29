@@ -35,9 +35,6 @@
 
   powerManagement.cpuFreqGovernor = "performance";
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  # TODO: remove
-
   environment.systemPackages = with pkgs; [
     pciutils
     unzip
