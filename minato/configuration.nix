@@ -13,7 +13,6 @@
     ../home-manager.nix
     { }
     ../common.nix
-    ../power.nix
     ../sound.nix
     ../thunderbolt.nix
     ../syncthing.nix

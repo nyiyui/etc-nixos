@@ -22,7 +22,6 @@
     ../syncthing.nix
     ../thunderbolt.nix
     ../common.nix
-    ../power.nix
     ../sound.nix
     ../vlc.nix
     ./obs.nix
