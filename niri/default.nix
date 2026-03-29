@@ -66,8 +66,14 @@
 
               systemd.user.targets.xdg-desktop-autostart.Unit = {
                 # no PartOf=, since this is started by…UWSM?
-                Wants = [ "graphical-session.target" "xdg-document-portal.service" ];
-                After = [ "graphical-session.target" "xdg-document-portal.service" ];
+                Wants = [
+                  "graphical-session.target"
+                  "xdg-document-portal.service"
+                ];
+                After = [
+                  "graphical-session.target"
+                  "xdg-document-portal.service"
+                ];
               };
               programs.waybar.settings.mainBar = {
                 modules-left = [
