@@ -5,7 +5,6 @@
   specialArgs,
   nixos-hardware,
   nixpkgs-unstable,
-  declarative-flatpak,
   ...
 }:
 
@@ -36,8 +35,6 @@
     ../nixpak/packages/org.mozilla.Thunderbird.nix
     # ../nixpak/packages/org.libreoffice.LibreOffice.nix
     ../nixpak/packages/io.github.alainm23.planify.nix
-    declarative-flatpak.nixosModules.default
-    ../flatpak/com.github.flxzt.rnote.nix
     ../nixpak/packages/org.signal.Signal.nix
     ../nixpak/packages/org.strawberrymusicplayer.strawberry.nix
     # ../nixpak/packages/org.chromium.Chromium.nix
