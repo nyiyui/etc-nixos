@@ -321,6 +321,44 @@
                     }
                   ];
                   prefer-no-csd = true;
+                  outputs = {
+                    "Sceptre Tech Inc U27 Unknown" = {
+                      mode = {
+                        width = 3840;
+                        height = 2160;
+                        refresh = 30.0;
+                      };
+                      scale = 2.4;
+                      transform.rotation = 270;
+                    };
+                    "Sony SONY TV  *00 0x01010101" = {
+                      mode = {
+                        width = 3840;
+                        height = 2160;
+                        refresh = 30.0;
+                      };
+                      scale = 1.5;
+                    };
+                    "Dell Inc. DELL U2417H *" = {
+                      mode = {
+                        width = 1920;
+                        height = 1080;
+                        refresh = 60.0;
+                      };
+                      scale = 1.0;
+                    };
+                    "Hisense Electric Co., Ltd. HISENSE-TV 0x81010101" = {
+                      mode = {
+                        width = 3840;
+                        height = 2150;
+                        refresh = 60.0;
+                      };
+                      scale = 1.5;
+                    };
+                    "Samsung Electric Company LC34G55T *" = {
+                      # mode = "3440x1440@165.000Hz"; # assumed from model, but kanshi didn't specify
+                    };
+                  };
                 };
               };
             };

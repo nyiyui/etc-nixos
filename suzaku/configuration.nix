@@ -89,18 +89,16 @@
 
       home.packages = [ pkgs.prusa-slicer ];
 
-      kiyurica.services.kanshi = {
-        enable = true;
-        builtinDisplay = "Samsung Display Corp. 0x4152 Unknown";
+      programs.niri.settings.outputs."Samsung Display Corp. 0x4152 Unknown" = {
+        mode = {
+          width = 2880;
+          height = 1800;
+          refresh = 60.001;
+        };
+        scale = 1.25;
+        variable-refresh-rate = true;
       };
-      services.kanshi.settings = [
-        {
-          output.criteria = "Samsung Display Corp. 0x4152 Unknown";
-          output.mode = "2880x1800@60.001Hz";
-          output.scale = 1.25;
-          output.adaptiveSync = true;
-        }
-      ];
+
       kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
     };
 
