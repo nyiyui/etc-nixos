@@ -41,6 +41,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    systemd.tmpfiles.rules = [
+      "d ${cfg.destination} 0750 root root -"
+    ];
+
     systemd.services.backup-caldav = {
       description = "export CalDAV calendars";
       serviceConfig = {
