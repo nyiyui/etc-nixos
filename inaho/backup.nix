@@ -18,7 +18,7 @@
       set -eu
       export RESTIC_REPOSITORY='/backups/restic-repo'
       export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/restic-password
-      ${pkgs.restic}/bin/restic backup --tag systemd /inaba /GF-01 /persist /backups/vps-7de6b7ba /backups/cdav
+      ${pkgs.restic}/bin/restic backup --tag systemd /inaba /GF-01 /persist /backups/vps-7de6b7ba /backups/caldav
     '';
     unitConfig.StartLimitIntervalSec = 300;
     unitConfig.StartLimitBurst = 5;
@@ -83,7 +83,7 @@
     enable = true;
     url = "https://cdav.migadu.com/principals/ken.shibata@kiyuri.ca";
     usernameFile = pkgs.writeText "username" "ken.shibata@kiyuri.ca";
-    passwordFile = ./cdav-password.cred;
-    destination = "/backups/cdav";
+    passwordFile = ./caldav-password.cred;
+    destination = "/backups/caldav";
   };
 }
