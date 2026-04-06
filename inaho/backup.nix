@@ -55,7 +55,10 @@
     };
   };
   systemd.services.backup-vps-7de6b7ba = {
-    path = [ pkgs.rsync pkgs.openssh ];
+    path = [
+      pkgs.rsync
+      pkgs.openssh
+    ];
     script = ''
       rsync -avzc -e "ssh -o StrictHostKeyChecking=no -i $CREDENTIALS_DIRECTORY/backup-vps-7de6b7ba" backup-access@vps-7de6b7ba.tailcbbed9.ts.net:/var/lib/convind4 /backups/vps-7de6b7ba
     '';
