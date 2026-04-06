@@ -5,9 +5,6 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    seekback-server.url = "github:nyiyui/seekback-server";
-    seekback-server.inputs.nixpkgs.follows = "nixpkgs";
-    seekback-server.inputs.flake-utils.follows = "flake-utils";
     touhoukou.url = "github:nyiyui/touhoukou";
     touhoukou.inputs.nixpkgs.follows = "nixpkgs";
     touhoukou.inputs.flake-utils.follows = "flake-utils";

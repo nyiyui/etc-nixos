@@ -703,7 +703,6 @@
         "nixwrap": "nixwrap",
         "polar-data-collector": "polar-data-collector",
         "seekback": "seekback",
-        "seekback-server": "seekback-server",
         "sync-pdf-viewer": "sync-pdf-viewer",
         "touhoukou": "touhoukou"
       }
@@ -749,29 +748,6 @@
       "original": {
         "owner": "nyiyui",
         "repo": "seekback",
-        "type": "github"
-      }
-    },
-    "seekback-server": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1737128409,
-        "narHash": "sha256-Grlty1qoPL5LHMH/MUwMnPaA/l+c3wtENNPQRAvJPBs=",
-        "owner": "nyiyui",
-        "repo": "seekback-server",
-        "rev": "1bc60975e387a2db2aede583bc6f90b26a7cc592",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nyiyui",
-        "repo": "seekback-server",
         "type": "github"
       }
     },
