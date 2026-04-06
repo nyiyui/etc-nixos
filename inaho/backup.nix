@@ -55,7 +55,7 @@
     };
   };
   systemd.services.backup-vps-7de6b7ba = {
-    path = [ pkgs.rsync ];
+    path = [ pkgs.rsync pkgs.openssh ];
     script = ''
       rsync -avzc -e "ssh -i $CREDENTIALS_DIRECTORY/backup-vps-7de6b7ba" backup-agent@vps-7de6b7ba.tailcbbed9.ts.net:/var/lib/convind4 /backups/vps-7de6b7ba
     '';
