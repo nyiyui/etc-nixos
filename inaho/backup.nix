@@ -18,7 +18,7 @@
       set -eu
       export RESTIC_REPOSITORY='/backups/restic-repo'
       export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/restic-password
-      ${pkgs.restic}/bin/restic backup --tag systemd /inaba /GF-01 /persist
+      ${pkgs.restic}/bin/restic backup --tag systemd /inaba /GF-01 /persist /backups/vps-7de6b7ba
     '';
     unitConfig.StartLimitIntervalSec = 300;
     unitConfig.StartLimitBurst = 5;
@@ -38,5 +38,41 @@
       PrivateNetwork = true;
     };
     wantedBy = [ "default.target" ];
+  };
+
+  age.secrets.backup-vps-7de6b7ba = {
+    file = ./backup-vps-7de6b7ba.id_ed25519.age;
+    owner = "root";
+    mode = "400";
+  };
+
+  systemd.timers.backup-vps-7de6b7ba = {
+    # NOTE: backup-vps-7de6b7ba.service may run after backup-restic.service started, so the worst latency will be 48 hours for a backup, which isn't…horrible
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = "true";
+    };
+  };
+  systemd.services.backup-vps-7de6b7ba = {
+    path = [ pkgs.rsync ];
+    script = ''
+      rsync -avzc -e "ssh -i $CREDENTIALS_DIRECTORY/backup-vps-7de6b7ba" backup-agent@vps-7de6b7ba.tailcbbed9.ts.net:/var/lib/convind4 /backups/vps-7de6b7ba
+    '';
+    unitConfig.StartLimitIntervalSec = 300;
+    unitConfig.StartLimitBurst = 5;
+    serviceConfig = {
+      Nice = 19;
+      Restart = "on-failure";
+      RestartSec = 120;
+      LoadCredential = "backup-vps-7de6b7ba:${config.age.secrets.backup-vps-7de6b7ba.path}";
+      PrivateTmp = true;
+      RemoveIPC = true;
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      ProtectKernelLogs = true;
+      ProtectControlGroups = true;
+    };
   };
 }
