@@ -18,6 +18,7 @@
       set -eu
       export RESTIC_REPOSITORY='/backups/restic-repo'
       export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/restic-password
+      export RESTIC_CACHE_DIR=$CACHE_DIRECTORY
       ${pkgs.restic}/bin/restic backup --tag systemd /inaba /GF-01 /persist /backups/vps-7de6b7ba /backups/caldav
     '';
     unitConfig.StartLimitIntervalSec = 300;
@@ -26,6 +27,7 @@
       Nice = 19;
       Restart = "on-failure";
       RestartSec = 120;
+      CacheDirectory = "restic";
       LoadCredential = "restic-password:${config.age.secrets.restic-password.path}";
       PrivateTmp = true;
       RemoveIPC = true;
