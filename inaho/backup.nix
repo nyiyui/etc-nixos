@@ -79,7 +79,7 @@
     };
   };
 
-  assr.services.cdav-backup = {
+  assr.services.backup-caldav = {
     enable = true;
     url = "https://cdav.migadu.com/principals/ken.shibata@kiyuri.ca";
     usernameFile = pkgs.writeText "username" "ken.shibata@kiyuri.ca";

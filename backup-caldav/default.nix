@@ -5,12 +5,12 @@
   ...
 }:
 let
-  cfg = config.assr.services.cdav-backup;
+  cfg = config.assr.services.backup-caldav;
   python = pkgs.python3.withPackages (p: [ p.caldav ]);
 in
 {
   # NOTE: assr ≤ あさせのせせらぎ instead of kiyurica for reusability
-  options.assr.services.cdav-backup = {
+  options.assr.services.backup-caldav = {
     enable = lib.mkEnableOption "export CalDAV calendars to local .ics files";
 
     url = lib.mkOption {
@@ -41,7 +41,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services.cdav-backup = {
+    systemd.services.backup-caldav = {
       description = "export CalDAV calendars";
       serviceConfig = {
         ExecStart = "${python}/bin/python ${./export.py}";
@@ -91,7 +91,7 @@ in
       after = [ "network-online.target" ];
     };
 
-    systemd.timers.cdav-backup = {
+    systemd.timers.backup-caldav = {
       timerConfig.OnCalendar = lib.mkDefault cfg.onCalendar;
       timerConfig.Persistent = true;
       wantedBy = [ "timers.target" ];
