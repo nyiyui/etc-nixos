@@ -18,7 +18,6 @@
     ../autoUpgrade-git.nix
     specialArgs.disko.nixosModules.disko
     ./backup.nix
-    ./minio.nix
     ./webdav.nix
     ./nfs.nix
     ./samba.nix
