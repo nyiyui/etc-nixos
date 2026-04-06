@@ -187,14 +187,6 @@
 
   nix.settings.cores = 16; # keep at least 4 cores open for UI
 
-  assr.services.cdav-backup = {
-    enable = true;
-    url = "https://cdav.migadu.com/principals/ken.shibata@kiyuri.ca";
-    usernameFile = pkgs.writeText "username" "ken.shibata@kiyuri.ca";
-    passwordFile = ./cdav-password.cred;
-    destination = "${config.services.syncthing.settings.folders."geofront".path}/cdav-backup";
-  };
-
   assr.ssh-agent.implementation = "ssh-tpm-agent";
   assr.programs.unity.enable = true;
 
