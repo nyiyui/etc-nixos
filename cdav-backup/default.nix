@@ -44,7 +44,6 @@ in
     systemd.services.cdav-backup = {
       description = "export CalDAV calendars";
       serviceConfig = {
-        ExecStartPre = "/run/current-system/sw/bin/mkdir ${cfg.destination}";
         ExecStart = "${python}/bin/python ${./export.py}";
 
         Environment = [
