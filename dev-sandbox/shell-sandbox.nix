@@ -9,8 +9,10 @@
 
   config =
     let
+      # TODO: nix develop should pass through certain envvars only
+      # TODO: wrap should pass through envvars set by nix develop
       shell-sandbox = pkgs.writeShellScriptBin "shell-sandbox" ''
-        KIYURICA_IN_SHELL_SANDBOX=yes nix develop --command ${pkgs.nixwrap-wrap}/bin/wrap -e KIYURICA_IN_SHELL_SANDBOX -r "$HOME/.config/fish" "$@" "$SHELL"
+        KIYURICA_IN_SHELL_SANDBOX=yes nix develop --ignore-env --command ${pkgs.nixwrap-wrap}/bin/wrap -e KIYURICA_IN_SHELL_SANDBOX -r "$HOME/.config/fish" "$@" "$SHELL"
       '';
     in
     lib.mkIf config.assr.shell-sandbox.enable {
