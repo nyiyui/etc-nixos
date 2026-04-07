@@ -174,6 +174,9 @@
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
   };
+  environment.systemPackages = with pkgs; [
+    intel-gpu-tools
+  ];
 
   kiyurica.quaderno-sync = {
     enable = true;
