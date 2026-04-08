@@ -17,16 +17,20 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";
-    # lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+    # lanzaboote.inputs.nixpkgs.follows = "nixpkgs"; # lanzaboote previously didn't work with follow
     polar-data-collector.url = "github:VR-state-analysis/polar-data-collector";
     polar-data-collector.inputs.nixpkgs.follows = "nixpkgs";
+    polar-data-collector.inputs.flake-utils.follows = "flake-utils";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";
+    impermanence.inputs.nixpkgs.follows = "nixpkgs";
     sync-pdf-viewer.url = "github:nyiyui/sync-pdf-viewer";
     sync-pdf-viewer.inputs.nixpkgs.follows = "nixpkgs";
+    sync-pdf-viewer.inputs.flake-utils.follows = "flake-utils";
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
+    niri.inputs.nixpkgs-stable.follows = "nixpkgs";
     nixpak = {
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +40,7 @@
     nixwrap.inputs.flake-utils.follows = "flake-utils";
     caldav-canvas-gradescope.url = "github:nyiyui/caldav-canvas-gradescope";
     caldav-canvas-gradescope.inputs.nixpkgs.follows = "nixpkgs";
+    caldav-canvas-gradescope.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs =
