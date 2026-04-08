@@ -24,7 +24,7 @@ let
       ${pkgs.libnotify}/bin/notify-send \
         -u normal \
         -i system-software-update \
-        -a fwupd-notify.service
+        -a fwupd-notify.service \
         "Firmware Updates Available" \
         "Run 'fwupdmgr update' to install firmware updates. Note that automatic disk encryption may be reset on next boot."
     fi
