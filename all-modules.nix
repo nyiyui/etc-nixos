@@ -22,5 +22,6 @@
     ./backup-caldav
     ./unity.nix
     ./dev-sandbox
+    ./power-logger
   ];
 }

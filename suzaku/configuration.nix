@@ -183,6 +183,8 @@
     autoSync.enable = true;
   };
 
+  assr.power-logger.enable = true;
+
   kiyurica.caldav-canvas-gradescope = {
     enable = true;
     credFile = ./caldav-canvas-gradescope-env.cred;
