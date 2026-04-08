@@ -35,10 +35,7 @@
       FLAKE="github:nyiyui/etc-nixos#nixosConfigurations.suzaku.config.system.build.toplevel"
 
       echo "Building suzaku's NixOS configuration..."
-      RESULT=$(${pkgs.nix}/bin/nix build --no-link --print-out-paths "$FLAKE")
-
-      echo "Build complete: $RESULT"
-      echo "suzaku can now pull this closure via: nix copy --from ssh-ng://nix-copy-suzaku@minamo.local $RESULT"
+      ${pkgs.nix}/bin/nix build --no-link --print-out-paths "$FLAKE"
     '';
   };
 

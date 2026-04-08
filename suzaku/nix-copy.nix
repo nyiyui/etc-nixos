@@ -6,7 +6,7 @@
 let
   # Build a static known_hosts file using minamo's host key from the repo,
   # avoiding TOFU and ensuring the connection is to the correct host.
-  minamoKnownHosts = pkgs.writeText "minamo-known-hosts" "minamo.local ${builtins.readFile ../minamo/ssh_host_ed25519_key.pub}";
+  minamoKnownHosts = pkgs.writeText "minamo-known-hosts" "minamo.tailcbbed9.ts.net ${builtins.readFile ../minamo/ssh_host_ed25519_key.pub}";
 in
 {
   # Dedicated trusted nix user for pulling pre-built store paths from minamo.
@@ -67,7 +67,7 @@ in
       export NIX_SSHOPTS="-i $SSH_KEY -o StrictHostKeyChecking=yes -o UserKnownHostsFile=${minamoKnownHosts}"
 
       echo "Pulling closure from minamo..."
-      ${pkgs.nix}/bin/nix copy --from "ssh-ng://nix-copy-suzaku@minamo.local" "$TARGET" || {
+      ${pkgs.nix}/bin/nix copy --from "ssh-ng://nix-copy-suzaku@minamo.tailcbbed9.ts.net" "$TARGET" || {
         echo "Could not pull from minamo (it may be unavailable or the build is not ready); nixos-upgrade will build locally."
         exit 0
       }
