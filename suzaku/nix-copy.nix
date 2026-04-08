@@ -51,7 +51,7 @@ in
       FLAKE="github:nyiyui/etc-nixos#nixosConfigurations.suzaku.config.system.build.toplevel"
 
       echo "Evaluating suzaku NixOS flake to find expected store path..."
-      TARGET=$(${pkgs.nix}/bin/nix eval --raw "''${FLAKE}.outPath" 2>/dev/null) || {
+      TARGET=$(${pkgs.nix}/bin/nix eval --raw "''${FLAKE}.outPath") || {
         echo "Could not evaluate flake; nixos-upgrade will build locally."
         exit 0
       }
