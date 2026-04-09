@@ -2,6 +2,5 @@
   # all modules which have an explicit "enable" option
   imports = [
     ./kanshi.nix
-    ./seekback.nix
   ];
 }

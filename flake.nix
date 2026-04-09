@@ -11,9 +11,6 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
-    seekback.url = "github:nyiyui/seekback";
-    seekback.inputs.nixpkgs.follows = "nixpkgs";
-    seekback.inputs.flake-utils.follows = "flake-utils";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";

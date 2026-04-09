@@ -85,7 +85,6 @@
     { pkgs, ... }:
     {
       kiyurica.hasBacklight = true;
-      kiyurica.services.seekback.enable = true;
 
       home.packages = [ pkgs.prusa-slicer ];
 

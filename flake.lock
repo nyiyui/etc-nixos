@@ -624,7 +624,6 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixwrap": "nixwrap",
         "polar-data-collector": "polar-data-collector",
-        "seekback": "seekback",
         "sync-pdf-viewer": "sync-pdf-viewer",
         "touhoukou": "touhoukou"
       }
@@ -647,29 +646,6 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "seekback": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1708321959,
-        "narHash": "sha256-K72PQyfF5zqn/1NWoKsZtZc55B73CaKy8QsGsq2uGhs=",
-        "owner": "nyiyui",
-        "repo": "seekback",
-        "rev": "7fcd1119dd12cbf7e35afc40ea33bc7ed199f7df",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nyiyui",
-        "repo": "seekback",
         "type": "github"
       }
     },

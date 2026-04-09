@@ -97,7 +97,6 @@
   home-manager.users.kiyurica =
     { lib, ... }:
     {
-      kiyurica.services.seekback.enable = true;
       kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
       kiyurica.waybarPosition = "right";
       programs.waybar.style = ''

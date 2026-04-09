@@ -69,7 +69,6 @@
       # no battery, no sleep :D
       # also useful for SSH access
       kiyurica.graphical.idle = false;
-      kiyurica.services.seekback.enable = true;
       wayland.windowManager.sway.config = {
         output = {
           "HDMI-A-1" = {

@@ -123,7 +123,6 @@
           "${modifier}+Alt+N" = "exec ${pkgs.mako}/bin/makoctl menu 'fuzzel -d' -p '通知'";
           "${modifier}+N" = "exec ${pkgs.mako}/bin/makoctl dismiss";
           "${modifier}+Shift+N" = "exec ${pkgs.mako}/bin/makoctl restore";
-          "${modifier}+Shift+S" = "exec bash ${./seekback-signal.sh}";
         };
         menu = "fuzzel";
         input = {
