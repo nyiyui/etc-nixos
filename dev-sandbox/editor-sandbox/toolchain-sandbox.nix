@@ -9,7 +9,7 @@ let
     pname = "wrap-lsps";
     version = "0.1.0";
     src = ./wrap-lsps;
-    vendorHash = "sha256-pbA/AlBz3cQYRTMnQ/qBPcinYOKokrBLNhkbRTq54gE=";
+    vendorHash = "sha256-bwPsHfZ5xt4YwszBwuvdoAjsEFVclGvH38hY2nDQ4vk=";
     ldflags = [
       "-X main.interpreter=${pkgs.dash}/bin/dash"
       "-X main.wrapCommand=${pkgs.nixwrap-wrap}/bin/wrap"
