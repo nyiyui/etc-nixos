@@ -23,6 +23,7 @@
           settings = {
             theme = "kawamo_to_seseragi";
             editor.line-number = "relative";
+            editor.soft-wrap.enable = true;
           };
         };
       };
