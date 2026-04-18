@@ -20,6 +20,7 @@
     ./quaderno-sync.nix
     ./caldav-canvas-gradescope.nix
     ./backup-caldav
+    ./backup-persist-push
     ./unity.nix
     ./dev-sandbox
     ./power-logger

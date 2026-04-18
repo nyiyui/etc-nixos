@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 {
   age.secrets.restic-password = {
     file = ../secrets/inaho-restic-password.txt.age;
@@ -20,7 +24,7 @@
       export RESTIC_REPOSITORY='/backups/restic-repo'
       export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/restic-password
       export RESTIC_CACHE_DIR=$CACHE_DIRECTORY
-      ${pkgs.restic}/bin/restic backup --tag systemd /inaba /GF-01 /persist /backups/vps-7de6b7ba /backups/caldav
+      ${pkgs.restic}/bin/restic backup --tag systemd /inaba /GF-01 /persist /backups/persists /backups/vps-7de6b7ba /backups/caldav
     '';
     unitConfig.StartLimitIntervalSec = 300;
     unitConfig.StartLimitBurst = 5;
@@ -38,6 +42,8 @@
       CapabilityBoundingSet = [ ];
       ProtectKernelLogs = true;
       ProtectControlGroups = true;
+      # Intentionally keep backup-restic.service network-isolated to minimize
+      # possible data exfiltration. Source hosts push their /persist backups.
       PrivateNetwork = true;
     };
     wantedBy = [ "default.target" ];
