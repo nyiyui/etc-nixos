@@ -56,6 +56,8 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  environment.etc."credstore".source = ./credentials;
+
   services.udisks2.enable = true;
 
   home-manager.users.kiyurica = { ... }: { };
