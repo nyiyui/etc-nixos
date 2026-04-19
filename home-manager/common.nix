@@ -17,7 +17,10 @@ in
     ./pexec.nix
     ./fonts.nix
     ./kicad.nix
+    ./persisted-symlinks.nix
   ];
+
+  kiyurica.persisted-symlinks.enable = true;
 
   programs.git = {
     enable = true;
