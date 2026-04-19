@@ -1,3 +1,4 @@
 /result
 .ssh
 .direnv
+__pycache__
