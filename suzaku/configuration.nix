@@ -82,11 +82,15 @@
     enable = true;
   };
   home-manager.users.kiyurica =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
     {
       kiyurica.hasBacklight = true;
 
       home.packages = [ pkgs.prusa-slicer ];
+
+      programs.niri.settings.layout.default-column-width = lib.mkForce {
+        fixed = 920;
+      };
 
       programs.niri.settings.outputs."Samsung Display Corp. 0x4152 Unknown" = {
         mode = {
