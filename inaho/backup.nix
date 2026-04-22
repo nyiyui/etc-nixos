@@ -31,7 +31,7 @@ in
   };
   systemd.services.backup-restic = {
     script = ''
-      set -eu
+      set -euo pipefail
       export RESTIC_REPOSITORY='/backups/restic-repo'
       export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/restic-password
       export RESTIC_CACHE_DIR=$CACHE_DIRECTORY
@@ -134,7 +134,7 @@ in
   };
   systemd.services.backup-restic-weekly-digest-email = {
     script = ''
-      set -eu
+      set -euo pipefail
       export DOMAIN=kiyuri.ca
       export USER=script@$DOMAIN
       export TO=ken.shibata@$DOMAIN
@@ -163,7 +163,7 @@ $digest"
       then
 
         # Clear the digest after it has been sent.
-        : > "$RUN_LOG"
+        ${pkgs.coreutils}/bin/truncate -s 0 "$RUN_LOG"
       fi
     '';
     serviceConfig = {
