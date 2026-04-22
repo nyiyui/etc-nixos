@@ -48,7 +48,26 @@ in
           echo "missing"
           return 0
         fi
-        latest="$(${pkgs.coreutils}/bin/stat -c '%y' "$path" 2>/dev/null || true)"
+        if [ ! -d "$path" ]; then
+          latest="$(${pkgs.coreutils}/bin/stat -c '%y' "$path" 2>/dev/null || true)"
+        else
+          latest="$(${pkgs.findutils}/bin/find "$path" -xdev -printf '%T@ %TY-%Tm-%TdT%TH:%TM:%TS %p\n' 2>/dev/null | ${pkgs.gawk}/bin/awk '
+            BEGIN { max = -1; out = "" }
+            {
+              ts = $1
+              $1 = ""
+              sub(/^ /, "")
+              if (ts > max) {
+                max = ts
+                out = $0
+              }
+            }
+            END { print out }
+          ')"
+          if [ -z "$latest" ]; then
+            latest="$(${pkgs.coreutils}/bin/stat -c '%y' "$path" 2>/dev/null || true)"
+          fi
+        fi
         if [ -z "$latest" ]; then
           echo "empty or unreadable"
         else
@@ -128,7 +147,7 @@ in
         digest="No backup-restic runs were recorded for this period."
       fi
 
-      ${pkgs.swaks}/bin/swaks \
+      if ${pkgs.swaks}/bin/swaks \
         --server smtp.migadu.com:587 \
         --tls \
         --auth LOGIN \
@@ -141,9 +160,11 @@ in
 
 Weekly backup-restic digest:
 $digest"
+      then
 
-      # Clear the digest after it has been sent.
-      : > "$RUN_LOG"
+        # Clear the digest after it has been sent.
+        : > "$RUN_LOG"
+      fi
     '';
     serviceConfig = {
       Type = "oneshot";
