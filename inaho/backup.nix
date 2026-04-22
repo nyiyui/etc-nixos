@@ -39,6 +39,8 @@ in
       export RUN_LOG="$BACKUP_STATE_DIR/runs.log"
       export TIMESTAMP="$(${pkgs.coreutils}/bin/date -Is)"
       export RESTIC_LOG="$(${pkgs.coreutils}/bin/mktemp)"
+      export LOG_TAIL_LINES=20
+      backup_paths=( ${backupPathsArgs} )
 
       latest_path_mod() {
         path="$1"
@@ -46,7 +48,7 @@ in
           echo "missing"
           return 0
         fi
-        latest="$(${pkgs.coreutils}/bin/stat -c '%Y %y %n' "$path" 2>/dev/null || true)"
+        latest="$(${pkgs.coreutils}/bin/stat -c '%y %n' "$path" 2>/dev/null || true)"
         if [ -z "$latest" ]; then
           echo "empty or unreadable"
         else
@@ -54,20 +56,21 @@ in
         fi
       }
 
-      if ${pkgs.restic}/bin/restic backup --tag systemd ${backupPathsArgs} 2>&1 | ${pkgs.coreutils}/bin/tee "$RESTIC_LOG"; then
+      if ${pkgs.restic}/bin/restic backup --tag systemd "''${backup_paths[@]}" 2>&1 | ${pkgs.coreutils}/bin/tee "$RESTIC_LOG"; then
         result="success"
         status=0
       else
         status=$?
         result="failure (exit $status)"
       fi
-      log_tail="$(${pkgs.coreutils}/bin/tail -n 20 "$RESTIC_LOG" || true)"
+      # Keep a concise excerpt in the digest.
+      log_tail="$(${pkgs.coreutils}/bin/tail -n "''${LOG_TAIL_LINES}" "$RESTIC_LOG" || true)"
 
       {
         echo "=== $TIMESTAMP ==="
         echo "Result: $result"
         echo "Path last-modified:"
-        for path in ${backupPathsArgs}; do
+        for path in "''${backup_paths[@]}"; do
           echo "  $path: $(latest_path_mod "$path")"
         done
         echo
