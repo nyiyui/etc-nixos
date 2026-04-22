@@ -48,7 +48,7 @@ in
           echo "missing"
           return 0
         fi
-        latest="$(${pkgs.coreutils}/bin/stat -c '%y %n' "$path" 2>/dev/null || true)"
+        latest="$(${pkgs.coreutils}/bin/stat -c '%y' "$path" 2>/dev/null || true)"
         if [ -z "$latest" ]; then
           echo "empty or unreadable"
         else
