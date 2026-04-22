@@ -46,7 +46,7 @@ in
           echo "missing"
           return 0
         fi
-        latest="$(${pkgs.findutils}/bin/find "$path" -printf '%T@ %TY-%Tm-%TdT%TH:%TM:%TS %p\n' 2>/dev/null | ${pkgs.coreutils}/bin/sort -nr | ${pkgs.coreutils}/bin/head -n 1 || true)"
+        latest="$(${pkgs.coreutils}/bin/stat -c '%Y %y %n' "$path" 2>/dev/null || true)"
         if [ -z "$latest" ]; then
           echo "empty or unreadable"
         else
@@ -54,14 +54,13 @@ in
         fi
       }
 
-      if ${pkgs.restic}/bin/restic backup --tag systemd ${backupPathsArgs} >"$RESTIC_LOG" 2>&1; then
+      if ${pkgs.restic}/bin/restic backup --tag systemd ${backupPathsArgs} 2>&1 | ${pkgs.coreutils}/bin/tee "$RESTIC_LOG"; then
         result="success"
         status=0
       else
         status=$?
         result="failure (exit $status)"
       fi
-      ${pkgs.coreutils}/bin/cat "$RESTIC_LOG"
       log_tail="$(${pkgs.coreutils}/bin/tail -n 20 "$RESTIC_LOG" || true)"
 
       {
@@ -140,6 +139,7 @@ in
 Weekly backup-restic digest:
 $digest"
 
+      # Clear the digest after it has been sent.
       : > "$RUN_LOG"
     '';
     serviceConfig = {
