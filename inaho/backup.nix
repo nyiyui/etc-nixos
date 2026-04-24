@@ -46,6 +46,18 @@ in
         path="$1"
         latest="$(${pkgs.restic}/bin/restic ls --long --recursive --sort time latest "$path" 2>/dev/null | ${pkgs.coreutils}/bin/tail -n 1 || true)"
         if [ -z "$latest" ]; then
+          latest="$(${pkgs.restic}/bin/restic ls --long --recursive latest "$path" 2>/dev/null | ${pkgs.gawk}/bin/awk '
+            {
+              ts = $4 "T" $5
+              if (ts > max) {
+                max = ts
+                out = $0
+              }
+            }
+            END { print out }
+          ' || true)"
+        fi
+        if [ -z "$latest" ]; then
           echo "not found in latest snapshot or unreadable"
         else
           echo "$latest"
