@@ -35,60 +35,7 @@ in
       export RESTIC_REPOSITORY='/backups/restic-repo'
       export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/restic-password
       export RESTIC_CACHE_DIR=$CACHE_DIRECTORY
-      export BACKUP_STATE_DIR=/var/lib/backup-restic
-      export RUN_LOG="$BACKUP_STATE_DIR/runs.log"
-      export TIMESTAMP="$(${pkgs.coreutils}/bin/date -Is)"
-      export RESTIC_LOG="$(${pkgs.coreutils}/bin/mktemp)"
-      export LOG_TAIL_LINES=20
-      backup_paths=( ${backupPathsArgs} )
-
-      latest_path_mod() {
-        path="$1"
-        latest="$(${pkgs.restic}/bin/restic ls --long --recursive --sort time latest "$path" 2>/dev/null | ${pkgs.coreutils}/bin/tail -n 1 || true)"
-        if [ -z "$latest" ]; then
-          latest="$(${pkgs.restic}/bin/restic ls --long --recursive latest "$path" 2>/dev/null | ${pkgs.gawk}/bin/awk '
-            {
-              ts = $4 "T" $5
-              if (ts > max) {
-                max = ts
-                out = $0
-              }
-            }
-            END { print out }
-          ' || true)"
-        fi
-        if [ -z "$latest" ]; then
-          echo "not found in latest snapshot or unreadable"
-        else
-          echo "$latest"
-        fi
-      }
-
-      if ${pkgs.restic}/bin/restic backup --tag systemd "''${backup_paths[@]}" 2>&1 | ${pkgs.coreutils}/bin/tee "$RESTIC_LOG"; then
-        result="success"
-        status=0
-      else
-        status=$?
-        result="failure (exit $status)"
-      fi
-      # Keep a concise excerpt in the digest.
-      log_tail="$(${pkgs.coreutils}/bin/tail -n "''${LOG_TAIL_LINES}" "$RESTIC_LOG" || true)"
-
-      {
-        echo "=== $TIMESTAMP ==="
-        echo "Result: $result"
-        echo "Path last-modified:"
-        for path in "''${backup_paths[@]}"; do
-          echo "  $path: $(latest_path_mod "$path")"
-        done
-        echo
-        echo "Restic log tail:"
-        echo "$log_tail"
-        echo
-      } >> "$RUN_LOG"
-
-      ${pkgs.coreutils}/bin/rm -f "$RESTIC_LOG"
-      exit "$status"
+      ${pkgs.restic}/bin/restic backup --tag systemd "''${backup_paths[@]}"
     '';
     unitConfig.StartLimitIntervalSec = 300;
     unitConfig.StartLimitBurst = 5;
