@@ -31,7 +31,7 @@ in
   };
   systemd.services.backup-restic = {
     script = ''
-      set -euo pipefail
+      set -eu
       export RESTIC_REPOSITORY='/backups/restic-repo'
       export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/restic-password
       export RESTIC_CACHE_DIR=$CACHE_DIRECTORY
