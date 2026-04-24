@@ -31,11 +31,64 @@ in
   };
   systemd.services.backup-restic = {
     script = ''
-      set -eu
+      set -euo pipefail
       export RESTIC_REPOSITORY='/backups/restic-repo'
       export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/restic-password
       export RESTIC_CACHE_DIR=$CACHE_DIRECTORY
-      ${pkgs.restic}/bin/restic backup --tag systemd "''${backup_paths[@]}"
+      export BACKUP_STATE_DIR=/var/lib/backup-restic
+      export RUN_LOG="$BACKUP_STATE_DIR/runs.log"
+      export TIMESTAMP="$(${pkgs.coreutils}/bin/date -Is)"
+      export RESTIC_LOG="$(${pkgs.coreutils}/bin/mktemp)"
+      export LOG_TAIL_LINES=20
+      backup_paths=( ${backupPathsArgs} )
+
+      latest_path_mod() {
+        path="$1"
+        latest="$(${pkgs.restic}/bin/restic ls --long --recursive --sort time latest "$path" 2>/dev/null | ${pkgs.coreutils}/bin/tail -n 1 || true)"
+        if [ -z "$latest" ]; then
+          latest="$(${pkgs.restic}/bin/restic ls --long --recursive latest "$path" 2>/dev/null | ${pkgs.gawk}/bin/awk '
+            {
+              ts = $4 "T" $5
+              if (ts > max) {
+                max = ts
+                out = $0
+              }
+            }
+            END { print out }
+          ' || true)"
+        fi
+        if [ -z "$latest" ]; then
+          echo "not found in latest snapshot or unreadable"
+        else
+          echo "$latest"
+        fi
+      }
+
+      if ${pkgs.restic}/bin/restic backup --tag systemd "''${backup_paths[@]}" 2>&1 | ${pkgs.coreutils}/bin/tee "$RESTIC_LOG"; then
+        result="success"
+        status=0
+      else
+        status=$?
+        result="failure (exit $status)"
+      fi
+      # Keep a concise excerpt in the digest.
+      log_tail="$(${pkgs.coreutils}/bin/tail -n "''${LOG_TAIL_LINES}" "$RESTIC_LOG" || true)"
+
+      {
+        echo "=== $TIMESTAMP ==="
+        echo "Result: $result"
+        echo "Path last-modified:"
+        for path in "''${backup_paths[@]}"; do
+          echo "  $path: $(latest_path_mod "$path")"
+        done
+        echo
+        echo "Restic log tail:"
+        echo "$log_tail"
+        echo
+      } >> "$RUN_LOG"
+
+      ${pkgs.coreutils}/bin/rm -f "$RESTIC_LOG"
+      exit "$status"
     '';
     unitConfig.StartLimitIntervalSec = 300;
     unitConfig.StartLimitBurst = 5;
@@ -44,6 +97,7 @@ in
       Restart = "on-failure";
       RestartSec = 120;
       CacheDirectory = "restic";
+      StateDirectory = "backup-restic";
       LoadCredential = "restic-password:${config.age.secrets.restic-password.path}";
       PrivateTmp = true;
       RemoveIPC = true;
@@ -60,30 +114,87 @@ in
     wantedBy = [ "default.target" ];
   };
 
-  systemd.services.backup-restic-success-email = {
+  systemd.timers.backup-restic-weekly-digest-email = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "weekly";
+      Persistent = "true";
+    };
+  };
+  systemd.services.backup-restic-weekly-digest-email = {
     script = ''
-            set -eu
-            export DOMAIN=kiyuri.ca
-            export USER=script@$DOMAIN
-            export TO=ken.shibata@$DOMAIN
-            export SMTP_PASSWORD="$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/script-email-password")"
-            export LOG_TAIL="$(${pkgs.systemd}/bin/journalctl -u backup-restic.service -n 10 --no-pager -o short 2>/dev/null || true)"
-            ${pkgs.swaks}/bin/swaks \
-              --server smtp.migadu.com:587 \
-              --tls \
-              --auth LOGIN \
-              --auth-user "$USER" \
-              --auth-password "$SMTP_PASSWORD" \
-              --from "$USER" \
-              --to "$TO" \
-              --header "Subject: backup-restic succeeded (on ${config.networking.hostName})" \
-              --body "Completed at $(${pkgs.coreutils}/bin/date -Is).
+      set -euo pipefail
+      export DOMAIN=kiyuri.ca
+      export USER=script@$DOMAIN
+      export TO=ken.shibata@$DOMAIN
+      export SMTP_PASSWORD="$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/script-email-password")"
+      export RESTIC_REPOSITORY='/backups/restic-repo'
+      export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/restic-password
+      export RESTIC_CACHE_DIR=$CACHE_DIRECTORY
+      export RUN_LOG=/var/lib/backup-restic/runs.log
+      backup_paths=( ${backupPathsArgs} )
 
-      Recent backup-restic logs:
-      $LOG_TAIL"
+      latest_path_mod() {
+        path="$1"
+        latest="$(${pkgs.restic}/bin/restic ls --long --recursive --sort time latest "$path" 2>/dev/null | ${pkgs.coreutils}/bin/tail -n 1 || true)"
+        if [ -z "$latest" ]; then
+          latest="$(${pkgs.restic}/bin/restic ls --long --recursive latest "$path" 2>/dev/null | ${pkgs.gawk}/bin/awk '
+            {
+              ts = $4 "T" $5
+              if (ts > max) {
+                max = ts
+                out = $0
+              }
+            }
+            END { print out }
+          ' || true)"
+        fi
+        if [ -z "$latest" ]; then
+          echo "not found in latest snapshot or unreadable"
+        else
+          echo "$latest"
+        fi
+      }
+
+      latest_result="$(${pkgs.gawk}/bin/awk -F': ' '/^Result:/ { result=$2 } END { print result }' "$RUN_LOG" 2>/dev/null || true)"
+      if [ -z "$latest_result" ]; then
+        latest_result="unknown (no runs recorded in this period)"
+      fi
+
+      digest="$(
+        {
+          echo "Generated at $(${pkgs.coreutils}/bin/date -Is)."
+          echo
+          echo "Most recent backup-restic result: $latest_result"
+          echo
+          echo "Recursive path modtimes in latest snapshot:"
+          for path in "''${backup_paths[@]}"; do
+            echo "  $path: $(latest_path_mod "$path")"
+          done
+        }
+      )"
+
+      if ${pkgs.swaks}/bin/swaks \
+        --server smtp.migadu.com:587 \
+        --tls \
+        --auth LOGIN \
+        --auth-user "$USER" \
+        --auth-password "$SMTP_PASSWORD" \
+        --from "$USER" \
+        --to "$TO" \
+        --header "Subject: backup-restic weekly digest (on ${config.networking.hostName})" \
+        --body "$digest"
+      then
+
+        # Clear the digest after it has been sent.
+        ${pkgs.coreutils}/bin/truncate -s 0 "$RUN_LOG"
+      fi
     '';
     serviceConfig = {
       Type = "oneshot";
+      CacheDirectory = "restic";
+      StateDirectory = "backup-restic";
+      LoadCredential = "restic-password:${config.age.secrets.restic-password.path}";
       LoadCredentialEncrypted = [
         "script-email-password"
       ];
