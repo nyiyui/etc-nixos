@@ -123,37 +123,37 @@ in
   };
   systemd.services.backup-restic-weekly-digest-email = {
     script = ''
-      set -euo pipefail
-      export DOMAIN=kiyuri.ca
-      export USER=script@$DOMAIN
-      export TO=ken.shibata@$DOMAIN
-      export SMTP_PASSWORD="$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/script-email-password")"
-      export RUN_LOG=/var/lib/backup-restic/runs.log
+            set -euo pipefail
+            export DOMAIN=kiyuri.ca
+            export USER=script@$DOMAIN
+            export TO=ken.shibata@$DOMAIN
+            export SMTP_PASSWORD="$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/script-email-password")"
+            export RUN_LOG=/var/lib/backup-restic/runs.log
 
-      if [ -s "$RUN_LOG" ]; then
-        digest="$(${pkgs.coreutils}/bin/cat "$RUN_LOG")"
-      else
-        digest="No backup-restic runs were recorded for this period."
-      fi
+            if [ -s "$RUN_LOG" ]; then
+              digest="$(${pkgs.coreutils}/bin/cat "$RUN_LOG")"
+            else
+              digest="No backup-restic runs were recorded for this period."
+            fi
 
-      if ${pkgs.swaks}/bin/swaks \
-        --server smtp.migadu.com:587 \
-        --tls \
-        --auth LOGIN \
-        --auth-user "$USER" \
-        --auth-password "$SMTP_PASSWORD" \
-        --from "$USER" \
-        --to "$TO" \
-        --header "Subject: backup-restic weekly digest (on ${config.networking.hostName})" \
-        --body "Generated at $(${pkgs.coreutils}/bin/date -Is).
+            if ${pkgs.swaks}/bin/swaks \
+              --server smtp.migadu.com:587 \
+              --tls \
+              --auth LOGIN \
+              --auth-user "$USER" \
+              --auth-password "$SMTP_PASSWORD" \
+              --from "$USER" \
+              --to "$TO" \
+              --header "Subject: backup-restic weekly digest (on ${config.networking.hostName})" \
+              --body "Generated at $(${pkgs.coreutils}/bin/date -Is).
 
-Weekly backup-restic digest:
-$digest"
-      then
+      Weekly backup-restic digest:
+      $digest"
+            then
 
-        # Clear the digest after it has been sent.
-        ${pkgs.coreutils}/bin/truncate -s 0 "$RUN_LOG"
-      fi
+              # Clear the digest after it has been sent.
+              ${pkgs.coreutils}/bin/truncate -s 0 "$RUN_LOG"
+            fi
     '';
     serviceConfig = {
       Type = "oneshot";
