@@ -44,32 +44,9 @@ in
 
       latest_path_mod() {
         path="$1"
-        if [ ! -e "$path" ]; then
-          echo "missing"
-          return 0
-        fi
-        if [ ! -d "$path" ]; then
-          latest="$(${pkgs.coreutils}/bin/stat -c '%y' "$path" 2>/dev/null || true)"
-        else
-          latest="$(${pkgs.findutils}/bin/find "$path" -xdev -printf '%T@ %TY-%Tm-%TdT%TH:%TM:%TS %p\n' 2>/dev/null | ${pkgs.gawk}/bin/awk '
-            BEGIN { max = -1; out = "" }
-            {
-              ts = $1
-              $1 = ""
-              sub(/^ /, "")
-              if (ts > max) {
-                max = ts
-                out = $0
-              }
-            }
-            END { print out }
-          ')"
-          if [ -z "$latest" ]; then
-            latest="$(${pkgs.coreutils}/bin/stat -c '%y' "$path" 2>/dev/null || true)"
-          fi
-        fi
+        latest="$(${pkgs.restic}/bin/restic ls --long --recursive --sort time latest "$path" 2>/dev/null | ${pkgs.coreutils}/bin/tail -n 1 || true)"
         if [ -z "$latest" ]; then
-          echo "empty or unreadable"
+          echo "not found in latest snapshot or unreadable"
         else
           echo "$latest"
         fi
