@@ -44,7 +44,6 @@ in
       Restart = "on-failure";
       RestartSec = 120;
       CacheDirectory = "restic";
-      StateDirectory = "backup-restic";
       LoadCredential = "restic-password:${config.age.secrets.restic-password.path}";
       PrivateTmp = true;
       RemoveIPC = true;
@@ -61,29 +60,16 @@ in
     wantedBy = [ "default.target" ];
   };
 
-  systemd.timers.backup-restic-weekly-digest-email = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "weekly";
-      Persistent = "true";
-    };
-  };
-  systemd.services.backup-restic-weekly-digest-email = {
+
+  systemd.services.backup-restic-success-email = {
     script = ''
-            set -euo pipefail
+            set -eu
             export DOMAIN=kiyuri.ca
             export USER=script@$DOMAIN
             export TO=ken.shibata@$DOMAIN
             export SMTP_PASSWORD="$(${pkgs.coreutils}/bin/cat "$CREDENTIALS_DIRECTORY/script-email-password")"
-            export RUN_LOG=/var/lib/backup-restic/runs.log
-
-            if [ -s "$RUN_LOG" ]; then
-              digest="$(${pkgs.coreutils}/bin/cat "$RUN_LOG")"
-            else
-              digest="No backup-restic runs were recorded for this period."
-            fi
-
-            if ${pkgs.swaks}/bin/swaks \
+            export LOG_TAIL="$(${pkgs.systemd}/bin/journalctl -u backup-restic.service -n 10 --no-pager -o short 2>/dev/null || true)"
+            ${pkgs.swaks}/bin/swaks \
               --server smtp.migadu.com:587 \
               --tls \
               --auth LOGIN \
@@ -91,20 +77,14 @@ in
               --auth-password "$SMTP_PASSWORD" \
               --from "$USER" \
               --to "$TO" \
-              --header "Subject: backup-restic weekly digest (on ${config.networking.hostName})" \
-              --body "Generated at $(${pkgs.coreutils}/bin/date -Is).
+              --header "Subject: backup-restic succeeded (on ${config.networking.hostName})" \
+              --body "Completed at $(${pkgs.coreutils}/bin/date -Is).
 
-      Weekly backup-restic digest:
-      $digest"
-            then
-
-              # Clear the digest after it has been sent.
-              ${pkgs.coreutils}/bin/truncate -s 0 "$RUN_LOG"
-            fi
+      Recent backup-restic logs:
+      $LOG_TAIL"
     '';
     serviceConfig = {
       Type = "oneshot";
-      StateDirectory = "backup-restic";
       LoadCredentialEncrypted = [
         "script-email-password"
       ];
