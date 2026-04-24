@@ -60,7 +60,6 @@ in
     wantedBy = [ "default.target" ];
   };
 
-
   systemd.services.backup-restic-success-email = {
     script = ''
             set -eu
