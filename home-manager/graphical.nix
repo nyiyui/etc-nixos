@@ -365,6 +365,13 @@ in
       };
     };
 
+    programs.zathura = {
+      enable = true;
+      options = {
+        selection-clipboard = "clipboard";
+      };
+    };
+
     xdg.autostart = {
       enable = true;
       readOnly = true;
