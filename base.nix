@@ -48,5 +48,6 @@
     wget
     curl
     file
+    btop # htop but more fancy; nice when seeing overview of sys perf
   ];
 }
