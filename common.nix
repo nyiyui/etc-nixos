@@ -21,6 +21,27 @@
 
   assr.wlsunset.enable = true;
 
+  programs.gpu-screen-recorder.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    gpu-screen-recorder
+
+    # Synthesize a .desktop file so GNOME's portal trusts the binary
+    # (according to Gemini, untested)
+    (pkgs.makeDesktopItem {
+      name = "gpu-screen-recorder";
+      desktopName = "GPU Screen Recorder CLI";
+      exec = "gpu-screen-recorder";
+      icon = "video-display";
+      terminal = true;
+      type = "Application";
+      categories = [
+        "AudioVideo"
+        "Recorder"
+      ];
+    })
+  ];
+
   assr.dev-sandbox.enable = true;
 
   # This value determines the NixOS release from which the default
