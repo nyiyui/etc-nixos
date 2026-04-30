@@ -24,5 +24,6 @@
     ./unity.nix
     ./dev-sandbox
     ./power-logger
+    ./gpu-screen-recorder.nix
   ];
 }
