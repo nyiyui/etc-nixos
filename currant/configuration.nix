@@ -57,8 +57,7 @@
     publish.addresses = true;
   };
 
-  # Tailscale VPN - access Pi from anywhere
-  services.tailscale.enable = true;
+  kiyurica.tailscale.enable = true;
 
   # SSH
   services.openssh = {
