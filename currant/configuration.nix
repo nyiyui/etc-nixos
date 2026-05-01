@@ -5,6 +5,7 @@
     [
       "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
       ./hardware-configuration.nix
+      ./home-assistant.nix
       ../base.nix
       ../autoUpgrade-git.nix
     ];
