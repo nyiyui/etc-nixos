@@ -1,4 +1,4 @@
-f{
+{
   config,
   lib,
   pkgs,
