@@ -18,6 +18,7 @@ in
     environment.systemPackages = with pkgs; [
       gpu-screen-recorder
       gpu-screen-recorder-gtk
+      (callPackage ./gpu-screen-recorder-all-audio-pkg.nix { })
     ];
   };
 }
