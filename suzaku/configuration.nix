@@ -86,7 +86,10 @@
     {
       kiyurica.hasBacklight = true;
 
-      home.packages = [ pkgs.prusa-slicer ];
+      home.packages = [
+        pkgs.prusa-slicer
+        pkgs.moonlight-qt
+      ];
 
       programs.niri.settings.outputs."Samsung Display Corp. 0x4152 Unknown" = {
         mode = {

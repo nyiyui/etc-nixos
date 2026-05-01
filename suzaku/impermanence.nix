@@ -41,6 +41,8 @@
         ".var/nixpak-app/org.signal.Signal"
         # ".var/nixpak-app/org.strawberrymusicplayer.strawberry"
         ".config/syncthing"
+        ".config/Moonlight Game Streaming Project"
+        ".cache/Moonlight Game Streaming Project"
         ".config/github-copilot"
         ".config/.copilot"
         ".config/joplin"
