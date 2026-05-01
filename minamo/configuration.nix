@@ -1,4 +1,4 @@
-{
+f{
   config,
   lib,
   pkgs,
@@ -129,4 +129,6 @@
   kiyurica.ollama.enableServer = true;
 
   assr.dev-sandbox.enable = true;
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }
