@@ -124,6 +124,16 @@
           agenix.nixosModules.default
         ];
       };
+      nixosConfigurations.currant = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [
+          ./currant/configuration.nix
+          agenix.nixosModules.default
+        ];
+      };
     }
     // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
       system:
