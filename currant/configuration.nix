@@ -13,7 +13,8 @@
   # Raspberry Pi 4 firmware
   hardware.enableRedistributableFirmware = true;
   hardware.firmware = [ pkgs.raspberrypiWirelessFirmware ];
-  hardware.bluetooth.enable = false;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   # Bootloader
   boot.loader.grub.enable = false;
@@ -59,6 +60,8 @@
   };
 
   kiyurica.tailscale.enable = true;
+
+  autoUpgrade.directFlake = true;
 
   # SSH
   services.openssh = {
