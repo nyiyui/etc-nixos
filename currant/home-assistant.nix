@@ -30,11 +30,18 @@
   ];
 
   # Open the port for Home Assistant (only on Tailscale interface)
-  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 8123 22 ];
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [
+    8123
+    22
+  ];
 
   # Only accept SSH connections from tailscale
   services.openssh.openFirewall = false;
 
   # Allow Home Assistant to access serial devices and bluetooth
-  users.users.hass.extraGroups = [ "dialout" "tty" "bluetooth" ];
+  users.users.hass.extraGroups = [
+    "dialout"
+    "tty"
+    "bluetooth"
+  ];
 }

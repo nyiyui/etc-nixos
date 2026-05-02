@@ -1,15 +1,20 @@
-{ nixpkgs, config, lib, pkgs, ... }:
+{
+  nixpkgs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 # modified from https://gitlab.com/hunorg/nixos-rpi-headless
 {
-  imports =
-    [
-      "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-      ./hardware-configuration.nix
-      ./home-assistant.nix
-      ../base.nix
-      ../autoUpgrade-git.nix
-    ];
-  # 
+  imports = [
+    "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+    ./hardware-configuration.nix
+    ./home-assistant.nix
+    ../base.nix
+    ../autoUpgrade-git.nix
+  ];
+  #
   # Raspberry Pi 4 firmware
   hardware.enableRedistributableFirmware = true;
   hardware.firmware = [ pkgs.raspberrypiWirelessFirmware ];
@@ -22,7 +27,10 @@
 
   # Quiet boot
   boot.consoleLogLevel = 0;
-  boot.kernelParams = [ "quiet" "loglevel=0" ];
+  boot.kernelParams = [
+    "quiet"
+    "loglevel=0"
+  ];
 
   # WiFi driver fixes for Pi 4
   # NOTE: Not sure if using Wi-Fi (currently wired Eth)
@@ -76,4 +84,3 @@
   sdImage.compressImage = false;
   system.stateVersion = "25.11";
 }
-
