@@ -71,6 +71,8 @@
   system.stateVersion = "25.05";
 
   networking.hostName = "minamo";
+  # Note: Also run `run0 nmcli c modify '有線接続 1' 802-3-ethernet.wake-on-lan magic`
+  # if the following doesn't suffice or is overridden by NetworkManager.
   networking.interfaces.enp39s0.wakeOnLan.enable = true;
   nixpkgs.config.allowUnfree = true;
 

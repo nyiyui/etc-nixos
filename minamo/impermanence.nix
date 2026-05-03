@@ -22,6 +22,7 @@
       "/var/lib"
       "/etc/secureboot"
       "/etc/ssh"
+      "/etc/NetworkManager/system-connections"
     ];
     files = [ "/etc/machine-id" ];
     users.kiyurica = {
