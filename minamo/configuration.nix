@@ -51,6 +51,10 @@
     hashedPassword = "$y$j9T$lNSNPobnQX.GuwkdK4m.g0$/ivj88dtnxodfbZ1gmjn6AkabMh32qzsYjHr5i7jjD/";
   };
 
+  environment.systemPackages = with pkgs; [
+    ethtool
+  ];
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
@@ -67,6 +71,7 @@
   system.stateVersion = "25.05";
 
   networking.hostName = "minamo";
+  networking.interfaces.enp39s0.wakeOnLan.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "America/New_York";
