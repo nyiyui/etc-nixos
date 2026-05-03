@@ -69,6 +69,12 @@
 
   kiyurica.tailscale.enable = true;
 
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "wake-minamo" ''
+      exec ${pkgs.wol}/bin/wol 00:d8:61:c9:b6:f0
+    '')
+  ];
+
   autoUpgrade.directFlake = true;
 
   # SSH
