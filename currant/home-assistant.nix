@@ -36,9 +36,6 @@
     8123
   ];
 
-  # Only accept SSH connections from tailscale
-  services.openssh.openFirewall = false;
-
   # Allow Home Assistant to access serial devices and bluetooth
   users.users.hass.extraGroups = [
     "dialout"
