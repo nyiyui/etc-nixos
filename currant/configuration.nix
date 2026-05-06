@@ -14,7 +14,7 @@
     ../base.nix
     ../autoUpgrade-git.nix
   ];
-  #
+
   # Raspberry Pi 4 firmware
   hardware.enableRedistributableFirmware = true;
   hardware.firmware = [ pkgs.raspberrypiWirelessFirmware ];
@@ -33,7 +33,7 @@
   ];
 
   # WiFi driver fixes for Pi 4
-  # NOTE: Not sure if using Wi-Fi (currently wired Eth)
+  # NOTE: Not using Wi-Fi
   # Change regulatory domain to your country: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom=US
@@ -42,22 +42,20 @@
 
   # Networking
   networking.hostName = "currant";
-  networking.networkmanager = {
-    enable = true;
-    wifi.powersave = false;
-  };
+  networking.useNetworkd = true;
 
-  # Unblock WiFi at boot (common Pi issue)
-  systemd.services.rfkill-unblock-wifi = {
-    description = "Unblock WiFi";
-    wantedBy = [ "multi-user.target" ];
-    before = [ "NetworkManager.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.util-linux}/bin/rfkill unblock wifi";
-      RemainAfterExit = true;
-    };
-  };
+  # If using Wi-Fi, below is common RasPi workaround for Wi-Fi:
+  # # Unblock WiFi at boot (common Pi issue)
+  # systemd.services.rfkill-unblock-wifi = {
+  #   description = "Unblock WiFi";
+  #   wantedBy = [ "multi-user.target" ];
+  #   before = [ "systemd-networkd.service" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = "${pkgs.util-linux}/bin/rfkill unblock wifi";
+  #     RemainAfterExit = true;
+  #   };
+  # };
 
   # mDNS
   services.avahi = {
@@ -66,6 +64,8 @@
     publish.enable = true;
     publish.addresses = true;
   };
+
+  services.resolved.enable = true;
 
   kiyurica.tailscale.enable = true;
 
@@ -77,14 +77,7 @@
 
   autoUpgrade.directFlake = true;
 
-  # SSH
-  services.openssh = {
-    enable = true;
-  };
   systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
-
-  # Users
-  users.users.root.initialPassword = "nixos";
 
   # SD image
   sdImage.compressImage = false;
