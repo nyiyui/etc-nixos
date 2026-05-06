@@ -29,10 +29,11 @@
     "f /var/lib/hass/scenes.yaml 0644 hass hass - -"
   ];
 
-  # Open the port for Home Assistant (only on Tailscale interface)
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = [
     8123
-    22
+  ];
+  networking.firewall.interfaces.end0.allowedTCPPorts = [ # TODO: during Summer 2026 only
+    8123
   ];
 
   # Only accept SSH connections from tailscale
