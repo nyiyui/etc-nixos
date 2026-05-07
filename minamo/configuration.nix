@@ -33,8 +33,9 @@
   ];
   boot.initrd.supportedFilesystems = [ "btrfs" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "r8168" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.r8168 ];
+  boot.blacklistedKernelModules = [ "r8169" ];
 
   hardware.graphics = {
     enable = true;
