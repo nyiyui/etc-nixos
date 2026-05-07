@@ -187,10 +187,11 @@
 
   assr.power-logger.enable = true;
 
-  kiyurica.caldav-canvas-gradescope = {
-    enable = true;
-    credFile = ./caldav-canvas-gradescope-env.cred;
-  };
+  # TODO: Enable when Fall 2026 semester starts
+  # kiyurica.caldav-canvas-gradescope = {
+  #   enable = true;
+  #   credFile = ./caldav-canvas-gradescope-env.cred;
+  # };
 
   nix.settings.cores = 16; # keep at least 4 cores open for UI
 
