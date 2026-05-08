@@ -68,9 +68,31 @@
   services.resolved.enable = true;
 
   kiyurica.tailscale.enable = true;
+
+  # Tailscale Exit Node configuration and optimizations
+  # Resolved warnings from `tailscale up --advertise-exit-node`:
+  # Warning: IP forwarding is disabled, subnet routing/exit nodes will not work.
+  # See https://tailscale.com/s/ip-forwarding
+  # Warning: UDP GRO forwarding is suboptimally configured on end0, UDP forwarding throughput ca
+  # See https://tailscale.com/s/ethtool-config-udp-gro
   services.tailscale.extraUpFlags = [ "--advertise-exit-node" ];
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
+  systemd.services.tailscale-udp-gro = {
+    description = "Tailscale UDP GRO optimization";
+    after = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.ethtool}/bin/ethtool -K end0 rx-udp-gro-forwarding on rx-gro-list off";
+      RemainAfterExit = true;
+    };
+  };
 
   environment.systemPackages = [
+    pkgs.ethtool
     (pkgs.writeShellScriptBin "wake-minamo" ''
       exec ${pkgs.wol}/bin/wol 00:d8:61:c9:b6:f0
     '')
