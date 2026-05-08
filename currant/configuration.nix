@@ -68,6 +68,7 @@
   services.resolved.enable = true;
 
   kiyurica.tailscale.enable = true;
+  services.tailscale.extraUpFlags = [ "--advertise-exit-node" ];
 
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "wake-minamo" ''
