@@ -11,7 +11,7 @@
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEhH+5s0m+lBC898M/nrWREaDblRCPSpL6+9wkoZdel inaba@nyiyui.ca"
-      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPLebITu6vwv0WEqXtnIhPq4hOsmG6nUZIcwWVL/LT9OGt0XR4vWwZBqDAt3tZTapY2d71HRqQL7duTyuCLG1h4= kiyurica@suzaku"
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJ2Nn9F1Feco7kb3BmJjE+VLZgMJQU43PnMf4uhX3WDoNW4n1PRCaYHRB4mCKIsZwZjAQ41/debHFvZ+8vhwqVM= kiyurica@suzaku"
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOpcXjT5V7pbiRluEcYPlNy1179aI++jGlLRPcPlP/kZQEVkOOlpjjy+JcGC3XCcjmEXRREFhUfJmgm77L4RS18= @pixel-6a"
     ];
     homeMode = "770";
