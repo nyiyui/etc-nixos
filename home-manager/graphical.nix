@@ -22,6 +22,10 @@ let
   '';
 in
 {
+  imports = [
+    ./keepassxc-personal.nix
+  ];
+
   options.kiyurica.hasBacklight =
     with lib;
     with types;
