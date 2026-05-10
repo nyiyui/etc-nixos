@@ -6,8 +6,7 @@
 }:
 let
   hasGeofront =
-    (config ? osConfig) &&
-    (config.osConfig.services.syncthing.settings.folders ? geofront);
+    (config ? osConfig) && (config.osConfig.services.syncthing.settings.folders ? geofront);
 in
 {
   config = lib.mkIf hasGeofront {
