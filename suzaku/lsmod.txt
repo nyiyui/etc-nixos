@@ -247,3 +247,4 @@ efivarfs
 tpm
 rng_core
 autofs4
+wireguard

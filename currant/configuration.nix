@@ -82,6 +82,7 @@
   };
   systemd.services.tailscale-udp-gro = {
     description = "Tailscale UDP GRO optimization";
+    wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
