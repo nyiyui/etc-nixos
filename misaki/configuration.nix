@@ -54,6 +54,11 @@
 
   services.udisks2.enable = true;
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [ "/" ];
+  };
+
   kiyurica.desktop.sway.enable = true;
   services.greetd = {
     enable = true;

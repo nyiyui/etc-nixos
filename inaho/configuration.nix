@@ -60,6 +60,14 @@
 
   services.udisks2.enable = true;
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [
+      "/"
+      "/backups"
+    ];
+  };
+
   home-manager.users.kiyurica = { ... }: { };
 
   autoUpgrade.directFlake = true;

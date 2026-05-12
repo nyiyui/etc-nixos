@@ -75,6 +75,11 @@
 
   services.udisks2.enable = true;
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [ "/" ];
+  };
+
   kiyurica.desktop.niri = {
     enable = true;
     enableUWSM = true;
