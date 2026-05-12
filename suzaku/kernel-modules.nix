@@ -1,3 +1,8 @@
+# Kernel module allowlist
+#
+# To find what modules udev tried to load:
+# run0 udevadm control --log-priority=debug
+# run0 journalctl -u systemd-udevd -f | grep -iE 'modprobe|module|kmod'
 { lib, ... }:
 let
   lsmod = builtins.readFile ./lsmod.txt;
