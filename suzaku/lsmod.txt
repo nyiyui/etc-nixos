@@ -157,6 +157,7 @@ rng_core
 roles
 rtc_cmos
 sch_fq_codel
+sd_mod
 serio
 serio_raw
 sha1_ssse3
