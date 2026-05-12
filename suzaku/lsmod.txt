@@ -230,8 +230,10 @@ ttm
 tun
 typec
 typec_ucsi
+uas
 ucsi_acpi
 uhid
+usb_storage
 usbnet
 v4l2_async
 v4l2_fwnode
