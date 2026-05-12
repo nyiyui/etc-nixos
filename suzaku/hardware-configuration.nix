@@ -14,11 +14,26 @@
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
-    "thunderbolt"
     "nvme"
     "usb_storage"
     "sd_mod"
+    # ↓ copied from used modules (535feabcd5e9b8498f80e91e679ea3ad0399e5ba)
+    "aesni_intel"
+    "cryptd"
+    "cbc"
+    "sha256_ssse3"
+    "sha512_ssse3"
+    "atkbd"
+    "i8042"
+    "fat"
+    "vfat"
+    "nls_cp437"
+    "nls_iso8859_1"
+    "dm_crypt"
+    "dm_mod"
+    "btrfs"
   ];
+  boot.initrd.includeDefaultModules = false;
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
