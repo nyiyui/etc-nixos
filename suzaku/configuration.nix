@@ -10,6 +10,7 @@
 
 {
   imports = [
+    ./kernel-modules.nix
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
     ./overlays.nix
     ./hardware-configuration.nix
