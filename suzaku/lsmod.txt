@@ -20,6 +20,11 @@ btrtl
 btusb
 button
 cbc
+ccm
+cdc_ether
+cdc_mbim
+cdc_ncm
+cdc_wdm
 cec
 cfg80211
 clk_tps68470
@@ -107,6 +112,7 @@ mei_me
 mei_pxp
 mei_vsc_hw
 mei_wdt
+mii
 mousedev
 msr
 mtd
@@ -226,6 +232,7 @@ typec
 typec_ucsi
 ucsi_acpi
 uhid
+usbnet
 v4l2_async
 v4l2_fwnode
 vfat
