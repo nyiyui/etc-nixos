@@ -15,6 +15,7 @@
     ./overlays.nix
     ./hardware-configuration.nix
     ./disko-config.nix
+    ../appliance
     ./impermanence.nix
     ./nix-copy.nix
     ../secureboot.nix

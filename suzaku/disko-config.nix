@@ -56,6 +56,7 @@
                         "noatime"
                       ];
                     };
+                    # Note that /nix/store is from the appliance image
                     "/nix" = {
                       mountpoint = "/nix";
                       mountOptions = [
