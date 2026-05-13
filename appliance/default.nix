@@ -1,3 +1,7 @@
 {
-  imports = [ ./repart.nix ./sysupdate.nix ./update-notification.nix ];
+  imports = [
+    ./repart.nix
+    ./sysupdate.nix
+    ./update-notification.nix
+  ];
 }

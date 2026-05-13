@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   systemd.sysupdate = {
     enable = true;
@@ -71,17 +76,17 @@
   # Enable dm-verity in initrd
   boot.initrd.systemd.dmVerity.enable = true;
 
-  system.build.sysupdate-package = let
-    inherit (config.system) build;
-    inherit (config.system.image) version id;
+  system.build.sysupdate-package =
+    let
+      inherit (config.system) build;
+      inherit (config.system.image) version id;
     in
-    pkgs.runCommand "sysupdate-package-${config.system.image.version}" { }
-      ''
-        mkdir $out
-        cp ${build.uki}/${config.system.boot.loader.ukiFile} $out/
-        cp ${build.image}/${id}_${version}.nix-store-verity.raw $out/
-        cp ${build.image}/${id}_${version}.nix-store.raw $out/
-        cd $out
-        sha256sum * > SHA256SUMS
-      '';
+    pkgs.runCommand "sysupdate-package-${config.system.image.version}" { } ''
+      mkdir $out
+      cp ${build.uki}/${config.system.boot.loader.ukiFile} $out/
+      cp ${build.image}/${id}_${version}.nix-store-verity.raw $out/
+      cp ${build.image}/${id}_${version}.nix-store.raw $out/
+      cd $out
+      sha256sum * > SHA256SUMS
+    '';
 }
