@@ -99,9 +99,6 @@ in
 
       lyx # goated TeX editor
       texliveFull # compile LyX files to PDF
-
-      joplin
-      joplin-desktop
     ]
     ++ (with pkgs.kdePackages; [
       gwenview

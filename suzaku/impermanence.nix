@@ -45,8 +45,6 @@
         ".cache/Moonlight Game Streaming Project"
         ".config/github-copilot"
         ".config/.copilot"
-        ".config/joplin"
-        ".config/joplin-desktop"
         ".codex"
         ".config/dpt"
         ".config/unity3d"

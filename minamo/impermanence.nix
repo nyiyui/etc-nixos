@@ -37,8 +37,6 @@
         ".config/syncthing"
         ".config/github-copilot"
         ".config/.copilot"
-        ".config/joplin"
-        ".config/joplin-desktop"
         ".codex"
         ".var/nixpak-app/org.signal.Signal"
         ".var/nixpak-app/org.mozilla.firefox"
