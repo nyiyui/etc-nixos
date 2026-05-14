@@ -29,7 +29,7 @@
     ../adb.nix
     ../vnc.nix
     ../virt.nix
-    ../codex.nix
+    # ../codex.nix # not used
     ../nixpak/packages/org.keepassxc.KeePassXC.nix
     ../nixpak/packages/org.kde.ark.nix
     ../nixpak/packages/org.mozilla.firefox.nix
