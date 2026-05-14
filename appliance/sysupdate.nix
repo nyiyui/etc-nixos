@@ -77,6 +77,7 @@
   boot.initrd.systemd.dmVerity.enable = true;
   boot.kernelParams = [
     "systemd.verity=1"
+    "roothash=RoothashGoesHereRoothashGoesHereRoothashGoesHereRoothashGoesHere"
     # roothash= filled in after image build, see config.system.build.sysupdate-package
     # "systemd.verity_root_options=restart-on-corruption" # TODO: once I verify it works
     # "rd.emergency=reboot" # ditto
@@ -106,11 +107,11 @@
       echo "Injecting roothash $roothash into UKI"
 
       cp ${build.uki}/${ukiFile} $TMPDIR/${ukiFile}
-      # Extract the existing command line and append the roothash.
+      # Extract the existing command line and replace the placeholder roothash.
+      # Replace instead of append (as prev. done), to avoid (potential) issues with imageBase
       objcopy --verbose --dump-section .cmdline=$TMPDIR/orig-cmdline.txt $TMPDIR/${ukiFile} $TMPDIR/objcopy-tmp
 
-      cp $TMPDIR/orig-cmdline.txt $TMPDIR/new-cmdline.txt
-      echo -n " roothash=$roothash" >> $TMPDIR/new-cmdline.txt
+      sed "s/roothash=RoothashGoesHereRoothashGoesHereRoothashGoesHereRoothashGoesHere/roothash=$roothash/" $TMPDIR/orig-cmdline.txt > $TMPDIR/new-cmdline.txt
       echo -ne '\0' >> $TMPDIR/new-cmdline.txt
 
       # --update-section didn't work for some reason™
