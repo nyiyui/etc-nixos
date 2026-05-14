@@ -75,6 +75,14 @@
 
   # Enable dm-verity in initrd
   boot.initrd.systemd.dmVerity.enable = true;
+  boot.kernelParams = [
+    "systemd.verity=1"
+    # roothash= filled in after image build, see config.system.build.sysupdate-package
+    # "systemd.verity_root_options=restart-on-corruption" # TODO: once I verify it works
+    # "rd.emergency=reboot" # ditto
+    # "rd.shell=0" # ditto
+    # "lockdown=confidentiality" # ditto
+  ];
 
   system.build.sysupdate-package =
     let
@@ -107,8 +115,6 @@
 
       # --update-section didn't work for some reason™
       objcopy --verbose --remove-section .cmdline --add-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
-      cp $TMPDIR/new-cmdline.txt $out
-      cp $TMPDIR/orig-cmdline.txt $out
 
       cd $out
       sha256sum * > SHA256SUMS
