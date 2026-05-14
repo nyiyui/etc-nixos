@@ -16,7 +16,7 @@ in
     ./grc.nix
     ./pexec.nix
     ./fonts.nix
-    ./kicad.nix
+    # ./kicad.nix # TODO: remove kicad for now (until appliance image situation is done)
   ];
 
   programs.git = {
