@@ -93,7 +93,6 @@
       kiyurica.hasBacklight = true;
 
       home.packages = [
-        pkgs.prusa-slicer
         pkgs.moonlight-qt
       ];
 
