@@ -38,17 +38,18 @@ in
     system.image.id = "assr-appliance";
     boot.uki.name = "assr-appliance-uki";
     boot.initrd.systemd.repart.enable = true;
+    # TODO: how to boot.initrd.systemd.repart.empty?
 
-    # fileSystems."/nix/store" =
+    # fileSystems."/" =
     #   let
-    #     repartConfig = config.image.repart.partitions.nix-store.repartConfig;
+    #     repartConfig = config.image.repart.partitions.root.repartConfig;
     #   in
     #   {
     #     device = "/dev/disk/by-partlabel/${repartConfig.Label}";
     #     fsType = repartConfig.Format;
     #   };
 
-    # Note: seems like image.repart also fills out /etc/repart.d in addition to image-building, contrary to https://github.com/applicative-systems/nixos-appliance-ota-update/blob/01ea6bc287189ccc477391e70812ca8a8c601046/system-configuration/image.nix#L37
+    # image.repart is only reflected in the built systemd image
     image.repart = {
       name = config.system.image.id;
       split = true;
@@ -67,43 +68,70 @@ in
             Type = "esp";
           };
         };
-        nix-store = {
+        root = {
           storePaths = [ config.system.build.toplevel ];
-          nixStorePrefix = "/";
           repartConfig = {
             Type = "root"; # IDK if it's possible to have verity of non-root, so just make this "root" for now
-            Label = "nix-store_${config.system.image.version}";
+            Label = "root_${config.system.image.version}";
             SizeMinBytes = config.assr.appliance.image-size;
             SizeMaxBytes = config.assr.appliance.image-size;
             Format = "erofs";
             Verity = "data";
-            VerityMatchKey = "nix-store";
-            SplitName = "nix-store";
+            VerityMatchKey = "root";
+            SplitName = "root";
           };
         };
-        nix-store-verity.repartConfig = {
+        root-verity.repartConfig = {
           Type = "root-verity";
-          Label = "nix-store-verity_${config.system.image.version}";
+          Label = "root-verity_${config.system.image.version}";
           SizeMinBytes = config.assr.appliance.verity-hash-size;
           SizeMaxBytes = config.assr.appliance.verity-hash-size;
           Verity = "hash";
-          VerityMatchKey = "nix-store";
-          SplitName = "nix-store-verity";
+          VerityMatchKey = "root";
+          SplitName = "root-verity";
         };
 
-        empty-nix-store.repartConfig = {
+        empty-root.repartConfig = {
           Type = "root";
           SizeMinBytes = config.assr.appliance.image-size;
           SizeMaxBytes = config.assr.appliance.image-size;
           SplitName = "-";
         };
-        empty-nix-store-verity.repartConfig = {
+        empty-root-verity.repartConfig = {
           Type = "root-verity";
           SizeMinBytes = config.assr.appliance.verity-hash-size;
           SizeMaxBytes = config.assr.appliance.verity-hash-size;
           SplitName = "-";
         };
-        # TODO: root partition managed in suzaku/disko-config.nix for now
+      };
+    };
+    # TODO: ↓ set /etc/repart.d since we are bootstrapping from a non-image
+    systemd.repart = {
+      partitions = {
+        root = {
+            Type = "root"; # IDK if it's possible to have verity of non-root, so just make this "root" for now
+            Label = "root_${config.system.image.version}";
+            SizeMinBytes = config.assr.appliance.image-size;
+            SizeMaxBytes = config.assr.appliance.image-size;
+            Format = "erofs";
+        };
+        root-verity = {
+          Type = "root-verity";
+          Label = "root-verity_${config.system.image.version}";
+          SizeMinBytes = config.assr.appliance.verity-hash-size;
+          SizeMaxBytes = config.assr.appliance.verity-hash-size;
+        };
+
+        empty-root = {
+          Type = "root";
+          SizeMinBytes = config.assr.appliance.image-size;
+          SizeMaxBytes = config.assr.appliance.image-size;
+        };
+        empty-root-verity = {
+          Type = "root-verity";
+          SizeMinBytes = config.assr.appliance.verity-hash-size;
+          SizeMaxBytes = config.assr.appliance.verity-hash-size;
+        };
       };
     };
   };

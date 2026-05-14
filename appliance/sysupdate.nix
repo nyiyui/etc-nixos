@@ -9,38 +9,38 @@
     enable = true;
 
     transfers = {
-      "10-nix-store-verity" = {
+      "10-root-verity" = {
         Transfer = {
           ProtectVersion = "%A";
         };
         Source = {
           Type = "regular-file";
           Path = "/var/lib/updates/";
-          MatchPattern = "${config.system.image.id}_@v.nix-store-verity.raw";
+          MatchPattern = "${config.system.image.id}_@v.root-verity.raw";
         };
         Target = {
           Type = "partition";
           Path = "auto"; # block device (e.g., NVMe drive) w/ root partition is selected, which may not work for all cases (e.g., root partition is tmpfs)
-          MatchPattern = "nix-store_@v";
+          MatchPattern = "root_@v";
           MatchPartitionType = "root-verity";
           PartitionFlags = "0";
           ReadOnly = "yes";
           InstancesMax = 2;
         };
       };
-      "20-nix-store" = {
+      "20-root" = {
         Transfer = {
           ProtectVersion = "%A";
         };
         Source = {
           Type = "regular-file";
           Path = "/var/lib/updates/";
-          MatchPattern = "${config.system.image.id}_@v.nix-store.raw";
+          MatchPattern = "${config.system.image.id}_@v.root.raw";
         };
         Target = {
           Type = "partition";
           Path = "auto";
-          MatchPattern = "nix-store_@v";
+          MatchPattern = "root_@v";
           MatchPartitionType = "root";
           PartitionFlags = "0";
           ReadOnly = "yes";
@@ -80,12 +80,36 @@
     let
       inherit (config.system) build;
       inherit (config.system.image) version id;
+      ukiFile = config.system.boot.loader.ukiFile;
     in
-    pkgs.runCommand "sysupdate-package-${config.system.image.version}" { } ''
+    pkgs.runCommand "sysupdate-package-${config.system.image.version}" {
+      nativeBuildInputs = [
+        pkgs.jq
+        pkgs.binutils
+      ];
+    } ''
       mkdir $out
-      cp ${build.uki}/${config.system.boot.loader.ukiFile} $out/
-      cp ${build.image}/${id}_${version}.nix-store-verity.raw $out/
-      cp ${build.image}/${id}_${version}.nix-store.raw $out/
+      cp ${build.image}/${id}_${version}.root-verity.raw $out/
+      cp ${build.image}/${id}_${version}.root.raw $out/
+
+      # Extract roothash from repart-output.json
+      roothash=$(jq -r '.[] | select(.split_path == "${id}_${version}.root-verity.raw") | .roothash' ${build.image}/repart-output.json)
+
+      echo "Injecting roothash $roothash into UKI"
+
+      cp ${build.uki}/${ukiFile} $TMPDIR/${ukiFile}
+      # Extract the existing command line and append the roothash.
+      objcopy --verbose --dump-section .cmdline=$TMPDIR/orig-cmdline.txt $TMPDIR/${ukiFile} $TMPDIR/objcopy-tmp
+
+      cp $TMPDIR/orig-cmdline.txt $TMPDIR/new-cmdline.txt
+      echo -n " roothash=$roothash" >> $TMPDIR/new-cmdline.txt
+      echo -ne '\0' >> $TMPDIR/new-cmdline.txt
+
+      # --update-section didn't work for some reason™
+      objcopy --verbose --remove-section .cmdline --add-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
+      cp $TMPDIR/new-cmdline.txt $out
+      cp $TMPDIR/orig-cmdline.txt $out
+
       cd $out
       sha256sum * > SHA256SUMS
     '';

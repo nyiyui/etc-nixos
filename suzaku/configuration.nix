@@ -10,7 +10,7 @@
 
 {
   imports = [
-    ./kernel-modules.nix
+    # ./kernel-modules.nix # TODO: WPA3
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
     ./overlays.nix
     ./hardware-configuration.nix
@@ -210,4 +210,6 @@
     PLATFORM_PROFILE_ON_BAT = "low-power";
     DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth wwan";
   };
+
+  boot.initrd.systemd.repart.device = "/dev/disk/by-id/nvme-CT2000P3PSSD8_2506E9A48456";
 }
