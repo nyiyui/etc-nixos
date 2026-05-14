@@ -52,8 +52,10 @@ edac_core
 efi_pstore
 efivarfs
 encrypted_keys
+erofs
 evdev
 evdi
+ext4
 fan
 fat
 firmware_attributes_class
@@ -215,6 +217,7 @@ sparse_keymap
 spi_intel
 spi_intel_pci
 spi_nor
+squashfs
 tee
 thermal
 think_lmi
