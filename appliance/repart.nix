@@ -39,16 +39,14 @@ in
     boot.uki.name = "assr-appliance-uki";
     boot.initrd.systemd.repart.enable = true;
 
-    fileSystems."/nix/store" =
-      let
-        repartConfig = config.image.repart.partitions.nix-store.repartConfig;
-      in
-      {
-        device = "/dev/disk/by-partlabel/${repartConfig.Label}";
-        fsType = repartConfig.Format;
-        neededForBoot = false; # TODO: temporary
-        options = [ "nofail" ];
-      };
+    # fileSystems."/nix/store" =
+    #   let
+    #     repartConfig = config.image.repart.partitions.nix-store.repartConfig;
+    #   in
+    #   {
+    #     device = "/dev/disk/by-partlabel/${repartConfig.Label}";
+    #     fsType = repartConfig.Format;
+    #   };
 
     # Note: seems like image.repart also fills out /etc/repart.d in addition to image-building, contrary to https://github.com/applicative-systems/nixos-appliance-ota-update/blob/01ea6bc287189ccc477391e70812ca8a8c601046/system-configuration/image.nix#L37
     image.repart = {
