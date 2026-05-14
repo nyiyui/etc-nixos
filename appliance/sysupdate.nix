@@ -21,7 +21,7 @@
         Target = {
           Type = "partition";
           Path = "auto"; # block device (e.g., NVMe drive) w/ root partition is selected, which may not work for all cases (e.g., root partition is tmpfs)
-          MatchPattern = "root_@v";
+          MatchPattern = "root-verity_@v";
           MatchPartitionType = "root-verity";
           PartitionFlags = "0";
           ReadOnly = "yes";
