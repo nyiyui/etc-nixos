@@ -107,6 +107,7 @@ in
     };
     # TODO: ↓ set /etc/repart.d since we are bootstrapping from a non-image
     systemd.repart = {
+      enable = true;
       partitions = {
         root = {
             Type = "root"; # IDK if it's possible to have verity of non-root, so just make this "root" for now
