@@ -93,12 +93,14 @@ in
 
         empty-root.repartConfig = {
           Type = "root";
+          Label = "root_0.0empty";
           SizeMinBytes = config.assr.appliance.image-size;
           SizeMaxBytes = config.assr.appliance.image-size;
           SplitName = "-";
         };
         empty-root-verity.repartConfig = {
           Type = "root-verity";
+          Label = "root-verity_0.0empty";
           SizeMinBytes = config.assr.appliance.verity-hash-size;
           SizeMaxBytes = config.assr.appliance.verity-hash-size;
           SplitName = "-";
