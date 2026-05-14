@@ -37,11 +37,11 @@
                   extraArgs = [ "-f" ];
                   subvolumes = {
                     "/root" = {
-                      mountpoint = "/";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
+                      # mountpoint = "/";
+                      # mountOptions = [
+                      #   "compress=zstd"
+                      #   "noatime"
+                      # ];
                     };
                     "/old_roots" = {
                       mountOptions = [
