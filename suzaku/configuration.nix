@@ -25,7 +25,6 @@
     ../common.nix
     ../sound.nix
     ../vlc.nix
-    ./obs.nix
     ../tpm.nix
     ../adb.nix
     ../vnc.nix
