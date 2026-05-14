@@ -114,8 +114,7 @@
       sed "s/roothash=RoothashGoesHereRoothashGoesHereRoothashGoesHereRoothashGoesHere/roothash=$roothash/" $TMPDIR/orig-cmdline.txt > $TMPDIR/new-cmdline.txt
       echo -ne '\0' >> $TMPDIR/new-cmdline.txt
 
-      # --update-section didn't work for some reason™
-      objcopy --verbose --remove-section .cmdline --add-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
+      objcopy --verbose --update-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
 
       cd $out
       sha256sum * > SHA256SUMS
