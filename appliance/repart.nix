@@ -41,14 +41,20 @@ in
     boot.initrd.systemd.repart.enable = true;
     # TODO: how to boot.initrd.systemd.repart.empty?
 
-    fileSystems."/nix/store" =
-      let
-        repartConfig = config.image.repart.partitions.root.repartConfig;
-      in
-      {
-        device = "/dev/disk/by-partlabel/${repartConfig.Label}";
-        fsType = repartConfig.Format;
+    fileSystems = {
+      "/" = {
+        fsType = "tmpfs";
+        options = [ "size=128M" ];
       };
+      "/nix/store" =
+        let
+          repartConfig = config.image.repart.partitions.root.repartConfig;
+        in
+        {
+          device = "/dev/disk/by-partlabel/${repartConfig.Label}";
+          fsType = repartConfig.Format;
+        };
+    };
 
     # image.repart is only reflected in the built systemd image
     image.repart = {
