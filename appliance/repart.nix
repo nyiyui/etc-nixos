@@ -41,7 +41,7 @@ in
     boot.initrd.systemd.repart.enable = true;
     # TODO: how to boot.initrd.systemd.repart.empty?
 
-    fileSystems."/" =
+    fileSystems."/nix/store" =
       let
         repartConfig = config.image.repart.partitions.root.repartConfig;
       in
@@ -71,6 +71,7 @@ in
         };
         root = {
           storePaths = [ config.system.build.toplevel ];
+          nixStorePrefix = "/";
           repartConfig = {
             Type = "root"; # IDK if it's possible to have verity of non-root, so just make this "root" for now
             Label = "root_${config.system.image.version}";
