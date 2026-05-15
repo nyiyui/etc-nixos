@@ -105,9 +105,9 @@
         scale = 1.25;
         variable-refresh-rate = true;
       };
-
-      kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
     };
+
+  kiyurica.ics-next-event.icsUrlPath = config.age.secrets.icsUrlPath.path;
 
   age.secrets.icsUrlPath = {
     file = ../secrets/ics-url-path.txt.age;

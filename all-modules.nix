@@ -25,5 +25,6 @@
     ./dev-sandbox
     ./power-logger
     ./gpu-screen-recorder.nix
+    ./ics-next-event.nix
   ];
 }

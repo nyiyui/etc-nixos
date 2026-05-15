@@ -110,7 +110,6 @@
   home-manager.users.kiyurica =
     { lib, ... }:
     {
-      kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
       kiyurica.waybarPosition = "right";
       programs.waybar.style = ''
         window#waybar {
@@ -119,6 +118,8 @@
       '';
       programs.niri.settings.layout.default-column-width.proportion = lib.mkForce 0.3;
     };
+
+  kiyurica.ics-next-event.icsUrlPath = config.age.secrets.icsUrlPath.path;
 
   age.secrets.icsUrlPath = {
     file = ../secrets/ics-url-path.txt.age;
