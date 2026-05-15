@@ -16,7 +16,7 @@
         Source = {
           Type = "regular-file";
           Path = "/var/lib/updates/";
-          MatchPattern = "${config.system.image.id}_@v.root-verity.raw";
+          MatchPattern = "${config.system.image.id}_@v.root-verity.@u.raw";
         };
         Target = {
           Type = "partition";
@@ -35,7 +35,7 @@
         Source = {
           Type = "regular-file";
           Path = "/var/lib/updates/";
-          MatchPattern = "${config.system.image.id}_@v.root.raw";
+          MatchPattern = "${config.system.image.id}_@v.root.@u.raw";
         };
         Target = {
           Type = "partition";

@@ -79,7 +79,7 @@ in
             Format = "erofs";
             Verity = "data";
             VerityMatchKey = "root";
-            SplitName = "root";
+            SplitName = "root.%U"; # the partuuid of root and root-verity need to be specific for verity to work
           };
         };
         root-verity.repartConfig = {
@@ -89,7 +89,7 @@ in
           SizeMaxBytes = config.assr.appliance.verity-hash-size;
           Verity = "hash";
           VerityMatchKey = "root";
-          SplitName = "root-verity";
+          SplitName = "root-verity.%U";
         };
 
         empty-root.repartConfig = {
