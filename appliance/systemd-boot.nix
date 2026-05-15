@@ -19,15 +19,29 @@ let
       set -eu
       export LC_ALL=C
 
+      systemd_versions="$(find /boot/EFI/systemd -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort -u || true)"
+      fallback_versions="$(find /boot/EFI/BOOT -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort -u || true)"
+
       version="$(
         comm -12 \
-          <(find /boot/EFI/systemd -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort -u) \
-          <(find /boot/EFI/BOOT -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort -u) \
+          <(printf '%s\n' "$systemd_versions") \
+          <(printf '%s\n' "$fallback_versions") \
           | sort -V \
           | tail -n1
       )"
 
-      [ -n "$version" ] || exit 0
+      if [ -z "$version" ]; then
+        [ -z "$systemd_versions$fallback_versions" ] && exit 0
+        echo "No common systemd-boot sysupdate version found." >&2
+        exit 1
+      fi
+
+      case "$version" in
+        "."|".."|*/*)
+          echo "Refusing suspicious systemd-boot version '$version'." >&2
+          exit 1
+          ;;
+      esac
 
       install -Dm0644 \
         "/boot/EFI/systemd/$version/systemd-boot${efiArch}.efi" \
