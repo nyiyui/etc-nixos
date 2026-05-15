@@ -91,32 +91,34 @@
       inherit (config.system.image) version id;
       ukiFile = config.system.boot.loader.ukiFile;
     in
-    pkgs.runCommand "sysupdate-package-${config.system.image.version}" {
-      nativeBuildInputs = [
-        pkgs.jq
-        pkgs.binutils
-      ];
-    } ''
-      mkdir $out
-      cp ${build.image}/${id}_${version}.root-verity.raw $out/
-      cp ${build.image}/${id}_${version}.root.raw $out/
+    pkgs.runCommand "sysupdate-package-${config.system.image.version}"
+      {
+        nativeBuildInputs = [
+          pkgs.jq
+          pkgs.binutils
+        ];
+      }
+      ''
+        mkdir $out
+        cp ${build.image}/${id}_${version}.root-verity.raw $out/
+        cp ${build.image}/${id}_${version}.root.raw $out/
 
-      # Extract roothash from repart-output.json
-      roothash=$(jq -r '.[] | select(.split_path == "${id}_${version}.root-verity.raw") | .roothash' ${build.image}/repart-output.json)
+        # Extract roothash from repart-output.json
+        roothash=$(jq -r '.[] | select(.split_path == "${id}_${version}.root-verity.raw") | .roothash' ${build.image}/repart-output.json)
 
-      echo "Injecting roothash $roothash into UKI"
+        echo "Injecting roothash $roothash into UKI"
 
-      cp ${build.uki}/${ukiFile} $TMPDIR/${ukiFile}
-      # Extract the existing command line and replace the placeholder roothash.
-      # Replace instead of append (as prev. done), to avoid (potential) issues with imageBase
-      objcopy --verbose --dump-section .cmdline=$TMPDIR/orig-cmdline.txt $TMPDIR/${ukiFile} $TMPDIR/objcopy-tmp
+        cp ${build.uki}/${ukiFile} $TMPDIR/${ukiFile}
+        # Extract the existing command line and replace the placeholder roothash.
+        # Replace instead of append (as prev. done), to avoid (potential) issues with imageBase
+        objcopy --verbose --dump-section .cmdline=$TMPDIR/orig-cmdline.txt $TMPDIR/${ukiFile} $TMPDIR/objcopy-tmp
 
-      sed "s/roothash=RoothashGoesHereRoothashGoesHereRoothashGoesHereRoothashGoesHere/roothash=$roothash/" $TMPDIR/orig-cmdline.txt > $TMPDIR/new-cmdline.txt
-      echo -ne '\0' >> $TMPDIR/new-cmdline.txt
+        sed "s/roothash=RoothashGoesHereRoothashGoesHereRoothashGoesHereRoothashGoesHere/roothash=$roothash/" $TMPDIR/orig-cmdline.txt > $TMPDIR/new-cmdline.txt
+        echo -ne '\0' >> $TMPDIR/new-cmdline.txt
 
-      objcopy --verbose --update-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
+        objcopy --verbose --update-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
 
-      cd $out
-      sha256sum * > SHA256SUMS
-    '';
+        cd $out
+        sha256sum * > SHA256SUMS
+      '';
 }

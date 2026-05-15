@@ -113,11 +113,11 @@ in
       enable = true;
       partitions = {
         root = {
-            Type = "root"; # IDK if it's possible to have verity of non-root, so just make this "root" for now
-            Label = "root_${config.system.image.version}";
-            SizeMinBytes = config.assr.appliance.image-size;
-            SizeMaxBytes = config.assr.appliance.image-size;
-            Format = "erofs";
+          Type = "root"; # IDK if it's possible to have verity of non-root, so just make this "root" for now
+          Label = "root_${config.system.image.version}";
+          SizeMinBytes = config.assr.appliance.image-size;
+          SizeMaxBytes = config.assr.appliance.image-size;
+          Format = "erofs";
         };
         root-verity = {
           Type = "root-verity";
