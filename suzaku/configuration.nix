@@ -24,19 +24,19 @@
     ../thunderbolt.nix
     ../common.nix
     ../sound.nix
-    ../vlc.nix
+    # ../vlc.nix # TODO: re-enable
     ../tpm.nix
-    ../adb.nix
-    ../vnc.nix
+    # ../adb.nix # TODO: re-enable
+    # ../vnc.nix # TODO: re-enable
     # ../codex.nix # not used
     ../nixpak/packages/org.keepassxc.KeePassXC.nix
     # ../nixpak/packages/org.kde.ark.nix # TODO: re-enable
     ../nixpak/packages/org.mozilla.firefox.nix
-    ../nixpak/packages/org.mozilla.Thunderbird.nix
+    # ../nixpak/packages/org.mozilla.Thunderbird.nix
     # ../nixpak/packages/org.libreoffice.LibreOffice.nix
-    ../nixpak/packages/io.github.alainm23.planify.nix
+    # ../nixpak/packages/io.github.alainm23.planify.nix
     # ../nixpak/packages/org.signal.Signal.nix # TODO: re-enable
-    ../nixpak/packages/org.strawberrymusicplayer.strawberry.nix
+    # ../nixpak/packages/org.strawberrymusicplayer.strawberry.nix
     # ../nixpak/packages/org.chromium.Chromium.nix
   ];
 
