@@ -42,10 +42,10 @@ in
     # TODO: how to boot.initrd.systemd.repart.empty?
 
     fileSystems = {
-      "/" = {
-        fsType = "tmpfs";
-        options = [ "size=128M" ];
-      };
+      # "/" = {
+      #   fsType = "tmpfs";
+      #   options = [ "size=128M" ];
+      # };
       "/nix/store" =
         let
           repartConfig = config.image.repart.partitions.root.repartConfig;
