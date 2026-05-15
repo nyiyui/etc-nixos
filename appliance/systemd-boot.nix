@@ -22,6 +22,12 @@ let
       systemd_versions="$(find /boot/EFI/systemd -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort -u || true)"
       fallback_versions="$(find /boot/EFI/BOOT -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort -u || true)"
 
+      if [ -z "$systemd_versions" ] || [ -z "$fallback_versions" ]; then
+        [ -z "$systemd_versions" ] && [ -z "$fallback_versions" ] && exit 0
+        echo "No common systemd-boot sysupdate version found." >&2
+        exit 1
+      fi
+
       version="$(
         comm -12 \
           <(printf '%s\n' "$systemd_versions") \
@@ -31,13 +37,12 @@ let
       )"
 
       if [ -z "$version" ]; then
-        [ -z "$systemd_versions$fallback_versions" ] && exit 0
         echo "No common systemd-boot sysupdate version found." >&2
         exit 1
       fi
 
       case "$version" in
-        "."|".."|*/*)
+        "."|".."|*/*|*[!A-Za-z0-9._+-]*)
           echo "Refusing suspicious systemd-boot version '$version'." >&2
           exit 1
           ;;
