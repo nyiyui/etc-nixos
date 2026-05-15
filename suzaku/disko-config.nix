@@ -36,29 +36,8 @@
                   type = "btrfs";
                   extraArgs = [ "-f" ];
                   subvolumes = {
-                    "/root" = {
-                      mountpoint = "/";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
-                    "/old_roots" = {
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
                     "/persist" = {
                       mountpoint = "/persist";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
-                    # Note that /nix/store is from the appliance image
-                    "/nix" = {
-                      mountpoint = "/nix";
                       mountOptions = [
                         "compress=zstd"
                         "noatime"

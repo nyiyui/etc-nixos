@@ -48,10 +48,10 @@ in
     #       either make it read-only after activation, or put the activation result in the image itself
 
     fileSystems = {
-      # "/" = {
-      #   fsType = "tmpfs";
-      #   options = [ "size=128M" ];
-      # };
+      "/" = {
+        fsType = "tmpfs";
+        options = [ "size=16G" ];
+      };
       "/nix/store" =
         let
           repartConfig = config.image.repart.partitions.root.repartConfig;
