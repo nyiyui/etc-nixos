@@ -7,10 +7,7 @@
 {
   imports = [
     specialArgs.impermanence.nixosModules.impermanence
-    ../impermanent-root.nix
   ];
-
-  impermanent-root.enable = true;
 
   environment.persistence."/persist" = {
     hideMounts = true;
