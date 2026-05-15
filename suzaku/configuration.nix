@@ -28,7 +28,6 @@
     ../tpm.nix
     ../adb.nix
     ../vnc.nix
-    ../virt.nix
     # ../codex.nix # not used
     ../nixpak/packages/org.keepassxc.KeePassXC.nix
     ../nixpak/packages/org.kde.ark.nix
