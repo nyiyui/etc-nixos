@@ -41,6 +41,12 @@ in
     boot.initrd.systemd.repart.enable = true;
     # TODO: how to boot.initrd.systemd.repart.empty?
 
+    nix.enable = false;
+    system.switch.enable = false;
+    users.mutableUsers = false;
+    # TODO: how to make /etc read-only?
+    #       either make it read-only after activation, or put the activation result in the image itself
+
     fileSystems = {
       # "/" = {
       #   fsType = "tmpfs";
