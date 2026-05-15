@@ -36,7 +36,7 @@ in
       in
       "${revCount}.${shortRev}";
     system.image.id = "assr-appliance";
-    system.nixos.release = config.system.image.version;
+    system.nixos.release = "assr_${config.system.image.version}";
     boot.uki.name = "assr-appliance-uki";
     boot.initrd.systemd.repart.enable = true;
     # TODO: how to boot.initrd.systemd.repart.empty?
