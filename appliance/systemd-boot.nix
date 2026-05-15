@@ -9,6 +9,10 @@ let
   efiArchUppercased = lib.toUpper efiArch;
   systemdBootEfi = "${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${efiArch}.efi";
 
+  # sysupdate targets must be versioned via @v, but firmware expects the fixed
+  # /EFI/systemd/systemd-boot*.efi and /EFI/BOOT/BOOT*.EFI paths. We stage the
+  # versioned payloads via sysupdate, then copy the newest common version back
+  # to those fixed paths.
   syncSystemdBoot = pkgs.writeShellApplication {
     name = "sync-appliance-systemd-boot";
     runtimeInputs = [
