@@ -73,6 +73,8 @@
     };
   };
 
+  systemd.services.systemd-boot-update.wantedBy = [ "multi-user.target" ];
+
   # Enable dm-verity in initrd
   boot.initrd.systemd.dmVerity.enable = true;
   boot.kernelParams = [
