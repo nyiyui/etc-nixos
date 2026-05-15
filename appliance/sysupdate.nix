@@ -5,6 +5,12 @@
   ...
 }:
 {
+  options.assr.appliance.sysupdate.extraFiles = lib.mkOption {
+    type = lib.types.attrsOf lib.types.str;
+    default = { };
+    description = "Additional files to include in the sysupdate package.";
+  };
+
   systemd.sysupdate = {
     enable = true;
 
@@ -117,6 +123,14 @@
         echo -ne '\0' >> $TMPDIR/new-cmdline.txt
 
         objcopy --verbose --update-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
+
+        ${lib.concatLines (
+          lib.mapAttrsToList
+            (dest: src: ''
+              install -Dm0644 ${src} "$out/${dest}"
+            '')
+            config.assr.appliance.sysupdate.extraFiles
+        )}
 
         cd $out
         sha256sum * > SHA256SUMS
