@@ -58,7 +58,7 @@
         };
         Target = {
           Type = "regular-file";
-          Path = "/EFI/Linux";
+          Path = "/boot/EFI/Linux";
           MatchPattern = [
             "${config.boot.uki.name}_@v+@l-@d.efi"
             "${config.boot.uki.name}_@v+@l.efi"
