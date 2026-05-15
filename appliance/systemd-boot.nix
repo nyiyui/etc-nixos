@@ -17,24 +17,22 @@ let
     ];
     text = ''
       set -eu
-
-      systemd_versions="$(${pkgs.findutils}/bin/find /boot/EFI/systemd -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | ${pkgs.coreutils}/bin/sort -u || true)"
-      fallback_versions="$(${pkgs.findutils}/bin/find /boot/EFI/BOOT -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | ${pkgs.coreutils}/bin/sort -u || true)"
+      export LC_ALL=C
 
       version="$(
-        ${pkgs.coreutils}/bin/comm -12 \
-          <(printf '%s\n' "$systemd_versions") \
-          <(printf '%s\n' "$fallback_versions") \
-          | ${pkgs.coreutils}/bin/sort -V \
-          | ${pkgs.coreutils}/bin/tail -n1
+        comm -12 \
+          <(find /boot/EFI/systemd -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort -u) \
+          <(find /boot/EFI/BOOT -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort -u) \
+          | sort -V \
+          | tail -n1
       )"
 
       [ -n "$version" ] || exit 0
 
-      ${pkgs.coreutils}/bin/install -Dm0644 \
+      install -Dm0644 \
         "/boot/EFI/systemd/$version/systemd-boot${efiArch}.efi" \
         "/boot/EFI/systemd/systemd-boot${efiArch}.efi"
-      ${pkgs.coreutils}/bin/install -Dm0644 \
+      install -Dm0644 \
         "/boot/EFI/BOOT/$version/BOOT${efiArchUppercased}.EFI" \
         "/boot/EFI/BOOT/BOOT${efiArchUppercased}.EFI"
     '';
