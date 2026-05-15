@@ -20,7 +20,7 @@
         };
         Target = {
           Type = "partition";
-          Path = "auto"; # block device (e.g., NVMe drive) w/ root partition is selected, which may not work for all cases (e.g., root partition is tmpfs)
+          Path = config.boot.initrd.systemd.repart.device;
           MatchPattern = "root-verity_@v";
           MatchPartitionType = "root-verity";
           PartitionFlags = "0";
@@ -39,7 +39,7 @@
         };
         Target = {
           Type = "partition";
-          Path = "auto";
+          Path = config.boot.initrd.systemd.repart.device;
           MatchPattern = "root_@v";
           MatchPartitionType = "root";
           PartitionFlags = "0";
