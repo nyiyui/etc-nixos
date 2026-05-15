@@ -17,13 +17,13 @@
     ./base.nix
   ];
 
-  kiyurica.home-manager.enable = true;
+  kiyurica.home-manager.enable = lib.mkDefault true;
 
   assr.wlsunset.enable = true;
 
   assr.gpu-screen-recorder.enable = true;
 
-  assr.dev-sandbox.enable = true;
+  # assr.dev-sandbox.enable = true; # TODO: broken (env vars cooked)
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

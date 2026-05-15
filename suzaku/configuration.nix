@@ -80,43 +80,30 @@
     fileSystems = [ "/" ];
   };
 
-  kiyurica.desktop.niri = {
-    enable = true;
-    enableUWSM = true;
-  };
-  kiyurica.greeter.gtkgreet = {
-    enable = true;
-  };
-  home-manager.users.kiyurica =
-    { pkgs, ... }:
-    {
-      kiyurica.hasBacklight = true;
+  # kiyurica.desktop.niri = { # TODO: remove dependency on home-manager
+  #   enable = true;
+  #   enableUWSM = true;
+  # };
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  # kiyurica.greeter.gtkgreet = { # disabled since niri is disabled
+  #   enable = true;
+  # };
+  kiyurica.home-manager.enable = false;
+  # TODO: add moonlight-qt package
+#  home-manager.users.kiyurica =
+#    { pkgs, ... }:
+#    {
+#      kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
+#    };
 
-      home.packages = [
-        pkgs.moonlight-qt
-      ];
-
-      programs.niri.settings.outputs."Samsung Display Corp. 0x4152 Unknown" = {
-        mode = {
-          width = 2880;
-          height = 1800;
-          refresh = 60.001;
-        };
-        scale = 1.25;
-        variable-refresh-rate = true;
-      };
-
-      kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
-    };
-
-  age.secrets.icsUrlPath = {
-    file = ../secrets/ics-url-path.txt.age;
-    owner = "kiyurica";
-    group = "kiyurica";
-    mode = "400";
-  };
-
-  autoUpgrade.directFlake = true;
+#  age.secrets.icsUrlPath = {
+#    file = ../secrets/ics-url-path.txt.age;
+#    owner = "kiyurica";
+#    group = "kiyurica";
+#    mode = "400";
+#  };
 
   age.identityPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 
@@ -167,7 +154,7 @@
 
   kiyurica.networks.eduroam.enable = true;
 
-  kiyurica.gatech-vpn.enable = true;
+  # kiyurica.gatech-vpn.enable = true; # TODO: remove home-manager dependency
 
   hardware.graphics = {
     enable = true;

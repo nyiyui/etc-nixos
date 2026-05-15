@@ -1,9 +1,5 @@
 { config, lib, ... }:
 {
-  imports = [ ./home-manager.nix ];
-
-  kiyurica.home-manager.enable = true;
-
   services.syncthing = {
     enable = true;
     dataDir = "/home/kiyurica";
@@ -69,15 +65,16 @@
     ];
   };
 
-  home-manager.users.kiyurica =
-    { lib, ... }:
-    {
-      home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text =
-        lib.mkDefault ''
-          .direnv
-          __pycache__
-        '';
-    };
+  # TODO: get syncthing to ignore through other kind of config?
+  # home-manager.users.kiyurica =
+  #   { lib, ... }:
+  #   {
+  #     home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text =
+  #       lib.mkDefault ''
+  #         .direnv
+  #         __pycache__
+  #       '';
+  #   };
 
   systemd.services.syncthing = {
     environment.GOMAXPROCS = "1";

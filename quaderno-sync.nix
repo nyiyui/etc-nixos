@@ -282,14 +282,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
-    home-manager.users.kiyurica.kiyurica.service-status = lib.mkAfter [
-      {
-        serviceName = "quaderno-sync.service";
-        key = "q";
-        user = true;
-      }
-    ];
+    # TODO: somehow notify user of sync status
 
     environment.systemPackages = [ quaderno-sync-env ];
 
