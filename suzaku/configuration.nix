@@ -30,12 +30,12 @@
     ../vnc.nix
     # ../codex.nix # not used
     ../nixpak/packages/org.keepassxc.KeePassXC.nix
-    ../nixpak/packages/org.kde.ark.nix
+    # ../nixpak/packages/org.kde.ark.nix # TODO: re-enable
     ../nixpak/packages/org.mozilla.firefox.nix
     ../nixpak/packages/org.mozilla.Thunderbird.nix
     # ../nixpak/packages/org.libreoffice.LibreOffice.nix
     ../nixpak/packages/io.github.alainm23.planify.nix
-    ../nixpak/packages/org.signal.Signal.nix
+    # ../nixpak/packages/org.signal.Signal.nix # TODO: re-enable
     ../nixpak/packages/org.strawberrymusicplayer.strawberry.nix
     # ../nixpak/packages/org.chromium.Chromium.nix
   ];
