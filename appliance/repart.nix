@@ -50,7 +50,7 @@ in
     fileSystems = {
       "/" = {
         fsType = "tmpfs";
-        options = [ "size=16G" ];
+        options = [ "size=32G" ];
       };
       "/nix/store" =
         let
