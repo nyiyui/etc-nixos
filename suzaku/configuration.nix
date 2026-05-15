@@ -209,4 +209,8 @@
   };
 
   boot.initrd.systemd.repart.device = "/dev/disk/by-id/nvme-CT2000P3PSSD8_2506E9A48456";
+
+  # TODO: temporary, below
+  boot.initrd.systemd.emergencyAccess = true;
+  boot.kernelParams = [ "rd.systemd.sulogin_force=1" ];
 }
