@@ -46,6 +46,7 @@ in
     description = "format ephemeral sysroot for this boot";
     wantedBy = [ "initrd.target" ];
     before = [ "sysroot.mount" ];
+    path = with pkgs; [ cryptsetup e2fsprogs coreutils ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${script}";
