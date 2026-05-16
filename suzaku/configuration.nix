@@ -195,7 +195,6 @@
   };
 
   boot.initrd.systemd.repart.device = "/dev/disk/by-id/nvme-CT2000P3PSSD8_2506E9A48456";
-  boot.initrd.luks.devices."crypted".crypttabExtraOpts = [ "token-timeout=1s" ];
 
   # TODO: temporary, below
   boot.initrd.systemd.emergencyAccess = true;

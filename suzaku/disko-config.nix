@@ -1,7 +1,6 @@
 { specialArgs, ... }:
 {
   imports = [ specialArgs.disko.nixosModules.disko ];
-  fileSystems."/persist".neededForBoot = true;
   disko.devices = {
     disk = {
       main = {
@@ -41,6 +40,9 @@
                       mountOptions = [
                         "compress=zstd"
                         "noatime"
+                        "nofail"
+                        "noauto"
+                        "x-systemd.automount"
                       ];
                     };
                     "/swap" = {
