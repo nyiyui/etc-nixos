@@ -39,8 +39,8 @@ in
     system.nixos.label = "assr_${config.system.image.version}";
     boot.uki.name = "assr-appliance-uki";
     boot.uki.version = config.system.image.version; # controls boot entry name??? idk
-    boot.initrd.systemd.repart.enable = true;
-    # TODO: how to boot.initrd.systemd.repart.empty?
+    boot.initrd.systemd.repart.enable = false; # default, but here for clarity; see next line
+    # On suzaku, during stage 1, systemd-repart probably triggers partprobe which probably kills systemd-veritysetup. Since repartitioning isn't required for boot, move this to stage 2.
 
     nix.enable = false;
     system.switch.enable = false;
