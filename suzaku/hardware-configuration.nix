@@ -35,7 +35,6 @@
     "btrfs"
   ];
   boot.initrd.includeDefaultModules = false;
-  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
