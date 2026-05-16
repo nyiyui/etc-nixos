@@ -38,6 +38,7 @@ in
     system.image.id = "assr-appliance";
     system.nixos.label = "assr_${config.system.image.version}";
     boot.uki.name = "assr-appliance-uki";
+    boot.uki.version = config.system.image.version; # controls boot entry name??? idk
     boot.initrd.systemd.repart.enable = true;
     # TODO: how to boot.initrd.systemd.repart.empty?
 
