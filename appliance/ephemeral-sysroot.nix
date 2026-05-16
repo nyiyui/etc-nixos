@@ -31,6 +31,7 @@ in
     bindsTo = [ "dev-disk-by\\x2dpartlabel-ephemeral\\x2dsysroot.device" ];
     after   = [ "dev-disk-by\\x2dpartlabel-ephemeral\\x2dsysroot.device" ];
     path = with pkgs; [ cryptsetup e2fsprogs coreutils ];
+    # idk initrd log says command not found...
     environment.PART = "/dev/disk/by-partlabel/${partlabel}";
     enableStrictShellChecks = true;
     script = ''
@@ -38,15 +39,15 @@ in
       dd if=/dev/urandom of=/tmp/ephemeral.key bs=512 count=1 status=none
 
       echo "Formatting LUKS container..."
-      cryptsetup luksFormat --type luks2 \
+      ${pkgs.cryptsetup}/bin/cryptsetup luksFormat --type luks2 \
         --pbkdf pbkdf2 --pbkdf-force-iterations 1000 \
         --batch-mode --key-file /tmp/ephemeral.key "$PART"
 
       echo "Opening LUKS container..."
-      cryptsetup open --key-file /tmp/ephemeral.key "$PART" ${lib.strings.escapeShellArg mapper}
+      ${pkgs.cryptsetup}/bin/cryptsetup open --key-file /tmp/ephemeral.key "$PART" ${lib.strings.escapeShellArg mapper}
 
       echo "Formatting inner volume as ext4..."
-      mkfs.ext4 -F -q /dev/mapper/${lib.strings.escapeShellArg mapper}
+      ${pkgs.e2fsprogs}/bin/mkfs.ext4 -F -q /dev/mapper/${lib.strings.escapeShellArg mapper}
 
       # Securely wipe the ephemeral key from the initrd RAM
       rm /tmp/ephemeral.key
