@@ -26,6 +26,11 @@ in
       description = "size of verity has partition of nix store";
       default = "4G"; # ~8-10% according to Arch Wiki, so use image-size/8 for ez
     };
+    ephemeral-sysroot-size = lib.mkOption {
+      type = lib.types.str;
+      description = "size of ephemeral post-initrd root partition";
+      default = "32G";
+    };
   };
 
   config = {
@@ -122,7 +127,6 @@ in
         };
       };
     };
-    # TODO: ↓ set /etc/repart.d since we are bootstrapping from a non-image
     systemd.repart = {
       enable = true;
       partitions = {
@@ -149,6 +153,19 @@ in
           Type = "root-verity";
           SizeMinBytes = config.assr.appliance.verity-hash-size;
           SizeMaxBytes = config.assr.appliance.verity-hash-size;
+        };
+
+        ephemeral-sysroot-a = {
+          Type = "linux-generic";
+          Label = "ephemeral-sysroot-a";
+          SizeMinBytes = config.assr.appliance.ephemeral-sysroot-size;
+          SizeMaxBytes = config.assr.appliance.ephemeral-sysroot-size;
+        };
+        ephemeral-sysroot-b = {
+          Type = "linux-generic";
+          Label = "ephemeral-sysroot-b";
+          SizeMinBytes = config.assr.appliance.ephemeral-sysroot-size;
+          SizeMaxBytes = config.assr.appliance.ephemeral-sysroot-size;
         };
       };
     };
