@@ -59,7 +59,7 @@ in
     '';
   };
 
-  fileSystems."/" = {
+  config.fileSystems."/" = {
     device = "/dev/mapper/${mapper}";
     fsType = "ext4";
   };
