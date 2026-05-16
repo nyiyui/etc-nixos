@@ -12,6 +12,7 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
+  boot.initrd.kernelModules = [ "nvme" ]; # dev mapper not working fix??
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "nvme"
