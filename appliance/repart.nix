@@ -54,7 +54,8 @@ in
           repartConfig = config.image.repart.partitions.root.repartConfig;
         in
         {
-          device = "/dev/disk/by-partlabel/${repartConfig.Label}";
+          #device = "/dev/disk/by-partlabel/${repartConfig.Label}";
+          device = "/dev/mapper/root";
           fsType = repartConfig.Format;
         };
     };
