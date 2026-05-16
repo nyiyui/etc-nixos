@@ -29,6 +29,7 @@
         }
         ".local/share/fish"
         ".local/share/prusa-slicer"
+        ".local/share/containers"
         ".var/nixpak-app/io.github.alainm23.planify"
         ".var/nixpak-app/org.mozilla.firefox"
         ".mozilla/firefox"
