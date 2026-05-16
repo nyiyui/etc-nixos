@@ -23,7 +23,7 @@ in
       SizeMaxBytes = config.assr.appliance.ephemeral-sysroot-size;
     };
   };
-  config.boot.initrd.systend.storePaths = with pkgs; [ cryptsetup e2fsprogs coreutils ];
+  config.boot.initrd.systemd.storePaths = with pkgs; [ cryptsetup e2fsprogs coreutils ];
   config.boot.initrd.systemd.services.ephemeral-sysroot = {
     description = "format ephemeral sysroot for this boot";
     wantedBy = [ "initrd.target" ];
