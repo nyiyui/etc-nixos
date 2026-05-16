@@ -104,7 +104,7 @@
         cp ${build.image}/${id}_${version}.root.*.raw $out/
 
         # Extract roothash from repart-output.json
-        roothash=$(jq -r '.[] | select(.split_path == "${id}_${version}.root-verity.raw") | .roothash' ${build.image}/repart-output.json)
+        roothash=$(jq -r '.[] | select(.split_path == "${id}_${version}.root-verity.*.raw") | .roothash' ${build.image}/repart-output.json)
 
         echo "Injecting roothash $roothash into UKI"
 
