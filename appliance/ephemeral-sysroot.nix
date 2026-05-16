@@ -27,19 +27,13 @@ in
     description = "format ephemeral sysroot for this boot";
     wantedBy = [ "initrd.target" ];
     before = [ "sysroot.mount" ];
-    unitConfig.DefaultDependencies = false;
-
+    serviceConfig.Type = "oneshot";
+    bindsTo = [ "dev-disk-by\\x2dpartlabel-ephemeral\\x2dsysroot.device" ];
+    after   = [ "dev-disk-by\\x2dpartlabel-ephemeral\\x2dsysroot.device" ];
     path = with pkgs; [ cryptsetup e2fsprogs coreutils ];
-
+    environment.PART = "/dev/disk/by-partlabel/${partlabel}";
+    enableStrictShellChecks = true;
     script = ''
-      # Using partlabel instead of partuuid
-      PART="/dev/disk/by-partlabel/"${lib.strings.escapeShellArg partlabel}
-
-      echo "Waiting for root partition ${partlabel} to become available..."
-      while [ ! -b "$PART" ]; do
-        sleep 0.1
-      done
-
       echo "Generating ephemeral encryption key..."
       dd if=/dev/urandom of=/tmp/ephemeral.key bs=512 count=1 status=none
 
