@@ -23,6 +23,7 @@ in
       SizeMaxBytes = config.assr.appliance.ephemeral-sysroot-size;
     };
   };
+  config.boot.initrd.systend.storePaths = with pkgs; [ cryptsetup e2fsprogs coreutils ];
   config.boot.initrd.systemd.services.ephemeral-sysroot = {
     description = "format ephemeral sysroot for this boot";
     wantedBy = [ "initrd.target" ];
@@ -30,7 +31,6 @@ in
     serviceConfig.Type = "oneshot";
     bindsTo = [ "dev-disk-by\\x2dpartlabel-ephemeral\\x2dsysroot.device" ];
     after   = [ "dev-disk-by\\x2dpartlabel-ephemeral\\x2dsysroot.device" ];
-    path = with pkgs; [ cryptsetup e2fsprogs coreutils ];
     environment.PART = "/dev/disk/by-partlabel/${partlabel}";
     enableStrictShellChecks = true;
     script = ''
