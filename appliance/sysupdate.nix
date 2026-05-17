@@ -79,10 +79,10 @@
     "systemd.verity=1"
     "roothash=RoothashGoesHereRoothashGoesHereRoothashGoesHereRoothashGoesHere"
     # roothash= filled in after image build, see config.system.build.sysupdate-package
-    # "systemd.verity_root_options=restart-on-corruption" # TODO: once I verify it works
-    # "rd.emergency=reboot" # ditto
-    # "rd.shell=0" # ditto
-    # "lockdown=confidentiality" # ditto
+    "systemd.verity_root_options=restart-on-corruption"
+    "rd.emergency=reboot"
+    "rd.shell=0"
+    "lockdown=confidentiality"
   ];
 
   system.build.sysupdate-package =
