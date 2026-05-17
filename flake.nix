@@ -38,6 +38,12 @@
     caldav-canvas-gradescope.url = "github:nyiyui/caldav-canvas-gradescope";
     caldav-canvas-gradescope.inputs.nixpkgs.follows = "nixpkgs";
     caldav-canvas-gradescope.inputs.flake-utils.follows = "flake-utils";
+    hjem.follows = "hjem-rum/hjem"; # Hjem Rum recommends flake users to follow their Hjem input (an example is given below).
+    hjem-rum = {
+        url = "github:snugnug/hjem-rum";
+        inputs.nixpkgs.follows = "nixpkgs";
+        inputs.hjem.follows = "hjem";
+    };
   };
 
   outputs =
@@ -47,6 +53,7 @@
       nixpkgs,
       flake-utils,
       lanzaboote,
+      hjem,
       ...
     }@attrs:
     rec {
@@ -92,6 +99,7 @@
         modules = [
           ./suzaku/configuration.nix
           agenix.nixosModules.default
+          hjem.nixosModules.default
         ];
       };
       nixosConfigurations.inaho = nixpkgs.lib.nixosSystem rec {
