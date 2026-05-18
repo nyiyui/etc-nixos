@@ -62,9 +62,10 @@
       enable = true;
     };
 
-    users.users.kiyurica.packages = [
-      pkgs.xwayland-satellite
-      pkgs.swaylock
+    users.users.kiyurica.packages = with pkgs; [
+      xwayland-satellite
+      swaylock
+      foot
     ];
 
 
