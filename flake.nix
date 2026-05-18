@@ -38,6 +38,8 @@
     caldav-canvas-gradescope.url = "github:nyiyui/caldav-canvas-gradescope";
     caldav-canvas-gradescope.inputs.nixpkgs.follows = "nixpkgs";
     caldav-canvas-gradescope.inputs.flake-utils.follows = "flake-utils";
+    microvm.url = "github:microvm-nix/microvm.nix";
+    microvm.inputs.nixpkgs.follows = "nixpkgs";
     hjem.follows = "hjem-rum/hjem";
     hjem-rum = {
       url = "github:snugnug/hjem-rum";
@@ -52,6 +54,7 @@
       nixpkgs,
       flake-utils,
       lanzaboote,
+      microvm,
       hjem,
       hjem-rum,
       ...
@@ -148,10 +151,12 @@
           inherit system;
         };
         modules = [
+          microvm.nixosModules.microvm
           ./dev-vm/configuration.nix
-          agenix.nixosModules.default
         ];
       };
+
+      packages.x86_64-linux.dev-vm = nixosConfigurations.dev-vm.config.microvm.declaredRunner;
     }
     // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
       system:
