@@ -26,6 +26,7 @@
     ../thunderbolt.nix
     ../common.nix
     ../sound.nix
+    ../virt.nix
     # ../vlc.nix # TODO: re-enable
     ../tpm.nix
     # ../adb.nix # TODO: re-enable
@@ -167,6 +168,7 @@
   };
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
+    helix
   ];
 
   kiyurica.quaderno-sync = {
