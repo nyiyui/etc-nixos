@@ -16,6 +16,7 @@
     ./overlays.nix
     ./hardware-configuration.nix
     ../niri-hjem
+    ../hjem
     ./disko-config.nix
     ../appliance
     ./impermanence.nix
@@ -196,15 +197,6 @@
 
   boot.initrd.systemd.repart.device = "/dev/disk/by-id/nvme-CT2000P3PSSD8_2506E9A48456";
 
-  hjem = {
-      extraModules = [
-          hjem-rum.hjemModules.default
-      ];
-      users.kiyurica = {
-        enable = true;
-        directory = "/home/kiyurica"; # TODO: needed?
-      };
-      # You should probably also enable clobberByDefault at least for now.
-      clobberByDefault = true;
-  };
+  kiyurica.hjem.enable = true;
+  kiyurica.home-manager.enable = lib.mkForce false;
 }

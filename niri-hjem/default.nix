@@ -23,6 +23,11 @@
   config = lib.mkIf config.assr.desktop.niri.enable {
     hjem.users.kiyurica = {
       enable = true;
+      imports = [
+        ../hjem/graphical.nix
+        ../hjem/wayland.nix
+        ../hjem/fuzzel.nix
+      ];
       rum.desktops.niri = {
         enable = true;
         config = (builtins.readFile ./config.kdl);
