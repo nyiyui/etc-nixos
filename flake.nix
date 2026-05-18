@@ -40,8 +40,8 @@
     caldav-canvas-gradescope.inputs.flake-utils.follows = "flake-utils";
     hjem.follows = "hjem-rum/hjem";
     hjem-rum = {
-        url = "github:snugnug/hjem-rum";
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:snugnug/hjem-rum";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -139,6 +139,16 @@
         };
         modules = [
           ./currant/configuration.nix
+          agenix.nixosModules.default
+        ];
+      };
+      nixosConfigurations.dev-vm = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [
+          ./dev-vm/configuration.nix
           agenix.nixosModules.default
         ];
       };
