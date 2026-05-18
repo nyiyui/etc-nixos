@@ -5,6 +5,7 @@
   specialArgs,
   nixos-hardware,
   nixpkgs-unstable,
+  hjem-rum,
   ...
 }:
 
@@ -14,6 +15,7 @@
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
     ./overlays.nix
     ./hardware-configuration.nix
+    ../niri-hjem
     ./disko-config.nix
     ../appliance
     ./impermanence.nix
@@ -86,7 +88,6 @@
   kiyurica.greeter.gtkgreet = {
     enable = true;
   };
-  kiyurica.home-manager.enable = false;
   # TODO: add moonlight-qt package
 #  home-manager.users.kiyurica =
 #    { pkgs, ... }:
@@ -195,7 +196,7 @@
 
   hjem = {
       extraModules = [
-          inputs.hjem-rum.hjemModules.default
+          hjem-rum.hjemModules.default
       ];
       users.kiyurica = {
         enable = true;

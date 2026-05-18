@@ -3,7 +3,6 @@
   imports = [
     ./repart.nix
     ./sysupdate.nix
-    ./update-notification.nix
     ./ephemeral-sysroot.nix
   ];
 

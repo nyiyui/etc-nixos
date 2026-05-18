@@ -1,0 +1,196 @@
+input {
+    keyboard {
+        xkb {
+            layout ""
+            model ""
+            rules ""
+            variant ""
+            options "compose:caps"
+        }
+        repeat-delay 600
+        repeat-rate 25
+        track-layout "global"
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+}
+output "Dell Inc. DELL U2417H *" {
+    scale 1.000000
+    transform "normal"
+    mode "1920x1080@60.000000"
+}
+output "HDMI-A-2" {
+    scale 1
+    transform "normal"
+    position x=0 y=0
+    mode "1920x1080@60.000000"
+}
+output "Hisense Electric Co., Ltd. HISENSE-TV 0x81010101" {
+    scale 1.500000
+    transform "normal"
+    mode "3840x2150@60.000000"
+}
+output "Samsung Electric Company LC34G55T *" { transform "normal"; }
+output "Sceptre Tech Inc U27 Unknown" {
+    scale 2.400000
+    transform "270"
+    mode "3840x2160@30.000000"
+}
+output "Sony SONY TV  *00 0x01010101" {
+    scale 1.500000
+    transform "normal"
+    mode "3840x2160@30.000000"
+}
+screenshot-path "~/.cache/screenshot.png"
+prefer-no-csd
+layout {
+    gaps 16
+    struts {
+        left 16
+        right 16
+        top 16
+        bottom 16
+    }
+    focus-ring {
+        width 2
+        active-color "rgb(127 200 255)"
+        inactive-color "rgb(80 80 80)"
+    }
+    border { off; }
+    default-column-width { proportion 1.000000; }
+    center-focused-column "never"
+}
+cursor {
+    xcursor-theme "default"
+    xcursor-size 16
+}
+environment {
+    "GDK_BACKEND" "wayland"
+    "INPUT_METHOD" "fcitx"
+    "QT_AUTO_SCREEN_SCALE_FACTOR" "1"
+    "QT_IM_MODULE" "fcitx"
+    "QT_QPA_PLATFORM" "wayland"
+    "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1"
+    "XIM_SERVERS" "fcitx"
+    XMODIFIERS "@im fcitx"
+}
+binds {
+    Control+grave { spawn "playerctl" "play-pause"; }
+    Mod+1 allow-inhibiting=false { focus-workspace 1; }
+    Mod+2 allow-inhibiting=false { focus-workspace 2; }
+    Mod+3 allow-inhibiting=false { focus-workspace 3; }
+    Mod+4 allow-inhibiting=false { focus-workspace 4; }
+    Mod+5 allow-inhibiting=false { focus-workspace 5; }
+    Mod+6 allow-inhibiting=false { focus-workspace 6; }
+    Mod+7 allow-inhibiting=false { focus-workspace 7; }
+    Mod+8 allow-inhibiting=false { focus-workspace 8; }
+    Mod+9 allow-inhibiting=false { focus-workspace 9; }
+    Mod+Alt+L { spawn "loginctl" "lock-session"; }
+    Mod+Alt+N { spawn "/nix/store/ldjxlh7ikwhv46lzbk1w52i3kag8aqdk-mako-1.10.0/bin/makoctl" "menu" "fuzzel -d" "-p" "通知"; }
+    Mod+Alt+P { clear-dynamic-cast-target; }
+    Mod+Alt+Return { spawn "/nix/store/gkmyy8i5wgkpha1p0a9yvym86zpxn4jf-gtk+3-3.24.51/bin/gtk-launch" "com.github.flxzt.rnote"; }
+    "Mod+Alt+Shift+Page_Down" { move-workspace-down; }
+    "Mod+Alt+Shift+Page_Up" { move-workspace-up; }
+    Mod+BracketLeft { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+C { center-column; }
+    Mod+Comma { consume-window-into-column; }
+    Mod+Ctrl+H { focus-monitor-left; }
+    Mod+Ctrl+J { focus-monitor-down; }
+    Mod+Ctrl+K { focus-monitor-up; }
+    Mod+Ctrl+L { focus-monitor-right; }
+    Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
+    Mod+D { spawn "fuzzel"; }
+    Mod+End { focus-column-last; }
+    Mod+Equal { set-column-width "+10%"; }
+    Mod+Escape { toggle-keyboard-shortcuts-inhibit; }
+    Mod+F { maximize-column; }
+    Mod+H { focus-column-left; }
+    Mod+Home { focus-column-first; }
+    Mod+I { focus-workspace-up; }
+    Mod+J { focus-window-down; }
+    Mod+K { focus-window-up; }
+    Mod+L { focus-column-right; }
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+N { spawn "/nix/store/ldjxlh7ikwhv46lzbk1w52i3kag8aqdk-mako-1.10.0/bin/makoctl" "dismiss"; }
+    Mod+P { set-dynamic-cast-window; }
+    Mod+Period { expel-window-from-column; }
+    Mod+R { switch-preset-column-width; }
+    Mod+Return { spawn "foot"; }
+    Mod+Shift+1 allow-inhibiting=false { move-column-to-workspace 1; }
+    Mod+Shift+2 allow-inhibiting=false { move-column-to-workspace 2; }
+    Mod+Shift+3 allow-inhibiting=false { move-column-to-workspace 3; }
+    Mod+Shift+4 allow-inhibiting=false { move-column-to-workspace 4; }
+    Mod+Shift+5 allow-inhibiting=false { move-column-to-workspace 5; }
+    Mod+Shift+6 allow-inhibiting=false { move-column-to-workspace 6; }
+    Mod+Shift+7 allow-inhibiting=false { move-column-to-workspace 7; }
+    Mod+Shift+8 allow-inhibiting=false { move-column-to-workspace 8; }
+    Mod+Shift+9 allow-inhibiting=false { move-column-to-workspace 9; }
+    Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
+    Mod+Shift+E { quit; }
+    Mod+Shift+End { move-column-to-last; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+Home { move-column-to-first; }
+    Mod+Shift+I { move-column-to-workspace-up; }
+    Mod+Shift+J { move-window-down; }
+    Mod+Shift+K { move-window-up; }
+    Mod+Shift+L { move-column-right; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+N { spawn "/nix/store/ldjxlh7ikwhv46lzbk1w52i3kag8aqdk-mako-1.10.0/bin/makoctl" "restore"; }
+    Mod+Shift+P { set-dynamic-cast-monitor; }
+    Mod+Shift+Q allow-inhibiting=false { close-window; }
+    Mod+Shift+Return { spawn "firefox"; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Shift+U { move-column-to-workspace-down; }
+    Mod+Shift+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Shift+WheelScrollLeft { move-column-left; }
+    Mod+Shift+WheelScrollRight { move-column-right; }
+    Mod+Shift+WheelScrollUp cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+Tab { spawn "/run/current-system/sw/bin/fish" "-c" "niri msg action focus-window --id $(niri msg -j windows | jq -r 'map((.id | tostring) + \" \" + .title).[]' | fuzzel -d | awk '{print $1}')"; }
+    Mod+U { focus-workspace-down; }
+    Mod+W { toggle-column-tabbed-display; }
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollLeft { focus-column-left; }
+    Mod+WheelScrollRight { focus-column-right; }
+    Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
+    XF86AudioLowerVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-5%"; }
+    XF86AudioMute { spawn "pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle"; }
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
+    XF86AudioRaiseVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+5%"; }
+    XF86MonBrightnessDown { spawn "fish" "--command=if [ $(light) -le 1 ]; then; light -S 1; else; light -U 1; end"; }
+    XF86MonBrightnessUp { spawn "light" "-A" "1"; }
+}
+spawn-sh-at-startup "/nix/store/v7a5rn0p45vwj13i788xvv7q8fsjvqcf-chromium-146.0.7680.177/bin/chromium --password-store=basic '--proxy-server=socks5://tk2-246-32584.tailcbbed9.ts.net:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://tver.jp"
+spawn-sh-at-startup "/nix/store/1302k5v2a98sq10nx7a3j98r2png6d1k-microsoft-edge-146.0.3856.84/bin/microsoft-edge --password-store=basic '--proxy-server=socks5://tk2-246-32584.tailcbbed9.ts.net:1080' https://www.web.nhk"
+spawn-at-startup "uwsm" "finalize"
+window-rule {
+    match app-id="^com\\.freerdp\\.client\\.sdl3$"
+    open-floating false
+}
+window-rule {
+    match app-id="^foot$"
+    draw-border-with-background false
+}
+window-rule {
+    match app-id="^org\\.keepassxc\\.KeePassXC$"
+    block-out-from "screencast"
+}
+window-rule {
+    match is-window-cast-target=true
+    shadow {
+        on
+        color "#e12885"
+    }
+}
+layer-rule {
+    match namespace="^notifications$"
+    block-out-from "screencast"
+}
+animations { off; }

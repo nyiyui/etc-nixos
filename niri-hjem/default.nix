@@ -3,13 +3,12 @@
   pkgs,
   lib,
   nixpkgs-unstable,
+  niri,
   ...
 }:
 {
   imports = [
-    ../home-manager.nix
     ./uwsm.nix
-    ./non-uwsm-binds.nix
     ./set-default.nix
   ];
 
@@ -22,345 +21,53 @@
   };
 
   config = lib.mkIf config.assr.desktop.niri.enable {
-    hjem.users.kiyurica.enable = true;
+    hjem.users.kiyurica = {
+      enable = true;
+      rum.desktops.niri = {
+        enable = true;
+        config = (builtins.readFile ./config.kdl);
+      };
+      systemd.services.swaybg = {
+        description = "swaywm background";
+        requires = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        startLimitIntervalSec = 350;
+        startLimitBurst = 30;
+        serviceConfig = {
+          ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i /path/to/background.png";
+          Restart = "on-failure";
+          RestartSec = 3;
+        };
+        wantedBy = [ "graphical-session.target" ];
+      };
+      systemd.services.swaylock = {
+        wantedBy = [ "lock.target" ];
+        unitConfig = {
+          OnSuccess = [ "unlock.target" ];
+          PartOf = [ "lock.target" ];
+          After = [ "lock.target" ];
+        };
+        serviceConfig = {
+          Type = "forking";
+          ExecStart = "${pkgs.swaylock}/bin/swaylock -f";
+          Restart = "on-failure";
+          RestartSec = "0";
+        };
+      };
+    };
 
     programs.niri = {
       # required for display managers (so they can run niri-session)
       enable = true;
-      # package = niri.packages.${pkgs.stdenv.hostPlatform.system}.niri-stable;
     };
+
     users.users.kiyurica.packages = [
       pkgs.xwayland-satellite
+      pkgs.swaylock
     ];
-    hjem.users.kiyurica.systemd.enable = true;
-    hjem.users.kiyurica.systemd.services.swaybg = {
-      description = "swaywm background";
-      requires = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      startLimitIntervalSec = 350;
-      startLimitBurst = 30;
-      serviceConfig = {
-        ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${config.kiyurica.graphical.backgroundImage}";
-        Restart = "on-failure";
-        RestartSec = 3;
-      };
-      wantedBy = [ "graphical-session.target" ];
-    };
-    systemd.user.targets.xdg-desktop-autostart.unit = {
-      # don't use Hjem (for now) since IDK if it can handle merging with system-level user services well
-      # no PartOf=, since this is started by…UWSM?
-      wants = [
-        "graphical-session.target"
-        "xdg-document-portal.service"
-      ];
-      after = [
-        "graphical-session.target"
-        "xdg-document-portal.service"
-      ];
-    };
-    hjem.users.kiyurica.systemd.services.swaylock = {
-      wantedBy = [ "lock.target" ];
-      onSuccess = [ "unlock.target" ];
-      partOf = [ "lock.target" ];
-      after = [ "lock.target" ];
-      serviceConfig = {
-        Type = "forking";
-        ExecStart = "${config.programs.swaylock.package}/bin/swaylock -f";
-        Restart = "on-failure";
-        RestartSec = "0";
-      };
-    };
-    hjem.users.kiyurica.rum.desktops.niri = {
-      enable = true;
-    };
-    home-manager.users.kiyurica = {
-      imports = [
-        ../home-manager/graphical.nix
-        ../home-manager/fuzzel.nix
-        ../home-manager/wayland.nix
-        (
-          {
-            config,
-            lib,
-            pkgs,
-            ...
-          }:
-          {
-            config = {
-              programs.waybar.settings.mainBar = {
-                modules-left = [
-                  "niri/workspaces"
-                  "niri/window"
-                ];
 
-                "niri/workspaces" = {
-                  format = "{index}";
-                };
 
-                "niri/window" = {
-                  rotate =
-                    if config.kiyurica.waybarPosition == "left" || config.kiyurica.waybarPosition == "right" then
-                      270
-                    else
-                      0;
-                };
-              };
-              programs.niri = {
-                enable = true;
-                package = pkgs.niri;
-                settings = {
-                  input = {
-                    keyboard = {
-                      xkb.options = "compose:caps";
-                      repeat-delay = 600;
-                      repeat-rate = 25;
-                      track-layout = "global";
-                    };
-                  };
-                  screenshot-path = "~/.cache/screenshot.png";
-                  layout = {
-                    gaps = 16;
-                    struts = {
-                      left = 16;
-                      right = 16;
-                      top = 16;
-                      bottom = 16;
-                    };
-                    focus-ring = {
-                      width = 2;
-                      active.color = "rgb(127 200 255)";
-                      inactive.color = "rgb(80 80 80)";
-                    };
-                    border.enable = false;
-                    default-column-width.proportion = 0.4;
-                    center-focused-column = "never";
-                  };
-                  cursor.size = 16;
-                  environment = {
-                    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-                    QT_QPA_PLATFORM = "wayland";
-                    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-                    GDK_BACKEND = "wayland";
-                    INPUT_METHOD = "fcitx";
-                    QT_IM_MODULE = "fcitx";
-                    XMODIFIERS = "@im fcitx";
-                    XIM_SERVERS = "fcitx";
-                  };
-                  animations.enable = false;
-                  binds =
-                    with config.lib.niri.actions;
-                    {
-                      "Mod+Shift+Slash".action = show-hotkey-overlay;
-                      "XF86MonBrightnessUp".action.spawn = [
-                        "light"
-                        "-A"
-                        "1"
-                      ];
-                      "XF86MonBrightnessDown".action.spawn = [
-                        "fish"
-                        "--command=if [ $(light) -le 1 ]; then; light -S 1; else; light -U 1; end"
-                      ];
-                      "XF86AudioRaiseVolume".action.spawn = [
-                        "pactl"
-                        "set-sink-volume"
-                        "@DEFAULT_SINK@"
-                        "+5%"
-                      ];
-                      "XF86AudioLowerVolume".action.spawn = [
-                        "pactl"
-                        "set-sink-volume"
-                        "@DEFAULT_SINK@"
-                        "-5%"
-                      ];
-                      "XF86AudioMute".action.spawn = [
-                        "pactl"
-                        "set-sink-mute"
-                        "@DEFAULT_SINK@"
-                        "toggle"
-                      ];
-                      "XF86AudioPlay".action.spawn = [
-                        "playerctl"
-                        "play-pause"
-                      ];
-                      "Control+grave".action.spawn = [
-                        "playerctl"
-                        "play-pause"
-                      ];
-                      "Mod+Alt+N".action.spawn = [
-                        "${pkgs.mako}/bin/makoctl"
-                        "menu"
-                        "fuzzel -d"
-                        "-p"
-                        "通知"
-                      ];
-                      "Mod+N".action.spawn = [
-                        "${pkgs.mako}/bin/makoctl"
-                        "dismiss"
-                      ];
-                      "Mod+Shift+N".action.spawn = [
-                        "${pkgs.mako}/bin/makoctl"
-                        "restore"
-                      ];
-                      "Mod+Shift+Q" = {
-                        action = close-window;
-                        allow-inhibiting = false;
-                      };
-                      "Mod+Tab".action.spawn = [
-                        "/run/current-system/sw/bin/fish"
-                        "-c"
-                        ''niri msg action focus-window --id $(niri msg -j windows | jq -r 'map((.id | tostring) + " " + .title).[]' | fuzzel -d | awk '{print $1}')''
-                      ];
-                      "Mod+H".action = focus-column-left;
-                      "Mod+J".action = focus-window-down;
-                      "Mod+K".action = focus-window-up;
-                      "Mod+L".action = focus-column-right;
-                      "Mod+Shift+H".action = move-column-left;
-                      "Mod+Shift+J".action = move-window-down;
-                      "Mod+Shift+K".action = move-window-up;
-                      "Mod+Shift+L".action = move-column-right;
-                      "Mod+U".action = focus-workspace-down;
-                      "Mod+I".action = focus-workspace-up;
-                      "Mod+Shift+U".action = move-column-to-workspace-down;
-                      "Mod+Shift+I".action = move-column-to-workspace-up;
-                      "Mod+Home".action = focus-column-first;
-                      "Mod+End".action = focus-column-last;
-                      "Mod+Shift+Home".action = move-column-to-first;
-                      "Mod+Shift+End".action = move-column-to-last;
-                      "Mod+Ctrl+H".action = focus-monitor-left;
-                      "Mod+Ctrl+J".action = focus-monitor-down;
-                      "Mod+Ctrl+K".action = focus-monitor-up;
-                      "Mod+Ctrl+L".action = focus-monitor-right;
-                      "Mod+Shift+Ctrl+H".action = move-column-to-monitor-left;
-                      "Mod+Shift+Ctrl+J".action = move-column-to-monitor-down;
-                      "Mod+Shift+Ctrl+K".action = move-column-to-monitor-up;
-                      "Mod+Shift+Ctrl+L".action = move-column-to-monitor-right;
-                      "Mod+Alt+Shift+Page_Down".action = move-workspace-down;
-                      "Mod+Alt+Shift+Page_Up".action = move-workspace-up;
-                      "Mod+WheelScrollDown" = {
-                        cooldown-ms = 150;
-                        action = focus-workspace-down;
-                      };
-                      "Mod+WheelScrollUp" = {
-                        cooldown-ms = 150;
-                        action = focus-workspace-up;
-                      };
-                      "Mod+Shift+WheelScrollDown" = {
-                        cooldown-ms = 150;
-                        action = move-column-to-workspace-down;
-                      };
-                      "Mod+Shift+WheelScrollUp" = {
-                        cooldown-ms = 150;
-                        action = move-column-to-workspace-up;
-                      };
-                      "Mod+WheelScrollRight".action = focus-column-right;
-                      "Mod+WheelScrollLeft".action = focus-column-left;
-                      "Mod+Shift+WheelScrollRight".action = move-column-right;
-                      "Mod+Shift+WheelScrollLeft".action = move-column-left;
-                      "Mod+Comma".action = consume-window-into-column;
-                      "Mod+Period".action = expel-window-from-column;
-                      "Mod+BracketLeft".action = consume-or-expel-window-left;
-                      "Mod+BracketRight".action = consume-or-expel-window-right;
-                      "Mod+R".action = switch-preset-column-width;
-                      "Mod+F".action = maximize-column;
-                      "Mod+Shift+F".action = fullscreen-window;
-                      "Mod+C".action = center-column;
-                      "Mod+Minus".action.set-column-width = "-10%";
-                      "Mod+Equal".action.set-column-width = "+10%";
-                      "Mod+Shift+Minus".action.set-window-height = "-10%";
-                      "Mod+Shift+Equal".action.set-window-height = "+10%";
-                      "Mod+Shift+E".action = quit;
-                      "Mod+Escape".action = toggle-keyboard-shortcuts-inhibit;
-                      "Mod+Ctrl+Shift+F".action = toggle-windowed-fullscreen;
-                      "Mod+W".action = toggle-column-tabbed-display;
-
-                      "Mod+P".action = set-dynamic-cast-window;
-                      "Mod+Shift+P".action = set-dynamic-cast-monitor;
-                      "Mod+Alt+P".action = clear-dynamic-cast-target;
-                    }
-                    // (builtins.foldl' (a: b: a // b) { } (
-                      builtins.map (i: {
-                        "Mod+${builtins.toString i}" = {
-                          action.focus-workspace = i;
-                          allow-inhibiting = false;
-                        };
-                        "Mod+Shift+${builtins.toString i}" = {
-                          action.move-column-to-workspace = i;
-                          allow-inhibiting = false;
-                        };
-                      }) (builtins.genList (x: x + 1) 9)
-                    ));
-                  window-rules = [
-                    {
-                      matches = [ { app-id = "^com\\.freerdp\\.client\\.sdl3$"; } ];
-                      open-floating = false;
-                    }
-                    {
-                      matches = [ { app-id = "^foot$"; } ];
-                      draw-border-with-background = false;
-                    }
-                    {
-                      matches = [ { app-id = ''^org\.keepassxc\.KeePassXC$''; } ];
-                      block-out-from = "screencast";
-                    }
-                    {
-                      matches = [ { is-window-cast-target = true; } ];
-                      shadow.enable = true;
-                      shadow.color = "#e12885";
-                    }
-                  ];
-                  layer-rules = [
-                    {
-                      matches = [ { namespace = "^notifications$"; } ];
-                      block-out-from = "screencast";
-                    }
-                  ];
-                  prefer-no-csd = true;
-                  outputs = {
-                    "Sceptre Tech Inc U27 Unknown" = {
-                      mode = {
-                        width = 3840;
-                        height = 2160;
-                        refresh = 30.0;
-                      };
-                      scale = 2.4;
-                      transform.rotation = 270;
-                    };
-                    "Sony SONY TV  *00 0x01010101" = {
-                      mode = {
-                        width = 3840;
-                        height = 2160;
-                        refresh = 30.0;
-                      };
-                      scale = 1.5;
-                    };
-                    "Dell Inc. DELL U2417H *" = {
-                      mode = {
-                        width = 1920;
-                        height = 1080;
-                        refresh = 60.0;
-                      };
-                      scale = 1.0;
-                    };
-                    "Hisense Electric Co., Ltd. HISENSE-TV 0x81010101" = {
-                      mode = {
-                        width = 3840;
-                        height = 2150;
-                        refresh = 60.0;
-                      };
-                      scale = 1.5;
-                    };
-                    "Samsung Electric Company LC34G55T *" = {
-                      # mode = "3440x1440@165.000Hz"; # assumed from model, but kanshi didn't specify
-                    };
-                  };
-                };
-              };
-            };
-          }
-        )
-      ];
-    };
 
     xdg.portal = {
       enable = true;
