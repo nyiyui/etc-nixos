@@ -30,7 +30,7 @@ in
   options.assr.appliance.ephemeral-sysroot-size = lib.mkOption {
     type = lib.types.str;
     description = "size of ephemeral root partition";
-    default = "32G";
+    default = "64G";
   };
 
   config.systemd.repart.partitions = {
