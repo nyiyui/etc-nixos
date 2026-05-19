@@ -28,6 +28,15 @@
         source = "/tmp";
         mountPoint = "/workspace";
       }
+      # Per-workspace metadata directory shared from the host.
+      # Contains: hostname, id_ed25519.pub (SSH key), ip (written by guest).
+      # Source is a placeholder — actual path is $VM_DIR supplied at launch time.
+      {
+        proto = "virtiofs";
+        tag = "vm-meta";
+        source = "/tmp";
+        mountPoint = "/vm-meta";
+      }
     ];
 
     interfaces = [
@@ -40,7 +49,7 @@
 
     writableStoreOverlay = "/nix/.rw-store";
 
-    # Persistent disk volumes. Images live in the workspace directory on the
+    # Persistent disk volumes. Images live in /var/lib/dev-vm/<hash>/ on the
     # host; the wrapper script creates them on first launch and symlinks them
     # to the paths below before running microvm-run.
     volumes = [
@@ -95,31 +104,94 @@
   security.sudo.wheelNeedsPassword = false;
   programs.fish.enable = true;
 
-  # Auto-login as kiyurica; drop into /workspace; poweroff on logout.
+  # Auto-login as kiyurica; drop into /workspace on login.
   services.getty.autologinUser = lib.mkDefault "kiyurica";
   programs.fish.loginShellInit = ''
     if test -d /workspace; cd /workspace; end
-    function _poweroff_on_exit --on-event fish_exit
-      sudo poweroff
+    # Poweroff the VM when the console session ends. SSH sessions are excluded
+    # so that attaching extra shells does not trigger an early shutdown.
+    if not set -q SSH_TTY
+      function _poweroff_on_exit --on-event fish_exit
+        sudo poweroff
+      end
     end
   '';
 
-  # Apply hostname written by the host wrapper into /workspace/.dev-vm-hostname.
+  # Apply hostname written by the host wrapper into /vm-meta/hostname.
   systemd.services.dev-vm-hostname = {
-    description = "Set VM hostname from workspace config";
+    description = "Set VM hostname from vm-meta";
     wantedBy = [ "multi-user.target" ];
-    after = [ "workspace.mount" ];
-    requires = [ "workspace.mount" ];
+    after = [ "vm-meta.mount" ];
+    requires = [ "vm-meta.mount" ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
     };
     script = ''
-      if [ -f /workspace/.dev-vm-hostname ]; then
-        read -r name < /workspace/.dev-vm-hostname
+      if [ -f /vm-meta/hostname ]; then
+        read -r name < /vm-meta/hostname
         echo "$name" > /proc/sys/kernel/hostname
       fi
     '';
+  };
+
+  # Copy the per-workspace SSH public key into authorized_keys before sshd starts.
+  systemd.services.dev-vm-sshkeys = {
+    description = "Install SSH authorized key from host";
+    wantedBy = [ "sshd.service" ];
+    before = [ "sshd.service" ];
+    after = [
+      "vm-meta.mount"
+      "home-kiyurica.mount"
+      "systemd-tmpfiles-setup.service"
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      if [ -f /vm-meta/id_ed25519.pub ]; then
+        mkdir -p /home/kiyurica/.ssh
+        cp /vm-meta/id_ed25519.pub /home/kiyurica/.ssh/authorized_keys
+        chmod 700 /home/kiyurica/.ssh
+        chmod 600 /home/kiyurica/.ssh/authorized_keys
+        chown -R kiyurica:kiyurica /home/kiyurica/.ssh
+      fi
+    '';
+  };
+
+  # Write the guest's DHCP-assigned IP back to /vm-meta/ip so the host wrapper
+  # knows where to SSH. Retries until an address appears.
+  systemd.services.dev-vm-report-ip = {
+    description = "Report VM IP to host via vm-meta";
+    wantedBy = [ "multi-user.target" ];
+    after = [
+      "network.target"
+      "vm-meta.mount"
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      Restart = "on-failure";
+      RestartSec = "3s";
+    };
+    script = ''
+      IP=$(ip -4 addr show scope global | awk '/inet /{sub("/.*","", $2); print $2; exit}')
+      if [ -n "$IP" ]; then
+        echo "$IP" > /vm-meta/ip
+      else
+        exit 1
+      fi
+    '';
+  };
+
+  # SSH server; password auth disabled — key-only via vm-meta pubkey.
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
   };
 
   environment.systemPackages = with pkgs; [

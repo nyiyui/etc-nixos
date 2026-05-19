@@ -152,29 +152,67 @@
         let
           cfg = nixosConfigurations.dev-vm.config;
           runner = cfg.microvm.declaredRunner;
-          virtiofsd = cfg.microvm.virtiofsd.package;
           pkgs = import nixpkgs { system = "x86_64-linux"; };
         in
         pkgs.writeShellApplication {
           name = "dev-vm";
+          runtimeInputs = with pkgs; [
+            bash
+            coreutils
+            e2fsprogs
+            gnused
+            iproute2
+            openssh
+          ];
           text = ''
             WORKSPACE=''${1:-$PWD}
+            WORKSPACE=$(realpath "$WORKSPACE")
             VM_HOSTNAME=''${2:-$(basename "$WORKSPACE")}
-            RUNDIR=$(mktemp -d)
-            cd "$RUNDIR"
 
-            # Write hostname for the guest to pick up at boot.
-            echo "$VM_HOSTNAME" > "$WORKSPACE/.dev-vm-hostname"
-
-            # Derive workspace hash early — used for TAP name, MAC, and disk paths.
+            # Derive workspace hash — used for TAP name, MAC, and disk paths.
             _HASH=$(printf '%s' "$WORKSPACE" | sha256sum | cut -c1-12)
+            TAP="vm-$_HASH"
+            MAC="02:''${_HASH:0:2}:''${_HASH:2:2}:''${_HASH:4:2}:''${_HASH:6:2}:''${_HASH:8:2}"
 
-            # Persistent disk images live in /var/lib/dev-vm/<hash>/ on the host,
-            # which is covered by suzaku's impermanence /var/lib persistence.
-            # Symlinked at runtime to the fixed paths the microvm config expects.
             RTDIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
             VM_DIR="/var/lib/dev-vm/$_HASH"
             mkdir -p "$VM_DIR"
+
+            # Per-workspace SSH keypair (generated once, reused across boots).
+            if [ ! -f "$VM_DIR/id_ed25519" ]; then
+              ssh-keygen -t ed25519 -f "$VM_DIR/id_ed25519" -N "" -C "dev-vm-$_HASH" >/dev/null
+            fi
+
+            # If the TAP exists the VM is already running — open a new SSH session.
+            if ip link show "$TAP" >/dev/null 2>&1; then
+              IP=""
+              for _ in $(seq 60); do
+                IP=$(cat "$VM_DIR/ip" 2>/dev/null || true)
+                if [ -n "$IP" ]; then
+                  ssh \
+                    -i "$VM_DIR/id_ed25519" \
+                    -o StrictHostKeyChecking=no \
+                    -o UserKnownHostsFile=/dev/null \
+                    -o ConnectTimeout=2 \
+                    -o BatchMode=yes \
+                    "kiyurica@$IP" true 2>/dev/null && break
+                fi
+                sleep 1
+              done
+              if [ -z "$IP" ]; then
+                echo "Timed out waiting for VM SSH." >&2
+                exit 1
+              fi
+              exec ssh \
+                -i "$VM_DIR/id_ed25519" \
+                -o StrictHostKeyChecking=no \
+                -o UserKnownHostsFile=/dev/null \
+                "kiyurica@$IP"
+            fi
+
+            # --- VM not running: boot it. ---
+            RUNDIR=$(mktemp -d)
+            cd "$RUNDIR"
 
             NIX_STORE_IMG="$VM_DIR/nix-store.img"
             NIX_STORE_LINK="$RTDIR/dev-vm-nix-store.img"
@@ -192,31 +230,43 @@
             fi
             ln -sf "$STATE_IMG" "$STATE_LINK"
 
-            # virtiofsd is setuid root — start it without doas.
-            # ro-store share: host /nix/store (fixed)
+            # Write hostname into vm-meta; clear stale IP from any previous run.
+            echo "$VM_HOSTNAME" > "$VM_DIR/hostname"
+            rm -f "$VM_DIR/ip"
+
+            BGPIDS=()
+
+            # virtiofsd is setuid root — start without doas.
+            # ro-store share: host /nix/store (read-only).
             /run/wrappers/bin/virtiofsd \
               --socket-path=dev-vm-virtiofs-ro-store.sock \
               --shared-dir=/nix/store \
               --thread-pool-size "$(nproc)" \
               --sandbox=chroot --xattr --cache=auto &
+            BGPIDS+=($!)
 
-            # workspace share: supplied path (default: $PWD at invocation)
+            # workspace share: the supplied project directory.
             /run/wrappers/bin/virtiofsd \
               --socket-path=dev-vm-virtiofs-workspace.sock \
               --shared-dir="$WORKSPACE" \
               --thread-pool-size "$(nproc)" \
               --sandbox=chroot --xattr --cache=auto &
+            BGPIDS+=($!)
+
+            # vm-meta share: $VM_DIR (hostname, SSH pubkey, IP written by guest).
+            /run/wrappers/bin/virtiofsd \
+              --socket-path=dev-vm-virtiofs-vm-meta.sock \
+              --shared-dir="$VM_DIR" \
+              --thread-pool-size "$(nproc)" \
+              --sandbox=chroot --xattr --cache=auto &
+            BGPIDS+=($!)
 
             for _ in $(seq 50); do
               [ -S dev-vm-virtiofs-ro-store.sock ] && \
-              [ -S dev-vm-virtiofs-workspace.sock ] && break
+              [ -S dev-vm-virtiofs-workspace.sock ] && \
+              [ -S dev-vm-virtiofs-vm-meta.sock ] && break
               sleep 0.2
             done
-
-            # TAP: "vm-" + first 12 hex chars of sha256(path) = 15 chars (IFNAMSIZ-1).
-            # MAC: locally-administered unicast (02:xx:xx:xx:xx:xx) from same hash.
-            TAP="vm-$_HASH"
-            MAC="02:''${_HASH:0:2}:''${_HASH:2:2}:''${_HASH:4:2}:''${_HASH:6:2}:''${_HASH:8:2}"
 
             # Single doas call: TAP setup (when vm0 bridge exists) + socket chown.
             # Sockets are root-owned (setuid virtiofsd); cloud-hypervisor runs as
@@ -227,12 +277,23 @@
                 ip link set '$TAP' master vm0
                 ip link set '$TAP' up
               fi
-              chown $(id -u) '$RUNDIR/dev-vm-virtiofs-ro-store.sock' '$RUNDIR/dev-vm-virtiofs-workspace.sock'
+              chown $(id -u) \
+                '$RUNDIR/dev-vm-virtiofs-ro-store.sock' \
+                '$RUNDIR/dev-vm-virtiofs-workspace.sock' \
+                '$RUNDIR/dev-vm-virtiofs-vm-meta.sock'
             "
-            trap 'doas ip link delete "$TAP" 2>/dev/null || true; rm -f "$WORKSPACE/.dev-vm-hostname" "$NIX_STORE_LINK" "$STATE_LINK"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
 
-            # Patch the baked-in TAP name and MAC in microvm-run at launch time.
-            exec bash <(sed \
+            cleanup() {
+              doas ip link delete "$TAP" 2>/dev/null || true
+              rm -f "$NIX_STORE_LINK" "$STATE_LINK"
+              kill "''${BGPIDS[@]}" 2>/dev/null || true
+              rm -rf "$RUNDIR"
+            }
+            trap cleanup EXIT
+
+            # Run VM in foreground — console attached to current terminal.
+            # Cleanup trap fires when microvm-run exits (VM shutdown).
+            bash <(sed \
               -e "s/tap=vm-dev/tap=$TAP/g" \
               -e "s/mac=02:00:00:00:00:01/mac=$MAC/g" \
               ${runner}/bin/microvm-run)
