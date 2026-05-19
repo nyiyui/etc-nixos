@@ -50,14 +50,14 @@
         image = "/run/user/1000/dev-vm-nix-store.img";
         label = "nix-store";
         mountPoint = "/nix/.rw-store";
-        size = 20480; # MiB
+        size = 65536; # MiB (64 GiB)
       }
       {
         # General persistent storage mounted at /home/kiyurica.
         image = "/run/user/1000/dev-vm-state.img";
         label = "dev-vm-state";
         mountPoint = "/home/kiyurica";
-        size = 51200; # MiB (50 GiB)
+        size = 65536; # MiB (64 GiB)
       }
     ];
   };

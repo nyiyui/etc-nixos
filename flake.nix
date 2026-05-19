@@ -157,7 +157,6 @@
         in
         pkgs.writeShellApplication {
           name = "dev-vm";
-          runtimeInputs = [ pkgs.e2fsprogs ];
           text = ''
             WORKSPACE=''${1:-$PWD}
             VM_HOSTNAME=''${2:-$(basename "$WORKSPACE")}
@@ -174,7 +173,7 @@
             NIX_STORE_IMG="$WORKSPACE/.dev-vm-nix-store.img"
             NIX_STORE_LINK="$RTDIR/dev-vm-nix-store.img"
             if [ ! -f "$NIX_STORE_IMG" ]; then
-              truncate -s 20G "$NIX_STORE_IMG"
+              truncate -s 64G "$NIX_STORE_IMG"
               mkfs.ext4 -L nix-store "$NIX_STORE_IMG"
             fi
             ln -sf "$NIX_STORE_IMG" "$NIX_STORE_LINK"
@@ -182,7 +181,7 @@
             STATE_IMG="$WORKSPACE/.dev-vm-state.img"
             STATE_LINK="$RTDIR/dev-vm-state.img"
             if [ ! -f "$STATE_IMG" ]; then
-              truncate -s 50G "$STATE_IMG"
+              truncate -s 64G "$STATE_IMG"
               mkfs.ext4 -L dev-vm-state "$STATE_IMG"
             fi
             ln -sf "$STATE_IMG" "$STATE_LINK"
