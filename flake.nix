@@ -5,9 +5,6 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    touhoukou.url = "github:nyiyui/touhoukou";
-    touhoukou.inputs.nixpkgs.follows = "nixpkgs";
-    touhoukou.inputs.flake-utils.follows = "flake-utils";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
@@ -15,9 +12,6 @@
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";
     # lanzaboote.inputs.nixpkgs.follows = "nixpkgs"; # lanzaboote previously didn't work with follow
-    polar-data-collector.url = "github:VR-state-analysis/polar-data-collector";
-    polar-data-collector.inputs.nixpkgs.follows = "nixpkgs";
-    polar-data-collector.inputs.flake-utils.follows = "flake-utils";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.url = "github:nix-community/impermanence";

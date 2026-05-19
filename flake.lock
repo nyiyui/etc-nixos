@@ -684,29 +684,6 @@
         "type": "github"
       }
     },
-    "polar-data-collector": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1742333598,
-        "narHash": "sha256-7ja9pWawK3lV/EuJgrtAqeDjK/eHCURd7RX/xh9k4bs=",
-        "owner": "VR-state-analysis",
-        "repo": "polar-data-collector",
-        "rev": "9c1bdaad4a3d0b380715043f27e79ffed1089aa3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "VR-state-analysis",
-        "repo": "polar-data-collector",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -755,9 +732,7 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixwrap": "nixwrap",
-        "polar-data-collector": "polar-data-collector",
-        "sync-pdf-viewer": "sync-pdf-viewer",
-        "touhoukou": "touhoukou"
+        "sync-pdf-viewer": "sync-pdf-viewer"
       }
     },
     "rust-overlay": {
@@ -862,29 +837,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "touhoukou": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1675723236,
-        "narHash": "sha256-TwwHGsCNKUh5Fdrdjl6zDBMbuR3M5/dgFatvYib+3RY=",
-        "owner": "nyiyui",
-        "repo": "touhoukou",
-        "rev": "5c1980f26af6287bac60e4da18664f067dcf56ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nyiyui",
-        "repo": "touhoukou",
         "type": "github"
       }
     },
