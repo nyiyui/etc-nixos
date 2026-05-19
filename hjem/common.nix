@@ -13,7 +13,6 @@ in
   imports = [
     ./ssh-agent.nix
     ./base.nix
-    ./grc.nix
     ./pexec.nix
   ];
 
@@ -21,16 +20,12 @@ in
     [user]
     	name = Ken Shibata
     	email = ken.shibata@kiyuri.ca
-    	signingkey = 711A0A03A5C5D824
     [init]
     	defaultBranch = main
     [url "ssh://git@github.com"]
     	insteadOf = https://github.com
     [pull]
     	rebase = true
-    [safe]
-    	directory = /etc/nixos
-    	directory = /etc/nixos/.git
     [merge]
     	tool = meld
     [mergetool "meld"]
@@ -41,13 +36,8 @@ in
     	writeCommitGraph = true
   '';
 
-  # Fish shell configuration
-  xdg.config.files."fish/config.fish".text = ''
-    set fish_greeting
-    ${builtins.readFile ./profile.fish}
-  '';
+  xdg.config.files."fish/config.fish".text = builtins.readFile ./profile.fish;
 
-  # Foot terminal configuration
   xdg.config.files."foot/foot.ini".text = ''
     [main]
     shell=fish
@@ -58,7 +48,6 @@ in
     background=000000
   '';
 
-  # mpv configuration
   xdg.config.files."mpv/mpv.conf".text = ''
     hwdec=auto-safe
     vo=gpu
@@ -66,7 +55,6 @@ in
     gpu-context=wayland
   '';
 
-  # yt-dlp configuration
   xdg.config.files."yt-dlp/config".text = ''
     --write-subs
     --sub-langs all
@@ -96,7 +84,6 @@ in
       playerctl
       clipman
       eza
-      darktable
       imagemagick
       notify-desktop
       pdftk
@@ -109,15 +96,9 @@ in
 
       hunspell
 
-      seahorse
-      gcr # for gnome keyring prompt https://github.com/NixOS/nixpkgs/issues/174099#issuecomment-1135974195
-      gimp
-
       calc
 
       freerdp
-
-      nixfmt-rfc-style
 
       lyx # goated TeX editor
     ]
