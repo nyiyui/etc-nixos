@@ -169,10 +169,8 @@
             # Set up TAP networking if the vm0 bridge is present on this host.
             TAP=vm-dev
             if ip link show vm0 &>/dev/null; then
-              sudo ip tuntap add dev "$TAP" mode tap user "$(id -un)"
-              sudo ip link set "$TAP" master vm0
-              sudo ip link set "$TAP" up
-              trap 'sudo ip link delete "$TAP" 2>/dev/null || true; rm -f "$WORKSPACE/.dev-vm-hostname"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
+              doas sh -c "ip tuntap add dev '$TAP' mode tap multi_queue user '$(id -un)' && ip link set '$TAP' master vm0 && ip link set '$TAP' up"
+              trap 'doas ip link delete "$TAP" 2>/dev/null || true; rm -f "$WORKSPACE/.dev-vm-hostname"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
             else
               trap 'rm -f "$WORKSPACE/.dev-vm-hostname"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
             fi
