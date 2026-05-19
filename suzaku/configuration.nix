@@ -136,6 +136,7 @@
 
   kiyurica.tailscale.enable = true;
   systemd.services.tailscaled-autoconnect.wantedBy = lib.mkForce [ ]; # we may not always be connected to the Internet and therefore the tailnet
+  systemd.services."hjem-activate@".environment.RUST_BACKTRACE = "1";
 
   # Enable mDNS for LAN hostname resolution
   services.avahi = {
