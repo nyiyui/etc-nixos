@@ -15,7 +15,6 @@ in
     ./base.nix
     ./grc.nix
     ./pexec.nix
-    ./fonts.nix
   ];
 
   xdg.config.files."git/config".text = ''
@@ -52,7 +51,7 @@ in
   xdg.config.files."foot/foot.ini".text = ''
     [main]
     shell=fish
-    font=JetBrainsMono:size=12,NotoColorEmoji:size=12,hack:size=12
+    font=JetBrainsMono:size=12,hack:size=12,NotoColorEmoji:size=12
 
     [colors]
     alpha=0.5
@@ -140,8 +139,4 @@ in
     serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
     wantedBy = [ "default.target" ];
   };
-
-  # Hjem doesn't support nixpkgs.overlays inside the user module.
-  # These should be moved to the NixOS level if needed, or we can just use the packages directly.
-  # For mpv with mpris, we can override it in the packages list above if we want.
 }
