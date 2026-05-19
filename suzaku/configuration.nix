@@ -171,6 +171,7 @@
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
     helix
+    self.packages.x86_64-linux.dev-vm
   ];
 
   users.users.kiyurica.extraGroups = [ "kvm" ];
