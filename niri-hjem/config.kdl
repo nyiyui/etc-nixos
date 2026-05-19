@@ -59,7 +59,7 @@ layout {
         inactive-color "rgb(80 80 80)"
     }
     border { off; }
-    default-column-width { proportion 1.000000; }
+    default-column-width { proportion 0.4; }
     center-focused-column "never"
 }
 cursor {
