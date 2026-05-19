@@ -18,11 +18,11 @@ in
   };
 
   config = lib.mkMerge [
-    {
+    (lib.mkIf (config.kiyurica.home-manager.enable) {
       home-manager.users.kiyurica = {
         assr.ssh-agent.implementation = cfg.implementation;
       };
-    }
+    })
     (lib.mkIf (cfg.implementation == "ssh-tpm-agent") {
       environment.systemPackages = [
         pkgs.ssh-tpm-agent
@@ -31,13 +31,6 @@ in
 
       environment.variables = {
         SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-tpm-agent.sock";
-      };
-
-      home-manager.users.kiyurica = {
-        services.gnome-keyring.components = lib.mkForce [
-          "pkcs11"
-          "secrets"
-        ];
       };
 
       systemd.user.sockets.ssh-tpm-agent = {

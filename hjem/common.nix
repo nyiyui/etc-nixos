@@ -13,7 +13,6 @@ in
   imports = [
     ./ssh-agent.nix
     ./base.nix
-    ./pexec.nix
   ];
 
   xdg.config.files."git/config".text = ''
