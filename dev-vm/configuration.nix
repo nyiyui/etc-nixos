@@ -6,7 +6,7 @@
 {
   microvm = {
     hypervisor = "cloud-hypervisor";
-    mem = 4096;
+    mem = 16384;
     vcpu = 4;
 
     shares = [
@@ -62,8 +62,16 @@
     ];
   };
 
+  # zram swap: compressed in-RAM swap; no host disk I/O, low latency.
+  # Lets the VM overcommit within its 16 GiB window without touching disk.
+  zramSwap.enable = true;
+
   # virtio-blk must be available before filesystems are mounted.
   boot.initrd.availableKernelModules = [ "virtio_blk" ];
+
+  # The state volume is a freshly-formatted ext4 whose root is owned by root.
+  # tmpfiles runs after all mounts and fixes ownership on every boot.
+  systemd.tmpfiles.rules = [ "d /home/kiyurica 0700 kiyurica kiyurica -" ];
 
   # Nix daemon runs in the VM for building. The host store is available
   # read-only via virtiofs so pre-built paths need not be re-fetched.

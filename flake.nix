@@ -214,7 +214,7 @@
             # MAC: locally-administered unicast (02:xx:xx:xx:xx:xx) from same hash.
             _HASH=$(printf '%s' "$WORKSPACE" | sha256sum | cut -c1-12)
             TAP="vm-$_HASH"
-            MAC="02:${_HASH:0:2}:${_HASH:2:2}:${_HASH:4:2}:${_HASH:6:2}:${_HASH:8:2}"
+            MAC="02:''${_HASH:0:2}:''${_HASH:2:2}:''${_HASH:4:2}:''${_HASH:6:2}:''${_HASH:8:2}"
 
             # Single doas call: TAP setup (when vm0 bridge exists) + socket chown.
             # Sockets are root-owned (setuid virtiofsd); cloud-hypervisor runs as
