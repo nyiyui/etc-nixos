@@ -103,6 +103,7 @@
           ./suzaku/configuration.nix
           agenix.nixosModules.default
           hjem.nixosModules.default
+          microvm.nixosModules.host
         ];
       };
       nixosConfigurations.inaho = nixpkgs.lib.nixosSystem rec {
@@ -156,7 +157,44 @@
         ];
       };
 
-      packages.x86_64-linux.dev-vm = nixosConfigurations.dev-vm.config.microvm.declaredRunner;
+      packages.x86_64-linux.dev-vm =
+        let
+          cfg = nixosConfigurations.dev-vm.config;
+          runner = cfg.microvm.declaredRunner;
+          virtiofsd = cfg.microvm.virtiofsd.package;
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
+        in
+        pkgs.writeShellApplication {
+          name = "dev-vm";
+          text = ''
+            WORKSPACE=''${1:-$PWD}
+            RUNDIR=$(mktemp -d)
+            trap 'kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
+            cd "$RUNDIR"
+
+            # ro-store share: host /nix/store (fixed)
+            ${virtiofsd}/bin/virtiofsd \
+              --socket-path=dev-vm-virtiofs-ro-store.sock \
+              --shared-dir=/nix/store \
+              --thread-pool-size "$(nproc)" \
+              --posix-acl --xattr --cache=auto --inode-file-handles=prefer &
+
+            # workspace share: supplied path (default: $PWD at invocation)
+            ${virtiofsd}/bin/virtiofsd \
+              --socket-path=dev-vm-virtiofs-workspace.sock \
+              --shared-dir="$WORKSPACE" \
+              --thread-pool-size "$(nproc)" \
+              --posix-acl --xattr --cache=auto --inode-file-handles=prefer &
+
+            for _ in $(seq 50); do
+              [ -S dev-vm-virtiofs-ro-store.sock ] && \
+              [ -S dev-vm-virtiofs-workspace.sock ] && break
+              sleep 0.2
+            done
+
+            exec ${runner}/bin/microvm-run
+          '';
+        };
     }
     // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
       system:

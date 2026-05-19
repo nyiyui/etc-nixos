@@ -171,8 +171,6 @@
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
     helix
-    # dev-vm runner (pre-built on minamo, pulled via nix-copy before nixos-upgrade)
-    self.packages.x86_64-linux.dev-vm
   ];
 
   users.users.kiyurica.extraGroups = [ "kvm" ];

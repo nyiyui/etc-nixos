@@ -2,6 +2,7 @@
   specialArgs,
   pkgs,
   lib,
+  config,
   ...
 }:
 {
@@ -17,6 +18,7 @@
       "/etc/secureboot"
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
+      config.microvm.stateDir
     ];
     files = [ "/etc/machine-id" ];
     users.kiyurica = {
