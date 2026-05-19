@@ -75,6 +75,7 @@
   system.stateVersion = "24.11"; # Did you read the comment?
 
   networking.hostName = "suzaku";
+  hardware.bluetooth.enable = false;
 
   nixpkgs.config.allowUnfree = true;
 
