@@ -119,10 +119,10 @@ in
       pavucontrol
     ];
 
-    environment.etc."xdg/waybar/style.css".text = builtins.readFile ./waybar.css;
-    environment.etc."xdg/waybar/config".text =
-      let
-        value =
+    xdg.config.files."waybar/style.css".text = builtins.readFile ./waybar.css;
+    xdg.config.files."waybar/config" = {
+      generator = lib.generators.toJSON { };
+      value =
         let
           isVertical = cfg.waybarPosition == "left" || cfg.waybarPosition == "right";
           rotationAngle = if isVertical then 270 else 0;
@@ -295,8 +295,7 @@ in
             };
           }) cfg.service-status
         ));
-      in
-      builtins.toJSON value;
+    };
 
     systemd.services.waybar = {
       description = "Highly customizable Wayland bar for Sway and Wlroots based compositors.";
