@@ -166,11 +166,17 @@
             # Write hostname for the guest to pick up at boot.
             echo "$VM_HOSTNAME" > "$WORKSPACE/.dev-vm-hostname"
 
-            # Persistent disk images: created once in the workspace, then
-            # symlinked to the paths the microvm config expects at runtime.
-            RTDIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+            # Derive workspace hash early — used for TAP name, MAC, and disk paths.
+            _HASH=$(printf '%s' "$WORKSPACE" | sha256sum | cut -c1-12)
 
-            NIX_STORE_IMG="$WORKSPACE/.dev-vm-nix-store.img"
+            # Persistent disk images live in /var/lib/dev-vm/<hash>/ on the host,
+            # which is covered by suzaku's impermanence /var/lib persistence.
+            # Symlinked at runtime to the fixed paths the microvm config expects.
+            RTDIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+            VM_DIR="/var/lib/dev-vm/$_HASH"
+            mkdir -p "$VM_DIR"
+
+            NIX_STORE_IMG="$VM_DIR/nix-store.img"
             NIX_STORE_LINK="$RTDIR/dev-vm-nix-store.img"
             if [ ! -f "$NIX_STORE_IMG" ]; then
               truncate -s 64G "$NIX_STORE_IMG"
@@ -178,7 +184,7 @@
             fi
             ln -sf "$NIX_STORE_IMG" "$NIX_STORE_LINK"
 
-            STATE_IMG="$WORKSPACE/.dev-vm-state.img"
+            STATE_IMG="$VM_DIR/state.img"
             STATE_LINK="$RTDIR/dev-vm-state.img"
             if [ ! -f "$STATE_IMG" ]; then
               truncate -s 64G "$STATE_IMG"
@@ -207,11 +213,8 @@
               sleep 0.2
             done
 
-            # Derive a unique TAP name and MAC from the workspace path so
-            # multiple dev-VMs can run simultaneously on the same host.
             # TAP: "vm-" + first 12 hex chars of sha256(path) = 15 chars (IFNAMSIZ-1).
             # MAC: locally-administered unicast (02:xx:xx:xx:xx:xx) from same hash.
-            _HASH=$(printf '%s' "$WORKSPACE" | sha256sum | cut -c1-12)
             TAP="vm-$_HASH"
             MAC="02:''${_HASH:0:2}:''${_HASH:2:2}:''${_HASH:4:2}:''${_HASH:6:2}:''${_HASH:8:2}"
 
