@@ -1,0 +1,46 @@
+{ ... }:
+{
+  # Allow forwarding between VM bridge and the outside.
+  boot.kernel.sysctl."net.ipv4.ip_forward" = "1";
+
+  # Bridge used by all dev VMs. TAP interfaces are attached per-launch by
+  # the dev-vm wrapper script; this just provides the persistent L2 segment
+  # and the host-side gateway IP.
+  networking.bridges.vm0.interfaces = [ ];
+  networking.interfaces.vm0.ipv4.addresses = [
+    {
+      address = "10.100.0.1";
+      prefixLength = 24;
+    }
+  ];
+
+  # Tell NetworkManager to leave vm0 and any vm-* TAPs alone.
+  networking.networkmanager.unmanaged = [
+    "interface-name:vm0"
+    "interface-name:vm-*"
+  ];
+
+  # DHCP for VMs. bind-interfaces ensures dnsmasq only listens on vm0
+  # and does not conflict with systemd-resolved on other interfaces.
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      interface = "vm0";
+      bind-interfaces = true;
+      dhcp-range = "10.100.0.10,10.100.0.254,1h";
+    };
+  };
+
+  # NAT masquerade for the VM subnet. Using extraCommands so the rule
+  # works regardless of which physical interface (WiFi or ethernet) is
+  # the current default route.
+  networking.firewall.extraCommands = ''
+    iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -j MASQUERADE
+  '';
+  networking.firewall.extraStopCommands = ''
+    iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -j MASQUERADE 2>/dev/null || true
+  '';
+
+  # Trust all traffic arriving on the VM bridge (allows forwarding too).
+  networking.firewall.trustedInterfaces = [ "vm0" ];
+}

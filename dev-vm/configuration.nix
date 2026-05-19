@@ -30,6 +30,14 @@
       }
     ];
 
+    interfaces = [
+      {
+        type = "tap";
+        id = "vm-dev";
+        mac = "02:00:00:00:00:01";
+      }
+    ];
+
     # Writable tmpfs overlay over the ro-store for build outputs.
     # Destroyed on VM exit — intentionally ephemeral.
     writableStoreOverlay = "/nix/.rw-store";
@@ -96,9 +104,13 @@
     curl
     file
     htop
+    claude-code
+    codex
+    gemini-cli
   ];
 
   networking.hostName = "dev-vm";
+  networking.useDHCP = true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   system.stateVersion = "25.11";
 }
