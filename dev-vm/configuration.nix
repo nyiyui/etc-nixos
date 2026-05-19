@@ -49,37 +49,16 @@
         # before the overlayfs is assembled.
         image = "/run/user/1000/dev-vm-nix-store.img";
         label = "nix-store";
+        mountPoint = "/nix/.rw-store";
         size = 20480; # MiB
       }
       {
         # General persistent storage mounted at /home/kiyurica.
         image = "/run/user/1000/dev-vm-state.img";
         label = "dev-vm-state";
+        mountPoint = "/home/kiyurica";
         size = 51200; # MiB (50 GiB)
       }
-    ];
-  };
-
-  # Writable overlay upper dir backed by the virtio-blk nix-store volume.
-  # ext4 supports the trusted.* xattrs that overlayfs requires.
-  fileSystems."/nix/.rw-store" = {
-    device = "/dev/disk/by-label/nix-store";
-    fsType = "ext4";
-    options = [
-      "noatime"
-      "discard"
-    ];
-    neededForBoot = true;
-  };
-
-  # General persistent storage. Sparse 50 GiB image; only written blocks
-  # consume real disk space on the host.
-  fileSystems."/home/kiyurica" = {
-    device = "/dev/disk/by-label/dev-vm-state";
-    fsType = "ext4";
-    options = [
-      "noatime"
-      "discard"
     ];
   };
 
