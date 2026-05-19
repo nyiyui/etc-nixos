@@ -1,3 +1,0 @@
-{
-  imports = [ ./all-modules.nix ];
-}

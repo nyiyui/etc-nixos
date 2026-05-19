@@ -11,8 +11,7 @@ let
 in
 {
   imports = [
-    ./ssh-agent.nix
-    ./base.nix
+    ./all-modules.nix
   ];
 
   xdg.config.files."git/config".text = ''
