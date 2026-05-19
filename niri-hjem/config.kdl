@@ -88,6 +88,7 @@ binds {
     Mod+8 allow-inhibiting=false { focus-workspace 8; }
     Mod+9 allow-inhibiting=false { focus-workspace 9; }
     Mod+Alt+L { spawn "loginctl" "lock-session"; }
+    // TODO: fix /nix/store paths
     Mod+Alt+N { spawn "/nix/store/ldjxlh7ikwhv46lzbk1w52i3kag8aqdk-mako-1.10.0/bin/makoctl" "menu" "fuzzel -d" "-p" "通知"; }
     Mod+Alt+P { clear-dynamic-cast-target; }
     Mod+Alt+Return { spawn "/nix/store/gkmyy8i5wgkpha1p0a9yvym86zpxn4jf-gtk+3-3.24.51/bin/gtk-launch" "com.github.flxzt.rnote"; }
@@ -167,8 +168,6 @@ binds {
     XF86MonBrightnessDown { spawn "fish" "--command=if [ $(light) -le 1 ]; then; light -S 1; else; light -U 1; end"; }
     XF86MonBrightnessUp { spawn "light" "-A" "1"; }
 }
-spawn-sh-at-startup "/nix/store/v7a5rn0p45vwj13i788xvv7q8fsjvqcf-chromium-146.0.7680.177/bin/chromium --password-store=basic '--proxy-server=socks5://tk2-246-32584.tailcbbed9.ts.net:1080' --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36' https://tver.jp"
-spawn-sh-at-startup "/nix/store/1302k5v2a98sq10nx7a3j98r2png6d1k-microsoft-edge-146.0.3856.84/bin/microsoft-edge --password-store=basic '--proxy-server=socks5://tk2-246-32584.tailcbbed9.ts.net:1080' https://www.web.nhk"
 spawn-at-startup "uwsm" "finalize"
 window-rule {
     match app-id="^com\\.freerdp\\.client\\.sdl3$"
