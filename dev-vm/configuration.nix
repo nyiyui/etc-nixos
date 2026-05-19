@@ -112,5 +112,6 @@
   networking.hostName = "dev-vm";
   networking.useDHCP = true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.11";
 }
