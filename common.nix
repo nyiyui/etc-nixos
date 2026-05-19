@@ -61,6 +61,7 @@
     noto-fonts-color-emoji
     liberation_ttf
     hack-font
+    jetbrains-mono
   ];
 
   # TODO: use username@hostname syntax to separate per-host home manager flake thingl
