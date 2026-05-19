@@ -80,7 +80,17 @@
 
   # The state volume is a freshly-formatted ext4 whose root is owned by root.
   # tmpfiles runs after all mounts and fixes ownership on every boot.
-  systemd.tmpfiles.rules = [ "d /home/kiyurica 0700 kiyurica kiyurica -" ];
+  # /home/kiyurica/tmp is used as the system build/scratch space so that nix
+  # builds and large temp files land on the 64 GiB state disk instead of the
+  # in-memory root tmpfs.
+  systemd.tmpfiles.rules = [
+    "d /home/kiyurica 0700 kiyurica kiyurica -"
+    "d /home/kiyurica/tmp 1777 root root -"
+  ];
+
+  # Direct nix-daemon and user processes to the on-disk tmp directory.
+  nix.settings.build-dir = "/home/kiyurica/tmp";
+  environment.variables.TMPDIR = "/home/kiyurica/tmp";
 
   # Nix daemon runs in the VM for building. The host store is available
   # read-only via virtiofs so pre-built paths need not be re-fetched.
