@@ -203,4 +203,6 @@
 
   kiyurica.hjem.enable = true;
   kiyurica.home-manager.enable = lib.mkForce false;
+
+  systemd.services."hjem-activate@kiyurica".environment.RUST_BACKTRACE = "1";
 }
