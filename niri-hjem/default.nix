@@ -32,6 +32,13 @@
         enable = true;
         config = (builtins.readFile ./config.kdl);
       };
+      xdg.config.files."waybar/config".value = {
+        modules-left = [
+          "niri/workspaces"
+          "niri/window"
+        ];
+        "niri/workspaces".format = "{index}";
+      };
       systemd.services.swaybg = {
         description = "swaywm background";
         requires = [ "graphical-session.target" ];
