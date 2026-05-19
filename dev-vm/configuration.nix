@@ -45,7 +45,10 @@
   # Nix daemon runs in the VM for building. The host store is available
   # read-only via virtiofs so pre-built paths need not be re-fetched.
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     trusted-users = [ "kiyurica" ];
   };
 

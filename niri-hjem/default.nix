@@ -73,8 +73,6 @@
       foot
     ];
 
-
-
     xdg.portal = {
       enable = true;
       # https://github.com/YaLTeR/niri/wiki/Screencasting

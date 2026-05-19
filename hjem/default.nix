@@ -14,7 +14,7 @@
     hjem = {
       specialArgs = specialArgs;
       extraModules = [
-          hjem-rum.hjemModules.default
+        hjem-rum.hjemModules.default
       ];
       users.kiyurica = {
         enable = true;

@@ -32,7 +32,7 @@
         SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="${config.boot.kernelPackages.x86_energy_perf_policy}/bin/x86_energy_perf_policy power"
         SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="${config.boot.kernelPackages.x86_energy_perf_policy}/bin/x86_energy_perf_policy performance"
       '';
-#      services.tlp.enable = true;
+      #      services.tlp.enable = true;
       services.tlp.settings = {
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
