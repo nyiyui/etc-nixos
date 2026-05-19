@@ -60,9 +60,32 @@
   security.sudo.wheelNeedsPassword = false;
   programs.fish.enable = true;
 
-  # Auto-login as kiyurica; drop straight into /workspace.
+  # Auto-login as kiyurica; drop into /workspace; poweroff on logout.
   services.getty.autologinUser = lib.mkDefault "kiyurica";
-  programs.fish.loginShellInit = "if test -d /workspace; cd /workspace; end";
+  programs.fish.loginShellInit = ''
+    if test -d /workspace; cd /workspace; end
+    function _poweroff_on_exit --on-event fish_exit
+      sudo poweroff
+    end
+  '';
+
+  # Apply hostname written by the host wrapper into /workspace/.dev-vm-hostname.
+  systemd.services.dev-vm-hostname = {
+    description = "Set VM hostname from workspace config";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "workspace.mount" ];
+    requires = [ "workspace.mount" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      if [ -f /workspace/.dev-vm-hostname ]; then
+        read -r name < /workspace/.dev-vm-hostname
+        echo "$name" > /proc/sys/kernel/hostname
+      fi
+    '';
+  };
 
   environment.systemPackages = with pkgs; [
     coreutils

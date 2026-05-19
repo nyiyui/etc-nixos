@@ -168,9 +168,13 @@
           name = "dev-vm";
           text = ''
             WORKSPACE=''${1:-$PWD}
+            VM_HOSTNAME=''${2:-$(basename "$WORKSPACE")}
             RUNDIR=$(mktemp -d)
-            trap 'kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
+            trap 'rm -f "$WORKSPACE/.dev-vm-hostname"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
             cd "$RUNDIR"
+
+            # Write hostname for the guest to pick up at boot.
+            echo "$VM_HOSTNAME" > "$WORKSPACE/.dev-vm-hostname"
 
             # ro-store share: host /nix/store (fixed)
             ${virtiofsd}/bin/virtiofsd \
