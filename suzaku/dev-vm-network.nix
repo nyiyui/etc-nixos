@@ -1,5 +1,16 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  # Setuid wrapper so virtiofsd can run as root (needed for --sandbox=chroot to
+  # work correctly: root can write a full uid_map 0:0:65536 so files owned by
+  # uid 0 appear as root in the guest instead of the overflow UID 65534).
+  # Restricted to the kiyurica group; not world-executable.
+  security.wrappers.virtiofsd = {
+    source = "${pkgs.virtiofsd}/bin/virtiofsd";
+    owner = "root";
+    group = "kiyurica";
+    permissions = "u+rx,g+rx,o-rwx";
+    setuid = true;
+  };
   # Allow forwarding between VM bridge and the outside.
   boot.kernel.sysctl."net.ipv4.ip_forward" = "1";
 

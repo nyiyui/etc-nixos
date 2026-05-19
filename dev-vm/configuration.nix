@@ -38,17 +38,53 @@
       }
     ];
 
-    # Writable tmpfs overlay over the ro-store for build outputs.
-    # Destroyed on VM exit — intentionally ephemeral.
     writableStoreOverlay = "/nix/.rw-store";
+
+    # Persistent disk volumes. Images live in the workspace directory on the
+    # host; the wrapper script creates them on first launch and symlinks them
+    # to the paths below before running microvm-run.
+    volumes = [
+      {
+        # Writable overlay for /nix/store. neededForBoot — must be present
+        # before the overlayfs is assembled.
+        image = "/run/user/1000/dev-vm-nix-store.img";
+        label = "nix-store";
+        size = 20480; # MiB
+      }
+      {
+        # General persistent storage mounted at /home/kiyurica.
+        image = "/run/user/1000/dev-vm-state.img";
+        label = "dev-vm-state";
+        size = 51200; # MiB (50 GiB)
+      }
+    ];
   };
 
-  # Backing tmpfs for the writable store overlay.
+  # Writable overlay upper dir backed by the virtio-blk nix-store volume.
+  # ext4 supports the trusted.* xattrs that overlayfs requires.
   fileSystems."/nix/.rw-store" = {
-    fsType = "tmpfs";
-    options = [ "mode=0755" ];
+    device = "/dev/disk/by-label/nix-store";
+    fsType = "ext4";
+    options = [
+      "noatime"
+      "discard"
+    ];
     neededForBoot = true;
   };
+
+  # General persistent storage. Sparse 50 GiB image; only written blocks
+  # consume real disk space on the host.
+  fileSystems."/home/kiyurica" = {
+    device = "/dev/disk/by-label/dev-vm-state";
+    fsType = "ext4";
+    options = [
+      "noatime"
+      "discard"
+    ];
+  };
+
+  # virtio-blk must be available before filesystems are mounted.
+  boot.initrd.availableKernelModules = [ "virtio_blk" ];
 
   # Nix daemon runs in the VM for building. The host store is available
   # read-only via virtiofs so pre-built paths need not be re-fetched.
@@ -60,8 +96,9 @@
     trusted-users = [ "kiyurica" ];
   };
 
-  users.groups.kiyurica = { };
+  users.groups.kiyurica = { gid = 1000; };
   users.users.kiyurica = {
+    uid = 1000;
     isNormalUser = true;
     group = "kiyurica";
     extraGroups = [ "wheel" ];

@@ -157,6 +157,7 @@
         in
         pkgs.writeShellApplication {
           name = "dev-vm";
+          runtimeInputs = [ pkgs.e2fsprogs ];
           text = ''
             WORKSPACE=''${1:-$PWD}
             VM_HOSTNAME=''${2:-$(basename "$WORKSPACE")}
@@ -166,28 +167,48 @@
             # Write hostname for the guest to pick up at boot.
             echo "$VM_HOSTNAME" > "$WORKSPACE/.dev-vm-hostname"
 
+            # Persistent disk images: created once in the workspace, then
+            # symlinked to the paths the microvm config expects at runtime.
+            RTDIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+
+            NIX_STORE_IMG="$WORKSPACE/.dev-vm-nix-store.img"
+            NIX_STORE_LINK="$RTDIR/dev-vm-nix-store.img"
+            if [ ! -f "$NIX_STORE_IMG" ]; then
+              truncate -s 20G "$NIX_STORE_IMG"
+              mkfs.ext4 -L nix-store "$NIX_STORE_IMG"
+            fi
+            ln -sf "$NIX_STORE_IMG" "$NIX_STORE_LINK"
+
+            STATE_IMG="$WORKSPACE/.dev-vm-state.img"
+            STATE_LINK="$RTDIR/dev-vm-state.img"
+            if [ ! -f "$STATE_IMG" ]; then
+              truncate -s 50G "$STATE_IMG"
+              mkfs.ext4 -L dev-vm-state "$STATE_IMG"
+            fi
+            ln -sf "$STATE_IMG" "$STATE_LINK"
+
             # Set up TAP networking if the vm0 bridge is present on this host.
             TAP=vm-dev
             if ip link show vm0 &>/dev/null; then
               doas sh -c "ip tuntap add dev '$TAP' mode tap multi_queue user '$(id -un)' && ip link set '$TAP' master vm0 && ip link set '$TAP' up"
-              trap 'doas ip link delete "$TAP" 2>/dev/null || true; rm -f "$WORKSPACE/.dev-vm-hostname"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
+              trap 'doas ip link delete "$TAP" 2>/dev/null || true; rm -f "$WORKSPACE/.dev-vm-hostname" "$NIX_STORE_LINK" "$STATE_LINK"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
             else
-              trap 'rm -f "$WORKSPACE/.dev-vm-hostname"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
+              trap 'rm -f "$WORKSPACE/.dev-vm-hostname" "$NIX_STORE_LINK" "$STATE_LINK"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
             fi
 
             # ro-store share: host /nix/store (fixed)
-            ${virtiofsd}/bin/virtiofsd \
+            /run/wrappers/bin/virtiofsd \
               --socket-path=dev-vm-virtiofs-ro-store.sock \
               --shared-dir=/nix/store \
               --thread-pool-size "$(nproc)" \
-              --posix-acl --xattr --cache=auto --inode-file-handles=prefer &
+              --sandbox=chroot --xattr --cache=auto &
 
             # workspace share: supplied path (default: $PWD at invocation)
-            ${virtiofsd}/bin/virtiofsd \
+            /run/wrappers/bin/virtiofsd \
               --socket-path=dev-vm-virtiofs-workspace.sock \
               --shared-dir="$WORKSPACE" \
               --thread-pool-size "$(nproc)" \
-              --posix-acl --xattr --cache=auto --inode-file-handles=prefer &
+              --sandbox=chroot --xattr --cache=auto &
 
             for _ in $(seq 50); do
               [ -S dev-vm-virtiofs-ro-store.sock ] && \
