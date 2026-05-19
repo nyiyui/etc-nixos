@@ -62,10 +62,10 @@
         size = 131072; # MiB (128 GiB)
       }
       {
-        # General persistent storage mounted at /home/kiyurica.
+        # General persistent storage mounted at /var.
         image = "/run/user/1000/dev-vm-state.img";
         label = "dev-vm-state";
-        mountPoint = "/home/kiyurica";
+        mountPoint = "/var";
         size = 131072; # MiB (128 GiB)
       }
     ];
@@ -82,7 +82,9 @@
   # tmpfiles runs after all mounts and fixes ownership on every boot.
   systemd.tmpfiles.rules = [
     "d /home/kiyurica 0700 kiyurica kiyurica -"
-    "d /home/kiyurica/tmp 1777 root root -"
+    "d /var/tmp 1777 root root -"
+    # nix build-dir must not be world-writable; separate from /var/tmp
+    "d /var/builds 0755 root root -"
   ];
 
   # /tmp is bind-mounted from the 64 GiB state disk so that nix build
@@ -93,12 +95,12 @@
   systemd.mounts = [
     {
       type = "none";
-      what = "/home/kiyurica/tmp";
+      what = "/var/tmp";
       where = "/tmp";
       options = "bind";
-      requires = [ "home-kiyurica.mount" ];
+      requires = [ "var.mount" ];
       after = [
-        "home-kiyurica.mount"
+        "var.mount"
         "systemd-tmpfiles-setup.service"
       ];
       before = [ "local-fs.target" ];
@@ -106,7 +108,7 @@
     }
   ];
 
-  nix.settings.build-dir = "/home/kiyurica/tmp";
+  nix.settings.build-dir = "/var/builds";
 
   # Nix daemon runs in the VM for building. The host store is available
   # read-only via virtiofs so pre-built paths need not be re-fetched.
@@ -168,7 +170,6 @@
     before = [ "sshd.service" ];
     after = [
       "vm-meta.mount"
-      "home-kiyurica.mount"
       "systemd-tmpfiles-setup.service"
     ];
     serviceConfig = {
