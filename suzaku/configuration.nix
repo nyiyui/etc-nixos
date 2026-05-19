@@ -206,4 +206,5 @@
   kiyurica.home-manager.enable = lib.mkForce false;
 
   systemd.services."hjem-activate@".environment.RUST_BACKTRACE = "1";
+  hjem.linkerOptions = [ "--verbose" ];
 }
