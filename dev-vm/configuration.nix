@@ -59,14 +59,14 @@
         image = "/run/user/1000/dev-vm-nix-store.img";
         label = "nix-store";
         mountPoint = "/nix/.rw-store";
-        size = 65536; # MiB (64 GiB)
+        size = 131072; # MiB (128 GiB)
       }
       {
         # General persistent storage mounted at /home/kiyurica.
         image = "/run/user/1000/dev-vm-state.img";
         label = "dev-vm-state";
         mountPoint = "/home/kiyurica";
-        size = 65536; # MiB (64 GiB)
+        size = 131072; # MiB (128 GiB)
       }
     ];
   };
@@ -80,17 +80,33 @@
 
   # The state volume is a freshly-formatted ext4 whose root is owned by root.
   # tmpfiles runs after all mounts and fixes ownership on every boot.
-  # /home/kiyurica/tmp is used as the system build/scratch space so that nix
-  # builds and large temp files land on the 64 GiB state disk instead of the
-  # in-memory root tmpfs.
   systemd.tmpfiles.rules = [
     "d /home/kiyurica 0700 kiyurica kiyurica -"
     "d /home/kiyurica/tmp 1777 root root -"
   ];
 
-  # Direct nix-daemon and user processes to the on-disk tmp directory.
+  # /tmp is bind-mounted from the 64 GiB state disk so that nix build
+  # sandboxes (which mount /tmp inside their chroot) and all other processes
+  # have disk-backed scratch space rather than the in-memory root tmpfs.
+  boot.tmp.useTmpfs = false;
+  boot.tmp.cleanOnBoot = true;
+  systemd.mounts = [
+    {
+      type = "none";
+      what = "/home/kiyurica/tmp";
+      where = "/tmp";
+      options = "bind";
+      requires = [ "home-kiyurica.mount" ];
+      after = [
+        "home-kiyurica.mount"
+        "systemd-tmpfiles-setup.service"
+      ];
+      before = [ "local-fs.target" ];
+      wantedBy = [ "local-fs.target" ];
+    }
+  ];
+
   nix.settings.build-dir = "/home/kiyurica/tmp";
-  environment.variables.TMPDIR = "/home/kiyurica/tmp";
 
   # Nix daemon runs in the VM for building. The host store is available
   # read-only via virtiofs so pre-built paths need not be re-fetched.

@@ -217,7 +217,7 @@
             NIX_STORE_IMG="$VM_DIR/nix-store.img"
             NIX_STORE_LINK="$RTDIR/dev-vm-nix-store.img"
             if [ ! -f "$NIX_STORE_IMG" ]; then
-              truncate -s 64G "$NIX_STORE_IMG"
+              truncate -s 128G "$NIX_STORE_IMG"
               mkfs.ext4 -L nix-store "$NIX_STORE_IMG"
             fi
             ln -sf "$NIX_STORE_IMG" "$NIX_STORE_LINK"
@@ -225,7 +225,7 @@
             STATE_IMG="$VM_DIR/state.img"
             STATE_LINK="$RTDIR/dev-vm-state.img"
             if [ ! -f "$STATE_IMG" ]; then
-              truncate -s 64G "$STATE_IMG"
+              truncate -s 128G "$STATE_IMG"
               mkfs.ext4 -L dev-vm-state "$STATE_IMG"
             fi
             ln -sf "$STATE_IMG" "$STATE_LINK"
