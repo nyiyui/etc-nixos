@@ -187,15 +187,7 @@
             fi
             ln -sf "$STATE_IMG" "$STATE_LINK"
 
-            # Set up TAP networking if the vm0 bridge is present on this host.
-            TAP=vm-dev
-            if ip link show vm0 &>/dev/null; then
-              doas sh -c "ip tuntap add dev '$TAP' mode tap multi_queue user '$(id -un)' && ip link set '$TAP' master vm0 && ip link set '$TAP' up"
-              trap 'doas ip link delete "$TAP" 2>/dev/null || true; rm -f "$WORKSPACE/.dev-vm-hostname" "$NIX_STORE_LINK" "$STATE_LINK"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
-            else
-              trap 'rm -f "$WORKSPACE/.dev-vm-hostname" "$NIX_STORE_LINK" "$STATE_LINK"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
-            fi
-
+            # virtiofsd is setuid root — start it without doas.
             # ro-store share: host /nix/store (fixed)
             /run/wrappers/bin/virtiofsd \
               --socket-path=dev-vm-virtiofs-ro-store.sock \
@@ -216,7 +208,32 @@
               sleep 0.2
             done
 
-            exec ${runner}/bin/microvm-run
+            # Derive a unique TAP name and MAC from the workspace path so
+            # multiple dev-VMs can run simultaneously on the same host.
+            # TAP: "vm-" + first 12 hex chars of sha256(path) = 15 chars (IFNAMSIZ-1).
+            # MAC: locally-administered unicast (02:xx:xx:xx:xx:xx) from same hash.
+            _HASH=$(printf '%s' "$WORKSPACE" | sha256sum | cut -c1-12)
+            TAP="vm-$_HASH"
+            MAC="02:${_HASH:0:2}:${_HASH:2:2}:${_HASH:4:2}:${_HASH:6:2}:${_HASH:8:2}"
+
+            # Single doas call: TAP setup (when vm0 bridge exists) + socket chown.
+            # Sockets are root-owned (setuid virtiofsd); cloud-hypervisor runs as
+            # the user and needs to connect to them.
+            doas sh -c "
+              if ip link show vm0 >/dev/null 2>&1; then
+                ip tuntap add dev '$TAP' mode tap multi_queue user '$(id -un)'
+                ip link set '$TAP' master vm0
+                ip link set '$TAP' up
+              fi
+              chown $(id -u) '$RUNDIR/dev-vm-virtiofs-ro-store.sock' '$RUNDIR/dev-vm-virtiofs-workspace.sock'
+            "
+            trap 'doas ip link delete "$TAP" 2>/dev/null || true; rm -f "$WORKSPACE/.dev-vm-hostname" "$NIX_STORE_LINK" "$STATE_LINK"; kill $(jobs -p) 2>/dev/null; rm -rf "$RUNDIR"' EXIT
+
+            # Patch the baked-in TAP name and MAC in microvm-run at launch time.
+            exec bash <(sed \
+              -e "s/tap=vm-dev/tap=$TAP/g" \
+              -e "s/mac=02:00:00:00:00:01/mac=$MAC/g" \
+              ${runner}/bin/microvm-run)
           '';
         };
     }
