@@ -109,8 +109,6 @@
     }
   ];
 
-  nix.settings.build-dir = "/var/builds";
-
   # Nix daemon runs in the VM for building. The host store is available
   # read-only via virtiofs so pre-built paths need not be re-fetched.
   nix.settings = {
@@ -119,6 +117,7 @@
       "flakes"
     ];
     trusted-users = [ "kiyurica" ];
+    build-dir = "/var/builds";
   };
 
   users.groups.kiyurica = { gid = 1000; };
