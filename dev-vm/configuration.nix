@@ -168,10 +168,8 @@
       RemainAfterExit = true;
     };
     script = ''
-      if [ -f /vm-meta/hostname ]; then
-        read -r name < /vm-meta/hostname
-        echo "$name" > /proc/sys/kernel/hostname
-      fi
+      read -r name < /vm-meta/hostname
+      echo "$name" > /proc/sys/kernel/hostname
     '';
   };
 
