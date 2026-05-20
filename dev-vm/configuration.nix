@@ -189,13 +189,11 @@
       RemainAfterExit = true;
     };
     script = ''
-      if [ -f /vm-meta/id_ed25519.pub ]; then
-        mkdir -p /home/kiyurica/.ssh
-        cp /vm-meta/id_ed25519.pub /home/kiyurica/.ssh/authorized_keys
-        chmod 700 /home/kiyurica/.ssh
-        chmod 600 /home/kiyurica/.ssh/authorized_keys
-        chown -R kiyurica:kiyurica /home/kiyurica/.ssh
-      fi
+      mkdir -p /home/kiyurica/.ssh
+      cp /vm-meta/id_ed25519.pub /home/kiyurica/.ssh/authorized_keys
+      chmod 700 /home/kiyurica/.ssh
+      chmod 600 /home/kiyurica/.ssh/authorized_keys
+      chown -R kiyurica:kiyurica /home/kiyurica/.ssh
     '';
   };
 
