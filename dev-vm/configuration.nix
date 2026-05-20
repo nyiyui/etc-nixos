@@ -89,9 +89,6 @@
     "d /home/kiyurica/.config 0700 kiyurica kiyurica -"
     "d /home/kiyurica/.local 0700 kiyurica kiyurica -"
     "d /home/kiyurica/.cache 0700 kiyurica kiyurica -"
-    "d /var/tmp 1777 root root -"
-    # nix build-dir must not be world-writable; separate from /var/tmp
-    "d /var/builds 0755 root root -"
   ];
 
   # /tmp is bind-mounted from the 64 GiB state disk so that nix build
@@ -99,17 +96,38 @@
   # have disk-backed scratch space rather than the in-memory root tmpfs.
   boot.tmp.useTmpfs = false;
   boot.tmp.cleanOnBoot = true;
+
+  # Create /var/tmp (and /var/builds) on the state disk before the bind-mount.
+  # This must NOT depend on systemd-tmpfiles-setup.service: all mount units are
+  # implicitly Before=local-fs.target, and tmpfiles is After=local-fs.target,
+  # so adding After=tmpfiles to the mount creates a cycle that causes systemd
+  # to skip tmpfiles entirely (breaking nsncd, sshd, etc.).
+  systemd.services.dev-vm-prepare-var = {
+    description = "Create /var directories needed before mounts";
+    after = [ "var.mount" ];
+    requires = [ "var.mount" ];
+    before = [ "tmp.mount" ];
+    wantedBy = [ "tmp.mount" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      mkdir -p /var/tmp
+      chmod 1777 /var/tmp
+      mkdir -p /var/builds
+      chmod 755 /var/builds
+    '';
+  };
+
   systemd.mounts = [
     {
       type = "none";
       what = "/var/tmp";
       where = "/tmp";
       options = "bind";
-      requires = [ "var.mount" ];
-      after = [
-        "var.mount"
-        "systemd-tmpfiles-setup.service"
-      ];
+      requires = [ "var.mount" "dev-vm-prepare-var.service" ];
+      after = [ "var.mount" "dev-vm-prepare-var.service" ];
       wantedBy = [ "multi-user.target" ];
     }
   ];

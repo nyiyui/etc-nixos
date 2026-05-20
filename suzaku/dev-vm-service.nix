@@ -32,9 +32,11 @@ let
 
       VM_DIR="/var/lib/dev-vm/$_HASH"
       mkdir -p "$VM_DIR"
+      chown kiyurica:kiyurica "$VM_DIR"
 
       if [ ! -f "$VM_DIR/id_ed25519" ]; then
         ssh-keygen -t ed25519 -f "$VM_DIR/id_ed25519" -N "" -C "dev-vm-$_HASH" >/dev/null
+        chown kiyurica:kiyurica "$VM_DIR/id_ed25519" "$VM_DIR/id_ed25519.pub"
       fi
 
       NIX_STORE_IMG="$VM_DIR/nix-store.img"
