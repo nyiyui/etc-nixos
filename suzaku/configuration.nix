@@ -23,7 +23,6 @@
     ./impermanence.nix
     ./nix-copy.nix
     ./dev-vm-network.nix
-    ../secureboot.nix
     ../fprint.nix
     ../syncthing.nix
     ../thunderbolt.nix
