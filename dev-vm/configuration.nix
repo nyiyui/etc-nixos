@@ -4,6 +4,7 @@
   ...
 }:
 {
+  imports = [ ./helix.nix ];
   microvm = {
     hypervisor = "cloud-hypervisor";
     mem = 16384;
@@ -250,33 +251,12 @@
     };
   };
 
-  environment.variables = {
-    EDITOR = "hx";
-    VISUAL = "hx";
-  };
-
-  systemd.tmpfiles.rules = [
-    "L /home/kiyurica/.config/helix/config.toml - - - - ${
-      pkgs.writeText "helix-config.toml" ''
-        theme = "kawamo_to_seseragi"
-
-        [editor]
-        line-number = "relative"
-
-        [editor.soft-wrap]
-        enable = true
-      ''
-    }"
-    "L /home/kiyurica/.config/helix/themes/kawamo_to_seseragi.toml - - - - ${./kawamo_to_seseragi.toml}"
-  ];
-
   environment.systemPackages = with pkgs; [
     coreutils
     git
     curl
     file
     htop
-    helix
     claude-code
     codex
     gemini-cli
