@@ -226,6 +226,7 @@
       "network.target"
       "vm-meta.mount"
     ];
+    path = with pkgs; [ iproute2 gawk ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
