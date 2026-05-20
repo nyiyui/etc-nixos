@@ -105,8 +105,7 @@
         "var.mount"
         "systemd-tmpfiles-setup.service"
       ];
-      before = [ "local-fs.target" ];
-      wantedBy = [ "local-fs.target" ];
+      wantedBy = [ "multi-user.target" ];
     }
   ];
 
