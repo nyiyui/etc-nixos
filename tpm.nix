@@ -6,6 +6,7 @@
   security.tpm2.tctiEnvironment.enable = true; # TPM2TOOLS_TCTI and TPM2_PKCS11_TCTI env variables
   security.tpm2.abrmd.enable = true; # required for tpm-fido
   users.users.kiyurica.extraGroups = [ config.security.tpm2.tssGroup ]; # tss group has access to TPM devices
+  boot.initrd.systemd.tpm2.enable = true;
 
   # tpm-fido: https://github.com/psanford/tpm-fido
   # FIDO token implementation that uses TPM for key protection
