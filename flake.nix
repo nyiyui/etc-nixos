@@ -187,28 +187,7 @@
               exit 1
             fi
 
-            IP=""
-            echo "waiting for VM..." >&2
-            for _ in $(seq 60); do
-              IP=$(cat "$VM_DIR/ip" 2>/dev/null || true)
-              if [ -n "$IP" ] && ssh \
-                  -i "$VM_DIR/id_ed25519" \
-                  -o StrictHostKeyChecking=no \
-                  -o UserKnownHostsFile=/dev/null \
-                  -o ConnectTimeout=2 \
-                  -o BatchMode=yes \
-                  "kiyurica@$IP" true 2>/dev/null; then
-                break
-              fi
-              IP=""
-              sleep 1
-            done
-
-            if [ -z "$IP" ]; then
-              echo "dev-vm-ssh: timed out waiting for VM SSH." >&2
-              exit 1
-            fi
-
+            IP="$(cat "$VM_DIR"/ip)"
             echo "connecting to $IP..." >&2
             exec ssh \
               -i "$VM_DIR/id_ed25519" \
