@@ -73,6 +73,8 @@
     };
   };
 
+  boot.initrd.systemd.enable = true;
+
   # Enable dm-verity in initrd
   boot.initrd.systemd.dmVerity.enable = true;
   boot.kernelParams = [
