@@ -174,6 +174,7 @@
     helix
     self.packages.x86_64-linux.dev-vm
     self.packages.x86_64-linux.dev-vm-ssh
+    self.packages.x86_64-linux.dev-vm-start
   ];
 
   users.users.kiyurica.extraGroups = [ "kvm" ];

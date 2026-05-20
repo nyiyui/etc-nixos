@@ -148,6 +148,21 @@
         ];
       };
 
+      packages.x86_64-linux.dev-vm-start =
+        let
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
+        in
+        pkgs.writeShellApplication {
+          name = "dev-vm-start";
+          runtimeInputs = with pkgs; [ coreutils systemd ];
+          text = ''
+            WORKSPACE=''${1:-$PWD}
+            WORKSPACE=$(realpath "$WORKSPACE")
+            ESCAPED=$(systemd-escape --path "$WORKSPACE")
+            exec systemctl start "dev-vm@''${ESCAPED}.service"
+          '';
+        };
+
       packages.x86_64-linux.dev-vm-ssh =
         let
           pkgs = import nixpkgs { system = "x86_64-linux"; };
