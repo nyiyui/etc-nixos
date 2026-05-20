@@ -148,6 +148,61 @@
         ];
       };
 
+      packages.x86_64-linux.dev-vm-ssh =
+        let
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
+        in
+        pkgs.writeShellApplication {
+          name = "dev-vm-ssh";
+          runtimeInputs = with pkgs; [ coreutils openssh ];
+          text = ''
+            WORKSPACE=''${1:-$PWD}
+            WORKSPACE=$(realpath "$WORKSPACE")
+
+            _HASH=$(printf '%s' "$WORKSPACE" | sha256sum | cut -c1-12)
+            VM_DIR="/var/lib/dev-vm/$_HASH"
+
+            if [ ! -d "$VM_DIR" ]; then
+              echo "dev-vm-ssh: no VM directory for $WORKSPACE (expected $VM_DIR)" >&2
+              exit 1
+            fi
+
+            if [ ! -f "$VM_DIR/id_ed25519" ]; then
+              echo "dev-vm-ssh: no SSH key in $VM_DIR" >&2
+              exit 1
+            fi
+
+            IP=""
+            echo "waiting for VM..." >&2
+            for _ in $(seq 60); do
+              IP=$(cat "$VM_DIR/ip" 2>/dev/null || true)
+              if [ -n "$IP" ] && ssh \
+                  -i "$VM_DIR/id_ed25519" \
+                  -o StrictHostKeyChecking=no \
+                  -o UserKnownHostsFile=/dev/null \
+                  -o ConnectTimeout=2 \
+                  -o BatchMode=yes \
+                  "kiyurica@$IP" true 2>/dev/null; then
+                break
+              fi
+              IP=""
+              sleep 1
+            done
+
+            if [ -z "$IP" ]; then
+              echo "dev-vm-ssh: timed out waiting for VM SSH." >&2
+              exit 1
+            fi
+
+            echo "connecting to $IP..." >&2
+            exec ssh \
+              -i "$VM_DIR/id_ed25519" \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              "kiyurica@$IP"
+          '';
+        };
+
       packages.x86_64-linux.dev-vm =
         let
           cfg = nixosConfigurations.dev-vm.config;

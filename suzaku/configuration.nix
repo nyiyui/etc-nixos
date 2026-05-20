@@ -23,6 +23,7 @@
     ./impermanence.nix
     ./nix-copy.nix
     ./dev-vm-network.nix
+    ./dev-vm-service.nix
     ../fprint.nix
     ../syncthing.nix
     ../thunderbolt.nix
@@ -172,6 +173,7 @@
     intel-gpu-tools
     helix
     self.packages.x86_64-linux.dev-vm
+    self.packages.x86_64-linux.dev-vm-ssh
   ];
 
   users.users.kiyurica.extraGroups = [ "kvm" ];
