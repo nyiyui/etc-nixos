@@ -271,4 +271,10 @@
   system.stateVersion = "25.11";
 
   boot.kernelParams = [ "systemd.show_status=true" ];
+
+  services.journald.extraConfig = ''
+    ForwardToConsole=yes
+    TTYPath=/dev/ttyS0
+    MaxLevelConsole=debug
+  '';
 }
