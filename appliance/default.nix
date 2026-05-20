@@ -7,7 +7,10 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    # in case something goes wrong
     gptfdisk
     gparted
+    # for signing UKIs
+    sbctl
   ];
 }
