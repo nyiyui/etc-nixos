@@ -186,6 +186,7 @@
             # If the TAP exists the VM is already running — open a new SSH session.
             if ip link show "$TAP" >/dev/null 2>&1; then
               IP=""
+              echo "waiting for VM..." >&2
               for _ in $(seq 60); do
                 IP=$(cat "$VM_DIR/ip" 2>/dev/null || true)
                 if [ -n "$IP" ]; then
@@ -203,6 +204,7 @@
                 echo "Timed out waiting for VM SSH." >&2
                 exit 1
               fi
+              echo "connecting to $IP..." >&2
               exec ssh \
                 -i "$VM_DIR/id_ed25519" \
                 -o StrictHostKeyChecking=no \
@@ -211,6 +213,7 @@
             fi
 
             # --- VM not running: boot it. ---
+            echo "starting VM..." >&2
             RUNDIR=$(mktemp -d)
             cd "$RUNDIR"
 
@@ -230,8 +233,9 @@
             fi
             ln -sf "$STATE_IMG" "$STATE_LINK"
 
-            # Write hostname into vm-meta; clear stale IP from any previous run.
+            # Write hostname and workspace path into vm-meta; clear stale IP from any previous run.
             echo "$VM_HOSTNAME" > "$VM_DIR/hostname"
+            echo "$WORKSPACE" > "$VM_DIR/workspace-path"
             rm -f "$VM_DIR/ip"
 
             BGPIDS=()
