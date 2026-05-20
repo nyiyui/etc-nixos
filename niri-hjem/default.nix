@@ -44,9 +44,17 @@
         "custom/image-version" = {
           format = "{}";
           exec = pkgs.writeShellScript "waybar-image-version" ''
-            ${pkgs.gnugrep}/bin/grep '^IMAGE_VERSION=' /etc/os-release \
-              | ${pkgs.coreutils}/bin/cut -d= -f2- \
-              | ${pkgs.coreutils}/bin/tr -d '"'
+            ${pkgs.gawk}/bin/awk -F= '
+              $1 == "IMAGE_VERSION" {
+                gsub(/^"|"$/, "", $2);
+                print $2;
+                found = 1;
+                exit;
+              }
+              END {
+                if (!found) print "unknown";
+              }
+            ' /etc/os-release
           '';
           interval = "once";
         };
