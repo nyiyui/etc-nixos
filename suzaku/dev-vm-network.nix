@@ -39,6 +39,9 @@
       interface = "vm0";
       bind-interfaces = true;
       dhcp-range = "10.100.0.10,10.100.0.254,1h";
+      # All dev VMs share the same NixOS closure → same machine-id → same
+      # DUID → same client-ID. Ignore it and assign leases by MAC instead.
+      dhcp-ignore-clid = true;
     };
   };
 

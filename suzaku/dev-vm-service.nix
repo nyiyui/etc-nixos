@@ -92,7 +92,6 @@ let
         -e "s/mac=02:00:00:00:00:01/mac=$MAC/g" \
         -e "s|/run/user/1000/dev-vm-nix-store.img|$NIX_STORE_IMG|g" \
         -e "s|/run/user/1000/dev-vm-state.img|$STATE_IMG|g" \
-        -e "s/--serial tty/--serial null/g" \
         ${runner}/bin/microvm-run)
     '';
   };
