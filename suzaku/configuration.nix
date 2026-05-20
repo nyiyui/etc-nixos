@@ -82,7 +82,7 @@
 
   services.btrfs.autoScrub = {
     enable = true;
-    fileSystems = [ "/" ];
+    fileSystems = [ "/persist" ];
   };
 
   assr.desktop.niri = {
