@@ -85,6 +85,10 @@
   # tmpfiles runs after all mounts and fixes ownership on every boot.
   systemd.tmpfiles.rules = [
     "d /home/kiyurica 0700 kiyurica kiyurica -"
+    # Pre-create standard XDG dirs so no other tmpfiles rule creates them as root.
+    "d /home/kiyurica/.config 0700 kiyurica kiyurica -"
+    "d /home/kiyurica/.local 0700 kiyurica kiyurica -"
+    "d /home/kiyurica/.cache 0700 kiyurica kiyurica -"
     "d /var/tmp 1777 root root -"
     # nix build-dir must not be world-writable; separate from /var/tmp
     "d /var/builds 0755 root root -"
@@ -137,7 +141,12 @@
   services.getty.autologinUser = lib.mkDefault "kiyurica";
   programs.fish.loginShellInit = ''
     if test -f /vm-meta/workspace-path
-      cd (cat /vm-meta/workspace-path)
+      set -l _ws (cat /vm-meta/workspace-path)
+      if test -d $_ws
+        cd $_ws
+      else
+        echo "warning: workspace '$_ws' not mounted yet" >&2
+      end
     end
     # Poweroff the VM when the console session ends. SSH sessions are excluded
     # so that attaching extra shells does not trigger an early shutdown.
@@ -152,8 +161,8 @@
   systemd.services.dev-vm-hostname = {
     description = "Set VM hostname from vm-meta";
     wantedBy = [ "multi-user.target" ];
-    after = [ "vm-meta.mount" ];
-    requires = [ "vm-meta.mount" ];
+    after = [ "vm\\x2dmeta.mount" ];
+    requires = [ "vm\\x2dmeta.mount" ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -172,7 +181,7 @@
     wantedBy = [ "sshd.service" ];
     before = [ "sshd.service" ];
     after = [
-      "vm-meta.mount"
+      "vm\\x2dmeta.mount"
       "systemd-tmpfiles-setup.service"
     ];
     serviceConfig = {
@@ -195,15 +204,8 @@
   systemd.services.dev-vm-workspace-mount = {
     description = "Bind-mount workspace at its real host path";
     wantedBy = [ "multi-user.target" ];
-    after = [
-      "vm-meta.mount"
-      "mnt-workspace.mount"
-    ];
-    requires = [
-      "vm-meta.mount"
-      "mnt-workspace.mount"
-    ];
-    unitConfig.DefaultDependencies = false;
+    after = [ "vm\\x2dmeta.mount" "mnt-workspace.mount" ];
+    requires = [ "vm\\x2dmeta.mount" "mnt-workspace.mount" ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -223,7 +225,7 @@
     wantedBy = [ "multi-user.target" ];
     after = [
       "network.target"
-      "vm-meta.mount"
+      "vm\\x2dmeta.mount"
     ];
     path = with pkgs; [ iproute2 gawk ];
     serviceConfig = {
