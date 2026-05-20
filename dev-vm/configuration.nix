@@ -266,6 +266,9 @@
 
   networking.hostName = "dev-vm";
   networking.useDHCP = true;
+  # Use MAC address as DHCP client ID so concurrent VMs (which share the same
+  # machine-id / DUID but have unique per-workspace MACs) get distinct leases.
+  networking.dhcpcd.extraConfig = "clientid";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.11";

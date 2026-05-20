@@ -174,7 +174,6 @@
             TAP="vm-$_HASH"
             MAC="02:''${_HASH:0:2}:''${_HASH:2:2}:''${_HASH:4:2}:''${_HASH:6:2}:''${_HASH:8:2}"
 
-            RTDIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
             VM_DIR="/var/lib/dev-vm/$_HASH"
             mkdir -p "$VM_DIR"
 
@@ -218,20 +217,16 @@
             cd "$RUNDIR"
 
             NIX_STORE_IMG="$VM_DIR/nix-store.img"
-            NIX_STORE_LINK="$RTDIR/dev-vm-nix-store.img"
             if [ ! -f "$NIX_STORE_IMG" ]; then
               truncate -s 128G "$NIX_STORE_IMG"
               mkfs.ext4 -L nix-store "$NIX_STORE_IMG"
             fi
-            ln -sf "$NIX_STORE_IMG" "$NIX_STORE_LINK"
 
             STATE_IMG="$VM_DIR/state.img"
-            STATE_LINK="$RTDIR/dev-vm-state.img"
             if [ ! -f "$STATE_IMG" ]; then
               truncate -s 128G "$STATE_IMG"
               mkfs.ext4 -L dev-vm-state "$STATE_IMG"
             fi
-            ln -sf "$STATE_IMG" "$STATE_LINK"
 
             # Write hostname and workspace path into vm-meta; clear stale IP from any previous run.
             echo "$VM_HOSTNAME" > "$VM_DIR/hostname"
@@ -289,7 +284,6 @@
 
             cleanup() {
               doas ip link delete "$TAP" 2>/dev/null || true
-              rm -f "$NIX_STORE_LINK" "$STATE_LINK"
               kill "''${BGPIDS[@]}" 2>/dev/null || true
               rm -rf "$RUNDIR"
             }
@@ -300,6 +294,8 @@
             bash <(sed \
               -e "s/tap=vm-dev/tap=$TAP/g" \
               -e "s/mac=02:00:00:00:00:01/mac=$MAC/g" \
+              -e "s|/run/user/1000/dev-vm-nix-store.img|$NIX_STORE_IMG|g" \
+              -e "s|/run/user/1000/dev-vm-state.img|$STATE_IMG|g" \
               ${runner}/bin/microvm-run)
           '';
         };
