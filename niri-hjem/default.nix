@@ -43,8 +43,12 @@
         "niri/workspaces".format = "{index}";
         "custom/image-version" = {
           format = "{}";
-          exec = "${pkgs.gawk}/bin/awk -F= '$1==\"IMAGE_VERSION\" {gsub(/^\"|\"$/, \"\", $2); print $2; exit}' /etc/os-release";
-          interval = 86400;
+          exec = pkgs.writeShellScript "waybar-image-version" ''
+            ${pkgs.gnugrep}/bin/grep '^IMAGE_VERSION=' /etc/os-release \
+              | ${pkgs.coreutils}/bin/cut -d= -f2- \
+              | ${pkgs.coreutils}/bin/tr -d '"'
+          '';
+          interval = "once";
         };
       };
       systemd.services.swaybg = {
