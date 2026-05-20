@@ -43,8 +43,8 @@
         "niri/workspaces".format = "{index}";
         "custom/image-version" = {
           format = "{}";
-          exec = "${pkgs.bash}/bin/bash -c '. /etc/os-release; printf \"%s\\n\" \"''${IMAGE_VERSION:-}\"'";
-          interval = 3600;
+          exec = "${pkgs.gawk}/bin/awk -F= '$1==\"IMAGE_VERSION\" {gsub(/^\"|\"$/, \"\", $2); print $2; exit}' /etc/os-release";
+          interval = 86400;
         };
       };
       systemd.services.swaybg = {
