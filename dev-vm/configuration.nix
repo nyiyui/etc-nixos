@@ -269,4 +269,11 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.11";
+
+  boot.kernelParams = [ "systemd.show_status=true" ];
+
+  systemd.extraConfig = ''
+    DefaultStandardOutput=journal+console
+    DefaultStandardError=journal+console
+  '';
 }
