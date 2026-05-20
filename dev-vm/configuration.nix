@@ -19,14 +19,16 @@
         source = "/nix/store";
         mountPoint = "/nix/.ro-store";
       }
-      # Project directory mounted as /workspace.
+      # Project directory mounted as /mnt/workspace (staging point).
+      # A systemd service then bind-mounts it to the real host path read from
+      # /vm-meta/workspace-path so paths inside the VM match the host exactly.
       # Source is a placeholder — the actual path is supplied at launch time
       # by the dev-vm wrapper script via its own virtiofsd invocation.
       {
         proto = "virtiofs";
         tag = "workspace";
         source = "/tmp";
-        mountPoint = "/workspace";
+        mountPoint = "/mnt/workspace";
       }
       # Per-workspace metadata directory shared from the host.
       # Contains: hostname, id_ed25519.pub (SSH key), ip (written by guest).
@@ -135,7 +137,9 @@
   # Auto-login as kiyurica; drop into /workspace on login.
   services.getty.autologinUser = lib.mkDefault "kiyurica";
   programs.fish.loginShellInit = ''
-    if test -d /workspace; cd /workspace; end
+    if test -f /vm-meta/workspace-path
+      cd (cat /vm-meta/workspace-path)
+    end
     # Poweroff the VM when the console session ends. SSH sessions are excluded
     # so that attaching extra shells does not trigger an early shutdown.
     if not set -q SSH_TTY
@@ -184,6 +188,32 @@
         chmod 600 /home/kiyurica/.ssh/authorized_keys
         chown -R kiyurica:kiyurica /home/kiyurica/.ssh
       fi
+    '';
+  };
+
+  # Bind-mount /mnt/workspace to the real host path (read from /vm-meta/workspace-path)
+  # so that paths inside the VM match those on the host exactly.
+  systemd.services.dev-vm-workspace-mount = {
+    description = "Bind-mount workspace at its real host path";
+    wantedBy = [ "multi-user.target" ];
+    after = [
+      "vm-meta.mount"
+      "mnt-workspace.mount"
+    ];
+    requires = [
+      "vm-meta.mount"
+      "mnt-workspace.mount"
+    ];
+    unitConfig.DefaultDependencies = false;
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    path = with pkgs; [ util-linux coreutils ];
+    script = ''
+      target=$(cat /vm-meta/workspace-path)
+      mkdir -p "$target"
+      mount --bind /mnt/workspace "$target"
     '';
   };
 
