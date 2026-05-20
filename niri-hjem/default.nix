@@ -37,7 +37,15 @@
           "niri/workspaces"
           "niri/window"
         ];
+        modules-center = [
+          "custom/image-version"
+        ];
         "niri/workspaces".format = "{index}";
+        "custom/image-version" = {
+          format = "{}";
+          exec = "${pkgs.bash}/bin/bash -c '. /etc/os-release; printf \"%s\\n\" \"''${IMAGE_VERSION:-}\"'";
+          interval = 3600;
+        };
       };
       systemd.services.swaybg = {
         description = "swaywm background";
