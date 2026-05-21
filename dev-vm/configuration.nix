@@ -84,11 +84,14 @@
   # The state volume is a freshly-formatted ext4 whose root is owned by root.
   # tmpfiles runs after all mounts and fixes ownership on every boot.
   systemd.tmpfiles.rules = [
-    "d /home/kiyurica 0700 kiyurica kiyurica -"
+    "d /var/home/kiyurica 0700 kiyurica kiyurica -"
     # Pre-create standard XDG dirs so no other tmpfiles rule creates them as root.
-    "d /home/kiyurica/.config 0700 kiyurica kiyurica -"
-    "d /home/kiyurica/.local 0700 kiyurica kiyurica -"
-    "d /home/kiyurica/.cache 0700 kiyurica kiyurica -"
+    "d /var/home/kiyurica/.config 0700 kiyurica kiyurica -"
+    "d /var/home/kiyurica/.local 0700 kiyurica kiyurica -"
+    "d /var/home/kiyurica/.cache 0700 kiyurica kiyurica -"
+    "d /var/tmp 1777 root root -"
+    # nix build-dir must not be world-writable; separate from /var/tmp
+    "d /var/builds 0755 root root -"
   ];
 
   # /tmp is bind-mounted from the 64 GiB state disk so that nix build
@@ -150,6 +153,7 @@
     group = "kiyurica";
     extraGroups = [ "wheel" ];
     shell = pkgs.fish;
+    home = "/var/home/kiyurica";
   };
 
   security.sudo.wheelNeedsPassword = false;
@@ -205,11 +209,9 @@
       RemainAfterExit = true;
     };
     script = ''
-      mkdir -p /home/kiyurica/.ssh
-      cp /vm-meta/id_ed25519.pub /home/kiyurica/.ssh/authorized_keys
-      chmod 700 /home/kiyurica/.ssh
-      chmod 600 /home/kiyurica/.ssh/authorized_keys
-      chown -R kiyurica:kiyurica /home/kiyurica/.ssh
+      mkdir -p /etc/ssh/authorized_keys.d
+      cp /vm-meta/id_ed25519.pub /etc/ssh/authorized_keys.d/kiyurica
+      chmod 644 /etc/ssh/authorized_keys.d/kiyurica
     '';
   };
 
@@ -261,6 +263,7 @@
   # SSH server; password auth disabled — key-only via vm-meta pubkey.
   services.openssh = {
     enable = true;
+    authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
