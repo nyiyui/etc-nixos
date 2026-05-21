@@ -103,16 +103,19 @@
   boot.tmp.cleanOnBoot = true;
 
   # Create /var/tmp (and /var/builds) on the state disk before the bind-mount.
-  # This must NOT depend on systemd-tmpfiles-setup.service: all mount units are
-  # implicitly Before=local-fs.target, and tmpfiles is After=local-fs.target,
-  # so adding After=tmpfiles to the mount creates a cycle that causes systemd
-  # to skip tmpfiles entirely (breaking nsncd, sshd, etc.).
+  # DefaultDependencies=false is required: without it, systemd implicitly adds
+  # After=basic.target to this service. Combined with Before=tmp.mount, that
+  # creates a cycle (sysinit.target → tmpfiles-setup → local-fs.target →
+  # tmp.mount → this service → basic.target → sysinit.target) that causes
+  # systemd to drop systemd-tmpfiles-setup and local-fs.target entirely,
+  # breaking nsncd, sshd, and all mounts.
   systemd.services.dev-vm-prepare-var = {
     description = "Create /var directories needed before mounts";
     after = [ "var.mount" ];
     requires = [ "var.mount" ];
     before = [ "tmp.mount" ];
     wantedBy = [ "tmp.mount" ];
+    unitConfig.DefaultDependencies = false;
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
