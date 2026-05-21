@@ -22,8 +22,7 @@
     ../appliance
     ./impermanence.nix
     ./nix-copy.nix
-    ./dev-vm-network.nix
-    ./dev-vm-service.nix
+    ../dev-vm/host.nix
     ../fprint.nix
     ../syncthing.nix
     ../thunderbolt.nix
@@ -172,9 +171,6 @@
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
     helix
-    self.packages.x86_64-linux.dev-vm
-    self.packages.x86_64-linux.dev-vm-ssh
-    self.packages.x86_64-linux.dev-vm-start
   ];
 
   users.users.kiyurica.extraGroups = [ "kvm" ];
