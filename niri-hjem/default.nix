@@ -98,6 +98,7 @@
       xwayland-satellite
       swaylock
       foot
+      wdisplays # display configurator GUI
     ];
 
     xdg.portal = {
