@@ -84,6 +84,8 @@
   # The state volume is a freshly-formatted ext4 whose root is owned by root.
   # tmpfiles runs after all mounts and fixes ownership on every boot.
   systemd.tmpfiles.rules = [
+    # nix-daemon socket dir; root is tmpfs so this must be created on every boot.
+    "d /nix/var/nix/daemon-socket 0755 root root -"
     "d /var/home/kiyurica 0700 kiyurica kiyurica -"
     # Pre-create standard XDG dirs so no other tmpfiles rule creates them as root.
     "d /var/home/kiyurica/.config 0700 kiyurica kiyurica -"
@@ -166,6 +168,11 @@
 
   security.sudo.wheelNeedsPassword = false;
   programs.fish.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableFishIntegration = true;
+  };
 
   # Auto-login as kiyurica; drop into /workspace on login.
   services.getty.autologinUser = lib.mkDefault "kiyurica";
