@@ -154,7 +154,10 @@
         in
         pkgs.writeShellApplication {
           name = "dev-vm-start";
-          runtimeInputs = with pkgs; [ coreutils systemd ];
+          runtimeInputs = with pkgs; [
+            coreutils
+            systemd
+          ];
           text = ''
             WORKSPACE=''${1:-$PWD}
             WORKSPACE=$(realpath "$WORKSPACE")
@@ -169,7 +172,10 @@
         in
         pkgs.writeShellApplication {
           name = "dev-vm-ssh";
-          runtimeInputs = with pkgs; [ coreutils openssh ];
+          runtimeInputs = with pkgs; [
+            coreutils
+            openssh
+          ];
           text = ''
             WORKSPACE=''${1:-$PWD}
             WORKSPACE=$(realpath "$WORKSPACE")
