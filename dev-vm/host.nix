@@ -7,8 +7,8 @@
   ];
 
   environment.systemPackages = [
-    self.packages.${pkgs.system}.dev-vm
-    self.packages.${pkgs.system}.dev-vm-ssh
-    self.packages.${pkgs.system}.dev-vm-start
+    self.packages.${pkgs.stdenv.hostPlatform.system}.dev-vm
+    self.packages.${pkgs.stdenv.hostPlatform.system}.dev-vm-ssh
+    self.packages.${pkgs.stdenv.hostPlatform.system}.dev-vm-start
   ];
 }
