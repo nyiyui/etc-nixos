@@ -267,6 +267,8 @@
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
+      X11Forwarding = true;
+      XAuthLocation = "/var/home/kiyurica/.nix-profile/bin/xauth";
     };
   };
 
@@ -276,6 +278,8 @@
     curl
     file
     htop
+    waypipe
+
     claude-code
     codex
     gemini-cli

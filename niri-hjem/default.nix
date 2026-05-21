@@ -95,6 +95,8 @@
     };
 
     users.users.kiyurica.packages = with pkgs; [
+      xwayland # to run X wms inside Wayland
+      xwayland-run
       xwayland-satellite
       swaylock
       foot

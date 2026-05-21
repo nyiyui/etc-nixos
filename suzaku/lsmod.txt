@@ -12,6 +12,7 @@ autofs4
 battery
 blake2b_generic
 bluetooth
+bridge
 btbcm
 btintel
 btmtk
@@ -28,6 +29,7 @@ cdc_wdm
 cec
 cfg80211
 clk_tps68470
+cmac
 coretemp
 crc16
 crc32_pclmul
@@ -37,8 +39,10 @@ crct10dif_pclmul
 cryptd
 crypto_simd
 dax
+dm_bufio
 dm_crypt
 dm_mod
+dm_verity
 dmi_sysfs
 drm_buddy
 drm_display_helper
@@ -98,15 +102,19 @@ ipt_rpfilter
 irqbypass
 iwlmvm
 iwlwifi
+jbd2
 kvm
 kvm_intel
 led_class
 libarc4
 libcrc32c
+libphy
 libps2
+llc
 loop
 mac80211
 mac_hid
+mbcache
 mc
 mei
 mei_hdcp
@@ -152,6 +160,8 @@ processor_thermal_wt_req
 psmouse
 ptp
 qrtr
+r8152
+r8153_ecm
 raid6_pq
 rapl
 rfkill
@@ -218,6 +228,8 @@ spi_intel
 spi_intel_pci
 spi_nor
 squashfs
+stp
+tap
 tee
 thermal
 think_lmi
@@ -242,6 +254,9 @@ usbnet
 v4l2_async
 v4l2_fwnode
 vfat
+vhost
+vhost_iotlb
+vhost_net
 video
 videodev
 vivaldi_fmap
