@@ -129,8 +129,14 @@
       what = "/var/tmp";
       where = "/tmp";
       options = "bind";
-      requires = [ "var.mount" "dev-vm-prepare-var.service" ];
-      after = [ "var.mount" "dev-vm-prepare-var.service" ];
+      requires = [
+        "var.mount"
+        "dev-vm-prepare-var.service"
+      ];
+      after = [
+        "var.mount"
+        "dev-vm-prepare-var.service"
+      ];
       wantedBy = [ "multi-user.target" ];
     }
   ];
@@ -146,7 +152,9 @@
     build-dir = "/var/builds";
   };
 
-  users.groups.kiyurica = { gid = 1000; };
+  users.groups.kiyurica = {
+    gid = 1000;
+  };
   users.users.kiyurica = {
     uid = 1000;
     isNormalUser = true;
@@ -220,13 +228,22 @@
   systemd.services.dev-vm-workspace-mount = {
     description = "Bind-mount workspace at its real host path";
     wantedBy = [ "multi-user.target" ];
-    after = [ "vm\\x2dmeta.mount" "mnt-workspace.mount" ];
-    requires = [ "vm\\x2dmeta.mount" "mnt-workspace.mount" ];
+    after = [
+      "vm\\x2dmeta.mount"
+      "mnt-workspace.mount"
+    ];
+    requires = [
+      "vm\\x2dmeta.mount"
+      "mnt-workspace.mount"
+    ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
     };
-    path = with pkgs; [ util-linux coreutils ];
+    path = with pkgs; [
+      util-linux
+      coreutils
+    ];
     script = ''
       target=$(cat /vm-meta/workspace-path)
       mkdir -p "$target"
@@ -243,7 +260,10 @@
       "network.target"
       "vm\\x2dmeta.mount"
     ];
-    path = with pkgs; [ iproute2 gawk ];
+    path = with pkgs; [
+      iproute2
+      gawk
+    ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;

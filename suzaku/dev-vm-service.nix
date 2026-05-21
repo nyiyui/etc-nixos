@@ -100,7 +100,11 @@ let
 
   stopScript = pkgs.writeShellApplication {
     name = "dev-vm-service-stop";
-    runtimeInputs = with pkgs; [ coreutils iproute2 systemd ];
+    runtimeInputs = with pkgs; [
+      coreutils
+      iproute2
+      systemd
+    ];
     text = ''
       ESCAPED="$1"
       WORKSPACE=$(systemd-escape --unescape --path -- "$ESCAPED")
