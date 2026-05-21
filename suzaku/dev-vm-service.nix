@@ -55,6 +55,11 @@ let
       echo "$WORKSPACE" > "$VM_DIR/workspace-path"
       rm -f "$VM_DIR/ip"
 
+      VCPU=4
+      if [ -f "$VM_DIR/vcpu" ]; then
+        VCPU=$(cat "$VM_DIR/vcpu")
+      fi
+
       if ip link show vm0 >/dev/null 2>&1; then
         ip tuntap add dev "$TAP" mode tap multi_queue
         ip link set "$TAP" master vm0
@@ -94,7 +99,29 @@ let
         -e "s/mac=02:00:00:00:00:01/mac=$MAC/g" \
         -e "s|/run/user/1000/dev-vm-nix-store.img|$NIX_STORE_IMG|g" \
         -e "s|/run/user/1000/dev-vm-state.img|$STATE_IMG|g" \
+        -e "s/boot=[0-9]*/boot=$VCPU,max=8/g" \
         ${runner}/bin/microvm-run)
+    '';
+  };
+
+  vcpuScript = pkgs.writeShellApplication {
+    name = "dev-vm-vcpu";
+    runtimeInputs = with pkgs; [
+      coreutils
+      curl
+    ];
+    text = ''
+      WORKSPACE=$(realpath "$1")
+      DESIRED="$2"
+      _HASH=$(printf '%s' "$WORKSPACE" | sha256sum | cut -c1-12)
+      RUNDIR="/run/dev-vm-$_HASH"
+
+      curl --silent --show-error \
+        --unix-socket "$RUNDIR/dev-vm.sock" \
+        -X PUT \
+        -H "Content-Type: application/json" \
+        -d "{\"desired_vcpus\": $DESIRED}" \
+        http://localhost/api/v1/vm.resize
     '';
   };
 
@@ -117,6 +144,8 @@ let
   };
 in
 {
+  environment.systemPackages = [ vcpuScript ];
+
   systemd.services."dev-vm@" = {
     description = "Dev VM for %i";
     after = [ "network.target" ];
