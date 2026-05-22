@@ -63,10 +63,24 @@ in
     text = ''
       WAYPIPE=false
       WORKSPACE=""
+      SSH_CMD=()
 
+      # SSH options (e.g. -NL 8080:localhost:8080) can be passed via DEVVM_SSH_OPTS.
+      # Positional args after -- are forwarded to SSH after the hostname (remote command).
+      SSH_EXTRA_OPTS=()
+      if [ -n "''${DEVVM_SSH_OPTS:-}" ]; then
+        read -ra SSH_EXTRA_OPTS <<< "$DEVVM_SSH_OPTS"
+      fi
+
+      seen_dashdash=false
       for arg in "$@"; do
+        if $seen_dashdash; then
+          SSH_CMD+=("$arg")
+          continue
+        fi
         case "$arg" in
           --waypipe) WAYPIPE=true ;;
+          --) seen_dashdash=true ;;
           *) WORKSPACE="$arg" ;;
         esac
       done
@@ -86,13 +100,17 @@ in
             -i "$VM_DIR/id_ed25519" \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            "kiyurica@$IP"
+            "''${SSH_EXTRA_OPTS[@]}" \
+            "kiyurica@$IP" \
+            "''${SSH_CMD[@]}"
         else
           exec ssh \
             -i "$VM_DIR/id_ed25519" \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            "kiyurica@$IP"
+            "''${SSH_EXTRA_OPTS[@]}" \
+            "kiyurica@$IP" \
+            "''${SSH_CMD[@]}"
         fi
       }
 
