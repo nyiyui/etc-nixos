@@ -5,9 +5,6 @@ export LESS='-R -s -M +Gg'
 export VISUAL='hx'
 export EDITOR="$VISUAL"
 
-alias sudo=doas
-alias zudo=doas
-
 alias cp='cp --backup=existing'
 alias ln='ln --backup=existing'
 alias mv='mv --backup=existing'

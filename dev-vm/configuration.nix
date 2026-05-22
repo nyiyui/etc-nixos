@@ -171,6 +171,7 @@
 
   security.sudo.wheelNeedsPassword = false;
   programs.fish.enable = true;
+  programs.fish.interactiveShellInit = builtins.readFile ../hjem/profile.fish;
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
