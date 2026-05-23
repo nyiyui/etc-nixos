@@ -16,14 +16,8 @@ alias f.='grep -nrH -B 2 -A 2 --exclude-dir node_modules --exclude-dir venv .'
 alias f1='grep -nrH --exclude-dir node_modules --exclude-dir venv'
 alias f0='grep -nrHo --exclude-dir node_modules --exclude-dir venv'
 
-alias z=zathura-sandbox
-
 alias :wq='echo too much vi!'
 alias :q='echo too much vi!'
-
-# mpv aliases
-alias mpvv='mpv --no-video'
-alias mpvvl='mpv --no-video --loop'
 
 # git aliases
 alias fit='git'
@@ -58,14 +52,6 @@ alias ip='ip -c'
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-function jpeg-to-pdf
-    convert -density 300 -gravity Center $argv out.pdf
-end
-
-function pdf-remove-annotations
-    pdftk "$argv[1]" output - uncompress | sed '/^\/Annots/d' | pdftk - output "$argv[2]" compress
-end
 
 function gtid
     echo 903986453
