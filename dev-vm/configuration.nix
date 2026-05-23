@@ -12,7 +12,7 @@ let
           hooks = [
             {
               type = "command";
-              command = "hostname > /vm-meta/notify";
+              command = "touch /vm-meta/notify";
             }
           ];
         }

@@ -13,12 +13,12 @@
       Restart = "always";
       RestartSec = "2s";
       ExecStart = pkgs.writeShellScript "dev-vm-notify-watch" ''
-        mkdir -p /var/lib/dev-vm
         inotifywait -m -r -e close_write,moved_to /var/lib/dev-vm \
           --format '%w%f' \
           --include '.*/notify$' 2>/dev/null |
         while IFS= read -r path; do
-          name=$(cat "$path" 2>/dev/null | tr -d '[:space:]')
+          dir=$(dirname "$path")
+          name=$(cat "$dir/hostname" 2>/dev/null | tr -d '[:space:]')
           rm -f "$path"
           notify-desktop --urgency=normal "Claude ($name)" "Waiting for input"
         done
