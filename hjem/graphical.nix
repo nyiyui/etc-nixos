@@ -357,6 +357,11 @@ in
       set selection-clipboard clipboard
     '';
 
+    xdg.config.files."systemd/user/app-firefox@autostart.service.d/pipewire.conf".text = ''
+      [Unit]
+      After=pipewire.service wireplumber.service
+    '';
+
     files.".config/autostart/firefox.desktop".source =
       "/run/current-system/sw/share/applications/firefox.desktop";
     files.".config/autostart/signal.desktop".source =
