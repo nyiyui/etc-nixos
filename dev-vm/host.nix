@@ -3,6 +3,7 @@
 {
   imports = [
     ./host-network.nix
+    ./host-notify.nix
     ./host-service.nix
   ];
 

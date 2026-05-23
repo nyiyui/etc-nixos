@@ -3,6 +3,23 @@
   pkgs,
   ...
 }:
+let
+  claudeSettings = pkgs.writeText "claude-settings.json" (builtins.toJSON {
+    hooks = {
+      Stop = [
+        {
+          matcher = "";
+          hooks = [
+            {
+              type = "command";
+              command = "hostname > /vm-meta/notify";
+            }
+          ];
+        }
+      ];
+    };
+  });
+in
 {
   imports = [ ./helix.nix ];
   microvm = {
@@ -94,6 +111,9 @@
     "d /var/tmp 1777 root root -"
     # nix build-dir must not be world-writable; separate from /var/tmp
     "d /var/builds 0755 root root -"
+    # Claude Code settings — copy once; user edits persist across reboots.
+    "d /var/home/kiyurica/.claude 0700 kiyurica kiyurica -"
+    "C /var/home/kiyurica/.claude/settings.json 0600 kiyurica kiyurica - ${claudeSettings}"
   ];
 
   # /tmp is bind-mounted from the 64 GiB state disk so that nix build
