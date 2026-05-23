@@ -92,18 +92,15 @@
     enable = true;
   };
   # TODO: add moonlight-qt package
-  #  home-manager.users.kiyurica =
-  #    { pkgs, ... }:
-  #    {
-  #      kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
-  #    };
 
-  #  age.secrets.icsUrlPath = {
-  #    file = ../secrets/ics-url-path.txt.age;
-  #    owner = "kiyurica";
-  #    group = "kiyurica";
-  #    mode = "400";
-  #  };
+  hjem.users.kiyurica.kiyurica.icsUrlPath = config.age.secrets.icsUrlPath.path;
+
+  age.secrets.icsUrlPath = {
+    file = ../secrets/ics-url-path.txt.age;
+    owner = "kiyurica";
+    group = "kiyurica";
+    mode = "400";
+  };
 
   age.identityPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 
