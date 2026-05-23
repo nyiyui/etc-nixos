@@ -4,21 +4,23 @@
   ...
 }:
 let
-  claudeSettings = pkgs.writeText "claude-settings.json" (builtins.toJSON {
-    hooks = {
-      Stop = [
-        {
-          matcher = "";
-          hooks = [
-            {
-              type = "command";
-              command = "touch /vm-meta/notify";
-            }
-          ];
-        }
-      ];
-    };
-  });
+  claudeSettings = pkgs.writeText "claude-settings.json" (
+    builtins.toJSON {
+      hooks = {
+        Stop = [
+          {
+            matcher = "";
+            hooks = [
+              {
+                type = "command";
+                command = "touch /vm-meta/notify";
+              }
+            ];
+          }
+        ];
+      };
+    }
+  );
 in
 {
   imports = [ ./helix.nix ];
