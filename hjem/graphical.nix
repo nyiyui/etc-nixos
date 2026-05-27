@@ -359,7 +359,7 @@ in
 
     xdg.config.files."systemd/user/app-firefox@autostart.service.d/pipewire.conf".text = ''
       [Unit]
-      After=pipewire.service wireplumber.service
+      After=pipewire.service wireplumber.service pipewire-pulse.socket
     '';
 
     files.".config/autostart/firefox.desktop".source =
