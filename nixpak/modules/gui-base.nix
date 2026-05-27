@@ -29,7 +29,7 @@
       network = lib.mkDefault false;
       sockets = {
         wayland = true;
-        pulse = true;
+        pulse = false; # bound rw below instead; see bind.rw comment
         pipewire = true;
       };
       bind.rw = [
@@ -46,6 +46,11 @@
         (sloth.concat' sloth.runtimeDir "/gvfsd")
         (sloth.concat' sloth.runtimeDir "/dconf")
         (sloth.concat' sloth.runtimeDir "/doc")
+        # sockets.pulse would bind this ro, but libpulse's make_secure_dir()
+        # calls chmod(0700) on the directory; that fails with EROFS on a
+        # read-only bind mount even though /run/user/1000 itself is a rw tmpfs.
+        # Bind rw so the chmod succeeds and libpulse can proceed to connect.
+        (sloth.concat' sloth.runtimeDir "/pulse")
       ];
       bind.ro = [
         (lib.optionalString config.dbus.enable "/etc/machine-id")
