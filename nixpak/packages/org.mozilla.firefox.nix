@@ -36,7 +36,6 @@ let
           dieWithParent = true;
           bind.rw = [
             (sloth.concat' sloth.homeDir "/.mozilla") # TODO: figure out how to put this under .var/nixpak-app
-            (sloth.concat' sloth.runtimeDir "/pulse")
           ];
           bind.ro = [
             [
