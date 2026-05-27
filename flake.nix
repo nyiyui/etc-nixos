@@ -150,7 +150,6 @@
 
       packages.x86_64-linux = import ./dev-vm/packages.nix {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
-        inherit self;
       };
     }
     // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
