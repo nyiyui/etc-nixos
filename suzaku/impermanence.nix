@@ -46,9 +46,6 @@
         ".config/.copilot"
         ".codex"
         ".config/dpt"
-        ".config/unity3d"
-        ".config/unityhub"
-        "Unity"
         ".gemini"
       ];
     };

@@ -21,7 +21,6 @@
     ./caldav-canvas-gradescope.nix
     ./backup-caldav
     ./backup-persist-push
-    ./unity.nix
     ./power-logger
     ./gpu-screen-recorder.nix
   ];
