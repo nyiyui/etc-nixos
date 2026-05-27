@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 let
   fwupd-notify = pkgs.writeShellScript "fwupd-notify" ''
@@ -21,7 +16,7 @@ let
 
     # If we found updates, send notification
     if echo "$updates" | grep -q "│"; then
-      ${pkgs.libnotify}/bin/notify-send \
+      ${pkgs.notify-desktop}/bin/notify-desktop \
         -u normal \
         -i system-software-update \
         -a fwupd-notify.service \
@@ -34,31 +29,21 @@ in
   services.fwupd.enable = true;
 
   # User service for notifications
-  home-manager.sharedModules = [
-    {
-      systemd.user.services.fwupd-notify = {
-        Unit = {
-          Description = "Check for firmware updates and notify";
-        };
-        Service = {
-          Type = "oneshot";
-          ExecStart = "${fwupd-notify}";
-        };
-      };
+  systemd.user.services.fwupd-notify = {
+    description = "Check for firmware updates and notify";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${fwupd-notify}";
+    };
+  };
 
-      systemd.user.timers.fwupd-notify = {
-        Unit = {
-          Description = "Check for firmware updates daily";
-        };
-        Timer = {
-          OnBootSec = "15m";
-          OnUnitActiveSec = "1d";
-          Persistent = true;
-        };
-        Install = {
-          WantedBy = [ "timers.target" ];
-        };
-      };
-    }
-  ];
+  systemd.user.timers.fwupd-notify = {
+    description = "Check for firmware updates daily";
+    timerConfig = {
+      OnBootSec = "15m";
+      OnUnitActiveSec = "1d";
+      Persistent = true;
+    };
+    wantedBy = [ "timers.target" ];
+  };
 }
