@@ -47,10 +47,11 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 0;
+  boot.loader.timeout = 0; # press space at POST and hold to select boot entry
 
   users.users.kiyurica = {
     initialHashedPassword = "$y$j9T$g5xm0pLBFbK4W4c5BIENt/$D18bkwRRxH/MjSlInTZfvd2vE4Mxa.RQXARitTirV64";
+    # TODO: TPM-backed password hash, and rotate password
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
@@ -131,6 +132,7 @@
   '';
 
   kiyurica.tailscale.enable = true;
+  kiyurica.syncthing.tailscaleOnly = true;
   systemd.services.tailscaled-autoconnect.wantedBy = lib.mkForce [ ]; # we may not always be connected to the Internet and therefore the tailnet
 
   # Enable mDNS for LAN hostname resolution
