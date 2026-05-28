@@ -21,7 +21,6 @@
     ./disko-config.nix
     ../appliance
     ./impermanence.nix
-    ./nix-copy.nix
     ../dev-vm/host.nix
     ../fprint.nix
     ../syncthing.nix
