@@ -12,7 +12,7 @@
 
 {
   imports = [
-    # ./kernel-modules.nix # TODO: WPA3
+    ./kernel-modules.nix
     nixos-hardware.nixosModules.lenovo-thinkpad-x1-10th-gen
     ./overlays.nix
     ./hardware-configuration.nix
@@ -197,6 +197,43 @@
   };
 
   boot.initrd.systemd.repart.device = "/dev/disk/by-id/nvme-CT2000P3PSSD8_2506E9A48456";
+
+  boot.kernelParams = [
+    # Zero memory on alloc/free — closes uninitialised-data and use-after-free info-leak classes.
+    "init_on_alloc=1"
+    "init_on_free=1"
+    # Randomise page allocator free-list order.
+    "page_alloc.shuffle=1"
+    # Prevent allocator from merging slabs of compatible layout (anti-heap-grooming).
+    "slab_nomerge"
+    # Randomise kernel stack offset per syscall.
+    "randomize_kstack_offset=on"
+    # Disable the legacy vsyscall table (fixed-address ROP gadget source).
+    "vsyscall=none"
+    # Hide debugfs from unprivileged users.
+    "debugfs=off"
+    # Kernel lockdown: prevents root from loading unsigned modules, writing /dev/mem, etc.
+    # Only meaningful because Secure Boot is enabled via lanzaboote.
+    # Use "confidentiality" to also disable hibernate if that tradeoff is acceptable.
+    "lockdown=integrity"
+  ];
+
+  boot.kernel.sysctl = {
+    # Hide kernel symbol addresses from all users (even root).
+    "kernel.kptr_restrict" = 2;
+    # Restrict dmesg to root — many exploit primitives rely on dmesg leaks.
+    "kernel.dmesg_restrict" = 1;
+    # Disable unprivileged eBPF — highest-frequency kernel CVE surface of recent years.
+    "kernel.unprivileged_bpf_disabled" = 1;
+    # Harden BPF JIT output against JIT-spray attacks.
+    "net.core.bpf_jit_harden" = 2;
+    # Restrict ptrace to parent→child only (breaks cross-process gdb attach).
+    "kernel.yama.ptrace_scope" = 1;
+    # Restrict perf_event_open to root.
+    "kernel.perf_event_paranoid" = 3;
+    # Disable /proc/sysrq-trigger for unprivileged users.
+    "kernel.sysrq" = 0;
+  };
 
   kiyurica.hjem.enable = true;
   kiyurica.home-manager.enable = lib.mkForce false;
