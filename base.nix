@@ -14,7 +14,7 @@
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJ2Nn9F1Feco7kb3BmJjE+VLZgMJQU43PnMf4uhX3WDoNW4n1PRCaYHRB4mCKIsZwZjAQ41/debHFvZ+8vhwqVM= kiyurica@suzaku"
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBOpcXjT5V7pbiRluEcYPlNy1179aI++jGlLRPcPlP/kZQEVkOOlpjjy+JcGC3XCcjmEXRREFhUfJmgm77L4RS18= @pixel-6a"
     ];
-    homeMode = "770";
+    homeMode = "700";
   };
 
   nix.settings.trusted-users = [ "kiyurica" ];
