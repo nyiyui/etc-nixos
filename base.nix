@@ -37,8 +37,6 @@
   services.openssh.extraConfig = "PerSourcePenalties crash:90s authfail:5s refuseconnection:10s noauth:1s grace-exceeded:10s max:10m min:15s max-sources4:65536 max-sources6:65536 overflow:permissive";
   kiyurica.mosh.enable = true;
 
-  security.sudo.wheelNeedsPassword = false;
-
   environment.shells = [ pkgs.fish ];
   programs.fish.enable = true;
   programs.git.enable = true;
