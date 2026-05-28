@@ -50,11 +50,21 @@
   # the current default route.
   networking.firewall.extraCommands = ''
     iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -j MASQUERADE
+    iptables -A FORWARD -i vm0 -j ACCEPT
+    iptables -A FORWARD -o vm0 -m state --state ESTABLISHED,RELATED -j ACCEPT
   '';
   networking.firewall.extraStopCommands = ''
-    iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -j MASQUERADE 2>/dev/null || true
+    iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -j MASQUERADE || true
+    iptables -D FORWARD -i vm0 -j ACCEPT || true
+    iptables -D FORWARD -o vm0 -m state --state ESTABLISHED,RELATED -j ACCEPT || true
   '';
 
-  # Trust all traffic arriving on the VM bridge (allows forwarding too).
-  networking.firewall.trustedInterfaces = [ "vm0" ];
+  # Allow VMs to reach dnsmasq (DNS + DHCP) on the host, but nothing else.
+  networking.firewall.interfaces.vm0.allowedUDPPorts = [
+    53 # DNS
+    67 # DHCP
+  ];
+  networking.firewall.interfaces.vm0.allowedTCPPorts = [
+    53 # DNS
+  ];
 }
