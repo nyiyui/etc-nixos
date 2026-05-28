@@ -11,7 +11,6 @@
     ./i18n.nix
     ./doas.nix
     ./home-manager.nix
-    ./dbus-monitor.nix
     ./fwupd.nix
     ./ssh-agent.nix
     ./base.nix
