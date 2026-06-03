@@ -40,6 +40,7 @@
     # ../nixpak/packages/org.libreoffice.LibreOffice.nix
     # ../nixpak/packages/io.github.alainm23.planify.nix
     ../nixpak/packages/org.signal.Signal.nix
+    ../tarmak.nix
     # ../nixpak/packages/org.strawberrymusicplayer.strawberry.nix
     # ../nixpak/packages/org.chromium.Chromium.nix
   ];
