@@ -107,6 +107,17 @@
 
   services.automatic-timezoned.enable = true;
   services.geoclue2.geoProviderUrl = "https://api.positon.xyz/v1/geolocate?key=56aba903-ae67-4f26-919b-15288b44bda9";
+  # automatic-timezoned and its geoclue agent have Before=graphical.target by default, which pulls
+  # geoclue → network-online.target → tailscaled → NM-wait-online into the greeter's critical path.
+  # Remove the ordering so these services start concurrently with (not before) graphical.target.
+  systemd.services.automatic-timezoned = {
+    wantedBy = lib.mkForce [ "multi-user.target" ];
+    before = lib.mkForce [ ];
+  };
+  systemd.services.automatic-timezoned-geoclue-agent = {
+    wantedBy = lib.mkForce [ "multi-user.target" ];
+    before = lib.mkForce [ ];
+  };
   # To use the Positon geolocation service, uncomment this URL.
   #
   # NOTE: Distributors of geoclue may only uncomment this URL if the
