@@ -66,15 +66,17 @@
       wait_for_ssh() {
         local IP="$1"
         for _ in $(seq 60); do
-          if ssh \
+          local STATE
+          STATE=$(ssh \
             -i "$VM_DIR/id_ed25519" \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -o ConnectTimeout=2 \
             -o BatchMode=yes \
-            "kiyurica@$IP" true 2>/dev/null; then
-            return 0
-          fi
+            "kiyurica@$IP" systemctl is-system-running 2>/dev/null || true)
+          case "$STATE" in
+            running|degraded) return 0 ;;
+          esac
           sleep 1
         done
         return 1
