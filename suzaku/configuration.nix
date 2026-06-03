@@ -198,6 +198,16 @@
   #   credFile = ./caldav-canvas-gradescope-env.cred;
   # };
 
+  services.xserver.xkb.layout = "tarmak1";
+  services.xserver.xkb.options = "compose:caps";
+  # niri reads XKB_DEFAULT_* env vars rather than services.xserver.xkb directly
+  environment.variables = {
+    XKB_DEFAULT_LAYOUT = "tarmak1";
+    XKB_DEFAULT_OPTIONS = "compose:caps";
+  };
+  # apply the xkb layout to the Linux console (TTY) as well
+  console.useXkbConfig = true;
+
   nix.settings.cores = 16; # keep at least 4 cores open for UI
 
   assr.ssh-agent.implementation = "ssh-tpm-agent";
