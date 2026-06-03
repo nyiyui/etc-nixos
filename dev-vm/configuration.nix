@@ -332,6 +332,7 @@ in
     file
     htop
     waypipe
+    eza
 
     claude-code
     codex
