@@ -42,6 +42,18 @@ in
       alias zudo=doas
     '';
 
+  xdg.config.files."helix/config.toml".text = ''
+    theme = "kawamo_to_seseragi"
+
+    [editor]
+    line-number = "relative"
+
+    [editor.soft-wrap]
+    enable = true
+  '';
+
+  xdg.config.files."helix/themes/kawamo_to_seseragi.toml".source = ../dev-vm/kawamo_to_seseragi.toml;
+
   xdg.config.files."foot/foot.ini".text = ''
     [main]
     shell=fish
