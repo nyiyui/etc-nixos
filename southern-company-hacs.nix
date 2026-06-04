@@ -37,7 +37,7 @@ buildHomeAssistantComponent rec {
     hash = "sha256-xh7I+5nu/pg1IfTPe/dj+zCDmPnhmpiE5qY4vgiP+0U=";
   };
 
-  dependencies = [ southern-company-api ];
+  propagatedBuildInputs = [ southern-company-api ];
 
   meta = {
     description = "Southern Company energy integration for Home Assistant";
