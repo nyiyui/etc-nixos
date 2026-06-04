@@ -4,7 +4,6 @@ let
   # Tarmak Stage 1: transitional QWERTY → Colemak layout
   # Changes: E→J, J→N, K→E, N→K (output remapping by physical key position)
   symbolsFile = pkgs.writeText "tarmak1" ''
-    default partial alphanumerics
     xkb_symbols "tarmak1" {
         include "us"
 
