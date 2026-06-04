@@ -13,7 +13,8 @@ let
     pyproject = true;
 
     src = fetchPypi {
-      inherit pname version;
+      inherit version;
+      pname = "southern_company_api";
       hash = "sha256-vOcU2Pbi9mdiggFT/QIlNeX0prsJUg65phOnTKOwJBU=";
     };
 
