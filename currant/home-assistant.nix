@@ -2,6 +2,9 @@
 {
   services.home-assistant = {
     enable = true;
+    customComponents = [
+      (pkgs.callPackage ../southern-company-hacs.nix { })
+    ];
     extraComponents = [
       "zha"
       "default_config"
