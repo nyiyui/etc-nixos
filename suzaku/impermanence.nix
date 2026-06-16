@@ -15,7 +15,6 @@
     directories = [
       "/var/log"
       "/var/lib"
-      "/etc/secureboot"
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"
       config.microvm.stateDir
