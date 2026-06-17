@@ -99,6 +99,12 @@
     '')
   ];
 
+  assr.nmea-static-gps-server = {
+    enable = true;
+    latitude = 33.78670864199797;
+    longitude = -84.40105837615785;
+  };
+
   autoUpgrade.directFlake = true;
 
   systemd.services.sshd.wantedBy = lib.mkForce [ "multi-user.target" ];
