@@ -44,6 +44,7 @@ let
             ]
           ];
           bind.dev = [
+            "/dev/bus/usb"
             "/dev/shm"
           ]
           ++ (lib.concatMap (
