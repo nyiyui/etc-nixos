@@ -44,7 +44,6 @@ let
             ]
           ];
           bind.dev = [
-            "/dev/bus/usb"
             "/dev/shm"
           ]
           ++ (lib.concatMap (
@@ -53,7 +52,7 @@ let
               path = "/dev/hidraw${toString i}";
             in
             if builtins.pathExists path then [ path ] else [ ]
-          ) (lib.range 0 9));
+          ) (lib.range 0 63));
         };
       };
   };
