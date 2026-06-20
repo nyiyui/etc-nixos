@@ -87,6 +87,7 @@ in
           Path = "/boot/EFI/BOOT";
           MatchPattern = "${bootloaderName}.EFI";
           Mode = "0644";
+          InstancesMax = 2;
         };
       };
     };
