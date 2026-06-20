@@ -5,7 +5,7 @@ set -eux
 nix build -L .#nixosConfigurations.suzaku.config.system.build.sysupdate-package
 UKI_UNSIGNED="$(echo result/assr-appliance-uki_*.efi)"
 BOOTLOADER_MATCHES="$(find result -maxdepth 1 -type f \( -name 'BOOT*.EFI' -o -name 'BOOT*.efi' \) | sort)"
-BOOTLOADER_COUNT="$(printf '%s\n' "$BOOTLOADER_MATCHES" | grep -c . || true)"
+BOOTLOADER_COUNT="$(printf '%s\n' "$BOOTLOADER_MATCHES" | sed '/^$/d' | wc -l)"
 [ "$BOOTLOADER_COUNT" -eq 1 ] || {
   echo "Expected exactly one bootloader artifact in result/, found $BOOTLOADER_COUNT" >&2
   exit 1

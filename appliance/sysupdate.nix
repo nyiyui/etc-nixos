@@ -153,7 +153,10 @@ in
         echo -ne '\0' >> $TMPDIR/new-cmdline.txt
 
         objcopy --verbose --update-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
-        test -f ${bootloaderSource}
+        [ -f ${bootloaderSource} ] || {
+          echo "bootloader source file not found: ${bootloaderSource}" >&2
+          exit 1
+        }
         cp ${bootloaderSource} $out/${bootloaderFile}
 
         cd $out
