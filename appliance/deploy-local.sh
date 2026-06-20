@@ -4,7 +4,19 @@ set -eux
 
 nix build -L .#nixosConfigurations.suzaku.config.system.build.sysupdate-package
 UKI_UNSIGNED="$(echo result/assr-appliance-uki_*.efi)"
-BOOTLOADER_UNSIGNED="$(find result -maxdepth 1 -type f \( -name 'BOOT*.EFI' -o -name 'BOOT*.efi' \) | head -n 1)"
+BOOTLOADER_UNSIGNED=""
+for CANDIDATE in result/BOOT*.EFI result/BOOT*.efi; do
+  [ -f "$CANDIDATE" ] || continue
+  if [ -n "$BOOTLOADER_UNSIGNED" ]; then
+    echo "Expected exactly one bootloader artifact, found multiple" >&2
+    exit 1
+  fi
+  BOOTLOADER_UNSIGNED="$CANDIDATE"
+done
+[ -n "$BOOTLOADER_UNSIGNED" ] || {
+  echo "Bootloader artifact not found in result/" >&2
+  exit 1
+}
 SIGNED_DIR="$(mktemp -d)"
 UKI_SIGNED="$SIGNED_DIR/$(basename "$UKI_UNSIGNED")"
 BOOTLOADER_SIGNED="$SIGNED_DIR/$(basename "$BOOTLOADER_UNSIGNED")"

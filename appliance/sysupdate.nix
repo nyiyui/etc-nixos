@@ -7,6 +7,7 @@
 let
   efiArch = pkgs.stdenv.hostPlatform.efiArch;
   bootloaderName = "BOOT${lib.toUpper efiArch}";
+  # systemd bootloader artifact in nixpkgs uses lowercase ".efi"
   bootloaderSource = "${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${efiArch}.efi";
 in
 {
