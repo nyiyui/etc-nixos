@@ -4,7 +4,7 @@ set -eux
 
 nix build -L .#nixosConfigurations.suzaku.config.system.build.sysupdate-package
 UKI_UNSIGNED="$(echo result/assr-appliance-uki_*.efi)"
-BOOTLOADER_UNSIGNED="$(echo result/BOOT*.EFI)"
+BOOTLOADER_UNSIGNED="$(find result -maxdepth 1 -type f \( -name 'BOOT*.EFI' -o -name 'BOOT*.efi' \) | head -n 1)"
 SIGNED_DIR="$(mktemp -d)"
 UKI_SIGNED="$SIGNED_DIR/$(basename "$UKI_UNSIGNED")"
 BOOTLOADER_SIGNED="$SIGNED_DIR/$(basename "$BOOTLOADER_UNSIGNED")"

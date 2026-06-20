@@ -5,7 +5,9 @@
   ...
 }:
 let
-  bootloaderName = "BOOT${lib.toUpper pkgs.stdenv.hostPlatform.efiArch}";
+  efiArch = pkgs.stdenv.hostPlatform.efiArch;
+  bootloaderName = "BOOT${lib.toUpper efiArch}";
+  bootloaderSource = "${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${efiArch}.efi";
 in
 {
   systemd.sysupdate = {
@@ -149,7 +151,7 @@ in
         echo -ne '\0' >> $TMPDIR/new-cmdline.txt
 
         objcopy --verbose --update-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
-        cp ${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${pkgs.stdenv.hostPlatform.efiArch}.efi $out/${bootloaderFile}
+        cp ${bootloaderSource} $out/${bootloaderFile}
 
         cd $out
         sha256sum * > SHA256SUMS
