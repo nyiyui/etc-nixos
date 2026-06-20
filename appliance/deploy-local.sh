@@ -4,7 +4,7 @@ set -eux
 
 nix build -L .#nixosConfigurations.suzaku.config.system.build.sysupdate-package
 UKI_UNSIGNED="$(echo result/assr-appliance-uki_*.efi)"
-BOOTLOADER_MATCHES="$(find result -maxdepth 1 -type f \( -name 'BOOT*.EFI' -o -name 'BOOT*.efi' \) | sort)"
+BOOTLOADER_MATCHES="$(find result -maxdepth 1 -type f -name 'BOOT*.EFI' | sort)"
 if [ -n "$BOOTLOADER_MATCHES" ]; then
   BOOTLOADER_COUNT="$(printf '%s\n' "$BOOTLOADER_MATCHES" | wc -l)"
 else
