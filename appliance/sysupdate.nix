@@ -88,6 +88,7 @@ in
         Target = {
           Type = "regular-file";
           Path = "/boot/EFI/BOOT";
+          # ESP naming convention uses uppercase BOOT*.EFI.
           MatchPattern = "${bootloaderName}.EFI";
           Mode = "0644";
           InstancesMax = 2;
@@ -152,6 +153,7 @@ in
         echo -ne '\0' >> $TMPDIR/new-cmdline.txt
 
         objcopy --verbose --update-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
+        test -f ${bootloaderSource}
         cp ${bootloaderSource} $out/${bootloaderFile}
 
         cd $out
