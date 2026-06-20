@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  bootloaderName = "BOOT${lib.toUpper pkgs.stdenv.hostPlatform.efiArch}";
+in
 {
   systemd.sysupdate = {
     enable = true;
@@ -70,6 +73,22 @@
           InstancesMax = 2;
         };
       };
+      "40-bootloader" = {
+        Transfer = {
+          ProtectVersion = "%A";
+        };
+        Source = {
+          Type = "regular-file";
+          Path = "/var/lib/updates/";
+          MatchPattern = "${bootloaderName}_@v.EFI";
+        };
+        Target = {
+          Type = "regular-file";
+          Path = "/boot/EFI/BOOT";
+          MatchPattern = "${bootloaderName}.EFI";
+          Mode = "0644";
+        };
+      };
     };
   };
 
@@ -101,6 +120,7 @@
       inherit (config.system) build;
       inherit (config.system.image) version id;
       ukiFile = config.system.boot.loader.ukiFile;
+      bootloaderFile = "${bootloaderName}_${version}.EFI";
     in
     pkgs.runCommand "sysupdate-package-${config.system.image.version}"
       {
@@ -128,6 +148,7 @@
         echo -ne '\0' >> $TMPDIR/new-cmdline.txt
 
         objcopy --verbose --update-section .cmdline=$TMPDIR/new-cmdline.txt --set-section-flags .cmdline=contents,alloc,load,readonly,data $TMPDIR/${ukiFile} $out/${ukiFile}
+        cp ${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${pkgs.stdenv.hostPlatform.efiArch}.efi $out/${bootloaderFile}
 
         cd $out
         sha256sum * > SHA256SUMS
