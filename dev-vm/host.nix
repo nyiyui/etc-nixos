@@ -9,5 +9,6 @@
 
   environment.systemPackages = [
     self.packages.${pkgs.stdenv.hostPlatform.system}.dev-vm-enter
+    self.packages.${pkgs.stdenv.hostPlatform.system}.dev-vm-list
   ];
 }
