@@ -103,6 +103,8 @@ in
   # The state volume is a freshly-formatted ext4 whose root is owned by root.
   # tmpfiles runs after all mounts and fixes ownership on every boot.
   systemd.tmpfiles.rules = [
+    # Nix state (db, gcroots, profiles, etc.) persisted on the /var disk.
+    "d /var/nix 0755 root root -"
     # nix-daemon socket dir; root is tmpfs so this must be created on every boot.
     "d /nix/var/nix/daemon-socket 0755 root root -"
     "d /var/home/kiyurica 0700 kiyurica kiyurica -"
@@ -147,6 +149,7 @@ in
       chmod 1777 /var/tmp
       mkdir -p /var/builds
       chmod 755 /var/builds
+      mkdir -p /var/nix
     '';
   };
 
@@ -165,6 +168,24 @@ in
         "dev-vm-prepare-var.service"
       ];
       wantedBy = [ "multi-user.target" ];
+    }
+    # Persist the Nix DB, gcroots, and profiles across reboots so the daemon
+    # knows which store paths already exist and doesn't re-download them.
+    {
+      type = "none";
+      what = "/var/nix";
+      where = "/nix/var/nix";
+      options = "bind";
+      requires = [
+        "var.mount"
+        "dev-vm-prepare-var.service"
+      ];
+      after = [
+        "var.mount"
+        "dev-vm-prepare-var.service"
+      ];
+      wantedBy = [ "nix-daemon.service" ];
+      before = [ "nix-daemon.service" ];
     }
   ];
 
