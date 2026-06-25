@@ -7,7 +7,9 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.systems.follows = "systems";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.inputs.systems.follows = "systems";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.3";
@@ -36,11 +38,17 @@
       url = "github:snugnug/hjem-rum";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    systems = {
+      # https://github.com/nix-systems/nix-systems
+      url = "path:./flake.systems.nix";
+      flake = false;
+    };
   };
 
   outputs =
     {
       self,
+      systems,
       agenix,
       nixpkgs,
       flake-utils,
@@ -142,7 +150,7 @@
         pkgs = import nixpkgs { system = "x86_64-linux"; };
       };
     }
-    // flake-utils.lib.eachSystem flake-utils.lib.defaultSystems (
+    // flake-utils.lib.eachSystem (import systems) (
       system:
       let
         pkgs = import nixpkgs { inherit system; };
