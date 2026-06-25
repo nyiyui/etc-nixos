@@ -132,11 +132,6 @@
     address = "192.168.2.100/32";
   };
 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.rootless.enable = true;
-  programs.singularity.enable = true;
-  programs.singularity.package = pkgs.apptainer;
-
   kiyurica.gatech-vpn.enable = true;
 
   kiyurica.ollama.enableServer = true;
