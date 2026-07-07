@@ -22,8 +22,6 @@
     "aesni_intel"
     "cryptd"
     "cbc"
-    "sha256_ssse3"
-    "sha512_ssse3"
     "atkbd"
     "i8042"
     "fat"

@@ -173,8 +173,6 @@ sd_mod
 serio
 serio_raw
 sha1_ssse3
-sha256_ssse3
-sha512_ssse3
 snd
 snd_compress
 snd_ctl_led
