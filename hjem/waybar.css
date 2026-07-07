@@ -75,7 +75,6 @@ button:hover {
 #memory,
 #disk,
 #temperature,
-#backlight,
 #network,
 #wireplumber,
 #custom-media,
@@ -152,10 +151,6 @@ label:focus {
 
 #disk {
     background-color: #964B00;
-}
-
-#backlight {
-    background-color: #90b1b1;
 }
 
 #network {

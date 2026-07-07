@@ -154,13 +154,14 @@
                     {
                       "Mod+Shift+Slash".action = show-hotkey-overlay;
                       "XF86MonBrightnessUp".action.spawn = [
-                        "light"
-                        "-A"
-                        "1"
+                        "brightnessctl"
+                        "set"
+                        "+1%"
                       ];
                       "XF86MonBrightnessDown".action.spawn = [
-                        "fish"
-                        "--command=if [ $(light) -le 1 ]; then; light -S 1; else; light -U 1; end"
+                        "brightnessctl"
+                        "set"
+                        "1%-"
                       ];
                       "XF86AudioRaiseVolume".action.spawn = [
                         "pactl"

@@ -35,9 +35,6 @@
 
   services.openssh.enable = true;
 
-  # Brightness adjust
-  programs.light.enable = true;
-
   programs.sway.enable = true;
   xdg.portal.wlr.enable = true;
   services.xserver.enable = true;

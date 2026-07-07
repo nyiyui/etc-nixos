@@ -22,14 +22,6 @@ let
   '';
 in
 {
-  options.kiyurica.hasBacklight =
-    with lib;
-    with types;
-    mkOption {
-      type = bool;
-      default = false;
-      description = "enable backlight features";
-    };
   options.kiyurica.service-status = lib.mkOption {
     type = (
       lib.types.listOf (
@@ -256,15 +248,6 @@ in
             };
             rotate = rotationAngle;
           };
-          "custom/light" =
-            if cfg.hasBacklight then
-              {
-                exec = "${pkgs.light}/bin/light";
-                interval = 10;
-                rotate = rotationAngle;
-              }
-            else
-              null;
 
           "custom/next-event" =
             if cfg.icsUrlPath != null then

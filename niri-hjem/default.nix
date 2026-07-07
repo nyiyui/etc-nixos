@@ -21,6 +21,7 @@
   };
 
   config = lib.mkIf config.assr.desktop.niri.enable {
+    environment.systemPackages = [ pkgs.brightnessctl ];
     hjem.users.kiyurica = {
       enable = true;
       imports = [

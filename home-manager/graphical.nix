@@ -26,14 +26,6 @@ in
     ./keepassxc-personal.nix
   ];
 
-  options.kiyurica.hasBacklight =
-    with lib;
-    with types;
-    mkOption {
-      type = bool;
-      default = false;
-      description = "enable backlight features";
-    };
   options.kiyurica.service-status = lib.mkOption {
     type = (
       lib.types.listOf (
@@ -257,11 +249,6 @@ in
               status-icons.stopped = "止";
               rotate = rotationAngle;
             };
-            "custom/light" = lib.mkIf cfg.hasBacklight {
-              exec = "${pkgs.light}/bin/light";
-              interval = 10;
-              rotate = rotationAngle;
-            };
           }
           // (
             if cfg.icsUrlPath != null then
@@ -343,6 +330,7 @@ in
     home.packages = with pkgs; [
       jq # required by mako for e.g. mako menu
       pavucontrol
+      brightnessctl
     ];
 
     gtk.theme = {

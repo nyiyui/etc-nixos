@@ -137,8 +137,6 @@
   #       For more information, contact Positon or consult their website:
   #       https://positon.xyz/docs/
 
-  programs.light.enable = true;
-
   services.udev.extraRules = lib.mkAfter ''
     ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="06cb", ATTR{idProduct}=="00fc", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
   '';

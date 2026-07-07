@@ -79,9 +79,6 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11"; # Did you read the comment?
 
-  # Brightness adjust using e.g. `light -S 50` to set to 50%
-  programs.light.enable = true;
-
   xdg.portal.wlr.enable = true;
 
   # Fonts to make Japanese text look readable
