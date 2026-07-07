@@ -3,11 +3,11 @@
   buildHomeAssistantComponent,
   fetchFromGitHub,
   fetchPypi,
-  python3Packages,
+  python314Packages,
 }:
 
 let
-  southern-company-api = python3Packages.buildPythonPackage rec {
+  southern-company-api = python314Packages.buildPythonPackage rec {
     pname = "southern-company-api";
     version = "0.6.5";
     pyproject = true;
@@ -18,11 +18,11 @@ let
       hash = "sha256-vOcU2Pbi9mdiggFT/QIlNeX0prsJUg65phOnTKOwJBU=";
     };
 
-    build-system = [ python3Packages.poetry-core ];
+    build-system = [ python314Packages.poetry-core ];
 
-    dependencies = [
-      python3Packages.pyjwt
-      python3Packages.aiohttp
+    dependencies = with python314Packages; [
+      pyjwt
+      aiohttp
     ];
   };
 in
