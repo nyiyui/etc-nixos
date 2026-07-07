@@ -30,7 +30,6 @@
     ../virt.nix
     # ../vlc.nix # TODO: re-enable
     ../tpm.nix
-    # ../adb.nix # TODO: re-enable
     # ../vnc.nix # TODO: re-enable
     # ../codex.nix # not used
     ../nixpak/packages/org.keepassxc.KeePassXC.nix

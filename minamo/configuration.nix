@@ -18,7 +18,6 @@
     ../common.nix
     ../syncthing.nix
     ../vlc.nix
-    ../adb.nix
     ../virt.nix
     ../codex.nix
     ../nixpak/packages/org.signal.Signal.nix
