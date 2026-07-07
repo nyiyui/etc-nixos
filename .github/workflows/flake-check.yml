@@ -2,7 +2,6 @@ name: evaluate config
 
 on:
   push:
-  pull_request:
 
 jobs:
   flake-check:
