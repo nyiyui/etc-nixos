@@ -9,10 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: cachix/install-nix-action@2126ae7fc54c9df00dd18f7f18754393182c73cd
+      - uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: nix flake check (all hosts)
         run: nix flake check --all-systems
