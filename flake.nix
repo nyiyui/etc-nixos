@@ -158,7 +158,7 @@
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            nixfmt-rfc-style
+            nixfmt
             (python3.withPackages (p: [
               p.pyserial
               p.caldav

@@ -94,8 +94,6 @@ in
 
       freerdp
 
-      nixfmt-rfc-style
-
       lyx # goated TeX editor
       # texliveFull # compile LyX files to PDF # TODO: remove for the time being for file size
     ]
