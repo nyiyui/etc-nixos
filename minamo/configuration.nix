@@ -17,7 +17,6 @@
     ../tpm.nix
     ../common.nix
     ../syncthing.nix
-    ../vlc.nix
     ../virt.nix
     ../codex.nix
     ../nixpak/packages/org.signal.Signal.nix

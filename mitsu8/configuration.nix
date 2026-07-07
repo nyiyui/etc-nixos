@@ -20,7 +20,6 @@
     ../doas.nix # sudo replacement
     ../sound.nix
     ../niri # window manager
-    ../vlc.nix # VLC with Blu-ray decode keys
   ];
 
   users.users.root.initialHashedPassword = "$y$j9T$hIH10tdwuxQdhSkN6D9vb0$dKJd1SITL.iGfrn8soMLLNyQxvoM0o0MIrmuS.6HuA7";

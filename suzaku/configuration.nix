@@ -28,7 +28,6 @@
     ../common.nix
     ../sound.nix
     ../virt.nix
-    # ../vlc.nix # TODO: re-enable
     ../tpm.nix
     # ../vnc.nix # TODO: re-enable
     # ../codex.nix # not used
