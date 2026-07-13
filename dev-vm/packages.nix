@@ -143,7 +143,7 @@
         local IP="$1"
         for _ in $(seq 60); do
           local STATE
-          STATE=$(ssh \
+          STATE=$(timeout 5 ssh \
             -i "$VM_DIR/id_ed25519" \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \

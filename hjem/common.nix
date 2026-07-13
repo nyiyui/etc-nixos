@@ -117,6 +117,8 @@ in
       freerdp
 
       lyx # goated TeX editor
+
+      calibre
     ]
     ++ (with pkgs.kdePackages; [
       gwenview
