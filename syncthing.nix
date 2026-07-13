@@ -49,6 +49,7 @@
             "suzaku"
             "inaho"
             "minamo"
+            "rqv"
           ];
           versioning.type = "trashcan";
           versioning.params.cleanoutDays = "0"; # never
