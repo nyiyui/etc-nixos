@@ -29,10 +29,6 @@
         numfmt --to=iec-i --suffix=B "$1"
       }
 
-      printf '%-9s  %-12s  %-20s  %s\n' \
-        "STATUS" "DISK" "LAST USED" "WORKSPACE"
-      printf '%s\n' "-------  -----------  --------------------  ---------"
-
       for vm_dir in "''${VM_DIRS[@]}"; do
         [ -d "$vm_dir" ] || continue
 
@@ -68,10 +64,11 @@
           last_used="never"
         fi
 
-        printf '%-9s  %-12s  %-20s  %s\n' \
+        printf '%-9s  %12s  %-20s  %-60s  %s\n' \
           "$status" \
           "$(human_size $actual)" \
           "$last_used" \
+          "$vm_dir" \
           "$workspace"
       done
     '';
