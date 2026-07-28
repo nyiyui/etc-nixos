@@ -59,7 +59,7 @@ in
     shell=fish
     font=JetBrainsMono:size=12,hack:size=12,NotoColorEmoji:size=12
 
-    [colors]
+    [colors-dark]
     alpha=0.5
     background=000000
   '';
