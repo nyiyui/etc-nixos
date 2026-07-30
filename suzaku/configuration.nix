@@ -231,7 +231,7 @@
     # Hide debugfs from unprivileged users.
     "debugfs=off"
     # Kernel lockdown: prevents root from loading unsigned modules, writing /dev/mem, etc.
-    # Only meaningful because Secure Boot is enabled via lanzaboote.
+    # Only meaningful because Secure Boot is enabled.
     # Use "confidentiality" to also disable hibernate if that tradeoff is acceptable.
     "lockdown=integrity"
   ];
