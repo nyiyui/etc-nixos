@@ -34,13 +34,11 @@
 
     home-manager.users.kiyurica.programs.ssh = {
       enable = true;
-      matchBlocks = builtins.listToAttrs (
+      settings = builtins.listToAttrs (
         map (h: {
           name = h;
           value = {
-            extraOptions = {
-              ProxyCommand = "nc -X 5 -x 127.0.0.1:${builtins.toString config.kiyurica.ocproxy.socks-port} %h %p";
-            };
+            ProxyCommand = "nc -X 5 -x 127.0.0.1:${builtins.toString config.kiyurica.ocproxy.socks-port} %h %p";
           };
         }) config.kiyurica.gatech-vpn.sshProxyHosts
       );
