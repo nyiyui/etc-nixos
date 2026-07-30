@@ -357,7 +357,6 @@ in
 
     claude-code
     codex
-    gemini-cli
   ];
 
   networking.hostName = "dev-vm";

@@ -18,7 +18,6 @@
     ../common.nix
     ../syncthing.nix
     ../virt.nix
-    ../codex.nix
     ../nixpak/packages/org.signal.Signal.nix
     ../nixpak/packages/org.mozilla.firefox.nix
     ../nixpak/packages/org.chromium.Chromium.nix
