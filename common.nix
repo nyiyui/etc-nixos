@@ -81,6 +81,8 @@
     ];
   };
 
+  services.udev.packages = [ pkgs.libfido2 ];
+
   security.polkit.enable = true;
 
   services.udisks2.enable = true;

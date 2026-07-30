@@ -45,14 +45,7 @@ let
           ];
           bind.dev = [
             "/dev/shm"
-          ]
-          ++ (lib.concatMap (
-            i:
-            let
-              path = "/dev/hidraw${toString i}";
-            in
-            if builtins.pathExists path then [ path ] else [ ]
-          ) (lib.range 0 9));
+          ] ++ map (i: "/dev/hidraw${toString i}") (lib.range 0 15);
         };
       };
   };
