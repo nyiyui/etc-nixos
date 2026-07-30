@@ -27,8 +27,6 @@
           mode = "0700";
         }
         ".local/share/fish"
-        ".local/share/prusa-slicer"
-        ".local/share/containers"
         ".var/nixpak-app/io.github.alainm23.planify"
         ".var/nixpak-app/org.mozilla.firefox"
         ".mozilla/firefox"
@@ -39,11 +37,7 @@
         ".config/syncthing"
         ".config/Moonlight Game Streaming Project"
         ".cache/Moonlight Game Streaming Project"
-        ".config/github-copilot"
-        ".config/.copilot"
-        ".codex"
         ".config/dpt"
-        ".gemini"
       ];
     };
   };
