@@ -22,6 +22,7 @@
         "inaho".id = "THGLO7L-TJ4Q4UF-BE2ZERW-AXHKKSY-CAZTUJY-W5T24JT-VC7WCTR-GJPPMAH";
         "minamo".id = "XP6LLSQ-I2CHH22-Q42BXI6-J5VXT77-7KRE53R-ZP7E42X-Y2RHJK7-IGTEFAN";
         "rqv".id = "KSQQRQV-4AJT6PP-HCBIMZ2-JI5YZCJ-DMUNRRU-CBVTGTN-N2SPXJH-42SDQQS";
+        "Macbook-Air.local".id = "KT7BGJ5-5TIKLGV-TB5KQSR-4JQGFZI-FEM36RW-K3SWEYP-VB5UL4K-MIBKLQD";
       };
       settings.folders = {
         "inaba" = {
@@ -50,6 +51,7 @@
             "inaho"
             "minamo"
             "rqv"
+            "Macbook-Air.local"
           ];
           versioning.type = "trashcan";
           versioning.params.cleanoutDays = "0"; # never
