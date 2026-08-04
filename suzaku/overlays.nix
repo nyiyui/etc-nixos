@@ -11,7 +11,4 @@ let
 in
 {
   nixpkgs.overlays = [ swayOverlay ];
-  home-manager.users.kiyurica = {
-    nixpkgs.overlays = [ swayOverlay ];
-  };
 }
