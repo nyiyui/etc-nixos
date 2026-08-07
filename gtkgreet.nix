@@ -34,7 +34,7 @@
             ''
             +
               lib.optionalString config.assr.wlsunset.enable
-                ''exec "${pkgs.wlsunset}/bin/wlsunset -t ${toString config.assr.wlsunset.temperature.night} -T ${toString config.assr.wlsunset.temperature.day}"'' # TODO: no worky
+                ''exec "${pkgs.gammastep}/bin/gammastep -m wayland -l geoclue2 -t ${toString config.assr.wlsunset.temperature.day}:${toString config.assr.wlsunset.temperature.night}"'' # TODO: no worky
             + config.kiyurica.greeter.gtkgreet.extraSwayConfig
           );
         in
