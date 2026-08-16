@@ -367,15 +367,10 @@
     xdg.portal = {
       enable = true;
       # https://github.com/YaLTeR/niri/wiki/Screencasting
-      # Use GTK portal for the file picker; keep GNOME portal available for screencasting.
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
         xdg-desktop-portal-gnome
       ];
-      config.niri = {
-        default = "gtk";
-        "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-      };
       xdgOpenUsePortal = true;
     };
 
