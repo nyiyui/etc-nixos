@@ -91,6 +91,9 @@
   home-manager.users.kiyurica =
     { pkgs, ... }:
     {
+      # mitsu8 must stay awake so scheduled OS upgrades (see autoUpgrade-git.nix) can run
+      kiyurica.graphical.idle = false;
+
       # startup command line
       programs.niri.settings.spawn-at-startup = [
         {
