@@ -33,6 +33,7 @@
             "suzaku"
             "inaho"
             "minamo"
+            "Macbook-Air.local"
           ];
           versioning.type = "staggered";
           versioning.params = {
