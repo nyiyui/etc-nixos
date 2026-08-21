@@ -22,4 +22,13 @@ in
     symbolsFile = symbolsFile;
   };
 
+  # (not tested)
+  # undo Tarmak changes for YubiKeys only
+  services.udev.extraHwdb = ''
+    evdev:input:b0003v1050p*
+     KEYBOARD_KEY_70008=k
+     KEYBOARD_KEY_7000d=e
+     KEYBOARD_KEY_7000e=n
+     KEYBOARD_KEY_70011=j
+  '';
 }
