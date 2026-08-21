@@ -20,6 +20,7 @@
     ../doas.nix # sudo replacement
     ../sound.nix
     ../niri # window manager
+    ./motioneye.nix
   ];
 
   users.users.root.initialHashedPassword = "$y$j9T$hIH10tdwuxQdhSkN6D9vb0$dKJd1SITL.iGfrn8soMLLNyQxvoM0o0MIrmuS.6HuA7";
