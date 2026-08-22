@@ -41,6 +41,7 @@
     enableUWSM = true;
   };
 
+  assr.wlsunset.enable = true;
   assr.wlsunset.temperature.night = 4000;
 
   services.greetd = {
