@@ -9,6 +9,8 @@
       "zha"
       "default_config"
       "met"
+      "bluetooth"
+      "switchbot"
     ];
     config = {
       # Configures Home Assistant and its Zigbee integration via the UI
