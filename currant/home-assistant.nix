@@ -9,6 +9,7 @@
       "zha"
       "default_config"
       "met"
+      "waqi"
       "bluetooth"
       "switchbot"
       "matter"
