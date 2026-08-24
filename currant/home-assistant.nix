@@ -37,10 +37,6 @@
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = [
     8123
   ];
-  networking.firewall.interfaces.end0.allowedTCPPorts = [
-    # TODO: during Summer 2026 only
-    8123
-  ];
 
   # Allow Home Assistant to access serial devices and bluetooth
   users.users.hass.extraGroups = [
