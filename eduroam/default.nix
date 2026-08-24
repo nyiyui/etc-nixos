@@ -42,6 +42,8 @@
 
     age.secrets.eduroam-client-cert = {
       file = ./client-cert-${config.networking.hostName}.p12.age;
+      owner = "wpa_supplicant";
+      group = "wpa_supplicant";
       mode = "400";
     };
     age.secrets.eduroam-env = {
