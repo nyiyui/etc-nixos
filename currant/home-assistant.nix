@@ -11,6 +11,7 @@
       "met"
       "bluetooth"
       "switchbot"
+      "matter"
     ];
     config = {
       # Configures Home Assistant and its Zigbee integration via the UI
@@ -25,6 +26,17 @@
         };
       };
     };
+  };
+
+  # Matter server, so the Matter integration can talk to Matter devices
+  # (e.g. a SwitchBot Hub 2 bridging its sensors) entirely locally, no
+  # cloud round-trip. Home Assistant's Matter integration connects to it
+  # over the local WebSocket API (ws://localhost:5580/ws).
+  services.matter-server = {
+    enable = true;
+    # Not exposed outside localhost: only the co-located Home Assistant
+    # instance needs to reach it.
+    openFirewall = false;
   };
 
   # Ensure writable files exist for the UI to manage
