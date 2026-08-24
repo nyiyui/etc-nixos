@@ -3,6 +3,7 @@
   options.kiyurica.networks.eduroam.enable = lib.mkEnableOption "GT eduroam";
 
   config = lib.mkIf config.kiyurica.networks.eduroam.enable {
+    systemd.services.wpa_supplicant.serviceConfig.BindReadOnlyPaths = config.age.secrets.eduroam-client-cert.path;
     networking.networkmanager.ensureProfiles.environmentFiles = [
       config.age.secrets.eduroam-env.path
     ];
