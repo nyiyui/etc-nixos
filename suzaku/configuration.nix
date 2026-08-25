@@ -177,7 +177,12 @@
     intel-gpu-tools
     helix
     usbutils
+    # TODO: debug
+    libfido2
+    yubikey-manager
+    pcsc-tools
   ];
+  services.pcscd.enable = true; # TODO: debug
 
   users.users.kiyurica.extraGroups = [ "kvm" ];
 
