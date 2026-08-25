@@ -42,6 +42,9 @@ let
               "${pkgs.firefox}/lib/firefox"
               "/app/etc/firefox"
             ]
+            # needed for enumerating security keys (libudev hidraw scan)
+            "/sys"
+            "/run/udev"
           ];
           bind.dev = [
             "/dev/shm"
