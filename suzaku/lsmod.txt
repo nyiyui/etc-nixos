@@ -76,6 +76,7 @@ i2c_smbus
 i8042
 i915
 iTCO_wdt
+igb CalDigit TS3+ dock
 igen6_edac
 input_leds
 int3400_thermal
@@ -248,6 +249,7 @@ uas
 ucsi_acpi
 uhid
 usb_storage
+usbhid
 usbnet
 v4l2_async
 v4l2_fwnode
