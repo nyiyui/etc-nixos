@@ -81,10 +81,9 @@ binds {
     Mod+8 allow-inhibiting=false { focus-workspace 8; }
     Mod+9 allow-inhibiting=false { focus-workspace 9; }
     Mod+Alt+L { spawn "loginctl" "lock-session"; }
-    // TODO: fix /nix/store paths
-    Mod+Alt+N { spawn "/nix/store/ldjxlh7ikwhv46lzbk1w52i3kag8aqdk-mako-1.10.0/bin/makoctl" "menu" "fuzzel -d" "-p" "通知"; }
+    Mod+Alt+N { spawn "makoctl" "menu" "fuzzel -d" "-p" "通知"; }
     Mod+Alt+P { clear-dynamic-cast-target; }
-    Mod+Alt+Return { spawn "/nix/store/gkmyy8i5wgkpha1p0a9yvym86zpxn4jf-gtk+3-3.24.51/bin/gtk-launch" "com.github.flxzt.rnote"; }
+    Mod+Alt+Return { spawn "gtk-launch" "com.github.flxzt.rnote"; }
     "Mod+Alt+Shift+Page_Down" { move-workspace-down; }
     "Mod+Alt+Shift+Page_Up" { move-workspace-up; }
     Mod+BracketLeft { consume-or-expel-window-left; }
@@ -108,7 +107,7 @@ binds {
     Mod+K { focus-window-up; }
     Mod+L { focus-column-right; }
     Mod+Minus { set-column-width "-10%"; }
-    Mod+N { spawn "/nix/store/ldjxlh7ikwhv46lzbk1w52i3kag8aqdk-mako-1.10.0/bin/makoctl" "dismiss"; }
+    Mod+N { spawn "makoctl" "dismiss"; }
     Mod+P { set-dynamic-cast-window; }
     Mod+Period { expel-window-from-column; }
     Mod+R { switch-preset-column-width; }
@@ -137,7 +136,7 @@ binds {
     Mod+Shift+K { move-window-up; }
     Mod+Shift+L { move-column-right; }
     Mod+Shift+Minus { set-window-height "-10%"; }
-    Mod+Shift+N { spawn "/nix/store/ldjxlh7ikwhv46lzbk1w52i3kag8aqdk-mako-1.10.0/bin/makoctl" "restore"; }
+    Mod+Shift+N { spawn "makoctl" "restore"; }
     Mod+Shift+P { set-dynamic-cast-monitor; }
     Mod+Shift+Q allow-inhibiting=false { close-window; }
     Mod+Shift+Return { spawn "firefox"; }

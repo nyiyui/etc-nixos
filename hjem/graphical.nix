@@ -109,6 +109,7 @@ in
       zathura
       jq
       pavucontrol
+      gtk3
     ];
 
     xdg.config.files."waybar/style.css".text = builtins.readFile ./waybar.css;
