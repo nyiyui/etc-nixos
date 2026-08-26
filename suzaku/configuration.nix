@@ -212,11 +212,10 @@
 
   assr.power-logger.enable = true;
 
-  # TODO: Enable when Fall 2026 semester starts
-  # kiyurica.caldav-canvas-gradescope = {
-  #   enable = true;
-  #   credFile = ./caldav-canvas-gradescope-env.cred;
-  # };
+  kiyurica.caldav-canvas-gradescope = {
+    enable = true;
+    credFile = ./caldav-canvas-gradescope-env.cred;
+  };
 
   services.xserver.xkb.layout = "tarmak1";
   services.xserver.xkb.options = "compose:caps";
