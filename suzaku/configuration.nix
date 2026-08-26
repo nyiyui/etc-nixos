@@ -161,7 +161,22 @@
 
   kiyurica.displaylink.enable = true;
 
-  kiyurica.networks.eduroam.enable = true;
+  assr.eduroam = {
+    enable = true;
+    client-cert = config.age.secrets.eduroam-client-cert.path;
+    env = config.age.secrets.eduroam-env.path;
+  };
+
+  age.secrets.eduroam-client-cert = {
+    file = ../secrets/eduroam-client-cert-suzaku.p12.age;
+    owner = "wpa_supplicant";
+    group = "wpa_supplicant";
+    mode = "400";
+  };
+  age.secrets.eduroam-env = {
+    file = ../secrets/eduroam-env-suzaku.env.age;
+    mode = "400";
+  };
 
   # kiyurica.gatech-vpn.enable = true; # TODO: remove home-manager dependency
 

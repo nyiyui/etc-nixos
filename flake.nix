@@ -31,6 +31,8 @@
     caldav-canvas-gradescope.url = "github:nyiyui/caldav-canvas-gradescope";
     caldav-canvas-gradescope.inputs.nixpkgs.follows = "nixpkgs";
     caldav-canvas-gradescope.inputs.flake-utils.follows = "flake-utils";
+    assr.url = "github:nyiyui/assr";
+    assr.inputs.nixpkgs.follows = "nixpkgs";
     microvm.url = "github:microvm-nix/microvm.nix";
     microvm.inputs.nixpkgs.follows = "nixpkgs";
     hjem.follows = "hjem-rum/hjem";

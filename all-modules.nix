@@ -1,3 +1,4 @@
+{ assr, ... }:
 {
   # all modules which have an explicit "enable" option to prevent unintended enables for ease of debugging etc
   imports = [
@@ -10,7 +11,7 @@
     ./autoUpgrade-git.nix
     ./laptop.nix
     ./displaylink.nix
-    ./eduroam
+    assr.nixosModules.eduroam
     ./aiden.nix
     ./gatech-vpn.nix
     ./ocproxy.nix
