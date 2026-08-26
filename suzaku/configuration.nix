@@ -141,6 +141,10 @@
   kiyurica.tailscale.enable = true;
   kiyurica.syncthing.tailscaleOnly = true;
   systemd.services.tailscaled-autoconnect.wantedBy = lib.mkForce [ ]; # we may not always be connected to the Internet and therefore the tailnet
+  # syncthing-init.service is wanted by multi-user.target, so multi-user.target starts after
+  # syncthing-init.service. syncthing-init.service can take a while to start and isn't necessary
+  # for graphical.target, so remove that dependency here.
+  systemd.services.syncthing-init.unitConfig.DefaultDependencies = false;
 
   # Enable mDNS for LAN hostname resolution
   services.avahi = {
