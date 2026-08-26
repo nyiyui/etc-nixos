@@ -209,4 +209,21 @@
   kiyurica.gatech-vpn.enable = true;
 
   kiyurica.sandbox-dev.enable = true;
+
+  assr.eduroam = {
+    enable = true;
+    client-cert = config.age.secrets.eduroam-client-cert.path;
+    env = config.age.secrets.eduroam-env.path;
+  };
+
+  age.secrets.eduroam-client-cert = {
+    file = ./eduroam-client-cert.p12.age;
+    owner = "wpa_supplicant";
+    group = "wpa_supplicant";
+    mode = "400";
+  };
+  age.secrets.eduroam-env = {
+    file = ./eduroam-env.age;
+    mode = "400";
+  };
 }

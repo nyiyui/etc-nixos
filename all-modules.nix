@@ -1,4 +1,4 @@
-{
+{ assr, ... }: {
   # all modules which have an explicit "enable" option to prevent unintended enables for ease of debugging etc
   imports = [
     ./niri
@@ -10,5 +10,6 @@
     ./gatech-vpn.nix
     ./ocproxy.nix
     ./sandbox-dev.nix
+    assr.nixosModules.eduroam
   ];
 }

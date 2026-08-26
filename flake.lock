@@ -23,6 +23,26 @@
         "type": "github"
       }
     },
+    "assr": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787695524,
+        "narHash": "sha256-exRKm/39E6G+Er7Ot7HEttKcZ4tvx72YzdTmrMeC4JU=",
+        "owner": "nyiyui",
+        "repo": "assr",
+        "rev": "a181a3081037cf2a26c67304b47549904db8857e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nyiyui",
+        "repo": "assr",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1754269165,
@@ -607,6 +627,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "assr": "assr",
         "declarative-flatpak": "declarative-flatpak",
         "disko": "disko",
         "flake-utils": "flake-utils",

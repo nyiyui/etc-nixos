@@ -32,6 +32,8 @@
     nixwrap.url = "github:rti/nixwrap";
     nixwrap.inputs.nixpkgs.follows = "nixpkgs";
     nixwrap.inputs.flake-utils.follows = "flake-utils";
+    assr.url = "github:nyiyui/assr";
+    assr.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
