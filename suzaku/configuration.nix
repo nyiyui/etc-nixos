@@ -29,7 +29,6 @@
     ../sound.nix
     ../virt.nix
     ../tpm.nix
-    # ../vnc.nix # TODO: re-enable
     ../nixpak/packages/org.keepassxc.KeePassXC.nix
     # ../nixpak/packages/org.kde.ark.nix
     ../nixpak/packages/org.mozilla.firefox.nix
