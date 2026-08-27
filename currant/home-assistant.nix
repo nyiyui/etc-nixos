@@ -13,6 +13,7 @@
       "bluetooth"
       "switchbot"
       "matter"
+      "hue"
     ];
     config = {
       # Configures Home Assistant and its Zigbee integration via the UI
