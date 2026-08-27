@@ -56,11 +56,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773032871,
-        "narHash": "sha256-1k/K6b0Y2naCGbG+yP2tAZiaVzhBC4HVojfkImXTXVM=",
+        "lastModified": 1787841258,
+        "narHash": "sha256-iYqBxefj6eEN7OjyJRBC5zB9ov/3hh3bGYzSGjz6IuA=",
         "owner": "nyiyui",
         "repo": "caldav-canvas-gradescope",
-        "rev": "8bcc30946465d5d5aa0f481af6cea30b2978f193",
+        "rev": "f1a45f02a67f68b24d548a00d3ee6e44b6c1bd28",
         "type": "github"
       },
       "original": {
@@ -245,11 +245,11 @@
     "gradescope-api": {
       "flake": false,
       "locked": {
-        "lastModified": 1766107244,
-        "narHash": "sha256-Bf77vq9VF58NTBVCtkss9eVqE1J7UGsY0Vl7w0pS3vo=",
+        "lastModified": 1779504813,
+        "narHash": "sha256-c2Gj77FNjQ1/Cyw2edF8ckyvxsDSNxnPoitV7c/gUtM=",
         "owner": "nyuoss",
         "repo": "gradescope-api",
-        "rev": "a0daa54cd5fedc41e37c5cc163f0fd80922b404d",
+        "rev": "586ad513b6b4715682f09fc6fe3fff2e73304f74",
         "type": "github"
       },
       "original": {
