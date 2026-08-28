@@ -4,6 +4,7 @@
     enable = true;
     customComponents = [
       (pkgs.callPackage ../southern-company-hacs.nix { })
+      pkgs.home-assistant-custom-components.adaptive_lighting
     ];
     extraComponents = [
       "zha"

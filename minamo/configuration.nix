@@ -131,7 +131,5 @@
 
   kiyurica.gatech-vpn.enable = true;
 
-  kiyurica.ollama.enableServer = true;
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

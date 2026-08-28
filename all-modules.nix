@@ -15,8 +15,6 @@
     ./aiden.nix
     ./gatech-vpn.nix
     ./ocproxy.nix
-    ./ollama.nix
-    ./proxy-server.nix
     ./mosh.nix
     ./quaderno-sync.nix
     ./caldav-canvas-gradescope.nix
