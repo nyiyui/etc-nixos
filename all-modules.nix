@@ -21,7 +21,6 @@
     ./backup-caldav
     ./backup-persist-push
     ./power-logger
-    ./gpu-screen-recorder.nix
     ./nmea-static-gps-server
   ];
 }

@@ -19,6 +19,10 @@
     config = {
       # Configures Home Assistant and its Zigbee integration via the UI
       default_config = { };
+      # Adaptive Lighting is configured entirely via the UI (Settings ->
+      # Devices and Services -> Adaptive Lighting), but the integration
+      # still requires this stub entry to be present in YAML.
+      adaptive_lighting = { };
       "automation ui" = "!include automations.yaml";
       "scene ui" = "!include scenes.yaml";
       "script ui" = "!include scripts.yaml";
