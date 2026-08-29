@@ -129,7 +129,5 @@
     address = "192.168.2.100/32";
   };
 
-  kiyurica.gatech-vpn.enable = true;
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

@@ -69,7 +69,6 @@
     };
 
   config = lib.mkIf config.kiyurica.ocproxy.enable {
-    kiyurica.home-manager.enable = true;
     users.groups.${config.kiyurica.ocproxy.group} = { };
     users.users.${config.kiyurica.ocproxy.user} = {
       isSystemUser = true;
@@ -81,6 +80,7 @@
       path = with pkgs; [
         openconnect
         ocproxy
+        systemd # for systemd-ask-password
       ];
       enableStrictShellChecks = true;
       serviceConfig = {
@@ -120,7 +120,7 @@
         set -eu
 
         export PASSWORD_FILE_PATH="$CREDENTIALS_DIRECTORY/password"
-        { cat "$PASSWORD_FILE_PATH"; echo 'push1'; } | \
+        { cat "$PASSWORD_FILE_PATH"; systemd-ask-password --timeout=0 --no-tty 'Georgia Tech VPN 2FA:'; } | \
         openconnect \
           --verbose \
           --protocol=gp \
@@ -130,22 +130,21 @@
           '${config.kiyurica.ocproxy.server}'
       '';
     };
-    home-manager.users.kiyurica = lib.mkIf config.kiyurica.home-manager.enable (
-      { config, pkgs, ... }:
-      {
-        kiyurica.service-status = [
-          {
-            serviceName = "ocproxy.service";
-            key = "VPN";
-            propertyName = "ActiveState";
-            propertyValue = "active";
-          }
-        ];
-        programs.waybar.settings.mainBar."custom/VPN" = {
-          on-click = "/run/current-system/sw/bin/systemctl start ocproxy.service";
-          on-click-right = "/run/current-system/sw/bin/systemctl stop ocproxy.service";
-        };
-      }
-    );
+    hjem.users.kiyurica = {
+      kiyurica.service-status = [
+        {
+          serviceName = "ocproxy.service";
+          key = "VPN";
+          propertyName = "ActiveState";
+          propertyValue = "active";
+        }
+      ];
+      xdg.config.files."fish/config.fish".text = ''
+        function vpn-connect
+          systemctl start ocproxy.service
+          run0 systemd-tty-ask-password-agent --query
+        end
+      '';
+    };
   };
 }

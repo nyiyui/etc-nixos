@@ -13,8 +13,6 @@
     ./displaylink.nix
     assr.nixosModules.eduroam
     ./aiden.nix
-    ./gatech-vpn.nix
-    ./ocproxy.nix
     ./mosh.nix
     ./quaderno-sync.nix
     ./caldav-canvas-gradescope.nix

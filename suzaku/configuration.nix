@@ -18,6 +18,8 @@
     ./hardware-configuration.nix
     ../niri-hjem
     ../hjem
+    ../gatech-vpn.nix
+    ../ocproxy.nix
     ./disko-config.nix
     ../appliance
     ./impermanence.nix
@@ -177,7 +179,7 @@
     mode = "400";
   };
 
-  # kiyurica.gatech-vpn.enable = true; # TODO: remove home-manager dependency
+  kiyurica.gatech-vpn.enable = true;
 
   hardware.graphics = {
     enable = true;
