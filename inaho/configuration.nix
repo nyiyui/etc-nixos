@@ -31,6 +31,9 @@
 
   users.users.kiyurica = {
     initialHashedPassword = "$y$j9T$2YLxBn0e/Bw6b3k9/qpCi1$Rq6BUgPFLxOVypwgEYeLjbORXCVnbZ2wCRR2yGPSoL7";
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDnkYjgInu6T4jZ7+/HKhwQ03AmrUvzzliFWrt3LOsXKg5VItzKcD52VWKi9uGUQWaU4r/w77FBsm326coJTvI2aZAnnr1cN+VdIqaXbZ3lksiVwZK7ZkqSvijy2enshnXNiTHKyjyOnN7zyaf/ZPRTWlUDg6VoJNdo4T5uunRGQlYza38x0mwpqRcEZUF5/KvXK51Y1eHT/hzNTKiPup/+xjOmo7P7cSP3SQDuER6OqaFOwUCSqLv3lqxucNVdQIsgGqvydZvzggqlhnzyR+eDC1Z9H6qc74ssJEXNJoFfiDUElIlO52UVkmC+UxNWC1KilL618mCM51U39+iHv2kJf4+VN2cIfoKVl1228p5e02s0lcSBI9nrUmWQyfRA/GpsHlzU8/BTqXsWYUfo4y7gH3ixdhX38ABHxh+VKV6DOIBB0694tbQnHQ2O8Tk7zoQJH+JASI3aEn7RgZBQs+N/3I2BVSMsWev2lWnLrvRQkofODksg7Zf417ZZqdX4wG6WGAX2ENJheHBwNi+dsL4GQKImldTiU0DuiM0p4YDxzuDYLTK1BkFBWiwIpDFqYEdPS4TtS/HaPabdv5TR+xRhAeh7voZD8TwQZ76zsqqSg5xBjaojxIiSv6IuAdOIZGL3DM+CyKO2yvZmh9yNzPGABeZuADwM2adH0JaoldvfCw== rqv-keepass2android"
+    ];
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
