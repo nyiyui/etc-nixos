@@ -130,7 +130,7 @@
           '${config.kiyurica.ocproxy.server}'
       '';
     };
-    home-manager.users.kiyurica =
+    home-manager.users.kiyurica = lib.mkIf config.kiyurica.home-manager.enable (
       { config, pkgs, ... }:
       {
         kiyurica.service-status = [
@@ -145,6 +145,7 @@
           on-click = "/run/current-system/sw/bin/systemctl start ocproxy.service";
           on-click-right = "/run/current-system/sw/bin/systemctl stop ocproxy.service";
         };
-      };
+      }
+    );
   };
 }

@@ -29,7 +29,7 @@
       switch = [
         {
           platform = "wake_on_lan";
-          name = "Wake Minamo";
+          name = "Minamo";
           mac = "00:D8:61:C9:B6:F0";
           host = "minamo";
         }

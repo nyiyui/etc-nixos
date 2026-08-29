@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 {
   security.rtkit.enable = true;
   services.pipewire = {
@@ -8,7 +8,7 @@
     pulse.enable = true; # needed by Firefox
   };
 
-  home-manager.users.kiyurica = {
+  home-manager.users.kiyurica = lib.mkIf config.kiyurica.home-manager.enable {
     imports = [
       (
         { pkgs, ... }:

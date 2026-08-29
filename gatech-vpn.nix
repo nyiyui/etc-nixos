@@ -32,16 +32,18 @@
       password-file = config.age.secrets."gatech-vpn-password.cred".path;
     };
 
-    home-manager.users.kiyurica.programs.ssh = {
-      enable = true;
-      settings = builtins.listToAttrs (
-        map (h: {
-          name = h;
-          value = {
-            ProxyCommand = "nc -X 5 -x 127.0.0.1:${builtins.toString config.kiyurica.ocproxy.socks-port} %h %p";
-          };
-        }) config.kiyurica.gatech-vpn.sshProxyHosts
-      );
+    home-manager.users.kiyurica = lib.mkIf config.kiyurica.home-manager.enable {
+      programs.ssh = {
+        enable = true;
+        settings = builtins.listToAttrs (
+          map (h: {
+            name = h;
+            value = {
+              ProxyCommand = "nc -X 5 -x 127.0.0.1:${builtins.toString config.kiyurica.ocproxy.socks-port} %h %p";
+            };
+          }) config.kiyurica.gatech-vpn.sshProxyHosts
+        );
+      };
     };
   };
 }
