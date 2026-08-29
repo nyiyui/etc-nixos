@@ -14,6 +14,7 @@
       "bluetooth"
       "switchbot"
       "hue"
+      "wake_on_lan"
     ];
     config = {
       # Configures Home Assistant and its Zigbee integration via the UI
@@ -25,6 +26,14 @@
       "automation ui" = "!include automations.yaml";
       "scene ui" = "!include scenes.yaml";
       "script ui" = "!include scripts.yaml";
+      switch = [
+        {
+          platform = "wake_on_lan";
+          name = "Wake Minamo";
+          mac = "00:D8:61:C9:B6:F0";
+          host = "minamo";
+        }
+      ];
       logger = {
         default = "info";
         logs = {
