@@ -3,6 +3,8 @@
   lib,
   pkgs,
   nixpak,
+  nixpkgs-unstable,
+  system,
   ...
 }:
 
@@ -11,6 +13,8 @@ let
     inherit (pkgs) lib;
     inherit pkgs;
   };
+
+  thunderbird = nixpkgs-unstable.legacyPackages.${system}.thunderbird;
 
   sandboxed = mkNixPak {
     config =
@@ -22,7 +26,7 @@ let
           ../modules/gui-base.nix
           ../modules/network.nix
         ];
-        app.package = pkgs.thunderbird;
+        app.package = thunderbird;
 
         dbus = {
           enable = true;
