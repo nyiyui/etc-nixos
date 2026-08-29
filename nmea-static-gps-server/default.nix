@@ -53,6 +53,7 @@ in
       '';
     };
 
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
     systemd.services.nmea-static-gps-server = {
       description = "NMEA static GPS server";
       after = [
