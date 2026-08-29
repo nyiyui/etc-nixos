@@ -41,8 +41,9 @@
   environment.shells = [ pkgs.fish ];
   programs.fish.enable = true;
   programs.git.enable = true;
-  programs.htop.enable = true;
+  environment.etc."htoprc".source = ./htoprc;
   environment.systemPackages = with pkgs; [
+    htop
     shpool
     wget
     curl
