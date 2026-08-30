@@ -15,6 +15,7 @@
       "switchbot"
       "hue"
       "wake_on_lan"
+      "remote_calendar"
     ];
     config = {
       # Configures Home Assistant and its Zigbee integration via the UI

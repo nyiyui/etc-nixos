@@ -67,6 +67,21 @@
       type = port;
       default = 11080;
     };
+  options.kiyurica.ocproxy.twoFactor =
+    with lib;
+    with types;
+    mkOption {
+      description = ''
+        Fixed answer to send to the VPN's second-factor prompt, e.g. "push1" for a Duo push.
+
+        If null, ask interactively via `systemd-ask-password` instead (answer with
+        `run0 systemd-tty-ask-password-agent --query` in a terminal). Use a fixed value on
+        hosts with no one around to answer that prompt (e.g. minamo, other servers).
+      '';
+      type = nullOr str;
+      default = null;
+      example = "push1";
+    };
 
   config = lib.mkIf config.kiyurica.ocproxy.enable {
     users.groups.${config.kiyurica.ocproxy.group} = { };
@@ -120,7 +135,12 @@
         set -eu
 
         export PASSWORD_FILE_PATH="$CREDENTIALS_DIRECTORY/password"
-        { cat "$PASSWORD_FILE_PATH"; systemd-ask-password --timeout=0 --no-tty 'Georgia Tech VPN 2FA:'; } | \
+        { cat "$PASSWORD_FILE_PATH"; ${
+          if config.kiyurica.ocproxy.twoFactor != null then
+            "echo ${lib.escapeShellArg config.kiyurica.ocproxy.twoFactor}"
+          else
+            "systemd-ask-password --timeout=0 --no-tty 'Georgia Tech VPN 2FA:'"
+        }; } | \
         openconnect \
           --verbose \
           --protocol=gp \
