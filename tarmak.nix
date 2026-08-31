@@ -3,6 +3,7 @@
 let
   # Tarmak Stage 1: transitional QWERTY → Colemak layout
   # Changes: E→J, J→N, K→E, N→K (output remapping by physical key position)
+  # ykpersonalize -y -S0605070e090a0b0c08110f0d151718198685878e898a8b8c88918f8d95979899271e1f202122232425269e2b28
   symbolsFile = pkgs.writeText "tarmak1" ''
     xkb_symbols "tarmak1" {
         include "us"
@@ -21,14 +22,4 @@ in
     languages = [ "eng" ];
     symbolsFile = symbolsFile;
   };
-
-  # (not tested)
-  # undo Tarmak changes for YubiKeys only
-  services.udev.extraHwdb = ''
-    evdev:input:b0003v1050p*
-     KEYBOARD_KEY_70008=k
-     KEYBOARD_KEY_7000d=e
-     KEYBOARD_KEY_7000e=n
-     KEYBOARD_KEY_70011=j
-  '';
 }
