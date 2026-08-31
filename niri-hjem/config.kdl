@@ -157,8 +157,8 @@ binds {
     XF86AudioMute { spawn "pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle"; }
     XF86AudioPlay { spawn "playerctl" "play-pause"; }
     XF86AudioRaiseVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+5%"; }
-    XF86MonBrightnessDown { spawn "brightnessctl" "set" "1%-"; }
-    XF86MonBrightnessUp { spawn "brightnessctl" "set" "+1%"; }
+    XF86MonBrightnessDown { spawn "brightness-notify" "1%-"; }
+    XF86MonBrightnessUp { spawn "brightness-notify" "+1%"; }
 }
 spawn-at-startup "uwsm" "finalize"
 window-rule {

@@ -21,7 +21,25 @@
   };
 
   config = lib.mkIf config.assr.desktop.niri.enable {
-    environment.systemPackages = [ pkgs.brightnessctl ];
+    environment.systemPackages = [
+      pkgs.brightnessctl
+      (pkgs.writeShellApplication {
+        name = "brightness-notify";
+        runtimeInputs = [
+          pkgs.brightnessctl
+          pkgs.notify-desktop
+        ];
+        text = ''
+          delta="''${1:?usage: $0 <brightnessctl delta>}"
+
+          percent=$(brightnessctl set "$delta" -m | cut -d, -f4 | cut -d% -f1)
+
+          id_file="$XDG_RUNTIME_DIR/brightness-notif-id"
+          id=$(cat "$id_file" 2>/dev/null || echo 0)
+          notify-desktop -r "$id" -a brightness -u low -t 1500 "$percent%" >"$id_file"
+        '';
+      })
+    ];
     hjem.users.kiyurica = {
       enable = true;
       imports = [
