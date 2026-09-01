@@ -129,9 +129,13 @@
       script = ''
         set -eu
 
+        echo '=== 1'
         read -r OTP
+        echo '=== 2'
         export PASSWORD_FILE_PATH="$CREDENTIALS_DIRECTORY/password"
+        echo '=== 3'
         echo "using OTP $OTP"
+        echo '=== 4'
         { cat "$PASSWORD_FILE_PATH"; echo "$OTP"; } | \
         openconnect \
           --verbose \
