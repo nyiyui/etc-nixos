@@ -74,9 +74,9 @@
       description = ''
         Fixed answer to send to the VPN's second-factor prompt, e.g. "push1" for a Duo push.
 
-        If null, ask interactively via `systemd-ask-password` instead (use `vpn-connect`
-        so a privileged TTY ask-password agent is active while the service starts). Use a
-        fixed value on
+        If null, ask interactively via `vpn-connect`, which prompts in your terminal and
+        passes the response to the service via a transient systemd manager environment
+        variable. Use a fixed value on
         hosts with no one around to answer that prompt (e.g. minamo, other servers).
       '';
       type = nullOr str;
@@ -101,6 +101,7 @@
       enableStrictShellChecks = true;
       serviceConfig = {
         LoadCredentialEncrypted = "password:${config.kiyurica.ocproxy.password-file}";
+        PassEnvironment = "OCPROXY_TWO_FACTOR";
         User = config.kiyurica.ocproxy.user;
 
         CapabilityBoundingSet = "";
@@ -109,7 +110,7 @@
         NoNewPrivileges = "true";
         PrivateDevices = "true";
         PrivateTmp = true;
-        PrivateUsers = false;
+        PrivateUsers = "true";
         ProtectClock = "true";
         ProtectControlGroups = "true";
         ProtectHome = "true";
@@ -142,9 +143,9 @@
             "two_factor=${lib.escapeShellArg config.kiyurica.ocproxy.twoFactor}"
           else
             ''
-              two_factor="$(systemd-ask-password --timeout=0 --no-tty 'Georgia Tech VPN 2FA:')"
+              two_factor="${OCPROXY_TWO_FACTOR-}"
               if [ -z "$two_factor" ]; then
-                echo "No second-factor response was provided." >&2
+                echo "No second-factor response was provided. Start via vpn-connect or set kiyurica.ocproxy.twoFactor." >&2
                 exit 1
               fi
             ''
@@ -171,10 +172,16 @@
       ];
       xdg.config.files."fish/config.fish".text = ''
         function vpn-connect
-          run0 sh -euc '
-            systemd-tty-ask-password-agent --watch &
-            watch_pid=$!
-            trap "kill $watch_pid" EXIT
+          set -l two_factor (systemd-ask-password --timeout=0 'Georgia Tech VPN 2FA:')
+          if test -z "$two_factor"
+            echo "No second-factor response was provided." >&2
+            return 1
+          end
+
+          printf '%s\n' "$two_factor" | run0 sh -euc '
+            IFS= read -r two_factor
+            systemctl set-environment OCPROXY_TWO_FACTOR="$two_factor"
+            trap "systemctl unset-environment OCPROXY_TWO_FACTOR" EXIT
             systemctl start ocproxy.service
           '
         end
