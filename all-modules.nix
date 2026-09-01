@@ -10,7 +10,7 @@
     ./tailscale-cert.nix
     ./autoUpgrade-git.nix
     ./laptop.nix
-    ./displaylink.nix
+    assr.nixosModules.displaylink
     assr.nixosModules.eduroam
     ./aiden.nix
     ./mosh.nix

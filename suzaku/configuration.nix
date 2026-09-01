@@ -160,7 +160,7 @@
 
   kiyurica.laptop.enable = true;
 
-  kiyurica.displaylink.enable = true;
+  assr.displaylink.enable = true;
 
   assr.eduroam = {
     enable = true;
