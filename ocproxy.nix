@@ -131,6 +131,7 @@
 
         read -r OTP
         export PASSWORD_FILE_PATH="$CREDENTIALS_DIRECTORY/password"
+        echo "using OTP $OTP"
         { cat "$PASSWORD_FILE_PATH"; echo "$OTP"; } | \
         openconnect \
           --verbose \
