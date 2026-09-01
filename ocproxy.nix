@@ -67,21 +67,6 @@
       type = port;
       default = 11080;
     };
-  options.kiyurica.ocproxy.twoFactor =
-    with lib;
-    with types;
-    mkOption {
-      description = ''
-        Fixed answer to send to the VPN's second-factor prompt, e.g. "push1" for a Duo push.
-
-        If null, ask interactively via `systemd-ask-password` instead (answer with
-        `run0 systemd-tty-ask-password-agent --query` in a terminal). Use a fixed value on
-        hosts with no one around to answer that prompt (e.g. minamo, other servers).
-      '';
-      type = nullOr str;
-      default = null;
-      example = "push1";
-    };
 
   config = lib.mkIf config.kiyurica.ocproxy.enable {
     users.groups.${config.kiyurica.ocproxy.group} = { };
@@ -90,8 +75,17 @@
       description = "Georgia Tech VPN";
       group = config.kiyurica.ocproxy.group;
     };
+    systemd.sockets.ocproxy = {
+      description = "OpenConnect VPN proxy socket for OTP";
+      socketConfig = {
+        ListenFIFO = "/run/ocproxy-otp";
+        SocketMode = "0600";
+        SocketUser = "root";
+      };
+      wantedBy = [ "multi-user.target" ];
+    };
     systemd.services.ocproxy = {
-      description = "Georgia Tech VPN";
+      description = "OpenConnect VPN proxy";
       path = with pkgs; [
         openconnect
         ocproxy
@@ -101,6 +95,7 @@
       serviceConfig = {
         LoadCredentialEncrypted = "password:${config.kiyurica.ocproxy.password-file}";
         User = config.kiyurica.ocproxy.user;
+        StandardInput = "socket";
 
         CapabilityBoundingSet = "";
         LockPersonality = "true";
@@ -134,13 +129,9 @@
       script = ''
         set -eu
 
+        read -r OTP
         export PASSWORD_FILE_PATH="$CREDENTIALS_DIRECTORY/password"
-        { cat "$PASSWORD_FILE_PATH"; ${
-          if config.kiyurica.ocproxy.twoFactor != null then
-            "echo ${lib.escapeShellArg config.kiyurica.ocproxy.twoFactor}"
-          else
-            "systemd-ask-password --timeout=0 --no-tty 'Georgia Tech VPN 2FA:'"
-        }; } | \
+        { cat "$PASSWORD_FILE_PATH"; cat "$OTP"; } | \
         openconnect \
           --verbose \
           --protocol=gp \
@@ -159,12 +150,11 @@
           propertyValue = "active";
         }
       ];
-      xdg.config.files."fish/config.fish".text = ''
-        function vpn-connect
-          systemctl start ocproxy.service
-          run0 systemd-tty-ask-password-agent --query
-        end
-      '';
     };
+    environment.systemPackages = [
+      (pkgs.writeShellScriptBin "ocproxy-provide-otp" ''
+        doas tee /run/ocproxy-otp > /dev/null
+      '')
+    ]
   };
 }
