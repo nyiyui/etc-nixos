@@ -132,15 +132,24 @@
         ];
       };
       script = ''
-        set -eu
+        set -euo pipefail
 
         export PASSWORD_FILE_PATH="$CREDENTIALS_DIRECTORY/password"
-        { cat "$PASSWORD_FILE_PATH"; ${
+        pw_value="$(cat "$PASSWORD_FILE_PATH")"
+        ${
           if config.kiyurica.ocproxy.twoFactor != null then
-            "echo ${lib.escapeShellArg config.kiyurica.ocproxy.twoFactor}"
+            "two_factor=${lib.escapeShellArg config.kiyurica.ocproxy.twoFactor}"
           else
-            "systemd-ask-password --timeout=0 --no-tty 'Georgia Tech VPN 2FA:'"
-        }; } | \
+            ''
+              two_factor="$(systemd-ask-password --timeout=0 --no-tty 'Georgia Tech VPN 2FA:')"
+              if [ -z "$two_factor" ]; then
+                echo "No second-factor response was provided." >&2
+                exit 1
+              fi
+            ''
+        }
+
+        printf '%s\n%s\n' "$pw_value" "$two_factor" | \
         openconnect \
           --verbose \
           --protocol=gp \
