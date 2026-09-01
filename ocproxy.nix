@@ -131,7 +131,7 @@
 
         read -r OTP
         export PASSWORD_FILE_PATH="$CREDENTIALS_DIRECTORY/password"
-        { cat "$PASSWORD_FILE_PATH"; cat "$OTP"; } | \
+        { cat "$PASSWORD_FILE_PATH"; echo "$OTP"; } | \
         openconnect \
           --verbose \
           --protocol=gp \
