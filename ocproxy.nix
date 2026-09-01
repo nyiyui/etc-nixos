@@ -153,7 +153,7 @@
     };
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "ocproxy-provide-otp" ''
-        doas tee /run/ocproxy-otp > /dev/null
+        tee /run/ocproxy-otp > /dev/null
       '')
     ];
   };
