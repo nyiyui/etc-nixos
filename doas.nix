@@ -6,7 +6,6 @@
   security.doas.extraRules = [
     {
       users = [ "kiyurica" ];
-      keepEnv = true;
     }
   ];
 }
