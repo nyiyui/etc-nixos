@@ -4,7 +4,7 @@
   imports = [
     ./sway.nix
     ./niri
-    ./wlsunset
+    assr.nixosModules.wlsunset
     ./gtkgreet.nix
     ./tailscale.nix
     ./tailscale-cert.nix

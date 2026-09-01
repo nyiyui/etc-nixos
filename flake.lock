@@ -27,16 +27,18 @@
     },
     "assr": {
       "inputs": {
+        "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "systems": "systems"
       },
       "locked": {
-        "lastModified": 1787695524,
-        "narHash": "sha256-exRKm/39E6G+Er7Ot7HEttKcZ4tvx72YzdTmrMeC4JU=",
+        "lastModified": 1788288214,
+        "narHash": "sha256-z5hL/5eEqv5kGemby3qAuOcMAc+8oCKPNiIdnWM/Lbg=",
         "owner": "nyiyui",
         "repo": "assr",
-        "rev": "a181a3081037cf2a26c67304b47549904db8857e",
+        "rev": "b080ff79e7a922cf07244acf84b834371954c6ed",
         "type": "github"
       },
       "original": {
@@ -199,6 +201,27 @@
       }
     },
     "flake-utils": {
+      "inputs": {
+        "systems": [
+          "assr",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
       "inputs": {
         "systems": [
           "systems"
@@ -683,7 +706,7 @@
         "assr": "assr",
         "caldav-canvas-gradescope": "caldav-canvas-gradescope",
         "disko": "disko",
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_2",
         "hjem": [
           "hjem-rum",
           "hjem"
@@ -700,7 +723,7 @@
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sync-pdf-viewer": "sync-pdf-viewer",
-        "systems": "systems"
+        "systems": "systems_2"
       }
     },
     "rust-overlay": {
@@ -764,6 +787,20 @@
       }
     },
     "systems": {
+      "flake": false,
+      "locked": {
+        "path": "./flake.systems.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "./flake.systems.nix",
+        "type": "path"
+      },
+      "parent": [
+        "assr"
+      ]
+    },
+    "systems_2": {
       "flake": false,
       "locked": {
         "path": "./flake.systems.nix",
