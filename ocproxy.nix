@@ -140,7 +140,7 @@
         echo '=== 3'
         echo "using OTP $OTP"
         echo '=== 4'
-        { cat "$PASSWORD_FILE_PATH"; echo "$OTP"; } | \
+        { cat "$PASSWORD_FILE_PATH"; echo; echo "$OTP"; } | \
         openconnect \
           --verbose \
           --protocol=gp \
