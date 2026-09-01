@@ -96,6 +96,9 @@
         LoadCredentialEncrypted = "password:${config.kiyurica.ocproxy.password-file}";
         User = config.kiyurica.ocproxy.user;
         StandardInput = "socket";
+        # otherwise stdout and stderr default to socket D:
+        StandardOutput = "journal";
+        StandardError = "journal";
 
         CapabilityBoundingSet = "";
         LockPersonality = "true";
@@ -115,6 +118,7 @@
         ProtectSystem = "strict";
         RemoveIPC = "true";
         RestrictAddressFamilies = [
+          "AF_UNIX"
           "AF_INET"
           "AF_INET6"
         ];
