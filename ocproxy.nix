@@ -74,8 +74,9 @@
       description = ''
         Fixed answer to send to the VPN's second-factor prompt, e.g. "push1" for a Duo push.
 
-        If null, ask interactively via `systemd-ask-password` instead (answer with
-        `run0 systemd-tty-ask-password-agent --query` in a terminal). Use a fixed value on
+        If null, ask interactively via `systemd-ask-password` instead (use `vpn-connect`
+        so a privileged TTY ask-password agent is active while the service starts). Use a
+        fixed value on
         hosts with no one around to answer that prompt (e.g. minamo, other servers).
       '';
       type = nullOr str;
@@ -170,8 +171,12 @@
       ];
       xdg.config.files."fish/config.fish".text = ''
         function vpn-connect
-          systemctl start ocproxy.service
-          run0 systemd-tty-ask-password-agent --query
+          run0 sh -euc '
+            systemd-tty-ask-password-agent --watch &
+            watch_pid=$!
+            trap "kill $watch_pid" EXIT
+            systemctl start ocproxy.service
+          '
         end
       '';
     };
