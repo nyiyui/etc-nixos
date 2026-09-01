@@ -36,7 +36,7 @@
     ../nixpak/packages/org.mozilla.firefox.nix
     ../nixpak/packages/org.mozilla.Thunderbird.nix
     # ../nixpak/packages/org.libreoffice.LibreOffice.nix
-    # ../nixpak/packages/io.github.alainm23.planify.nix
+    ../nixpak/packages/io.github.alainm23.planify.nix
     ../nixpak/packages/org.signal.Signal.nix
     ../tarmak.nix
     # ../nixpak/packages/org.strawberrymusicplayer.strawberry.nix
