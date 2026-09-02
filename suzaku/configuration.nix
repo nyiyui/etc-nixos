@@ -19,7 +19,6 @@
     ../niri-hjem
     ../hjem
     ../gatech-vpn.nix
-    ../ocproxy.nix
     ./disko-config.nix
     ../appliance
     ./impermanence.nix

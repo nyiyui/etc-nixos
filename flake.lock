@@ -34,11 +34,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1788290953,
-        "narHash": "sha256-Nq3q7+Y94BPD6rpavas/2xXmcDyUOQOaelzDn2LxNOA=",
+        "lastModified": 1788318444,
+        "narHash": "sha256-3+24/fYZ73xyGAr6CFB4IBStIJ5aJUPaSH77sEDWT3A=",
         "owner": "nyiyui",
         "repo": "assr",
-        "rev": "291f3d535413832d077e437af2f257b14e0240fc",
+        "rev": "d8803ca01f7e488aa5993f0584cbde1c6f4ed7c2",
         "type": "github"
       },
       "original": {

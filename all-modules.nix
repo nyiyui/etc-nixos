@@ -20,5 +20,6 @@
     ./backup-persist-push
     ./power-logger
     ./nmea-static-gps-server
+    assr.nixosModules.ocproxy
   ];
 }
