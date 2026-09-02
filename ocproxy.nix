@@ -5,10 +5,8 @@
   ...
 }:
 {
-  imports = [ ./home-manager.nix ];
-
-  options.kiyurica.ocproxy.enable = lib.mkEnableOption "GlobalProtect VPN via proxy";
-  options.kiyurica.ocproxy.user =
+  options.assr.ocproxy.enable = lib.mkEnableOption "GlobalProtect VPN via proxy";
+  options.assr.ocproxy.user =
     with lib;
     with types;
     mkOption {
@@ -16,7 +14,7 @@
       default = "ocproxy";
       type = str;
     };
-  options.kiyurica.ocproxy.group =
+  options.assr.ocproxy.group =
     with lib;
     with types;
     mkOption {
@@ -24,7 +22,7 @@
       default = "ocproxy";
       type = str;
     };
-  options.kiyurica.ocproxy.server =
+  options.assr.ocproxy.server =
     with lib;
     with types;
     mkOption {
@@ -32,7 +30,7 @@
       example = "ni-ext-gw.vpn.gatech.edu";
       type = str;
     };
-  options.kiyurica.ocproxy.username =
+  options.assr.ocproxy.username =
     with lib;
     with types;
     mkOption {
@@ -40,7 +38,7 @@
       example = "gburdell3";
       type = str;
     };
-  options.kiyurica.ocproxy.password-file =
+  options.assr.ocproxy.password-file =
     with lib;
     with types;
     mkOption {
@@ -51,7 +49,7 @@
       '';
       type = path;
     };
-  options.kiyurica.ocproxy.socks-port =
+  options.assr.ocproxy.socks-port =
     with lib;
     with types;
     mkOption {
@@ -60,12 +58,12 @@
       default = 11080;
     };
 
-  config = lib.mkIf config.kiyurica.ocproxy.enable {
-    users.groups.${config.kiyurica.ocproxy.group} = { };
-    users.users.${config.kiyurica.ocproxy.user} = {
+  config = lib.mkIf config.assr.ocproxy.enable {
+    users.groups.${config.assr.ocproxy.group} = { };
+    users.users.${config.assr.ocproxy.user} = {
       isSystemUser = true;
       description = "Georgia Tech VPN";
-      group = config.kiyurica.ocproxy.group;
+      group = config.assr.ocproxy.group;
     };
     systemd.sockets.ocproxy = {
       description = "OpenConnect VPN proxy socket for OTP";
@@ -85,8 +83,8 @@
       ];
       enableStrictShellChecks = true;
       serviceConfig = {
-        LoadCredentialEncrypted = "password:${config.kiyurica.ocproxy.password-file}";
-        User = config.kiyurica.ocproxy.user;
+        LoadCredentialEncrypted = "password:${config.assr.ocproxy.password-file}";
+        User = config.assr.ocproxy.user;
         StandardInput = "socket";
         # otherwise stdout and stderr default to socket D:
         StandardOutput = "journal";
@@ -125,34 +123,16 @@
       script = ''
         set -eu
 
-        echo '=== 1'
         read -r OTP
-        echo '=== 2'
         export PASSWORD_FILE_PATH="$CREDENTIALS_DIRECTORY/password"
-        echo '=== 3'
-        echo "using OTP $OTP"
-        echo '=== 4'
-        # Since Fall 2026, connecting through the portal doesn't let us connect
-        # to the gateway w/o another round of authn. Instead, we connect
-        # directly to the gateway to not have to enter two OTPs.
         { cat "$PASSWORD_FILE_PATH"; echo; echo "$OTP"; } | \
         openconnect \
           --verbose \
           --protocol=gp \
-          --user='${config.kiyurica.ocproxy.username}' \
-          --script-tun --script 'ocproxy -D ${builtins.toString config.kiyurica.ocproxy.socks-port}' \
-          '${config.kiyurica.ocproxy.server}'
+          --user='${config.assr.ocproxy.username}' \
+          --script-tun --script 'ocproxy -D ${builtins.toString config.assr.ocproxy.socks-port}' \
+          '${config.assr.ocproxy.server}'
       '';
-    };
-    hjem.users.kiyurica = {
-      kiyurica.service-status = [
-        {
-          serviceName = "ocproxy.service";
-          key = "VPN";
-          propertyName = "ActiveState";
-          propertyValue = "active";
-        }
-      ];
     };
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "ocproxy-provide-otp" ''
