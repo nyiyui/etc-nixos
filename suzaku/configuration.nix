@@ -4,6 +4,7 @@
   pkgs,
   self,
   specialArgs,
+  assr,
   nixos-hardware,
   nixpkgs-unstable,
   hjem-rum,
@@ -20,7 +21,7 @@
     ../hjem
     ../gatech-vpn.nix
     ./disko-config.nix
-    ../appliance
+    assr.nixosModules.appliance
     ./impermanence.nix
     ../dev-vm/host.nix
     ../fprint.nix
