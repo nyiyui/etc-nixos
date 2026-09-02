@@ -57,6 +57,14 @@
       type = port;
       default = 11080;
     };
+  options.assr.ocproxy.otp-fifo =
+    with lib;
+    with types;
+    mkOption {
+      description = "path where a FIFO will be created. Type your OTP (or \"push\" if you have Duo) here to connect.";
+      type = path;
+      default = "/run/ocproxy-otp";
+    };
 
   config = lib.mkIf config.assr.ocproxy.enable {
     users.groups.${config.assr.ocproxy.group} = { };
@@ -68,7 +76,7 @@
     systemd.sockets.ocproxy = {
       description = "OpenConnect VPN proxy socket for OTP";
       socketConfig = {
-        ListenFIFO = "/run/ocproxy-otp";
+        ListenFIFO = config.assr.ocproxy.otp-fifo;
         SocketMode = "0600";
         SocketUser = "root";
       };
@@ -129,14 +137,14 @@
         openconnect \
           --verbose \
           --protocol=gp \
-          --user='${config.assr.ocproxy.username}' \
+          --user=${lib.escapeShellArg config.assr.ocproxy.username} \
           --script-tun --script 'ocproxy -D ${builtins.toString config.assr.ocproxy.socks-port}' \
-          '${config.assr.ocproxy.server}'
+          ${lib.escapeShellArg config.assr.ocproxy.server}
       '';
     };
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "ocproxy-provide-otp" ''
-        tee /run/ocproxy-otp > /dev/null
+        tee ${lib.escapeShellArg config.assr.ocproxy.otp-fifo} > /dev/null
       '')
     ];
   };
