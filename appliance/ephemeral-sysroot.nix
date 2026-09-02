@@ -18,12 +18,10 @@ let
 
     echo "Opening LUKS container..."
     cryptsetup open --key-file /tmp/ephemeral.key "$PART" ${lib.strings.escapeShellArg mapper}
+    rm /tmp/ephemeral.key
 
     echo "Formatting inner volume as ext4..."
     mkfs.ext4 -F -q /dev/mapper/${lib.strings.escapeShellArg mapper}
-
-    # Securely wipe the ephemeral key from the initrd RAM
-    rm /tmp/ephemeral.key
   '';
 in
 {

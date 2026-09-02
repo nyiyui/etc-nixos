@@ -24,7 +24,7 @@ in
     verity-hash-size = lib.mkOption {
       type = lib.types.str;
       description = "size of verity has partition of nix store";
-      default = "4G"; # ~8-10% according to Arch Wiki, so use image-size/8 for ez
+      default = "4G"; # ~8-10% according to Arch Wiki, so use image-size/8 for simplicity
     };
   };
 
@@ -45,8 +45,6 @@ in
     nix.enable = false;
     system.switch.enable = false;
     users.mutableUsers = false;
-    # TODO: how to make /etc read-only?
-    #       either make it read-only after activation, or put the activation result in the image itself
 
     fileSystems = {
       "/nix/store" =
@@ -54,8 +52,7 @@ in
           repartConfig = config.image.repart.partitions.root.repartConfig;
         in
         {
-          #device = "/dev/disk/by-partlabel/${repartConfig.Label}";
-          device = "/dev/mapper/root";
+          device = "/dev/mapper/root"; # dm-verity has name "root" since that's the repart config we use
           fsType = repartConfig.Format;
         };
     };
@@ -83,7 +80,7 @@ in
           storePaths = [ config.system.build.toplevel ];
           nixStorePrefix = "/";
           repartConfig = {
-            Type = "root"; # IDK if it's possible to have verity of non-root, so just make this "root" for now
+            Type = "root"; # not "root" per se but other options don't exactly match what we're doing here either
             Label = "root_${config.system.image.version}";
             SizeMinBytes = config.assr.appliance.image-size;
             SizeMaxBytes = config.assr.appliance.image-size;
@@ -123,7 +120,7 @@ in
       enable = true;
       partitions = {
         root = {
-          Type = "root"; # IDK if it's possible to have verity of non-root, so just make this "root" for now
+          Type = "root";
           Label = "root_${config.system.image.version}";
           SizeMinBytes = config.assr.appliance.image-size;
           SizeMaxBytes = config.assr.appliance.image-size;
