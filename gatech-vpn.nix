@@ -21,8 +21,7 @@
   config = lib.mkIf config.kiyurica.gatech-vpn.enable {
     kiyurica.ocproxy = {
       enable = true;
-      server = "vpn.gatech.edu";
-      gateway = "DC Gateway";
+      server = "dc-ext-gw.vpn.gatech.edu";
       username = "kshibata6";
       password-file = ./secrets/gatech-vpn-password-${config.networking.hostName}.cred;
     };

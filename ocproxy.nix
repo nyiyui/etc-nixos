@@ -29,15 +29,7 @@
     with types;
     mkOption {
       description = "VPN server";
-      example = "vpn.gatech.edu";
-      type = str;
-    };
-  options.kiyurica.ocproxy.gateway =
-    with lib;
-    with types;
-    mkOption {
-      description = "gateway to use";
-      example = "DC Gateway";
+      example = "ni-ext-gw.vpn.gatech.edu";
       type = str;
     };
   options.kiyurica.ocproxy.username =
@@ -140,12 +132,14 @@
         echo '=== 3'
         echo "using OTP $OTP"
         echo '=== 4'
+        # Since Fall 2026, connecting through the portal doesn't let us connect
+        # to the gateway w/o another round of authn. Instead, we connect
+        # directly to the gateway to not have to enter two OTPs.
         { cat "$PASSWORD_FILE_PATH"; echo; echo "$OTP"; } | \
         openconnect \
           --verbose \
           --protocol=gp \
           --user='${config.kiyurica.ocproxy.username}' \
-          --authgroup='${config.kiyurica.ocproxy.gateway}' \
           --script-tun --script 'ocproxy -D ${builtins.toString config.kiyurica.ocproxy.socks-port}' \
           '${config.kiyurica.ocproxy.server}'
       '';
