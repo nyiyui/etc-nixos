@@ -56,7 +56,7 @@
           "niri/workspaces"
           "niri/window"
         ];
-        modules-right = [
+        modules-center = [
           "custom/image-version"
         ];
         "niri/workspaces".format = "{index}";
