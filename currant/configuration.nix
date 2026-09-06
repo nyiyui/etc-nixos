@@ -13,6 +13,7 @@
     ./home-assistant.nix
     ../base.nix
     ../autoUpgrade-git.nix
+    ./2026eye.nix
   ];
 
   # Raspberry Pi 4 firmware
