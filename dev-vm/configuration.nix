@@ -301,7 +301,8 @@ in
     script = ''
       target=$(cat /vm-meta/workspace-path)
       mkdir -p "$target"
-      mount --bind /mnt/workspace "$target"
+      mount -o nofail --bind /mnt/workspace "$target"
+      # The workspace is not needed for the system to boot. We only need it for SSH-ing in, much later.
     '';
   };
 
