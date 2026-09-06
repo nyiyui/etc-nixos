@@ -5,7 +5,7 @@
     createHome = true;
   
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUwsMg/p63AeCWPvphJ7SwW4tLYVwMS2AApAf1+LkOF kiyurica@2026eye"
+      ''from="192.168.2.118",command="internal-sftp",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUwsMg/p63AeCWPvphJ7SwW4tLYVwMS2AApAf1+LkOF kiyurica@2026eye''
     ];
   };
 }
