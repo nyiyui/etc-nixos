@@ -25,4 +25,13 @@ in
     languages = [ "eng" ];
     symbolsFile = symbolsFile;
   };
+  services.xserver.xkb.layout = "tarmak2";
+  services.xserver.xkb.options = "compose:caps";
+  # niri reads XKB_DEFAULT_* env vars rather than services.xserver.xkb directly
+  environment.variables = {
+    XKB_DEFAULT_LAYOUT = "tarmak2";
+    XKB_DEFAULT_OPTIONS = "compose:caps";
+  };
+  # apply the xkb layout to the Linux console (TTY) as well
+  console.useXkbConfig = true;
 }
