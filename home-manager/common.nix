@@ -13,8 +13,6 @@ in
   imports = [
     ./ssh-agent.nix
     ./base.nix
-    ./grc.nix
-    ./pexec.nix
     ./fonts.nix
     # ./kicad.nix # TODO: remove kicad for now (until appliance image situation is done)
   ];

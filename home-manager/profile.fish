@@ -54,7 +54,6 @@ alias l='eza -a -abgln -F --extended --octal-permissions --no-permissions --git'
 alias lt='l -s modified'
 alias t='eza -abgln -F --extended --octal-permissions --no-permissions --git -T'
 alias tt='t -s modified'
-alias go='grc go'
 
 alias ip='ip -c'
 
