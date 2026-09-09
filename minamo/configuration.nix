@@ -18,9 +18,6 @@
     ../common.nix
     ../syncthing.nix
     ../virt.nix
-    ../nixpak/packages/org.signal.Signal.nix
-    ../nixpak/packages/org.mozilla.firefox.nix
-    ../nixpak/packages/org.chromium.Chromium.nix
   ];
 
   boot.initrd.systemd.enable = true;
@@ -38,6 +35,7 @@
     enable = true;
     enable32Bit = true;
   };
+  # TODO: let Windows take over NVIDIA card
   services.xserver.videoDrivers = [ "nvidia" ]; # enables nvidia support
   hardware.nvidia = {
     modesetting.enable = true;
@@ -85,12 +83,6 @@
     enable = true;
     fileSystems = [ "/" ];
   };
-  kiyurica.desktop.niri = {
-    enable = true;
-    enableUWSM = true;
-    default = true;
-  };
-  kiyurica.greeter.gtkgreet.enable = true;
   kiyurica.tailscale.enable = true;
 
   # Enable mDNS for LAN hostname resolution
@@ -103,18 +95,6 @@
       workstation = true;
     };
   };
-
-  home-manager.users.kiyurica =
-    { lib, ... }:
-    {
-      kiyurica.waybarPosition = "right";
-      programs.waybar.style = ''
-        window#waybar {
-          background-color: rgba(0, 0, 0, 1);
-        }
-      '';
-      programs.niri.settings.layout.default-column-width.proportion = lib.mkForce 0.3;
-    };
 
   kiyurica.networks.aiden = {
     enable = true;
