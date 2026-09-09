@@ -29,20 +29,7 @@
       password-file = ./secrets/gatech-vpn-password-${config.networking.hostName}.cred;
     };
 
-    # TODO: use environment.etc or sth instead of hm
-    home-manager.users.kiyurica = lib.mkIf config.kiyurica.home-manager.enable {
-      programs.ssh = {
-        enable = true;
-        settings = builtins.listToAttrs (
-          map (h: {
-            name = h;
-            value = {
-              ProxyCommand = "nc -X 5 -x 127.0.0.1:${builtins.toString config.kiyurica.ocproxy.socks-port} %h %p";
-            };
-          }) config.kiyurica.gatech-vpn.sshProxyHosts
-        );
-      };
-    };
+    # TODO: implement kiyurica.gatech-vpn.sshProxyHosts
     hjem.users.kiyurica = {
       kiyurica.service-status = [
         {

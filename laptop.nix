@@ -15,17 +15,6 @@
       builtinDisplay = config.kiyurica.laptop.builtinDisplay;
     in
     lib.mkIf config.kiyurica.laptop.enable {
-      home-manager.users.kiyurica = lib.mkIf config.kiyurica.home-manager.enable (
-        { config, lib, ... }:
-        {
-          config = lib.mkIf config.wayland.windowManager.sway.enable {
-            wayland.windowManager.sway.extraConfig = ''
-              bindswitch lid:on  output ${builtinDisplay} disable
-              bindswitch lid:off output ${builtinDisplay} enable
-            '';
-          };
-        }
-      );
       services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
       networking.networkmanager.wifi.powersave = true;
       services.udev.extraRules = ''
