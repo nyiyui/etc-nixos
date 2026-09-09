@@ -17,7 +17,6 @@
       settings.options.urAccepted = -1;
       settings.options.localAnnounceEnabled = lib.mkIf config.kiyurica.syncthing.tailscaleOnly false;
       settings.devices = {
-        "minato".id = "6ROWFH5-WMAJ5JO-TDJA22O-AOQYET7-SCRIF6T-Q6A3HMA-VP7263N-JMIIRQO";
         "suzaku".id = "5DES2YX-7XTFTK7-SGP4VRD-KVS5DAO-VPMXEC7-RDAGYKE-QDRZDDD-NS5ANAZ";
         "inaho".id = "THGLO7L-TJ4Q4UF-BE2ZERW-AXHKKSY-CAZTUJY-W5T24JT-VC7WCTR-GJPPMAH";
         "minamo".id = "XP6LLSQ-I2CHH22-Q42BXI6-J5VXT77-7KRE53R-ZP7E42X-Y2RHJK7-IGTEFAN";
@@ -29,7 +28,6 @@
           id = "pugdv-kmejz";
           path = "/home/kiyurica/inaba";
           devices = [
-            "minato"
             "suzaku"
             "inaho"
             "minamo"

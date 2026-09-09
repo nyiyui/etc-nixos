@@ -77,23 +77,6 @@
           }
         ];
       };
-      nixosConfigurations.minato = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = attrs // {
-          inherit system;
-        };
-        modules = [
-          ./minato/configuration.nix
-          agenix.nixosModules.default
-          {
-            nixpkgs.overlays = [
-              (final: prev: {
-                python310 = attrs.nixpkgs-unstable.legacyPackages.${system}.python310;
-              })
-            ];
-          }
-        ];
-      };
       nixosConfigurations.suzaku = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // {
