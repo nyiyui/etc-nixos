@@ -22,10 +22,6 @@ let
   '';
 in
 {
-  imports = [
-    ./keepassxc-personal.nix
-  ];
-
   options.kiyurica.service-status = lib.mkOption {
     type = (
       lib.types.listOf (
@@ -68,14 +64,6 @@ in
     ];
     description = "show service status in waybar";
   };
-  options.kiyurica.icsUrlPath =
-    with lib;
-    with types;
-    mkOption {
-      type = nullOr str;
-      default = null;
-      description = "waybar: path to ICS URL for the next event module";
-    };
   options.kiyurica.waybarPosition =
     with lib;
     with types;
@@ -180,7 +168,6 @@ in
             height = lib.mkIf (!isVertical) 20;
             width = lib.mkIf isVertical 20;
             modules-right =
-              (if cfg.icsUrlPath != null then [ "custom/next-event" ] else [ ])
               ++ [
                 "tray"
                 "network"
@@ -250,27 +237,6 @@ in
               rotate = rotationAngle;
             };
           }
-          // (
-            if cfg.icsUrlPath != null then
-              {
-                "custom/next-event" = {
-                  exec = "${
-                    pkgs.python3.withPackages (
-                      ps: with ps; [
-                        requests
-                        icalendar
-                        recurring-ical-events
-                      ]
-                    )
-                  }/bin/python ${./ics_next_event.py} '${cfg.icsUrlPath}'";
-                  return-type = "json";
-                  interval = 60;
-                  rotate = rotationAngle;
-                };
-              }
-            else
-              { }
-          )
           // (builtins.foldl' (a: b: a // b) { } (
             map (cfg: {
               "custom/${cfg.key}" = genServiceStatus {

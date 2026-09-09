@@ -357,6 +357,7 @@ in
     eza
 
     claude-code
+    github-copilot-cli
     codex
   ];
 
