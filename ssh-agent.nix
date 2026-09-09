@@ -10,7 +10,7 @@ in
 {
   options.assr.ssh-agent.enable = lib.mkEnableOption {
     description = "SSH agent";
-  }
+  };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
