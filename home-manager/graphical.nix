@@ -168,7 +168,7 @@ in
             height = lib.mkIf (!isVertical) 20;
             width = lib.mkIf isVertical 20;
             modules-right =
-              ++ [
+              [
                 "tray"
                 "network"
                 "wireplumber"

@@ -81,17 +81,6 @@
           22000
         ];
 
-    # TODO: get syncthing to ignore through other kind of config?
-    # home-manager.users.kiyurica =
-    #   { lib, ... }:
-    #   {
-    #     home.file."${config.services.syncthing.settings.folders.inaba.path}/.stignore".text =
-    #       lib.mkDefault ''
-    #         .direnv
-    #         __pycache__
-    #       '';
-    #   };
-
     systemd.services.syncthing = {
       environment.GOMAXPROCS = "1";
       serviceConfig = {
