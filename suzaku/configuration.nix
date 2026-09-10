@@ -221,7 +221,7 @@
 
   nix.settings.cores = 16; # keep at least 4 cores open for UI
 
-  assr.ssh-agent.implementation = "ssh-tpm-agent";
+  assr.ssh-agent.enable = true;
 
   services.tlp.settings = {
     DISK_DEVICES = "nvme0n1";
