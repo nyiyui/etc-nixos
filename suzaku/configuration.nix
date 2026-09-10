@@ -41,6 +41,7 @@
     ../tarmak.nix
     # ../nixpak/packages/org.strawberrymusicplayer.strawberry.nix
     # ../nixpak/packages/org.chromium.Chromium.nix
+    ../evolution.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
