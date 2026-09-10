@@ -2,6 +2,7 @@
 {
   # all modules which have an explicit "enable" option to prevent unintended enables for ease of debugging etc
   imports = [
+    ./niri
     assr.nixosModules.wlsunset
     ./gtkgreet.nix
     ./tailscale.nix
