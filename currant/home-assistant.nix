@@ -17,6 +17,7 @@
       "wake_on_lan"
       "remote_calendar"
     ];
+    extraPackages = p: with p; [ airgradient ];
     config = {
       # Configures Home Assistant and its Zigbee integration via the UI
       default_config = { };
