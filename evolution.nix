@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   # WIP
   programs.evolution.enable = true;
   programs.evolution.plugins = [ pkgs.evolution-ews ];
