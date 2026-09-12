@@ -198,11 +198,8 @@
     intel-gpu-tools
     helix
     usbutils
-    # TODO: debug
-    libfido2
     yubikey-manager
     yubikey-personalization
-    pcsc-tools
   ];
   services.pcscd.enable = true; # TODO: debug
 
