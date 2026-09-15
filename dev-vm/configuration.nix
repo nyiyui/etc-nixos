@@ -374,4 +374,12 @@ in
     TTYPath=/dev/ttyS0
     MaxLevelConsole=debug
   '';
+
+  # There is no need to keep dev-vms running without a shell. Turn them off to
+  # save system resources. If a headless one is required for some reason,
+  # use systemd-inhibit(1).
+  services.logind.settings.Login = {
+    IdleAction = "poweroff";
+    IdleActionSec = "60";
+  };
 }
