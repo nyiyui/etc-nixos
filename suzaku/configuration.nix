@@ -200,6 +200,7 @@
     usbutils
     yubikey-manager
     yubikey-personalization
+    (import ../rolly).best-game-ik
   ];
   services.pcscd.enable = true; # TODO: debug
 
