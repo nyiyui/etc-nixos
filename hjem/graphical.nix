@@ -355,6 +355,12 @@ in
       Wants=xdg-document-portal.service xdg-desktop-portal.service
     '';
 
+    # debug issue w/ Firefox not able to read/write after boot
+    xdg.config.files."systemd/user/app-firefox@autostart.service.d/debug-filepicker.conf".text = ''
+      [Service]
+      Environment=MOZ_LOG=nsFilePicker:5
+    '';
+
     files.".config/autostart/firefox.desktop".source =
       "/run/current-system/sw/share/applications/firefox.desktop";
     files.".config/autostart/signal.desktop".source =
