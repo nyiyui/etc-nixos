@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -21,6 +22,31 @@ let
       };
     }
   );
+
+  # pam_exec command
+  # inhibit idle (so shutdown) on login, so every SSH session is treated as
+  # non-idle and so no shutdown occurs.
+  sshIdleInhibit = pkgs.writeShellScript "dev-vm-ssh-idle-inhibit" ''
+    set -eu
+    STATE_DIR=/run/dev-vm-ssh-inhibit
+    ${pkgs.coreutils}/bin/mkdir -p "$STATE_DIR"
+    PIDFILE="$STATE_DIR/$PPID.pid"
+
+    case "''${PAM_TYPE:-}" in
+      open_session)
+        ${pkgs.systemd}/bin/systemd-inhibit --what=idle --mode=block \
+          --who=dev-vm-ssh-session --why="interactive SSH session" \
+          ${pkgs.coreutils}/bin/sleep infinity &
+        echo $! > "$PIDFILE"
+        ;;
+      close_session)
+        if [ -f "$PIDFILE" ]; then
+          kill "$(${pkgs.coreutils}/bin/cat "$PIDFILE")" 2>/dev/null || true
+          ${pkgs.coreutils}/bin/rm -f "$PIDFILE"
+        fi
+        ;;
+    esac
+  '';
 in
 {
   imports = [ ./helix.nix ];
@@ -345,6 +371,14 @@ in
       X11Forwarding = true;
       XAuthLocation = "/var/home/kiyurica/.nix-profile/bin/xauth";
     };
+  };
+
+  # See sshIdleInhibit above. Runs after pam_systemd registers the session.
+  security.pam.services.sshd.rules.session.dev-vm-idle-inhibit = {
+    control = "optional";
+    modulePath = "${pkgs.pam}/lib/security/pam_exec.so";
+    args = [ (toString sshIdleInhibit) ];
+    order = config.security.pam.services.sshd.rules.session.systemd.order + 10;
   };
 
   environment.systemPackages = with pkgs; [
