@@ -347,6 +347,14 @@ in
       Wants=pipewire-pulse.service
     '';
 
+    # Firefox's XDG runtime directory mount is mounted into the sandbox at startup, so the XDG doc portal must be up before Firefox.
+    # Also, adding desktop portal to be safe but maybe is superfluous.
+    xdg.config.files."systemd/user/app-firefox@autostart.service.d/portal.conf".text = ''
+      [Unit]
+      After=xdg-document-portal.service xdg-desktop-portal.service
+      Wants=xdg-document-portal.service xdg-desktop-portal.service
+    '';
+
     files.".config/autostart/firefox.desktop".source =
       "/run/current-system/sw/share/applications/firefox.desktop";
     files.".config/autostart/signal.desktop".source =
