@@ -200,6 +200,7 @@
     usbutils
     yubikey-manager
     yubikey-personalization
+    kicad # move to common if commonly used (duh)
   ];
   services.pcscd.enable = true; # TODO: debug
 
