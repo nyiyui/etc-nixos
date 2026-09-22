@@ -54,9 +54,11 @@
 
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = [
     8123
+    6052
   ];
   networking.firewall.interfaces.end0.allowedTCPPorts = [
     8123
+    6052
   ];
 
   # Allow Home Assistant to access serial devices and bluetooth
@@ -65,4 +67,9 @@
     "tty"
     "bluetooth"
   ];
+
+  services.esphome = {
+    enable = true;
+    address = "0.0.0.0";
+  };
 }
