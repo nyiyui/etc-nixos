@@ -49,7 +49,9 @@ let
           bind.dev = [
             "/dev/shm"
           ]
-          ++ map (i: "/dev/hidraw${toString i}") (lib.range 0 15);
+          ++ map (i: "/dev/hidraw${toString i}") (lib.range 0 15)
+          # needed for USB webcams (uvcvideo)
+          ++ map (i: "/dev/video${toString i}") (lib.range 0 15);
         };
       };
   };

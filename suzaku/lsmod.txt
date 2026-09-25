@@ -251,6 +251,7 @@ uhid
 usb_storage
 usbhid
 usbnet
+uvcvideo
 v4l2_async
 v4l2_fwnode
 vfat
