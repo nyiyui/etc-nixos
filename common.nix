@@ -57,6 +57,7 @@
     liberation_ttf
     hack-font
     jetbrains-mono
+    atkinson-hyperlegible-next
   ];
 
   # TODO: use username@hostname syntax to separate per-host home manager flake thingl
