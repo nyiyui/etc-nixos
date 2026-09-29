@@ -31,17 +31,8 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.r8168 ];
   boot.blacklistedKernelModules = [ "r8169" ];
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-  # TODO: let Windows take over NVIDIA card
-  services.xserver.videoDrivers = [ "nvidia" ]; # enables nvidia support
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = false;
-    nvidiaSettings = true;
-  };
+  # headless: no host GUI, GPUs are passed through to the Windows VM instead
+  kiyurica.home-manager.enable = lib.mkForce false;
 
   users.users.kiyurica = {
     hashedPassword = "$y$j9T$lNSNPobnQX.GuwkdK4m.g0$/ivj88dtnxodfbZ1gmjn6AkabMh32qzsYjHr5i7jjD/";
