@@ -60,6 +60,8 @@
     atkinson-hyperlegible-next
   ];
 
+  fonts.fontconfig.defaultFonts.sansSerif = [ "Atkinson Hyperlegible Next" ];
+
   # TODO: use username@hostname syntax to separate per-host home manager flake thingl
   # https://discourse.nixos.org/t/get-hostname-in-home-manager-flake-for-host-dependent-user-configs/18859/2
 
