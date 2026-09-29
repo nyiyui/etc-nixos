@@ -167,18 +167,17 @@ in
             position = cfg.waybarPosition;
             height = lib.mkIf (!isVertical) 20;
             width = lib.mkIf isVertical 20;
-            modules-right =
-              [
-                "tray"
-                "network"
-                "wireplumber"
-                "mpris"
-              ]
-              ++ (map (cfg: "custom/${cfg.key}") cfg.service-status)
-              ++ [
-                "battery"
-                "clock"
-              ];
+            modules-right = [
+              "tray"
+              "network"
+              "wireplumber"
+              "mpris"
+            ]
+            ++ (map (cfg: "custom/${cfg.key}") cfg.service-status)
+            ++ [
+              "battery"
+              "clock"
+            ];
 
             "battery" = {
               states.warning = 20;
