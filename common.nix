@@ -1,8 +1,6 @@
 {
-  config,
   lib,
   pkgs,
-  specialArgs,
   ...
 }:
 {
@@ -10,13 +8,10 @@
     ./all-modules.nix
     ./i18n.nix
     ./doas.nix
-    ./home-manager.nix
     ./fwupd.nix
     ./ssh-agent.nix
     ./base.nix
   ];
-
-  kiyurica.home-manager.enable = lib.mkDefault true;
 
   assr.wlsunset.enable = true;
 
@@ -61,14 +56,6 @@
   ];
 
   fonts.fontconfig.defaultFonts.sansSerif = [ "Atkinson Hyperlegible Next" ];
-
-  # TODO: use username@hostname syntax to separate per-host home manager flake thingl
-  # https://discourse.nixos.org/t/get-hostname-in-home-manager-flake-for-host-dependent-user-configs/18859/2
-
-  home-manager.users.kiyurica = lib.mkIf config.kiyurica.home-manager.enable {
-    imports = [ ./home-manager/common.nix ];
-  };
-  home-manager.extraSpecialArgs = specialArgs;
 
   programs.fish.enable = true;
 

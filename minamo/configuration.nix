@@ -31,9 +31,6 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.r8168 ];
   boot.blacklistedKernelModules = [ "r8169" ];
 
-  # headless: no host GUI, GPUs are passed through to the Windows VM instead
-  kiyurica.home-manager.enable = lib.mkForce false;
-
   users.users.kiyurica = {
     hashedPassword = "$y$j9T$lNSNPobnQX.GuwkdK4m.g0$/ivj88dtnxodfbZ1gmjn6AkabMh32qzsYjHr5i7jjD/";
   };

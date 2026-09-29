@@ -233,7 +233,6 @@
   boot.initrd.systemd.repart.device = "/dev/disk/by-id/nvme-CT2000P3PSSD8_2506E9A48456";
 
   kiyurica.hjem.enable = true;
-  kiyurica.home-manager.enable = lib.mkForce false;
 
   systemd.services."hjem-activate@".environment.RUST_BACKTRACE = "1";
   hjem.linkerOptions = [ "--verbose" ];
