@@ -182,6 +182,9 @@
 
   kiyurica.gatech-vpn.enable = true;
 
+  # E-cores (P-cores are 0-11, per cpu_core/cpu_atom in /sys/devices)
+  systemd.services.tailscaled.serviceConfig.AllowedCPUs = "12-19";
+
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [

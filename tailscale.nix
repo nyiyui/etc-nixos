@@ -16,6 +16,12 @@
     systemd.services.tailscaled = {
       wantedBy = lib.mkForce [ "network-online.target" ];
       before = lib.mkForce [ "network-online.target" ];
+      # Trade-off: no remote support logs.
+      environment.TS_NO_LOGS_NO_SUPPORT = "true";
+      serviceConfig = {
+        Nice = 5;
+        CPUWeight = 20; # no CPUQuota: DERP-relayed traffic runs through this process
+      };
     };
   };
 }
