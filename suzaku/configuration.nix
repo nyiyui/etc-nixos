@@ -196,6 +196,7 @@
   };
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
+    libva-utils # vainfo
     helix
     usbutils
     yubikey-manager
