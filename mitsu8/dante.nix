@@ -3,8 +3,8 @@
   services.dante = {
     enable = true;
     config = ''
-      internal: tailscale0 port = 1080
       internal.protocol: ipv4
+      internal: tailscale0 port = 1080
       external: enp1s0
 
       socksmethod: none
