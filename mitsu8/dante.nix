@@ -4,6 +4,7 @@
     enable = true;
     config = ''
       internal: tailscale0 port = 1080
+      internal.protocol: ipv4
       external: enp1s0
 
       socksmethod: none
