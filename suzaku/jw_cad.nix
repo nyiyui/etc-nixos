@@ -22,6 +22,7 @@ in
 {
   environment.systemPackages = [
     pkgs.wine
+    pkgs.winetricks
     jwcad
     jwcadDesktopItem
   ];
