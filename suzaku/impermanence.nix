@@ -39,6 +39,7 @@
         ".thunderbird"
         ".var/nixpak-app/org.signal.Signal"
         # ".var/nixpak-app/org.strawberrymusicplayer.strawberry"
+        ".wine-jwcad"
         ".config/syncthing"
         ".config/Moonlight Game Streaming Project"
         ".cache/Moonlight Game Streaming Project"

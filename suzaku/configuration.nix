@@ -21,6 +21,7 @@
     ../hjem
     ../gatech-vpn.nix
     ./disko-config.nix
+    ./jw_cad.nix
     assr.nixosModules.appliance
     ./impermanence.nix
     ../dev-vm/host.nix
