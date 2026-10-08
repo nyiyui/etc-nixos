@@ -9,6 +9,10 @@
           hashedPasswordFile = ./mosquitto-homeassistant-hash.txt;
           acl = [ "readwrite #" ];
         };
+        users.vl6180 = {
+          hashedPasswordFile = ./mosquitto-vl6180-hash.txt;
+          acl = [ "readwrite #" ];
+        };
       }
     ];
   };
