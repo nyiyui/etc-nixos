@@ -16,6 +16,7 @@
       "hue"
       "wake_on_lan"
       "remote_calendar"
+      "mqtt"
     ];
     extraPackages = p: with p; [ airgradient ];
     config = {
