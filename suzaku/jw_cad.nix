@@ -4,6 +4,8 @@ let
   # No nixpkgs package exists; Jw_cad's installer couldn't be extracted w/
   # innoextract, so manually install it:
   #   WINEPREFIX=/home/kiyurica/.wine-jwcad wine jww10036.exe
+  # Also run this for Japanese fonts:
+  #   WINEPREFIX=/home/kiyurica/.wine-jwcad winetricks cjkfonts
   jwcadWinePrefix = "/home/kiyurica/.wine-jwcad";
   jwcad = pkgs.writeShellScriptBin "jw_cad" ''
     export WINEPREFIX="${jwcadWinePrefix}"
