@@ -7,7 +7,6 @@
   imports = [
     ./all-modules.nix
     ./i18n.nix
-    ./doas.nix
     ./fwupd.nix
     ./ssh-agent.nix
     ./base.nix

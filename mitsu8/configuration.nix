@@ -12,7 +12,6 @@
     ./hardware-configuration.nix
     ../base.nix
     ../i18n.nix # japanese input / language settings
-    ../doas.nix # sudo replacement
     ./motioneye.nix
     ./dante.nix
   ];
