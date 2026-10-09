@@ -208,6 +208,7 @@
     kicad # move to common if commonly used (duh)
     guvcview # test USB webcam (C720) outside the firefox sandbox
     v4l-utils # v4l2-ctl, for checking whether the kernel sees the webcam at all
+    rpi-imager
   ];
   services.pcscd.enable = true; # TODO: debug
 
