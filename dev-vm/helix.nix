@@ -20,7 +20,7 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "L /home/kiyurica/.config/helix/config.toml - - - - ${config}"
-    "L /home/kiyurica/.config/helix/themes/kawamo_to_seseragi.toml - - - - ${theme}"
+    "L /var/home/kiyurica/.config/helix/config.toml - - - - ${config}"
+    "L /var/home/kiyurica/.config/helix/themes/kawamo_to_seseragi.toml - - - - ${theme}"
   ];
 }
