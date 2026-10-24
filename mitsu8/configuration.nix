@@ -42,6 +42,7 @@
   services.resolved.enable = true;
 
   kiyurica.tailscale.enable = true;
+  services.tailscale.extraSetFlags = [ "--advertise-exit-node" ];
 
   # mitsu8 is not particularly powerful
   nix = {
