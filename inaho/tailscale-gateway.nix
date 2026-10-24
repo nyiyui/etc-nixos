@@ -54,17 +54,4 @@ in
     "--exit-node=${exitNode}"
     "--exit-node-allow-lan-access"
   ];
-
-  # `tailscale set --exit-node` sends all traffic through the exit node. Exempt
-  # inaho's own locally-generated traffic since that's not what we want here.
-  systemd.services.tailscale-gateway-split-routing = {
-    description = "Keep inaho's own traffic off the mitsu8 exit-node route";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "${pkgs.iproute2}/bin/ip rule add pref 5220 iif lo table main";
-      ExecStop = "${pkgs.iproute2}/bin/ip rule del pref 5220 iif lo table main";
-    };
-  };
 }
