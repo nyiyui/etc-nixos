@@ -43,6 +43,10 @@
 
   kiyurica.tailscale.enable = true;
   services.tailscale.extraSetFlags = [ "--advertise-exit-node" ];
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
 
   # mitsu8 is not particularly powerful
   nix = {

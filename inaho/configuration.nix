@@ -21,6 +21,7 @@
     ./nfs.nix
     ./samba.nix
     ./socks-proxy.nix
+    ./tailscale-gateway.nix
   ];
 
   users.users.root.initialHashedPassword = "$y$j9T$hIH10tdwuxQdhSkN6D9vb0$dKJd1SITL.iGfrn8soMLLNyQxvoM0o0MIrmuS.6HuA7";
