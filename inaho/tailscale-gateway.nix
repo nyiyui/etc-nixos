@@ -7,9 +7,13 @@ in
 {
   networking.nftables.enable = true;
 
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  networking.nat = {
+    enable = true;
+    externalInterface = "tailscale0";
+    internalInterfaces = [ lanIf ];
+  };
 
-  # Only forward traffic from explicitly allowed MAC addresses
+  # Only forward/NAT traffic from explicitly allowed MAC addresses
   networking.nftables.tables."tailscale-gateway" = {
     family = "inet";
     content = ''
@@ -49,6 +53,5 @@ in
   services.tailscale.extraSetFlags = [
     "--exit-node=${exitNode}"
     "--exit-node-allow-lan-access"
-    # do --advertise-routes here with LAN, manually
   ];
 }
