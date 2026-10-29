@@ -16,8 +16,10 @@
     ../autoUpgrade-git.nix
     ../tpm.nix
     ../common.nix
+    ../agenix-modules.nix
     ../syncthing.nix
     ../virt.nix
+    ../aiden.nix
   ];
 
   boot.initrd.systemd.enable = true;

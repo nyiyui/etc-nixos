@@ -11,6 +11,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../base.nix
+    ../agenix-modules.nix
     ../i18n.nix # japanese input / language settings
     ./motioneye.nix
     ./dante.nix

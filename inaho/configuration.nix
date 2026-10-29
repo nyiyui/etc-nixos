@@ -13,6 +13,7 @@
     ./disko-config.nix
     ./impermanence.nix
     ../base.nix
+    ../agenix-modules.nix
     ../secureboot.nix
     ../syncthing.nix
     ../autoUpgrade-git.nix

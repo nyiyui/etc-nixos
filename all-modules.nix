@@ -4,13 +4,11 @@
   imports = [
     assr.nixosModules.wlsunset
     ./gtkgreet.nix
-    ./tailscale.nix
     ./tailscale-cert.nix
     ./autoUpgrade-git.nix
     ./laptop.nix
     assr.nixosModules.displaylink
     assr.nixosModules.eduroam
-    ./aiden.nix
     ./mosh.nix
     ./quaderno-sync.nix
     ./caldav-canvas-gradescope.nix

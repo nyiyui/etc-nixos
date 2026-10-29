@@ -13,6 +13,7 @@
     ./home-assistant.nix
     ./mosquitto.nix
     ../base.nix
+    ../agenix-modules.nix
     ../autoUpgrade-git.nix
     ./2026eye.nix
   ];

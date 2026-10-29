@@ -29,6 +29,7 @@
     ../syncthing.nix
     ../thunderbolt.nix
     ../common.nix
+    ../agenix-modules.nix
     ../sound.nix
     ../virt.nix
     ../tpm.nix
