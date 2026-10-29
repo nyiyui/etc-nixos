@@ -20,6 +20,7 @@
     ../tpm.nix
     ../niri-hjem
     ../hjem
+    ../tarmak.nix
     hjem.nixosModules.default
   ];
 
