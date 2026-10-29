@@ -21,6 +21,8 @@
 
             userdata = {
               size = "1536G";
+              # use non-default 8300 type to make sure this is not mistaken for ephemeral-sysroot.
+              type = "8309";
               content = {
                 type = "luks";
                 name = "userdata";
@@ -49,6 +51,8 @@
             };
             sysdata = {
               size = "32G";
+              # use non-default 8300 type to make sure this is not mistaken for ephemeral-sysroot.
+              type = "8309";
               content = {
                 type = "luks";
                 name = "sysdata";
