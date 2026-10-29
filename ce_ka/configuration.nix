@@ -1,4 +1,5 @@
 {
+  config,
   specialArgs,
   lib,
   pkgs,
@@ -141,6 +142,9 @@
   };
 
   boot.initrd.systemd.repart.device = "/dev/disk/by-id/nvme-CT2000P3PSSD8_2506E9A48456";
+
+  # Expose repart.d for bootstrapping the repart-managed partitions (i.e., root, root-verity, ephemeral-sysroot) on a live system.
+  system.build.repart = config.environment.etc."repart.d".source;
 
   kiyurica.hjem.enable = true;
 
