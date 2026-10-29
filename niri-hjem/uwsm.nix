@@ -23,9 +23,10 @@
 
     # xdg-desktop-portal may start before uwsm patches the user environment
     # (systemctl show-environment) to include XDG_CURRENT_DESKTOP
-    hjem.users.kiyurica.xdg.config.files."systemd/user/xdg-desktop-portal.service.d/after-uwsm-env.conf".text = ''
-      [Unit]
-      After=graphical-session-pre.target
-    '';
+    hjem.users.kiyurica.xdg.config.files."systemd/user/xdg-desktop-portal.service.d/after-uwsm-env.conf".text =
+      ''
+        [Unit]
+        After=graphical-session-pre.target
+      '';
   };
 }

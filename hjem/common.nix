@@ -35,8 +35,7 @@ in
   '';
 
   xdg.config.files."fish/config.fish".text =
-    builtins.readFile ./profile.fish
-    + builtins.readFile ./profile-graphical.fish;
+    builtins.readFile ./profile.fish + builtins.readFile ./profile-graphical.fish;
 
   xdg.config.files."helix/config.toml".text = ''
     theme = "kawamo_to_seseragi"
