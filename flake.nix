@@ -86,6 +86,15 @@
           microvm.nixosModules.host
         ];
       };
+      nixosConfigurations.ce_ka = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = attrs // {
+          inherit system;
+        };
+        modules = [
+          ./ce_ka/configuration.nix
+        ];
+      };
       nixosConfigurations.inaho = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = attrs // {
