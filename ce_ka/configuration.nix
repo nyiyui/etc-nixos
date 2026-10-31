@@ -141,7 +141,7 @@
     DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth wwan";
   };
 
-  boot.initrd.systemd.repart.device = "/dev/disk/by-id/nvme-CT2000P3PSSD8_2506E9A48456";
+  boot.initrd.systemd.repart.device = "/dev/disk/by-id/nvme-XPG_MARS_970_PLUS_2P512LASA8GX";
 
   # Expose repart.d for bootstrapping the repart-managed partitions (i.e., root, root-verity, ephemeral-sysroot) on a live system.
   system.build.repart = config.environment.etc."repart.d".source;
