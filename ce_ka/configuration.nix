@@ -32,6 +32,8 @@
     ../nixpak/packages/org.signal.Signal.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # temporary workaround - need to fix properly later (!)
   image.repart.mkfsOptions.erofs = [ "-b" "4096" ];
 
