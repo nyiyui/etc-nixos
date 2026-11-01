@@ -51,6 +51,20 @@
                         "noatime"
                       ];
                     };
+                    "/home/kiyurica/.var" = {
+                      mountpoint = "/home/kiyurica/.var";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "/home/kiyurica/.mozilla" = {
+                      mountpoint = "/home/kiyurica/.mozilla";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
                   };
                 };
               };
