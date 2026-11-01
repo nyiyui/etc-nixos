@@ -38,6 +38,12 @@
                         "noatime"
                       ];
                     };
+                    "/home/kiyurica/GF-01" = {
+                      mountpoint = "/home/kiyurica/GF-01";
+                      mountOptions = [
+                        "compress=zstd"
+                      ];
+                    };
                     "/home/kiyurica/.local/share/fish" = {
                       mountpoint = "/home/kiyurica/.local/share/fish";
                       mountOptions = [
