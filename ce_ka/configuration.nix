@@ -15,6 +15,7 @@
     ./disko-config.nix
     assr.nixosModules.appliance
     ../fprint.nix
+    ../syncthing.nix
     ../thunderbolt.nix
     ../common.nix
     ../sound.nix
@@ -23,6 +24,11 @@
     ../hjem
     ../tarmak.nix
     hjem.nixosModules.default
+    ../nixpak/packages/org.keepassxc.KeePassXC.nix
+    ../nixpak/packages/org.mozilla.firefox.nix
+    ../nixpak/packages/org.mozilla.Thunderbird.nix
+    ../nixpak/packages/io.github.alainm23.planify.nix
+    ../nixpak/packages/org.signal.Signal.nix
   ];
 
   # temporary workaround - need to fix properly later (!)
