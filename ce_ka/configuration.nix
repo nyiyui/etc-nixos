@@ -23,6 +23,7 @@
     ../niri-hjem
     ../hjem
     ../tarmak.nix
+    ../dev-vm/host.nix
     hjem.nixosModules.default
     ../nixpak/packages/org.keepassxc.KeePassXC.nix
     ../nixpak/packages/org.mozilla.firefox.nix
