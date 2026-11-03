@@ -25,6 +25,7 @@
     ../tarmak.nix
     ../dev-vm/host.nix
     hjem.nixosModules.default
+    ../ssh-agent.nix
     ../nixpak/packages/org.keepassxc.KeePassXC.nix
     ../nixpak/packages/org.mozilla.firefox.nix
     ../nixpak/packages/org.mozilla.Thunderbird.nix
