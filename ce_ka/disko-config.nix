@@ -31,6 +31,13 @@
                   type = "btrfs";
                   extraArgs = [ "-f" ];
                   subvolumes = {
+                    "/var/lib/dev-vm" = {
+                      mountpoint = "/var/lib/dev-vm";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
                     "/home/kiyurica/inaba" = {
                       mountpoint = "/home/kiyurica/inaba";
                       mountOptions = [
