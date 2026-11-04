@@ -8,8 +8,16 @@ let
   cfg = config.assr.ssh-agent;
 in
 {
-  options.assr.ssh-agent.enable = lib.mkEnableOption {
-    description = "SSH agent";
+  options.assr.ssh-agent = {
+    enable = lib.mkEnableOption {
+      description = "SSH agent";
+    };
+
+    keyDir = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      default = null;
+      description = "Absolute directory passed to ssh-tpm-agent via --key-dir.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -34,10 +42,13 @@ in
     systemd.user.services.ssh-tpm-agent = {
       description = "SSH TPM Agent";
       documentation = [ "https://github.com/Foxboron/ssh-tpm-agent" ];
-      unitConfig.PartOf = [ "graphical-session.target" ];
+      unitConfig = {
+        PartOf = [ "graphical-session.target" ];
+        RequiresMountsFor = lib.optional (cfg.keyDir != null) cfg.keyDir;
+      };
       path = [ pkgs.pinentry-curses ];
       serviceConfig = {
-        ExecStart = "${pkgs.ssh-tpm-agent}/bin/ssh-tpm-agent";
+        ExecStart = "${pkgs.ssh-tpm-agent}/bin/ssh-tpm-agent${lib.optionalString (cfg.keyDir != null) " --key-dir ${cfg.keyDir}"}";
         StandardInput = "socket";
         Restart = "always";
       };

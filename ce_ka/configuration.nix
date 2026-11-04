@@ -146,7 +146,10 @@
   users.users.kiyurica.extraGroups = [ "kvm" ];
 
   assr.power-logger.enable = true;
-  assr.ssh-agent.enable = true;
+  assr.ssh-agent = {
+    enable = true;
+    keyDir = "/home/kiyurica/.var/ssh";
+  };
 
   services.tlp.settings = {
     DISK_DEVICES = "nvme0n1";
