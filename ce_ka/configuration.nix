@@ -51,7 +51,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0; # press space at POST and hold to select boot entry
   boot.kernelParams = [
-    "systemd.machine_id=uninitialized"
+    "systemd.machine_id=74c0a26c197628be7f2ad4906aeba03a"
   ];
 
   users.users.kiyurica = {
