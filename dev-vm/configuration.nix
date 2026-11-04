@@ -215,6 +215,27 @@ in
     }
   ];
 
+  systemd.services.nix-register-store-paths = {
+    description = "Register the booted system's closure to prevent it frem being GC'd";
+    after = [
+      "nix-var-nix.mount"
+      "nix-store.mount"
+    ];
+    requires = [ "nix-var-nix.mount" ];
+    before = [ "nix-daemon.service" ];
+    wantedBy = [ "nix-daemon.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      regInfo=$(sed -n 's/.*\bregInfo=\(\S*\).*/\1/p' /proc/cmdline)
+      if [ -n "$regInfo" ] && [ -f "$regInfo" ]; then
+        ${pkgs.nix}/bin/nix-store --load-db < "$regInfo"
+      fi
+    '';
+  };
+
   # Nix daemon runs in the VM for building. The host store is available
   # read-only via virtiofs so pre-built paths need not be re-fetched.
   nix.settings = {
