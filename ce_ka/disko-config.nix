@@ -26,6 +26,8 @@
               content = {
                 type = "luks";
                 name = "userdata";
+                # Unlocked in stage 2
+                initrdUnlock = false;
                 settings.allowDiscards = true;
                 content = {
                   type = "btrfs";

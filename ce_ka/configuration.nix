@@ -46,6 +46,11 @@
   #   "userdata" LUKS volume) directly at their target paths, with the LUKS key held by the
   #   TPM with a PIN.
 
+  # userdata unlocked in stage 2
+  environment.etc.crypttab.text = ''
+    userdata /dev/disk/by-partlabel/disk-main-userdata none allow-discards
+  '';
+
   # === Early Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
