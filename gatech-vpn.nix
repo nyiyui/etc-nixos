@@ -14,7 +14,7 @@
       description = "Host patterns for SSH that should use the VPN SOCKS proxy";
       type = listOf str;
       default = [
-        "*.pace.gatech.edu !login-ice.pace.gatech.edu"
+        "*.gatech.edu !login-ice.pace.gatech.edu"
       ];
     };
 
@@ -29,7 +29,11 @@
       password-file = ./secrets/gatech-vpn-password-${config.networking.hostName}.cred;
     };
 
-    # TODO: implement kiyurica.gatech-vpn.sshProxyHosts
+    programs.ssh.extraConfig = lib.concatMapStrings (pattern: ''
+      Host ${pattern}
+        ProxyCommand nc -X 5 -x 127.0.0.1:11080 %h %p
+    '') config.kiyurica.gatech-vpn.sshProxyHosts;
+
     hjem.users.kiyurica = {
       kiyurica.service-status = [
         {
