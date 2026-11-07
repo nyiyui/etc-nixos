@@ -60,6 +60,13 @@
                         "noatime"
                       ];
                     };
+                    "/home/kiyurica/.config/syncthing" = {
+                      mountpoint = "/home/kiyurica/.config/syncthing";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
                     "/home/kiyurica/.var" = {
                       mountpoint = "/home/kiyurica/.var";
                       mountOptions = [
