@@ -5,6 +5,7 @@
     assr.nixosModules.wlsunset
     ./gtkgreet.nix
     ./tailscale-cert.nix
+    ./tailscale-creds.nix
     ./autoUpgrade-git.nix
     ./laptop.nix
     assr.nixosModules.displaylink

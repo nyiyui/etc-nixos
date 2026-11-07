@@ -31,6 +31,7 @@
     ../nixpak/packages/org.mozilla.Thunderbird.nix
     ../nixpak/packages/io.github.alainm23.planify.nix
     ../nixpak/packages/org.signal.Signal.nix
+    ../gatech-vpn.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -135,6 +136,8 @@
   };
 
   kiyurica.laptop.enable = true;
+  assr.tailscale.enable = true;
+  kiyurica.gatech-vpn.enable = true;
 
   environment.systemPackages = with pkgs; [
     helix
