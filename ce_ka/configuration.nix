@@ -174,4 +174,35 @@
   hjem.linkerOptions = [ "--verbose" ];
 
   services.syncthing.settings.folders."inaba".path = lib.mkForce "/home/kiyurica/GF-01";
+
+  # userdata subvolumes themselves are root-owned at first boot and their parent
+  # directories are root-owned. We use tmpfiles to set these to the proper user.
+  systemd.tmpfiles.rules =
+    let
+      homeDir = "/home/kiyurica";
+
+      userdataSubvolumes =
+        config.disko.devices.disk.main.content.partitions.userdata.content.content.subvolumes;
+
+      # All ancestors of `path` down to, but excluding, `base`.
+      # Example:
+      # ancestorsUnder "/home/kiyurica" "/home/kiyurica/.local/share/fish" ==
+      #   [ "/home/kiyurica/.local" "/home/kiyurica/.local/share" "/home/kiyurica/.local/share/fish" ]
+      ancestorsUnder =
+        base: path:
+        let
+          parts = lib.path.subpath.components (lib.removePrefix (base + "/") path);
+        in
+        map (n: lib.concatStringsSep "/" ([ base ] ++ lib.take n parts)) (lib.range 1 (lib.length parts));
+
+      homeOwnedPaths = lib.unique (
+        lib.concatMap (
+          subvol:
+          lib.optionals (subvol.mountpoint != null && lib.hasPrefix (homeDir + "/") subvol.mountpoint) (
+            ancestorsUnder homeDir subvol.mountpoint
+          )
+        ) (lib.attrValues userdataSubvolumes)
+      );
+    in
+    map (p: "z ${p} - kiyurica kiyurica - -") homeOwnedPaths;
 }
