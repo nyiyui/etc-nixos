@@ -173,7 +173,7 @@
   systemd.services."hjem-activate@".environment.RUST_BACKTRACE = "1";
   hjem.linkerOptions = [ "--verbose" ];
 
-  services.syncthing.settings.folders."inaba".path = lib.mkForce "/home/kiyurica/GF-01";
+  services.syncthing.settings.folders."geofront".path = lib.mkForce "/home/kiyurica/GF-01";
 
   systemd.services.ce-ka-fix-userdata-perms =
     let
