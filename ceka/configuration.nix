@@ -147,6 +147,7 @@
     usbutils
     yubikey-manager
     yubikey-personalization
+    chromium
   ];
 
   users.users.kiyurica.extraGroups = [ "kvm" ];
