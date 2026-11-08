@@ -175,9 +175,7 @@
 
   services.syncthing.settings.folders."inaba".path = lib.mkForce "/home/kiyurica/GF-01";
 
-  # userdata subvolumes themselves are root-owned at first boot and their parent
-  # directories are root-owned. We use tmpfiles to set these to the proper user.
-  systemd.tmpfiles.rules =
+  systemd.services.ce-ka-fix-userdata-perms =
     let
       homeDir = "/home/kiyurica";
 
@@ -195,14 +193,24 @@
         in
         map (n: lib.concatStringsSep "/" ([ base ] ++ lib.take n parts)) (lib.range 1 (lib.length parts));
 
-      homeOwnedPaths = lib.unique (
-        lib.concatMap (
-          subvol:
-          lib.optionals (subvol.mountpoint != null && lib.hasPrefix (homeDir + "/") subvol.mountpoint) (
-            ancestorsUnder homeDir subvol.mountpoint
-          )
-        ) (lib.attrValues userdataSubvolumes)
+      homeMountpoints = lib.filter (lib.hasPrefix (homeDir + "/")) (
+        map (subvol: subvol.mountpoint) (lib.attrValues userdataSubvolumes)
       );
+
+      homeOwnedPaths = lib.unique (lib.concatMap (ancestorsUnder homeDir) homeMountpoints);
     in
-    map (p: "z ${p} - kiyurica kiyurica - -") homeOwnedPaths;
+    {
+      description = "Fix ownership of userdata-backed paths under the home directory";
+      unitConfig.RequiresMountsFor = homeMountpoints;
+      # Gate user logins (console and greetd) until ownership is fixed.
+      before = [
+        "systemd-user-sessions.service"
+        "greetd.service"
+      ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.coreutils}/bin/chown kiyurica:kiyurica ${lib.concatStringsSep " " homeOwnedPaths}";
+      };
+    };
 }
