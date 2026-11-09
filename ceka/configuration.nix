@@ -37,7 +37,10 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # temporary workaround - need to fix properly later (!)
-  image.repart.mkfsOptions.erofs = [ "-b" "4096" ];
+  image.repart.mkfsOptions.erofs = [
+    "-b"
+    "4096"
+  ];
 
   # Ce_ka has no persistent system-level disk. Consequently:
   # - /var is stored in a LUKS partition with the key held by the TPM without a PIN

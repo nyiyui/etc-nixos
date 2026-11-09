@@ -48,7 +48,9 @@ in
       };
       path = [ pkgs.pinentry-curses ];
       serviceConfig = {
-        ExecStart = "${pkgs.ssh-tpm-agent}/bin/ssh-tpm-agent${lib.optionalString (cfg.keyDir != null) " --key-dir ${cfg.keyDir}"}";
+        ExecStart = "${pkgs.ssh-tpm-agent}/bin/ssh-tpm-agent${
+          lib.optionalString (cfg.keyDir != null) " --key-dir ${cfg.keyDir}"
+        }";
         StandardInput = "socket";
         Restart = "always";
       };
