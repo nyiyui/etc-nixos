@@ -86,7 +86,7 @@
         startLimitIntervalSec = 350;
         startLimitBurst = 30;
         serviceConfig = {
-          ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${../wallpapers/c11-207.jpg}";
+          ExecStart = "${pkgs.swaybg}/bin/swaybg -mfill -i ${../wallpapers/izu.jpg}";
           Restart = "on-failure";
           RestartSec = 3;
         };
