@@ -149,10 +149,22 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nixfmt
-            (python3.withPackages (p: [
-              p.pyserial
-              p.caldav
-            ]))
+            (
+              let
+                # urllib3-future's test suite fails
+                python3' = python3.override {
+                  packageOverrides = pyFinal: pyPrev: {
+                    urllib3-future = pyPrev.urllib3-future.overridePythonAttrs (old: {
+                      doCheck = false;
+                    });
+                  };
+                };
+              in
+              python3'.withPackages (p: [
+                p.pyserial
+                p.caldav
+              ])
+            )
             go
             nixd
           ];
