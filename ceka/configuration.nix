@@ -173,6 +173,7 @@
   system.build.repart = config.environment.etc."repart.d".source;
 
   kiyurica.hjem.enable = true;
+  hjem.users.kiyurica.imports = [ ./auto-brightness.nix ];
 
   systemd.services."hjem-activate@".environment.RUST_BACKTRACE = "1";
   hjem.linkerOptions = [ "--verbose" ];
