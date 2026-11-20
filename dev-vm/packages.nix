@@ -20,6 +20,7 @@
     ];
     text = ''
       WAYPIPE=false
+      RECURSIVE_EXISTING=true
       WORKSPACE=""
       SSH_CMD=()
 
@@ -38,6 +39,7 @@
         fi
         case "$arg" in
           --waypipe) WAYPIPE=true ;;
+          --no-recursive-existing) RECURSIVE_EXISTING=false ;;
           --) seen_dashdash=true ;;
           *) WORKSPACE="$arg" ;;
         esac
@@ -45,6 +47,25 @@
 
       WORKSPACE=''${WORKSPACE:-$PWD}
       WORKSPACE=$(realpath "$WORKSPACE")
+
+      # Walk up from the workspace to the nearest ancestor that already has a VM
+      # (running or not), so entering a subdirectory reuses the project's VM.
+      if $RECURSIVE_EXISTING; then
+        CANDIDATE="$WORKSPACE"
+        while :; do
+          if [ -d "/var/lib/dev-vm/$(printf '%s' "$CANDIDATE" | sha256sum | cut -c1-12)" ]; then
+            if [ "$CANDIDATE" != "$WORKSPACE" ]; then
+              echo "Using existing VM for $CANDIDATE (ancestor of $WORKSPACE)." >&2
+            fi
+            WORKSPACE="$CANDIDATE"
+            break
+          fi
+          if [ "$CANDIDATE" = "/" ]; then
+            break
+          fi
+          CANDIDATE=$(dirname "$CANDIDATE")
+        done
+      fi
 
       _HASH=$(printf '%s' "$WORKSPACE" | sha256sum | cut -c1-12)
       VM_DIR="/var/lib/dev-vm/$_HASH"
