@@ -32,6 +32,7 @@
     ../nixpak/packages/io.github.alainm23.planify.nix
     ../nixpak/packages/org.signal.Signal.nix
     ../gatech-vpn.nix
+    ../eduroam.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;

@@ -9,7 +9,8 @@
     ./autoUpgrade-git.nix
     ./laptop.nix
     assr.nixosModules.displaylink
-    assr.nixosModules.eduroam
+    # by path, not assr.nixosModules.eduroam, so ./eduroam.nix can disabledModules it
+    "${assr}/eduroam"
     ./mosh.nix
     ./quaderno-sync.nix
     ./caldav-canvas-gradescope.nix
