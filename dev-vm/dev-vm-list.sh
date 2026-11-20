@@ -1,3 +1,13 @@
+if [ -t 1 ]; then
+  C_RUNNING=$'\e[32m'
+  C_STOPPED=$'\e[2m'
+  C_RESET=$'\e[0m'
+else
+  C_RUNNING=""
+  C_STOPPED=""
+  C_RESET=""
+fi
+
 VM_BASE="${DEV_VM_BASE:-/var/lib/dev-vm}"
 
 if [ ! -d "$VM_BASE" ]; then
@@ -41,9 +51,11 @@ for i in "${!VM_DIRS[@]}"; do
   workspace="${WORKSPACES[$i]}"
 
   if [ -n "${RUNNING[$workspace]:-}" ]; then
-    status="RUNNING"
+    status="running"
+    colour="$C_RUNNING"
   else
     status="stopped"
+    colour="$C_STOPPED"
   fi
 
   # Disk usage: actual (sparse-aware). One stat call covers all images;
@@ -67,8 +79,8 @@ for i in "${!VM_DIRS[@]}"; do
   fi
 
   # $vm_dir has fixed length
-  printf '%-9s  %12s  %-20s  %s  %s\n' \
-    "$status" \
+  printf '%s%-9s%s  %12s  %-20s  %s  %s\n' \
+    "$colour" "$status" "$C_RESET" \
     "$(numfmt --to=iec-i --suffix=B "$actual")" \
     "$last_used" \
     "$vm_dir" \
