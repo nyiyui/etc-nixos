@@ -19,8 +19,21 @@ in
     VISUAL = "hx";
   };
 
-  systemd.tmpfiles.rules = [
-    "L /var/home/kiyurica/.config/helix/config.toml - - - - ${config}"
-    "L /var/home/kiyurica/.config/helix/themes/kawamo_to_seseragi.toml - - - - ${theme}"
-  ];
+  # tmpfiles can't be used here as it's user-owned.
+  systemd.services.dev-vm-helix-config = {
+    description = "Install helix config and theme for kiyurica";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-tmpfiles-setup.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      install -d -o kiyurica -g kiyurica -m 0700 \
+        /var/home/kiyurica/.config/helix \
+        /var/home/kiyurica/.config/helix/themes
+      ln -sfn ${config} /var/home/kiyurica/.config/helix/config.toml
+      ln -sfn ${theme} /var/home/kiyurica/.config/helix/themes/kawamo_to_seseragi.toml
+    '';
+  };
 }
