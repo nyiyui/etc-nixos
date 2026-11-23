@@ -57,17 +57,18 @@ in
     };
 
     systemd.services.wpa_supplicant = {
-      wants = [ "eduroam-creds.service" ];
+      wants = [ "eduroam-creds.service" ]; # allow wpa_supplicant to proceed if eduroam fails
       after = [ "eduroam-creds.service" ];
       # ProtectSystem=strict plus RootDirectory=/run/wpa_supplicant means the P12 is only
       # reachable inside the unit's root if it is bind-mounted in.
-      serviceConfig.BindReadOnlyPaths = [ client-cert ];
+      serviceConfig.BindReadOnlyPaths = [ "-${client-cert}" ];
       restartTriggers = [ cfg.client-cert-cred ];
     };
 
     systemd.services.NetworkManager-ensure-profiles = {
       wants = [ "eduroam-creds.service" ];
       after = [ "eduroam-creds.service" ];
+      restartTriggers = [ cfg.private-key-password-cred ];
     };
 
     networking.networkmanager.ensureProfiles.environmentFiles = [ env ];
