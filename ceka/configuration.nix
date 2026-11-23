@@ -219,4 +219,5 @@
         ExecStart = "${pkgs.coreutils}/bin/chown kiyurica:kiyurica ${lib.concatStringsSep " " homeOwnedPaths}";
       };
     };
+  assr.eduroam.enable = true;
 }
