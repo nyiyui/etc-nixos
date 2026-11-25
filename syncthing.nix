@@ -1,4 +1,9 @@
 { config, lib, ... }:
+let
+  enabledFolderPaths = map (folder: folder.path) (
+    lib.filter (folder: folder.enable) (lib.attrValues config.services.syncthing.settings.folders)
+  );
+in
 {
   options.kiyurica.syncthing.tailscaleOnly = lib.mkEnableOption "restrict syncthing firewall ports to tailscale0 interface";
 
@@ -82,13 +87,28 @@
           22000
         ];
 
+    # We cannot allow ~-starting paths, since RequiresMountsFor= only supports
+    # absolute paths.
+    assertions =
+      let
+        relativePaths = lib.filter (lib.hasPrefix "~") enabledFolderPaths;
+      in
+      [
+        {
+          assertion = relativePaths == [ ];
+          message = "services.syncthing.settings.folders paths must be absolute, got: ${lib.concatStringsSep " " relativePaths}";
+        }
+      ];
+
     systemd.services.syncthing = {
+      # try to reduce battery/cpu usage
       environment.GOMAXPROCS = "1";
       serviceConfig = {
         CPUWeight = 20;
         CPUQuota = "50%";
         IOWeight = 20;
       };
+      unitConfig.RequiresMountsFor = [ config.services.syncthing.configDir ] ++ enabledFolderPaths;
     };
   };
 }

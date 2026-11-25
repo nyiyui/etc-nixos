@@ -13,6 +13,7 @@
     specialArgs.disko.nixosModules.disko
     ./hardware-configuration.nix
     ./disko-config.nix
+    ./pin-unlock
     assr.nixosModules.appliance
     ../fprint.nix
     ../syncthing.nix
@@ -48,13 +49,9 @@
   # - System files must be stored on ephemeral storage à la assr's ephemeral-sysroot (i.e., an ext4 partition freshly made on each boot).
   # - /etc/machine-id is regenerated on every boot (I couldn't find any problems when I did this, and it's one less persistence to worry about).
   # - User-level persistence is handled by mounting dedicated btrfs subvolumes (on the
-  #   "userdata" LUKS volume) directly at their target paths, with the LUKS key held by the
-  #   TPM with a PIN.
-
-  # userdata unlocked in stage 2
-  environment.etc.crypttab.text = ''
-    userdata /dev/disk/by-partlabel/disk-main-userdata none allow-discards
-  '';
+  #   "userdata" LUKS volume) directly at their target paths, unlocked with a TPM-backed PIN.
+  #   - This PIN is entered into the greeter (at first login), which both
+  #     authenticates the user and unlocks the volume.
 
   # === Early Boot
   boot.loader.systemd-boot.enable = true;
@@ -181,43 +178,5 @@
 
   services.syncthing.settings.folders."geofront".path = lib.mkForce "/home/kiyurica/GF-01";
 
-  systemd.services.ce-ka-fix-userdata-perms =
-    let
-      homeDir = "/home/kiyurica";
-
-      userdataSubvolumes =
-        config.disko.devices.disk.main.content.partitions.userdata.content.content.subvolumes;
-
-      # All ancestors of `path` down to, but excluding, `base`.
-      # Example:
-      # ancestorsUnder "/home/kiyurica" "/home/kiyurica/.local/share/fish" ==
-      #   [ "/home/kiyurica/.local" "/home/kiyurica/.local/share" "/home/kiyurica/.local/share/fish" ]
-      ancestorsUnder =
-        base: path:
-        let
-          parts = lib.path.subpath.components (lib.removePrefix (base + "/") path);
-        in
-        map (n: lib.concatStringsSep "/" ([ base ] ++ lib.take n parts)) (lib.range 1 (lib.length parts));
-
-      homeMountpoints = lib.filter (lib.hasPrefix (homeDir + "/")) (
-        map (subvol: subvol.mountpoint) (lib.attrValues userdataSubvolumes)
-      );
-
-      homeOwnedPaths = lib.unique (lib.concatMap (ancestorsUnder homeDir) homeMountpoints);
-    in
-    {
-      description = "Fix ownership of userdata-backed paths under the home directory";
-      unitConfig.RequiresMountsFor = homeMountpoints;
-      # Gate user logins (console and greetd) until ownership is fixed.
-      before = [
-        "systemd-user-sessions.service"
-        "greetd.service"
-      ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.coreutils}/bin/chown kiyurica:kiyurica ${lib.concatStringsSep " " homeOwnedPaths}";
-      };
-    };
   assr.eduroam.enable = true;
 }
