@@ -22,6 +22,7 @@
     ./nfs.nix
     ./samba.nix
     ./socks-proxy.nix
+    ./net-monitor.nix
     ./tailscale-gateway.nix
   ];
 
